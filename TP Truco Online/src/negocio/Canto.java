@@ -2,8 +2,8 @@ package negocio;
 
 public class Canto {
 	private int id;
-	private boolean querido;+
-	private TipoCanto tipoCampo
+	private boolean querido;
+	private TipoCanto tipoCanto;
 	private int valor;
 	
 	
