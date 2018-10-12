@@ -2,6 +2,7 @@ package negocio;
 
 import java.util.ArrayList;
 
+import dao.JugadorDAO;
 import dto.CategoriaDTO;
 import dto.InvitacionDTO;
 import dto.JugadorDTO;
@@ -15,7 +16,7 @@ public class Jugador {
 	private Categoria categoria;
 	
 	public Jugador(String apodo, String email, String password) {
-		//TODO Constructor para nuevos jugadores.
+		//Constructor para nuevos jugadores.
 		this.apodo = apodo;
 		this.email = email;
 		this.password = password;
@@ -24,7 +25,7 @@ public class Jugador {
 	}
 
 	public Jugador(String apodo, String email, String password, int id) {
-		//TODO Constructor para jugadores existentes (Persistidos)
+		//Constructor para jugadores existentes (Persistidos)
 		this.apodo = apodo;
 		this.email = email;
 		this.password = password;
@@ -91,15 +92,20 @@ public class Jugador {
 		Invitacion i = new Invitacion(remitente, this.invitacionesPendientes.size());
 	}
 	
-	//TODO Metodo no necesario, reemplazable por el getter.
+	//Metodo no necesario, reemplazable por el getter.
 	//public void listarInvitacionesPendientes() {}
 	
 	public void aceptarInvitacion(int idInvitacion) {
-		Invitacion i = buscarInvitacion(idInvitacion);
+		Invitacion i = this.buscarInvitacion(idInvitacion);
 		//TODO Agregar error si no existe?
 		if (i != null) {
 			i.aceptar(this);
+			this.invitacionesPendientes.remove(i);
 		}
+	}
+	
+	public void rechazarInvitacion(int idInvitacion) {
+		this.invitacionesPendientes.remove(this.buscarInvitacion(idInvitacion));
 	}
 	
 	private Invitacion buscarInvitacion(int idInvitacion) {
@@ -122,5 +128,17 @@ public class Jugador {
 		}
 		CategoriaDTO c = this.categoria.toDTO();
 		return new JugadorDTO(this.apodo, this.email, this.id, invitaciones, c);
+	}
+	
+	public Integer crear() {
+		return JugadorDAO.getInstancia().crear(this);
+	}
+	
+	public void grabar() {
+		JugadorDAO.getInstancia().grabar(this);
+	}
+	
+	public void actualizar() {
+		JugadorDAO.getInstancia().actualizar(this);
 	}
 }

@@ -1,5 +1,6 @@
 package negocio;
 
+import controladores.CreadorPartida;
 import dto.InvitacionDTO;
 
 public class Invitacion {
@@ -28,7 +29,7 @@ public class Invitacion {
 	}
 
 	public void aceptar(Jugador destinatario) {
-		//TODO se agregan al remitente y al destinatario a la "queue" de partidas abiertas en pareja.
+		CreadorPartida.getInstancia().agregarPareja(remitente, destinatario);
 	}
 	
 	public InvitacionDTO toDTO() {

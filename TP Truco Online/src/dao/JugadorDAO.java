@@ -10,17 +10,21 @@ public class JugadorDAO {
 
 	private JugadorDAO() {}
 	
-	public JugadorDAO getInstancia() {
-		if (this.instancia == null) {
-			this.instancia = new JugadorDAO();
+	public static JugadorDAO getInstancia() {
+		if (instancia == null) {
+			instancia = new JugadorDAO();
 		}
-		return this.instancia;
+		return instancia;
 	}
 	
 	public JugadorEntity getJugadorById(int id) {
 		return null; //TODO
 	}
 	
+	public JugadorEntity getJugadorByApodo(String apodo) {
+		return null; //TODO
+	}
+
 	public Jugador toNegocio(JugadorEntity je) {
 		return null; //TODO
 	}
@@ -38,6 +42,11 @@ public class JugadorDAO {
 	public ArrayList<Jugador> getTopTenJugadores(int categoria){
 		//Devuelve el top 10 de jugadores por promedio para la categoria solicitada.
 		return null; //TODO
+	}
+	
+	public void actualizar(Jugador j) {
+		//Actualiza la informacion en memoria de un jugador ya existente.
+		//TODO
 	}
 	
 }
