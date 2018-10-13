@@ -64,7 +64,7 @@ public class Grupo {
 	
 	public void agregarPartida(Partida p) {
 		for (Partida partidas : partidas) {
-			if (p.getIda == partida.getId()) {
+			if (p.getId() == partida.getId()) {
 				return;
 			}
 		}
@@ -88,7 +88,7 @@ public class Grupo {
 					Jugador j = jugadores.get(i);
 					int puntosPar;
 					int puntosImpar;
-					if (p.getGanador = 1) {
+					if (p.getGanador == 1) {
 						puntosPar = 0;
 						puntosImpar = 5;
 					} else {
