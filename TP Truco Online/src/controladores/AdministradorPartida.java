@@ -1,13 +1,22 @@
 package controladores;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 import negocio.Jugador;
 import negocio.Partida;
 
 public class AdministradorPartida {
-	private Vector<Partida> partidas;
+	private ArrayList<Partida> partidas;
+	private static AdministradorPartida instancia;
 	
+	private AdministradorPartida() {}
+	
+	public static AdministradorPartida getInstancia() {
+		if (instancia == null) {
+			instancia = new AdministradorPartida();
+		}
+		return instancia;
+	}
 	
 	public void crearPartida(Jugador j1, Jugador j2, Jugador j3, Jugador j4) {}
 	
