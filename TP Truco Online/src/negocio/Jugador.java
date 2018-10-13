@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import dao.JugadorDAO;
 import dto.CategoriaDTO;
+import dto.GrupoDTO;
 import dto.InvitacionDTO;
 import dto.JugadorDTO;
 
@@ -11,25 +12,25 @@ public class Jugador {
 	private String apodo;
 	private String email;
 	private String password;
-	private int id;
+	//private int id;
 	private ArrayList<Invitacion> invitacionesPendientes;
 	private Categoria categoria;
+	private ArrayList<Grupo> grupos;
 	
+	public ArrayList<Grupo> getGrupos() {
+		return grupos;
+	}
+
+	public void setGrupos(ArrayList<Grupo> grupos) {
+		this.grupos = grupos;
+	}
+
 	public Jugador(String apodo, String email, String password) {
-		//Constructor para nuevos jugadores.
 		this.apodo = apodo;
 		this.email = email;
 		this.password = password;
 		this.invitacionesPendientes = new ArrayList<Invitacion>();
 		this.categoria = new Categoria(0,0);
-	}
-
-	public Jugador(String apodo, String email, String password, int id) {
-		//Constructor para jugadores existentes (Persistidos)
-		this.apodo = apodo;
-		this.email = email;
-		this.password = password;
-		this.id = id;
 	}
 
 	public String getApodo() {
@@ -54,14 +55,6 @@ public class Jugador {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public ArrayList<Invitacion> getInvitacionesPendientes() {
@@ -118,7 +111,7 @@ public class Jugador {
 	}
 	
 	public JugadorDTO toDTO_reducido() {
-		return new JugadorDTO(this.apodo, this.id, this.categoria.toDTO());
+		return new JugadorDTO(this.apodo, this.categoria.toDTO());
 	}
 	
 	public JugadorDTO toDTO() {
@@ -127,13 +120,15 @@ public class Jugador {
 			invitaciones.add(i.toDTO());
 		}
 		CategoriaDTO c = this.categoria.toDTO();
-		return new JugadorDTO(this.apodo, this.email, this.id, invitaciones, c);
+		ArrayList<GrupoDTO> grupos = new ArrayList<GrupoDTO>();
+		for (Grupo g : this.grupos) {
+			grupos.add(g.toDTO_reducido());
+		}
+		JugadorDTO j = new JugadorDTO(this.apodo, this.email, invitaciones, c);
+		j.setGrupos(grupos);
+		return j;
 	}
-	
-	public Integer crear() {
-		return JugadorDAO.getInstancia().crear(this);
-	}
-	
+			
 	public void grabar() {
 		JugadorDAO.getInstancia().grabar(this);
 	}

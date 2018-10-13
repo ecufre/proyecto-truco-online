@@ -1,15 +1,14 @@
 package entities;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-
-import negocio.Categoria;
-import negocio.Invitacion;
 
 @Entity
 @Table(name="jugadores")
@@ -22,6 +21,15 @@ public class JugadorEntity {
 	private Integer id;
 	@Embedded
 	private CategoriaEntity categoria;
+	@ManyToMany
+	private List<GrupoEntity> grupos;
+	
+	public List<GrupoEntity> getGrupos() {
+		return grupos;
+	}
+	public void setGrupos(ArrayList<GrupoEntity> grupos) {
+		this.grupos = grupos;
+	}
 	public JugadorEntity(String apodo, String email, String password, Integer id, CategoriaEntity categoria) {
 		this.apodo = apodo;
 		this.email = email;

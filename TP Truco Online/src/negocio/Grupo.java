@@ -1,12 +1,13 @@
 package negocio;
 
 import java.util.ArrayList;
-import java.util.Vector;
 
 import controladores.AdministradorPartida;
 import dto.CategoriaDTO;
+import dto.GrupoDTO;
 import dto.JugadorDTO;
 import dto.ParejaDTO;
+import dto.PartidaDTO;
 
 public class Grupo {
 	private String nombre;
@@ -41,6 +42,19 @@ public class Grupo {
 		//p.setId(p.crear());
 		this.parejas.add(p);
 	}
+		
+	public void crearPartida(Pareja p1, Pareja p2) {
+		AdministradorPartida.getInstancia().crearPartidaPrivada(this, p1.getJugadores().get(0), p2.getJugadores().get(0), p1.getJugadores().get(1), p2.getJugadores().get(1));
+	}
+	
+	public void agregarPartida(Partida p) {
+		for (Partida partida : partidas) {
+			if (p.getId() == partida.getId()) {
+				return;
+			}
+		}
+		this.partidas.add(p);
+	}
 	
 	public ArrayList<ParejaDTO> listarParejas() {
 		ArrayList<ParejaDTO> parejasDTO = new ArrayList<ParejaDTO>();
@@ -50,31 +64,18 @@ public class Grupo {
 		return parejasDTO;
 	}
 	
-	public ArrayList<Jugador> listarMiembros() {
+	public ArrayList<JugadorDTO> listarMiembros() {
 		ArrayList<JugadorDTO> miembrosDTO = new ArrayList<JugadorDTO>();
 		for (Jugador j : this.miembros) {
 			miembrosDTO.add(j.toDTO());
 		}
 		return miembrosDTO;
 	}
-	
-	public void crearPartida(Pareja p1, Pareja p2) {
-		AdministradorPartida.getInstancia().crearPartidaPrivada(this, p1.getJugadores().get(0), p2.getJugadores().get(0), p1.getJugadores().get(1), p2.getJugadores().get(1));
-	}
-	
-	public void agregarPartida(Partida p) {
-		for (Partida partidas : partidas) {
-			if (p.getId() == partida.getId()) {
-				return;
-			}
-		}
-		this.partidas.add(p);
-	}
-	
+
 	public ArrayList<PartidaDTO> listarPartidas() {
 		ArrayList<PartidaDTO> partidasDTO = new ArrayList<PartidaDTO>();
 		for (Partida p : partidas) {
-			partidasDTO.add(p.toDTO());
+			partidasDTO.add(p.toDTO_reducido());
 		}
 		return partidasDTO;
 	}
@@ -82,13 +83,13 @@ public class Grupo {
 	public ArrayList<JugadorDTO> calcularRankingCerrado() {
 		ArrayList<JugadorDTO> ranking = new ArrayList<JugadorDTO>();
 		for (Partida p : partidas) {
-			if (p.getEstado().equals("Terminada")) {
+			if (p.getEstado() == 3) { //TODO ni idea que numero va a ser "Terminada"
 				ArrayList<Jugador> jugadores = p.getJugadores();
 				for (int i = 0; i < jugadores.size(); i++) {
 					Jugador j = jugadores.get(i);
 					int puntosPar;
 					int puntosImpar;
-					if (p.getGanador == 1) {
+					if (p.getGanador() == 1) {
 						puntosPar = 0;
 						puntosImpar = 5;
 					} else {
@@ -123,5 +124,30 @@ public class Grupo {
 		return ranking;
 	}
 	
+	public GrupoDTO toDTO() {
+		JugadorDTO admin = administrador.toDTO_reducido();
+		ArrayList<JugadorDTO> miembros = new ArrayList<JugadorDTO>();
+		for (Jugador j : this.miembros) {
+			miembros.add(j.toDTO_reducido());
+		}
+		ArrayList<PartidaDTO> partidas = new ArrayList<PartidaDTO>();
+		for (Partida p : this.partidas) {
+			partidas.add(p.toDTO_reducido());
+		}
+		ArrayList<ParejaDTO> parejas = new ArrayList<ParejaDTO>();
+		for (Pareja p : this.parejas) {
+			parejas.add(p.toDTO());
+		}
+		GrupoDTO g = new GrupoDTO(this.nombre, this.id);
+		g.setAdministrador(admin);
+		g.setMiembros(miembros);
+		g.setPartidas(partidas);
+		g.setParejas(parejas);
+		return g;
+	}
 	
+	public GrupoDTO toDTO_reducido() {
+		return new GrupoDTO(this.nombre, this.id);
+	}
+
 }

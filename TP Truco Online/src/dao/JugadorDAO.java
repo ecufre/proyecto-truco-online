@@ -28,12 +28,7 @@ public class JugadorDAO {
 	public Jugador toNegocio(JugadorEntity je) {
 		return null; //TODO
 	}
-	
-	public Integer crear(Jugador j) {
-		//Persiste un nuevo jugador, devuelve el ID generado por la base de datos.
-		return null; //TODO
-	}
-	
+		
 	public void grabar(Jugador j) {
 		//Persiste cambios en un jugador ya existente (Incluye categoria)
 		//TODO

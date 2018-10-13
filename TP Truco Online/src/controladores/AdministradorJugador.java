@@ -25,12 +25,7 @@ public class AdministradorJugador {
 	public void crearJugador(String apodo, String email, String password) {
 		if (this.buscarJugador(apodo) == null) {
 			Jugador j = new Jugador(apodo, email, password);
-			Integer id = j.crear();
-			if (id != null) {
-				jugadores.add(j);
-				j.setId(id);
-			}
-			//TODO Error?
+			j.grabar();
 		}
 		//TODO Error?
 	}
