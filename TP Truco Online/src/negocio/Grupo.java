@@ -10,7 +10,9 @@ public class Grupo {
 	private Vector<Pareja> parejas;
 	private Vector<Partida> partidas;
 	
-	public void agregarJugador(Jugador j) {}
+	public void agregarJugador(Jugador j) {
+		
+	}
 	
 	public void eliminarJugador(Jugador j) {}
 	
