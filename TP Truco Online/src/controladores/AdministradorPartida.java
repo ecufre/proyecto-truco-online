@@ -2,6 +2,7 @@ package controladores;
 
 import java.util.ArrayList;
 
+import negocio.Grupo;
 import negocio.Jugador;
 import negocio.Partida;
 
@@ -31,4 +32,10 @@ public class AdministradorPartida {
 	public void cantarEnvite(int idPartida, String apodo, TipoCanto tipoCanto) {}
 	
 	public void responderEnvite(int idPartida, String apodo, boolean respuesta) {}
+
+	public void crearPartidaPrivada(Grupo grupo, Jugador jugador, Jugador jugador2, Jugador jugador3,
+			Jugador jugador4) {
+		//Igual a CrearPartida, pero la partida creada se agrega al grupo.
+		
+	}
 }

@@ -20,7 +20,7 @@ public class Pareja {
 				}
 			}
 		}
-		//Error si es null?
+		//TODO Error si es null?
 		return categoria;
 	}
 

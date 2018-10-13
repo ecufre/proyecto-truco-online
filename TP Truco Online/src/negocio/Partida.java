@@ -1,17 +1,21 @@
 package negocio;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 public class Partida {
 	private int id;
-	private Vector<Jugador> jugadores;
-	private Vector<Boolean> jugadoresListos;
+	private ArrayList<Jugador> jugadores;
+	private ArrayList<Boolean> jugadoresListos;
 	private boolean esAbierta;
 	private int estado;
 	private int ganador;
-	private Vector<Juego> juegos;
+	private ArrayList<Juego> juegos;
 	
-	
+	public ArrayList<Jugador> getJugadores() {
+		return jugadores;
+	}
+
 	public void jugadorListo(Jugador j) {}
 	
 	public void jugarCarta(Jugador j, int valorCarta) {}
