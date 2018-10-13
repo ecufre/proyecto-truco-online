@@ -16,6 +16,7 @@ public class Jugador {
 	private ArrayList<Invitacion> invitacionesPendientes;
 	private Categoria categoria;
 	private ArrayList<Grupo> grupos;
+	private String loggedSession;
 	
 	public ArrayList<Grupo> getGrupos() {
 		return grupos;
@@ -25,10 +26,11 @@ public class Jugador {
 		this.grupos = grupos;
 	}
 
-	public Jugador(String apodo, String email, String password) {
+	public Jugador(String apodo, String email, String password, String loggedSession) {
 		this.apodo = apodo;
 		this.email = email;
 		this.password = password;
+		this.loggedSession = loggedSession;
 		this.invitacionesPendientes = new ArrayList<Invitacion>();
 		this.categoria = new Categoria(0,0);
 	}
@@ -73,6 +75,14 @@ public class Jugador {
 		this.categoria = categoria;
 	}
 
+	public String getLoggedSession() {
+		return loggedSession;
+	}
+
+	public void setLoggedSession(String loggedSession) {
+		this.loggedSession = loggedSession;
+	}
+
 	public boolean passwordCorrecta(String password) {
 		return (this.password.equals(password));
 	}
@@ -82,7 +92,13 @@ public class Jugador {
 	}
 	
 	public void crearInvitacion(Jugador remitente) {
+		int proximoID = 1;
+		for (Invitacion i : this.invitacionesPendientes) {
+			if (i.getRemitente().getApodo().equals(remitente.getApodo())) return; //Ya tiene una invitacion del jugador
+			if (i.getId() >= proximoID) proximoID = i.getId() + 1;
+		}
 		Invitacion i = new Invitacion(remitente, this.invitacionesPendientes.size());
+		this.invitacionesPendientes.add(i);
 	}
 	
 	//Metodo no necesario, reemplazable por el getter.
@@ -135,5 +151,9 @@ public class Jugador {
 	
 	public void actualizar() {
 		JugadorDAO.getInstancia().actualizar(this);
+	}
+	
+	public ArrayList<JugadorDTO> buscarTop10() {
+		return null; //TODO
 	}
 }

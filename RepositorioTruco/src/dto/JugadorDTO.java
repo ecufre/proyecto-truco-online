@@ -11,6 +11,7 @@ public class JugadorDTO {
 	private ArrayList<InvitacionDTO> invitacionesPendientes;
 	private CategoriaDTO categoria;
 	private ArrayList<GrupoDTO> grupos;
+	private String loggedSession;
 	
 	public ArrayList<GrupoDTO> getGrupos() {
 		return grupos;
@@ -32,6 +33,13 @@ public class JugadorDTO {
 		//this.id = id;
 		this.invitacionesPendientes = invitacionesPendientes;
 		this.categoria = categoria;
+	}
+
+	public JugadorDTO(String apodo, String email, String password, String loggedSession) {
+		this.apodo = apodo;
+		this.email = email;
+		this.password = password;
+		this.loggedSession = loggedSession;
 	}
 
 	public String getApodo() {
@@ -72,5 +80,13 @@ public class JugadorDTO {
 
 	public void setCategoria(CategoriaDTO categoria) {
 		this.categoria = categoria;
+	}
+
+	public String getLoggedSession() {
+		return loggedSession;
+	}
+
+	public void setLoggedSession(String loggedSession) {
+		this.loggedSession = loggedSession;
 	}
 }

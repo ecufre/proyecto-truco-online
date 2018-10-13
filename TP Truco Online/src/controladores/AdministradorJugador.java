@@ -22,20 +22,44 @@ public class AdministradorJugador {
 		return instancia;
 	}
 	
-	public void crearJugador(String apodo, String email, String password) {
-		if (this.buscarJugador(apodo) == null) {
-			Jugador j = new Jugador(apodo, email, password);
+	public void crearJugador(JugadorDTO jugador) {
+		if (this.buscarJugador(jugador.getApodo()) == null) {
+			Jugador j = new Jugador(jugador.getApodo(), jugador.getEmail(), jugador.getPassword(), jugador.getLoggedSession());
 			j.grabar();
 		}
 		//TODO Error?
 	}
 	
-	public boolean login(String apodo, String password) {
-		Jugador j = this.buscarJugador(apodo);
-		return j.passwordCorrecta(password);
+	public boolean login(JugadorDTO jugador) {
+		Jugador j = this.buscarJugador(jugador.getApodo());
+		if (j != null) {
+			if (j.passwordCorrecta(jugador.getPassword())) {
+				j.setLoggedSession(jugador.getLoggedSession());
+				j.grabar();
+				return true;
+			}
+		}
+		return false;
 	}
 	
-	private Jugador buscarJugador(String apodo) {
+	public void logout(JugadorDTO jugador) {
+		if (this.isLoggedIn(jugador)) {
+			Jugador j = this.buscarJugador(jugador.getApodo());
+			jugadores.remove(j);
+			j.setLoggedSession(null);
+			j.grabar();
+		}
+	}
+	
+	public boolean isLoggedIn (JugadorDTO jugador) {
+		Jugador j = this.buscarJugador(jugador.getApodo());
+		if (j != null) {
+			if (j.getLoggedSession().equals(jugador.getLoggedSession())) return true;
+		}
+		return false;
+	}
+	
+	public Jugador buscarJugador(String apodo) {
 		for (Jugador j : jugadores) {
 			if (j.getApodo().equals(apodo)) {
 				j.actualizar();
@@ -49,22 +73,45 @@ public class AdministradorJugador {
 		return this.buscarJugador(apodo).toDTO();
 	}
 	
-	public void jugarLibreIndividual(String apodo) {
-		CreadorPartida.getInstancia().agregarJugadorIndividual(this.buscarJugador(apodo));
+	public void jugarLibreIndividual(JugadorDTO jugador) {
+		if (this.isLoggedIn(jugador)) {
+			CreadorPartida.getInstancia().agregarJugadorIndividual(this.buscarJugador(jugador.getApodo()));
+		}
 	}
 	
-	public void jugarLibrePareja(String apodo1, String apodo2) {
-		this.buscarJugador(apodo2).crearInvitacion(this.buscarJugador(apodo1));
+	public void jugarLibrePareja(JugadorDTO remitente, String apodoInvitado) {
+		if (this.isLoggedIn(remitente)) {
+			Jugador j = this.buscarJugador(apodoInvitado);
+			if (j != null) {
+				j.crearInvitacion(this.buscarJugador(remitente.getApodo()));
+			}
+		}
+		//TODO Error?
 	}
 	
-	public ArrayList<InvitacionDTO> listarInvitacionesPendientes(String apodo) {
+	public ArrayList<InvitacionDTO> listarInvitacionesPendientes(JugadorDTO jugador) {
 		ArrayList<InvitacionDTO> invitaciones = new ArrayList<InvitacionDTO>();
-		for (Invitacion i : this.buscarJugador(apodo).getInvitacionesPendientes()) {
-			invitaciones.add(i.toDTO());
+		if (this.isLoggedIn(jugador)) {
+			for (Invitacion i : this.buscarJugador(jugador.getApodo()).getInvitacionesPendientes()) {
+				invitaciones.add(i.toDTO());
+			}
 		}
 		return invitaciones;
 	}
 	
+	public void aceptarInvitacion (JugadorDTO jugador, InvitacionDTO invitacion) {
+		if (this.isLoggedIn(jugador)) {
+			Jugador j = this.buscarJugador(jugador.getApodo());
+			j.aceptarInvitacion(invitacion.getId());
+		}
+	}
+	
+	public void rechazarInvitacion (JugadorDTO jugador, InvitacionDTO invitacion) {
+		if (this.isLoggedIn(jugador)) {
+			Jugador j = this.buscarJugador(jugador.getApodo());
+			j.rechazarInvitacion(invitacion.getId());
+		}
+	}
 	// Innecesario, dado que la informacion ya esta en el JugadorDTO
 	//public void calcularRankingAbierto() {}
 }
