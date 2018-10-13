@@ -13,16 +13,16 @@ import javax.persistence.Table;
 @Entity
 @Table(name="jugadores")
 public class JugadorEntity {
+	@Id
 	private String apodo;
 	private String email;
 	private String password;
-	@Id
-	@GeneratedValue
 	private Integer id;
 	@Embedded
 	private CategoriaEntity categoria;
 	@ManyToMany
 	private List<GrupoEntity> grupos;
+	private String loggedSession;
 	
 	public List<GrupoEntity> getGrupos() {
 		return grupos;
@@ -30,12 +30,13 @@ public class JugadorEntity {
 	public void setGrupos(ArrayList<GrupoEntity> grupos) {
 		this.grupos = grupos;
 	}
-	public JugadorEntity(String apodo, String email, String password, Integer id, CategoriaEntity categoria) {
+	public JugadorEntity(String apodo, String email, String password, Integer id, CategoriaEntity categoria, String loggedSession) {
 		this.apodo = apodo;
 		this.email = email;
 		this.password = password;
 		this.id = id;
 		this.categoria = categoria;
+		this.loggedSession = loggedSession;
 	}
 	public JugadorEntity() {
 	}
@@ -68,5 +69,14 @@ public class JugadorEntity {
 	}
 	public void setCategoria(CategoriaEntity categoria) {
 		this.categoria = categoria;
+	}
+	public String getLoggedSession() {
+		return loggedSession;
+	}
+	public void setLoggedSession(String loggedSession) {
+		this.loggedSession = loggedSession;
+	}
+	public void setGrupos(List<GrupoEntity> grupos) {
+		this.grupos = grupos;
 	}
 }
