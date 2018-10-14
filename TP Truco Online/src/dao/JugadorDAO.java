@@ -16,11 +16,11 @@ public class JugadorDAO {
 		}
 		return instancia;
 	}
-	
+	/* 
 	public JugadorEntity getJugadorById(int id) {
 		return null; //TODO
 	}
-	
+	*/
 	public JugadorEntity getJugadorByApodo(String apodo) {
 		return null; //TODO
 	}

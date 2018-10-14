@@ -1,44 +1,21 @@
 package negocio;
 
-import java.util.ArrayList;
-
-import dto.JugadorDTO;
 import dto.ParejaDTO;
 
 public class Pareja {
-	private ArrayList<Jugador> jugadores;
 	private int id; //Solo necesario cuando se persiste la pareja.
+	private Jugador jugador1;
+	private Jugador jugador2;
 	
-	public Integer calcularCategoria() {
-		Integer categoria = null;
-		for (Jugador j : jugadores) {
-			if (categoria == null) {
-				categoria = j.getCategoria().calcularCategoria();
-			} else {
-				if (j.getCategoria().calcularCategoria() < categoria) {
-					categoria = j.getCategoria().calcularCategoria();
-				}
-			}
-		}
-		//TODO Error si es null?
-		return categoria;
+	public Pareja(Jugador jugador1, Jugador jugador2) {
+		this.jugador1 = jugador1;
+		this.jugador2 = jugador2;
 	}
 
-	public Pareja(ArrayList<Jugador> jugadores, int id) {
-		this.jugadores = jugadores;
+	public Pareja(int id, Jugador jugador1, Jugador jugador2) {
 		this.id = id;
-	}
-
-	public Pareja(ArrayList<Jugador> jugadores) {
-		this.jugadores = jugadores;
-	}
-
-	public ArrayList<Jugador> getJugadores() {
-		return jugadores;
-	}
-
-	public void setJugadores(ArrayList<Jugador> jugadores) {
-		this.jugadores = jugadores;
+		this.jugador1 = jugador1;
+		this.jugador2 = jugador2;
 	}
 
 	public int getId() {
@@ -48,12 +25,29 @@ public class Pareja {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
+	public Jugador getJugador1() {
+		return jugador1;
+	}
+
+	public void setJugador1(Jugador jugador1) {
+		this.jugador1 = jugador1;
+	}
+
+	public Jugador getJugador2() {
+		return jugador2;
+	}
+
+	public void setJugador2(Jugador jugador2) {
+		this.jugador2 = jugador2;
+	}
+
+	public Integer calcularCategoria() {
+		if (jugador1.getCategoria().calcularCategoria() < jugador2.getCategoria().calcularCategoria()) return jugador1.getCategoria().calcularCategoria();
+		else return jugador2.getCategoria().calcularCategoria();
+	}
+
 	public ParejaDTO toDTO() {
-		ArrayList<JugadorDTO> jugadoresDTO = new ArrayList<JugadorDTO>();
-		for (Jugador j : this.jugadores) {
-			jugadoresDTO.add(j.toDTO());
-		}
-		return new ParejaDTO(jugadoresDTO, this.id);
+		return new ParejaDTO(this.id, this.jugador1.toDTO_reducido(), this.jugador2.toDTO_reducido());
 	}
 }

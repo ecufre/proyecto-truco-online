@@ -36,11 +36,8 @@ public class Grupo {
 	}
 	
 	public void crearPareja(Jugador j1, Jugador j2) {
-		ArrayList<Jugador> pareja = new ArrayList<Jugador>();
-		pareja.add(j1);
-		pareja.add(j2);
-		Pareja p = new Pareja(pareja);
-		//p.setId(p.crear());
+		Pareja p = new Pareja(j1, j2);
+		//TODO p.setId(p.crear());
 		this.parejas.add(p);
 	}
 		

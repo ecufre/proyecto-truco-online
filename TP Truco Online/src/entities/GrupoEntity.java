@@ -21,7 +21,7 @@ public class GrupoEntity {
 	private Integer id;
 	@ManyToOne
 	private Jugador administrador;
-	@ManyToMany(mappedBy="grupos")
+	@ManyToMany
 	private ArrayList<JugadorEntity> miembros;
 	@OneToMany
 	private ArrayList<ParejaEntity> parejas;

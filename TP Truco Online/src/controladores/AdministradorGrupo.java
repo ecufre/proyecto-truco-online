@@ -28,7 +28,12 @@ public class AdministradorGrupo {
 			Grupo g = this.buscarGrupo(grupo.getNombre());
 			if (g != null && g.getAdministrador().getApodo().equals(administrador.getApodo())) {
 				Jugador j = AdministradorJugador.getInstancia().buscarJugador(apodo);
-				if (j != null) g.agregarJugador(j);
+				if (j != null) {
+					g.agregarJugador(j);
+					g.grabar();
+					j.agregarAGrupo(g);
+					j.grabar();
+				}
 			}
 		}
 	}

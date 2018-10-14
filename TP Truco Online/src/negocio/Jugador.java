@@ -156,4 +156,11 @@ public class Jugador {
 	public ArrayList<JugadorDTO> buscarTop10() {
 		return null; //TODO
 	}
+
+	public void agregarAGrupo(Grupo grupo) {
+		for (Grupo g : this.grupos) {
+			if (grupo.getId() == g.getId()) return;
+		}
+		this.grupos.add(grupo);
+	}
 }
