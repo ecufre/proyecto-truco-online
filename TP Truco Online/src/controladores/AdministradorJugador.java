@@ -1,11 +1,11 @@
 package controladores;
 
 import java.util.ArrayList;
-import java.util.Vector;
 
 import dao.JugadorDAO;
 import dto.InvitacionDTO;
 import dto.JugadorDTO;
+import excepciones.LoggedInException;
 import negocio.Invitacion;
 import negocio.Jugador;
 
@@ -42,7 +42,7 @@ public class AdministradorJugador {
 		return false;
 	}
 	
-	public void logout(JugadorDTO jugador) {
+	public void logout(JugadorDTO jugador) throws LoggedInException {
 		if (this.isLoggedIn(jugador)) {
 			Jugador j = this.buscarJugador(jugador.getApodo());
 			jugadores.remove(j);
@@ -51,12 +51,12 @@ public class AdministradorJugador {
 		}
 	}
 	
-	public boolean isLoggedIn (JugadorDTO jugador) {
+	public boolean isLoggedIn (JugadorDTO jugador) throws LoggedInException {
 		Jugador j = this.buscarJugador(jugador.getApodo());
 		if (j != null) {
 			if (j.getLoggedSession().equals(jugador.getLoggedSession())) return true;
 		}
-		return false;
+		throw new LoggedInException("El usuario no esta conectado.");
 	}
 	
 	public Jugador buscarJugador(String apodo) {
@@ -73,13 +73,13 @@ public class AdministradorJugador {
 		return this.buscarJugador(apodo).toDTO();
 	}
 	
-	public void jugarLibreIndividual(JugadorDTO jugador) {
+	public void jugarLibreIndividual(JugadorDTO jugador) throws LoggedInException {
 		if (this.isLoggedIn(jugador)) {
 			CreadorPartida.getInstancia().agregarJugadorIndividual(this.buscarJugador(jugador.getApodo()));
 		}
 	}
 	
-	public void jugarLibrePareja(JugadorDTO remitente, String apodoInvitado) {
+	public void jugarLibrePareja(JugadorDTO remitente, String apodoInvitado) throws LoggedInException {
 		if (this.isLoggedIn(remitente)) {
 			Jugador j = this.buscarJugador(apodoInvitado);
 			if (j != null) {
@@ -89,7 +89,7 @@ public class AdministradorJugador {
 		//TODO Error?
 	}
 	
-	public ArrayList<InvitacionDTO> listarInvitacionesPendientes(JugadorDTO jugador) {
+	public ArrayList<InvitacionDTO> listarInvitacionesPendientes(JugadorDTO jugador) throws LoggedInException {
 		ArrayList<InvitacionDTO> invitaciones = new ArrayList<InvitacionDTO>();
 		if (this.isLoggedIn(jugador)) {
 			for (Invitacion i : this.buscarJugador(jugador.getApodo()).getInvitacionesPendientes()) {
@@ -99,14 +99,14 @@ public class AdministradorJugador {
 		return invitaciones;
 	}
 	
-	public void aceptarInvitacion (JugadorDTO jugador, InvitacionDTO invitacion) {
+	public void aceptarInvitacion (JugadorDTO jugador, InvitacionDTO invitacion) throws LoggedInException {
 		if (this.isLoggedIn(jugador)) {
 			Jugador j = this.buscarJugador(jugador.getApodo());
 			j.aceptarInvitacion(invitacion.getId());
 		}
 	}
 	
-	public void rechazarInvitacion (JugadorDTO jugador, InvitacionDTO invitacion) {
+	public void rechazarInvitacion (JugadorDTO jugador, InvitacionDTO invitacion) throws LoggedInException {
 		if (this.isLoggedIn(jugador)) {
 			Jugador j = this.buscarJugador(jugador.getApodo());
 			j.rechazarInvitacion(invitacion.getId());

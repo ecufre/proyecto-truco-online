@@ -161,4 +161,61 @@ public class Grupo {
 		return null; //TODO
 	}
 
+	public Grupo(String nombre, Jugador administrador) {
+		this.nombre = nombre;
+		this.administrador = administrador;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Jugador getAdministrador() {
+		return administrador;
+	}
+
+	public void setAdministrador(Jugador administrador) {
+		this.administrador = administrador;
+	}
+
+	public ArrayList<Jugador> getMiembros() {
+		return miembros;
+	}
+
+	public void setMiembros(ArrayList<Jugador> miembros) {
+		this.miembros = miembros;
+	}
+
+	public ArrayList<Pareja> getParejas() {
+		return parejas;
+	}
+
+	public void setParejas(ArrayList<Pareja> parejas) {
+		this.parejas = parejas;
+	}
+
+	public ArrayList<Partida> getPartidas() {
+		return partidas;
+	}
+
+	public void setPartidas(ArrayList<Partida> partidas) {
+		this.partidas = partidas;
+	}
+
+	public Pareja buscarPareja(Integer id) {
+		for (Pareja p : this.parejas) if (p.getId() == id) return p;
+		return null;
+	}
 }
