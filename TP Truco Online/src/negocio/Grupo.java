@@ -8,6 +8,7 @@ import dto.GrupoDTO;
 import dto.JugadorDTO;
 import dto.ParejaDTO;
 import dto.PartidaDTO;
+import enumeraciones.EstadoPartida;
 
 public class Grupo {
 	private String nombre;
@@ -44,7 +45,9 @@ public class Grupo {
 	}
 		
 	public void crearPartida(Pareja p1, Pareja p2) {
-		AdministradorPartida.getInstancia().crearPartidaPrivada(this, p1.getJugadores().get(0), p2.getJugadores().get(0), p1.getJugadores().get(1), p2.getJugadores().get(1));
+		Partida p = new Partida();
+		this.partidas.add(p);
+		this.grabar();
 	}
 	
 	public void agregarPartida(Partida p) {
@@ -83,7 +86,7 @@ public class Grupo {
 	public ArrayList<JugadorDTO> calcularRankingCerrado() {
 		ArrayList<JugadorDTO> ranking = new ArrayList<JugadorDTO>();
 		for (Partida p : partidas) {
-			if (p.getEstado() == 3) { //TODO ni idea que numero va a ser "Terminada"
+			if (p.getEstado().equals(EstadoPartida.Finalizada)) { //TODO ni idea que numero va a ser "Terminada"
 				ArrayList<Jugador> jugadores = p.getJugadores();
 				for (int i = 0; i < jugadores.size(); i++) {
 					Jugador j = jugadores.get(i);
@@ -148,6 +151,14 @@ public class Grupo {
 	
 	public GrupoDTO toDTO_reducido() {
 		return new GrupoDTO(this.nombre, this.id);
+	}
+	
+	public void grabar() {
+		//TODO
+	}
+	
+	public Integer crear() {
+		return null; //TODO
 	}
 
 }

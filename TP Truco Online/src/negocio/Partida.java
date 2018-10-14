@@ -4,13 +4,15 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 import dto.PartidaDTO;
+import enumeraciones.EstadoPartida;
+import enumeraciones.TipoCanto;
 
 public class Partida {
 	private int id;
 	private ArrayList<Jugador> jugadores;
 	private ArrayList<Boolean> jugadoresListos;
 	private boolean esAbierta;
-	private int estado;
+	private EstadoPartida estado;
 	private int ganador;
 	private ArrayList<Juego> juegos;
 	
@@ -38,11 +40,11 @@ public class Partida {
 		this.esAbierta = esAbierta;
 	}
 
-	public int getEstado() {
+	public EstadoPartida getEstado() {
 		return estado;
 	}
 
-	public void setEstado(int estado) {
+	public void setEstado(EstadoPartida estado) {
 		this.estado = estado;
 	}
 

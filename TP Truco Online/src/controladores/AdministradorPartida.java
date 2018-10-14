@@ -2,6 +2,8 @@ package controladores;
 
 import java.util.ArrayList;
 
+import enumeraciones.EstadoPartida;
+import enumeraciones.TipoCanto;
 import negocio.Grupo;
 import negocio.Jugador;
 import negocio.Partida;
@@ -20,12 +22,10 @@ public class AdministradorPartida {
 	}
 	
 	public void crearPartida(Jugador j1, Jugador j2, Jugador j3, Jugador j4) {}
-	
-	public Partida crearPartidaCerrada(Jugador j1, Jugador j2, Jugador j3, Jugador j4) {}
-	
+		
 	public void jugadorListo(int idPartida, Jugador j) {}
 	
-	public int estadoNumericoPartida(int idPartida) {}
+	public EstadoPartida getEstadoPartida(int idPartida) {}
 	
 	public void jugarCarta(int idPartida, String apodo, int valorCarta) {}
 	
