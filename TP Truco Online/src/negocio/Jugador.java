@@ -7,6 +7,7 @@ import dto.CategoriaDTO;
 import dto.GrupoDTO;
 import dto.InvitacionDTO;
 import dto.JugadorDTO;
+import excepciones.ComunicacionException;
 
 public class Jugador {
 	private String apodo;
@@ -150,7 +151,7 @@ public class Jugador {
 		JugadorDAO.getInstancia().grabar(this);
 	}
 	
-	public void actualizar() {
+	public void actualizar() throws ComunicacionException {
 		JugadorDAO.getInstancia().actualizar(this);
 	}
 	
