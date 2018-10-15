@@ -14,6 +14,7 @@ public class Jugador {
 	private int id;
 	private ArrayList<Invitacion> invitacionesPendientes;
 	private Categoria categoria;
+	private Integer ubicacion;
 	
 	public Jugador(String apodo, String email, String password) {
 		//Constructor para nuevos jugadores.
@@ -141,4 +142,36 @@ public class Jugador {
 	public void actualizar() {
 		JugadorDAO.getInstancia().actualizar(this);
 	}
+	
+	public Jugador(){
+		//este metodo lo cree para testar El juego hay que borrarlo
+		this.id = 0;
+		this.ubicacion = null;
+		this.apodo = null;
+		this.email = null;
+		this.password = null;
+		this.invitacionesPendientes = new ArrayList<Invitacion>();
+		this.categoria = new Categoria(0,0);
+	}
+
+	public Integer getUbicacion() {
+		return ubicacion;
+	}
+
+	public void setUbicacion(Integer ubicacion) {
+		this.ubicacion = ubicacion;
+	}
+
+	@Override
+	public String toString() {
+		return "Jugador [apodo=" + apodo + ", email=" + email + ", password="
+				+ password + ", id=" + id + ", invitacionesPendientes="
+				+ invitacionesPendientes + ", categoria=" + categoria
+				+ ", ubicacion=" + ubicacion + "]";
+	}
+
+	
+	
+	
+	
 }
