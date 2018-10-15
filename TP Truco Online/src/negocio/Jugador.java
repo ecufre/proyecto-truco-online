@@ -11,7 +11,7 @@ public class Jugador {
 	private String apodo;
 	private String email;
 	private String password;
-	private int id;
+	
 	private ArrayList<Invitacion> invitacionesPendientes;
 	private Categoria categoria;
 	private Integer ubicacion;
@@ -23,15 +23,10 @@ public class Jugador {
 		this.password = password;
 		this.invitacionesPendientes = new ArrayList<Invitacion>();
 		this.categoria = new Categoria(0,0);
+		this.ubicacion = null;
 	}
 
-	public Jugador(String apodo, String email, String password, int id) {
-		//Constructor para jugadores existentes (Persistidos)
-		this.apodo = apodo;
-		this.email = email;
-		this.password = password;
-		this.id = id;
-	}
+	
 
 	public String getApodo() {
 		return apodo;
@@ -57,13 +52,8 @@ public class Jugador {
 		this.password = password;
 	}
 
-	public int getId() {
-		return id;
-	}
+	
 
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public ArrayList<Invitacion> getInvitacionesPendientes() {
 		return invitacionesPendientes;
@@ -118,18 +108,8 @@ public class Jugador {
 		return null;
 	}
 	
-	public JugadorDTO toDTO_reducido() {
-		return new JugadorDTO(this.apodo, this.id, this.categoria.toDTO());
-	}
 	
-	public JugadorDTO toDTO() {
-		ArrayList<InvitacionDTO> invitaciones = new ArrayList<InvitacionDTO>();
-		for (Invitacion i : this.invitacionesPendientes) {
-			invitaciones.add(i.toDTO());
-		}
-		CategoriaDTO c = this.categoria.toDTO();
-		return new JugadorDTO(this.apodo, this.email, this.id, invitaciones, c);
-	}
+	
 	
 	public Integer crear() {
 		return JugadorDAO.getInstancia().crear(this);
@@ -145,7 +125,7 @@ public class Jugador {
 	
 	public Jugador(){
 		//este metodo lo cree para testar El juego hay que borrarlo
-		this.id = 0;
+		
 		this.ubicacion = null;
 		this.apodo = null;
 		this.email = null;
@@ -165,7 +145,7 @@ public class Jugador {
 	@Override
 	public String toString() {
 		return "Jugador [apodo=" + apodo + ", email=" + email + ", password="
-				+ password + ", id=" + id + ", invitacionesPendientes="
+				+ password +  ", invitacionesPendientes="
 				+ invitacionesPendientes + ", categoria=" + categoria
 				+ ", ubicacion=" + ubicacion + "]";
 	}

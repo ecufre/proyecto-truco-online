@@ -108,7 +108,7 @@ public class Carta {
 
 
 	public String toString2() {
-		return "Carta [id=" + id+ ", valor=" + valor + " , jugador= "+this.getJugador().getId()+ " , ubicacion= "+jugador.getUbicacion()
+		return "Carta [id=" + id+ ", valor=" + valor + " , jugador= "+this.getJugador().getApodo()+ " , ubicacion= "+jugador.getUbicacion()
 	;
 	}
 	

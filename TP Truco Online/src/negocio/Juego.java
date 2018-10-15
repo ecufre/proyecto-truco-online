@@ -54,7 +54,7 @@ public class Juego {
 		
 	}
 	
-	public void jugarCarta(int jugador, int carta) {
+	public void jugarCarta(String jugador, int carta) {
 		
 		manoActual.jugarCarta(jugador, carta);
 		
@@ -229,7 +229,7 @@ public class Juego {
 		
 	}
 
-	public void mostrarCartasJugador(int jugador) {
+	public void mostrarCartasJugador(String jugador) {
 		this.getManoActual().mostrarCartasJugador(jugador);
 		
 	}
