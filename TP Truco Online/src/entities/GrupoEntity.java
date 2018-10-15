@@ -1,6 +1,7 @@
 package entities;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,8 +11,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import negocio.Jugador;
-
 @Entity
 @Table(name="grupos")
 public class GrupoEntity {
@@ -20,19 +19,23 @@ public class GrupoEntity {
 	@GeneratedValue
 	private Integer id;
 	@ManyToOne
-	private Jugador administrador;
+	private JugadorEntity administrador;
 	@ManyToMany
-	private ArrayList<JugadorEntity> miembros;
+	private List<JugadorEntity> miembros;
 	@OneToMany
-	private ArrayList<ParejaEntity> parejas;
+	private List<ParejaEntity> parejas;
 	@OneToMany
-	private ArrayList<PartidaEntity> partidas;
+	private List<PartidaEntity> partidas;
 	
 	public GrupoEntity() {}
 
 	public GrupoEntity(String nombre, int id) {
 		this.nombre = nombre;
 		this.id = id;
+	}
+
+	public GrupoEntity(String nombre) {
+		this.nombre = nombre;
 	}
 
 	public String getNombre() {
@@ -51,15 +54,15 @@ public class GrupoEntity {
 		this.id = id;
 	}
 
-	public Jugador getAdministrador() {
+	public JugadorEntity getAdministrador() {
 		return administrador;
 	}
 
-	public void setAdministrador(Jugador administrador) {
+	public void setAdministrador(JugadorEntity administrador) {
 		this.administrador = administrador;
 	}
 
-	public ArrayList<JugadorEntity> getMiembros() {
+	public List<JugadorEntity> getMiembros() {
 		return miembros;
 	}
 
@@ -67,7 +70,7 @@ public class GrupoEntity {
 		this.miembros = miembros;
 	}
 
-	public ArrayList<ParejaEntity> getParejas() {
+	public List<ParejaEntity> getParejas() {
 		return parejas;
 	}
 
@@ -75,7 +78,7 @@ public class GrupoEntity {
 		this.parejas = parejas;
 	}
 
-	public ArrayList<PartidaEntity> getPartidas() {
+	public List<PartidaEntity> getPartidas() {
 		return partidas;
 	}
 

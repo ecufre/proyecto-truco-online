@@ -32,6 +32,7 @@ public class Jugador {
 		this.password = password;
 		this.loggedSession = loggedSession;
 		this.invitacionesPendientes = new ArrayList<Invitacion>();
+		this.grupos = new ArrayList<Grupo>();
 		this.categoria = new Categoria(0,0);
 	}
 

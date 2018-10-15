@@ -26,10 +26,7 @@ public class CreadorPartida {
 	}
 	
 	public void agregarPareja(Jugador j1, Jugador j2) {
-		ArrayList<Jugador> pareja = new ArrayList<Jugador>();
-		pareja.add(j1);
-		pareja.add(j2);
-		Pareja p = new Pareja(pareja);
+		Pareja p = new Pareja(j1, j2);
 		this.parejasDisponibles.add(p);
 		this.crearPartidasPareja();
 	}
@@ -59,7 +56,7 @@ public class CreadorPartida {
 		while (Cat1.size() > 1) {
 			Pareja p1 = Cat1.get(0);
 			Pareja p2 = Cat1.get(0);
-			AdministradorPartida.getInstancia().crearPartida(p1.getJugadores().get(0), p2.getJugadores().get(0), p1.getJugadores().get(1), p2.getJugadores().get(1));
+			AdministradorPartida.getInstancia().crearPartida(p1.getJugador1(), p2.getJugador1(), p1.getJugador2(), p2.getJugador2());
 			this.parejasDisponibles.remove(p1);
 			this.parejasDisponibles.remove(p2);
 			Cat1.remove(p1);
@@ -68,7 +65,7 @@ public class CreadorPartida {
 		while (Cat2.size() > 1) {
 			Pareja p1 = Cat2.get(0);
 			Pareja p2 = Cat2.get(0);
-			AdministradorPartida.getInstancia().crearPartida(p1.getJugadores().get(0), p2.getJugadores().get(0), p1.getJugadores().get(1), p2.getJugadores().get(1));
+			AdministradorPartida.getInstancia().crearPartida(p1.getJugador1(), p2.getJugador1(), p1.getJugador2(), p2.getJugador2());
 			this.parejasDisponibles.remove(p1);
 			this.parejasDisponibles.remove(p2);
 			Cat2.remove(p1);
@@ -77,7 +74,7 @@ public class CreadorPartida {
 		while (Cat3.size() > 1) {
 			Pareja p1 = Cat3.get(0);
 			Pareja p2 = Cat3.get(0);
-			AdministradorPartida.getInstancia().crearPartida(p1.getJugadores().get(0), p2.getJugadores().get(0), p1.getJugadores().get(1), p2.getJugadores().get(1));
+			AdministradorPartida.getInstancia().crearPartida(p1.getJugador1(), p2.getJugador1(), p1.getJugador2(), p2.getJugador2());
 			this.parejasDisponibles.remove(p1);
 			this.parejasDisponibles.remove(p2);
 			Cat3.remove(p1);
@@ -86,7 +83,7 @@ public class CreadorPartida {
 		while (Cat4.size() > 1) {
 			Pareja p1 = Cat4.get(0);
 			Pareja p2 = Cat4.get(0);
-			AdministradorPartida.getInstancia().crearPartida(p1.getJugadores().get(0), p2.getJugadores().get(0), p1.getJugadores().get(1), p2.getJugadores().get(1));
+			AdministradorPartida.getInstancia().crearPartida(p1.getJugador1(), p2.getJugador1(), p1.getJugador2(), p2.getJugador2());
 			this.parejasDisponibles.remove(p1);
 			this.parejasDisponibles.remove(p2);
 			Cat4.remove(p1);

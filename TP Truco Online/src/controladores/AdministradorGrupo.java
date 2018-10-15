@@ -3,9 +3,11 @@ package controladores;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import dao.GrupoDAO;
 import dto.GrupoDTO;
 import dto.JugadorDTO;
 import dto.ParejaDTO;
+import excepciones.ComunicacionException;
 import excepciones.LoggedInException;
 import negocio.Grupo;
 import negocio.Jugador;
@@ -14,7 +16,7 @@ import negocio.Pareja;
 public class AdministradorGrupo {
 	//private Vector<Grupo> grupos;
 	
-	public void crearGrupo(JugadorDTO administrador, String nombreGrupo) throws LoggedInException {
+	public void crearGrupo(JugadorDTO administrador, String nombreGrupo) throws LoggedInException, ComunicacionException {
 		if (AdministradorJugador.getInstancia().isLoggedIn(administrador)) {
 			Jugador admin = AdministradorJugador.getInstancia().buscarJugador(administrador.getApodo());
 			Grupo g = new Grupo(nombreGrupo, admin);
@@ -23,9 +25,9 @@ public class AdministradorGrupo {
 		}
 	}
 	
-	public void agregarJugadorAGrupo(JugadorDTO administrador, GrupoDTO grupo, String apodo) throws LoggedInException {
+	public void agregarJugadorAGrupo(JugadorDTO administrador, GrupoDTO grupo, String apodo) throws LoggedInException, ComunicacionException {
 		if (AdministradorJugador.getInstancia().isLoggedIn(administrador)) {
-			Grupo g = this.buscarGrupo(grupo.getNombre());
+			Grupo g = this.buscarGrupo(grupo.getId());
 			if (g != null && g.getAdministrador().getApodo().equals(administrador.getApodo())) {
 				Jugador j = AdministradorJugador.getInstancia().buscarJugador(apodo);
 				if (j != null) {
@@ -38,23 +40,26 @@ public class AdministradorGrupo {
 		}
 	}
 	
-	public void eliminarJugadorDeGrupo(JugadorDTO administrador, GrupoDTO grupo, String apodo) throws LoggedInException {
+	public void eliminarJugadorDeGrupo(JugadorDTO administrador, GrupoDTO grupo, String apodo) throws LoggedInException, ComunicacionException {
 		if (AdministradorJugador.getInstancia().isLoggedIn(administrador)) {
-			Grupo g = this.buscarGrupo(grupo.getNombre());
+			Grupo g = this.buscarGrupo(grupo.getId());
 			if (g != null && g.getAdministrador().getApodo().equals(administrador.getApodo())) {
 				Jugador j = AdministradorJugador.getInstancia().buscarJugador(apodo);
-				if (j != null) g.eliminarJugador(j);
+				if (j != null) {
+					g.eliminarJugador(j);
+					g.grabar();
+				}
 			}
 		}
 	}
 	
-	public Grupo buscarGrupo(String nombreGrupo) {
-		return GrupoDAO.getInstancia().getGroupByName(nombreGrupo);
+	public Grupo buscarGrupo(Integer id) throws ComunicacionException {
+		return GrupoDAO.getInstancia().toNegocio(GrupoDAO.getInstancia().getGroupById(id));
 	}
 	
-	public void crearPareja(JugadorDTO administrador, GrupoDTO grupo, String apodo1, String apodo2) throws LoggedInException {
+	public void crearPareja(JugadorDTO administrador, GrupoDTO grupo, String apodo1, String apodo2) throws LoggedInException, ComunicacionException {
 		if (AdministradorJugador.getInstancia().isLoggedIn(administrador)) {
-			Grupo g = this.buscarGrupo(grupo.getNombre());
+			Grupo g = this.buscarGrupo(grupo.getId());
 			if (g != null && g.getAdministrador().getApodo().equals(administrador.getApodo())) {
 				Jugador j1 = AdministradorJugador.getInstancia().buscarJugador(apodo1);
 				Jugador j2 = AdministradorJugador.getInstancia().buscarJugador(apodo2);
@@ -64,9 +69,9 @@ public class AdministradorGrupo {
 		}
 	}
 	
-	public void crearPartida(JugadorDTO administrador, GrupoDTO grupo, ParejaDTO pareja1, ParejaDTO pareja2) throws LoggedInException {
+	public void crearPartida(JugadorDTO administrador, GrupoDTO grupo, ParejaDTO pareja1, ParejaDTO pareja2) throws LoggedInException, ComunicacionException {
 		if (AdministradorJugador.getInstancia().isLoggedIn(administrador)) {
-			Grupo g = this.buscarGrupo(grupo.getNombre());
+			Grupo g = this.buscarGrupo(grupo.getId());
 			if (g != null && g.getAdministrador().getApodo().equals(administrador.getApodo())) {
 				Pareja p1 = g.buscarPareja(pareja1.getId());
 				Pareja p2 = g.buscarPareja(pareja2.getId());
@@ -76,7 +81,7 @@ public class AdministradorGrupo {
 		}
 	}
 	
-	public ArrayList<JugadorDTO> calcularRankingCerrado(GrupoDTO grupo) {
-		return this.buscarGrupo(grupo.getNombre()).calcularRankingCerrado();
+	public ArrayList<JugadorDTO> calcularRankingCerrado(GrupoDTO grupo) throws ComunicacionException {
+		return this.buscarGrupo(grupo.getId()).calcularRankingCerrado();
 	}
 }

@@ -46,4 +46,9 @@ public class ParejaDAO {
 		session.delete(pe);
 		session.getTransaction().commit();
 	}
+	
+	public Pareja toNegocio(ParejaEntity pe) {
+		Pareja p = new Pareja(pe.getId(), JugadorDAO.getInstancia().toNegocio_grupo(pe.getJugador1()), JugadorDAO.getInstancia().toNegocio_grupo(pe.getJugador2()));
+		return p;
+	}
 }

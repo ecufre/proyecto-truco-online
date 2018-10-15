@@ -9,6 +9,7 @@ import dto.JugadorDTO;
 import dto.ParejaDTO;
 import dto.PartidaDTO;
 import enumeraciones.EstadoPartida;
+import excepciones.ComunicacionException;
 
 public class Grupo {
 	private String nombre;
@@ -33,11 +34,17 @@ public class Grupo {
 				miembros.remove(m);
 			}
 		}
+		for (Pareja p : parejas) {
+			if (p.getJugador1().getApodo().equals(j.getApodo()) || p.getJugador2().getApodo().equals(j.getApodo())) {
+				parejas.remove(p);
+				p.eliminar();
+			}
+		}
 	}
 	
-	public void crearPareja(Jugador j1, Jugador j2) {
+	public void crearPareja(Jugador j1, Jugador j2) throws ComunicacionException {
 		Pareja p = new Pareja(j1, j2);
-		//TODO p.setId(p.crear());
+		p.setId(p.crear());
 		this.parejas.add(p);
 	}
 		

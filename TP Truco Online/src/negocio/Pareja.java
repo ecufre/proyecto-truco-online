@@ -1,6 +1,8 @@
 package negocio;
 
+import dao.ParejaDAO;
 import dto.ParejaDTO;
+import excepciones.ComunicacionException;
 
 public class Pareja {
 	private int id; //Solo necesario cuando se persiste la pareja.
@@ -49,5 +51,13 @@ public class Pareja {
 
 	public ParejaDTO toDTO() {
 		return new ParejaDTO(this.id, this.jugador1.toDTO_reducido(), this.jugador2.toDTO_reducido());
+	}
+
+	public void eliminar() {
+		ParejaDAO.getInstancia().borrar(this);
+	}
+
+	public int crear() throws ComunicacionException {
+		return ParejaDAO.getInstancia().crear(this);
 	}
 }

@@ -35,6 +35,9 @@ public class JugadorEntity {
 		this.categoria = categoria;
 		this.loggedSession = loggedSession;
 	}
+	public JugadorEntity(String apodo) {
+		this.apodo = apodo;
+	}
 	public JugadorEntity() {
 	}
 	public String getApodo() {
