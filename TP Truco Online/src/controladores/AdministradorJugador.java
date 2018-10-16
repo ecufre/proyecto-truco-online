@@ -14,7 +14,9 @@ public class AdministradorJugador {
 	private static AdministradorJugador instancia;
 	private ArrayList<Jugador> jugadores;
 	
-	private AdministradorJugador() {}
+	private AdministradorJugador() {
+		jugadores = new ArrayList<Jugador>();
+	}
 	
 	public static AdministradorJugador getInstancia() {
 		if (instancia == null) {
@@ -24,23 +26,25 @@ public class AdministradorJugador {
 	}
 	
 	public void crearJugador(JugadorDTO jugador) throws ComunicacionException {
-		if (this.buscarJugador(jugador.getApodo()) == null) {
+		if (! JugadorDAO.getInstancia().existeJugadorByApodo(jugador.getApodo())) {
 			Jugador j = new Jugador(jugador.getApodo(), jugador.getEmail(), jugador.getPassword(), jugador.getLoggedSession());
 			j.grabar();
-		}
-		//TODO Error?
+			System.out.println("Se creo el jugador: " + jugador.getApodo());
+		} else throw new ComunicacionException("El jugador ya existe");
 	}
 	
-	public boolean login(JugadorDTO jugador) throws ComunicacionException {
+	public void login(JugadorDTO jugador) throws ComunicacionException {
 		Jugador j = this.buscarJugador(jugador.getApodo());
 		if (j != null) {
 			if (j.passwordCorrecta(jugador.getPassword())) {
 				j.setLoggedSession(jugador.getLoggedSession());
 				j.grabar();
-				return true;
+				System.out.println("Autenticacion correcta de parte del jugador: " + jugador.getApodo());
+				return;
 			}
 		}
-		return false;
+		System.out.println("Autenticacion incorrecta de parte del jugador: " + jugador.getApodo());
+		throw new ComunicacionException ("No pudo autenticarse el usuario");
 	}
 	
 	public void logout(JugadorDTO jugador) throws LoggedInException, ComunicacionException {
@@ -49,6 +53,7 @@ public class AdministradorJugador {
 			jugadores.remove(j);
 			j.setLoggedSession(null);
 			j.grabar();
+			System.out.println("Cierre de sesion correcto de parte del jugador: " + jugador.getApodo());
 		}
 	}
 	
@@ -67,7 +72,9 @@ public class AdministradorJugador {
 				return j;
 			}
 		}
-		return JugadorDAO.getInstancia().toNegocio(JugadorDAO.getInstancia().getJugadorByApodo(apodo));
+		Jugador j = JugadorDAO.getInstancia().toNegocio(JugadorDAO.getInstancia().getJugadorByApodo(apodo));
+		this.jugadores.add(j);
+		return j;
 	}
 	
 	public JugadorDTO buscarJugadorDTO(String apodo) throws ComunicacionException {
@@ -77,6 +84,7 @@ public class AdministradorJugador {
 	public void jugarLibreIndividual(JugadorDTO jugador) throws LoggedInException, ComunicacionException {
 		if (this.isLoggedIn(jugador)) {
 			CreadorPartida.getInstancia().agregarJugadorIndividual(this.buscarJugador(jugador.getApodo()));
+			System.out.println("El siguiente jugador fue agregado a lista de espera individual: " + jugador.getApodo());
 		}
 	}
 	
@@ -85,9 +93,9 @@ public class AdministradorJugador {
 			Jugador j = this.buscarJugador(apodoInvitado);
 			if (j != null) {
 				j.crearInvitacion(this.buscarJugador(remitente.getApodo()));
+				System.out.println("Invitacion para jugar enviada a: " + apodoInvitado);
 			}
 		}
-		//TODO Error?
 	}
 	
 	public ArrayList<InvitacionDTO> listarInvitacionesPendientes(JugadorDTO jugador) throws LoggedInException, ComunicacionException {
@@ -96,6 +104,7 @@ public class AdministradorJugador {
 			for (Invitacion i : this.buscarJugador(jugador.getApodo()).getInvitacionesPendientes()) {
 				invitaciones.add(i.toDTO());
 			}
+			System.out.println("Listando invitaciones pendientes del jugador: " + jugador.getApodo());
 		}
 		return invitaciones;
 	}
@@ -104,6 +113,7 @@ public class AdministradorJugador {
 		if (this.isLoggedIn(jugador)) {
 			Jugador j = this.buscarJugador(jugador.getApodo());
 			j.aceptarInvitacion(invitacion.getId());
+			System.out.println("Aceptando invitacion enviada por: " + invitacion.getRemitente().getApodo());
 		}
 	}
 	
@@ -111,8 +121,12 @@ public class AdministradorJugador {
 		if (this.isLoggedIn(jugador)) {
 			Jugador j = this.buscarJugador(jugador.getApodo());
 			j.rechazarInvitacion(invitacion.getId());
+			System.out.println("Rechazando invitacion enviada por: " + invitacion.getRemitente().getApodo());
 		}
 	}
-	// Innecesario, dado que la informacion ya esta en el JugadorDTO
-	//public void calcularRankingAbierto() {}
+	
+	public ArrayList<JugadorDTO> listarTopTen(Integer categoria) throws ComunicacionException {
+		System.out.println("Listando Top 10 de jugadores de la categoria: " + String.valueOf(categoria));
+		return Jugador.buscarTop10(categoria);
+	}
 }

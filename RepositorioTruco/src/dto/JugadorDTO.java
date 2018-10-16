@@ -1,9 +1,10 @@
 package dto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Vector;
 
-public class JugadorDTO {
+public class JugadorDTO implements Serializable {
 	private String apodo;
 	private String email;
 	private String password;

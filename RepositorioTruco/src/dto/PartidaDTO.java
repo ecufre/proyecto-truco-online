@@ -1,5 +1,7 @@
 package dto;
 
-public class PartidaDTO {
+import java.io.Serializable;
+
+public class PartidaDTO implements Serializable {
 
 }

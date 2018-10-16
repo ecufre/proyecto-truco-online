@@ -100,4 +100,14 @@ public class JugadorDAO {
 		else throw new ComunicacionException("El jugador solicitado no existe");
 	}
 	
+	public Boolean existeJugadorByApodo(String apodo) {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		JugadorEntity je = (JugadorEntity) session.createQuery("from JugadorEntity where apodo = ?")
+				.setParameter(0, apodo)
+				.uniqueResult();
+		if (je != null) return true;
+		else return false;
+	}
+	
 }

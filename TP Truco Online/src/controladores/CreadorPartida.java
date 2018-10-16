@@ -7,11 +7,14 @@ import negocio.Jugador;
 import negocio.Pareja;
 
 public class CreadorPartida {
-	private Vector<Jugador> jugadoresDisponibles;
-	private Vector<Pareja> parejasDisponibles;
+	private ArrayList<Jugador> jugadoresDisponibles;
+	private ArrayList<Pareja> parejasDisponibles;
 	private static CreadorPartida instancia;
 	
-	private CreadorPartida() {}
+	private CreadorPartida() {
+		this.jugadoresDisponibles = new ArrayList<Jugador>();
+		this.parejasDisponibles = new ArrayList<Pareja>();
+	}
 	
 	public static CreadorPartida getInstancia() {
 		if (instancia == null) {

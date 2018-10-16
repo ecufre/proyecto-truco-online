@@ -29,7 +29,7 @@ public class GrupoDAO {
 	public GrupoEntity getGroupById(Integer id) throws ComunicacionException {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
-		GrupoEntity ge = (GrupoEntity) session.createQuery("from GrupoEntity where apodo = ?")
+		GrupoEntity ge = (GrupoEntity) session.createQuery("from GrupoEntity where id = ?")
 				.setParameter(0, id)
 				.uniqueResult();
 		if (ge != null) return ge;
@@ -47,7 +47,7 @@ public class GrupoDAO {
 		for (ParejaEntity pe : ge.getParejas()) parejas.add(ParejaDAO.getInstancia().toNegocio(pe));
 		g.setParejas(parejas);
 		ArrayList<Partida> partidas = new ArrayList<Partida>();
-		for (PartidaEntity pe : ge.getPartidas()) //TODO parejas.add(PartidaDAO.getInstancia().toNegocio(pe));
+		for (PartidaEntity pe : ge.getPartidas()) {}//TODO parejas.add(PartidaDAO.getInstancia().toNegocio(pe));
 		g.setPartidas(partidas);
 		return g;
 	}
@@ -74,6 +74,7 @@ public class GrupoDAO {
 	
 	public void grabar(Grupo g) {
 		GrupoEntity ge = new GrupoEntity(g.getNombre());
+		ge.setId(g.getId());
 		JugadorEntity je = new JugadorEntity();
 		je.setApodo(g.getAdministrador().getApodo());
 		ge.setAdministrador(je);
@@ -88,7 +89,7 @@ public class GrupoDAO {
 		}
 		ge.setParejas(parejas);
 		ArrayList<PartidaEntity> partidas = new ArrayList<PartidaEntity>();
-		for (Partida p : g.getPartidas()) //TODO partidas.add(new PartidaEntity(p.getId()));
+		for (Partida p : g.getPartidas()) partidas.add(new PartidaEntity(p.getId()));
 		ge.setPartidas(partidas);
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();

@@ -89,6 +89,7 @@ public class Jugador {
 		return (this.password.equals(password));
 	}
 	
+	/** Requiere que se grabe el jugador **/
 	public void actualizarPuntaje(int puntosASumar) {
 		this.categoria.sumarPuntos(puntosASumar);
 	}
@@ -155,8 +156,12 @@ public class Jugador {
 		JugadorDAO.getInstancia().actualizar(this);
 	}
 	
-	public ArrayList<JugadorDTO> buscarTop10() {
-		return null; //TODO
+	public static ArrayList<JugadorDTO> buscarTop10(int categoria) throws ComunicacionException {
+		ArrayList<JugadorDTO> ranking = new ArrayList<JugadorDTO>();
+		for (Jugador j : JugadorDAO.getInstancia().getTopTenJugadores(categoria)) {
+			ranking.add(j.toDTO_reducido());
+		}
+		return ranking;
 	}
 
 	public void agregarAGrupo(Grupo grupo) {

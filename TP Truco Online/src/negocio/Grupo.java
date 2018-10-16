@@ -3,6 +3,7 @@ package negocio;
 import java.util.ArrayList;
 
 import controladores.AdministradorPartida;
+import dao.GrupoDAO;
 import dto.CategoriaDTO;
 import dto.GrupoDTO;
 import dto.JugadorDTO;
@@ -32,12 +33,15 @@ public class Grupo {
 		for (Jugador m : miembros) {
 			if (j.getApodo().equals(m.getApodo())) {
 				miembros.remove(m);
+				break;
 			}
 		}
 		for (Pareja p : parejas) {
 			if (p.getJugador1().getApodo().equals(j.getApodo()) || p.getJugador2().getApodo().equals(j.getApodo())) {
 				parejas.remove(p);
+				this.grabar();
 				p.eliminar();
+				break;
 			}
 		}
 	}
@@ -49,7 +53,7 @@ public class Grupo {
 	}
 		
 	public void crearPartida(Pareja p1, Pareja p2) {
-		Partida p = new Partida();
+		Partida p = new Partida(); //TODO Metodo en el AdministradorPartida que hace lo mismo que el "CrearPartida" pero devuelve la partida creada, para guardarla en el grupo.
 		this.partidas.add(p);
 		this.grabar();
 	}
@@ -158,11 +162,11 @@ public class Grupo {
 	}
 	
 	public void grabar() {
-		//TODO
+		GrupoDAO.getInstancia().grabar(this);
 	}
 	
-	public Integer crear() {
-		return null; //TODO
+	public Integer crear() throws ComunicacionException {
+		return GrupoDAO.getInstancia().crear(this);
 	}
 
 	public Grupo(String nombre, Jugador administrador) {
@@ -221,5 +225,12 @@ public class Grupo {
 	public Pareja buscarPareja(Integer id) {
 		for (Pareja p : this.parejas) if (p.getId() == id) return p;
 		return null;
+	}
+	
+	public Boolean esMiembro(Jugador jugador) {
+		for (Jugador j : this.miembros) {
+			if (jugador.getApodo().equals(j.getApodo())) return true;
+		}
+		return false;
 	}
 }
