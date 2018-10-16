@@ -13,7 +13,7 @@ public class Jugador {
 	private String apodo;
 	private String email;
 	private String password;
-	//private int id;
+	private Integer ubicacion;
 	private ArrayList<Invitacion> invitacionesPendientes;
 	private Categoria categoria;
 	private ArrayList<Grupo> grupos;
@@ -128,7 +128,7 @@ public class Jugador {
 		}
 		return null;
 	}
-	
+
 	public JugadorDTO toDTO_reducido() {
 		return new JugadorDTO(this.apodo, this.categoria.toDTO());
 	}
@@ -156,6 +156,23 @@ public class Jugador {
 		JugadorDAO.getInstancia().actualizar(this);
 	}
 	
+
+	public Integer getUbicacion() {
+		return ubicacion;
+	}
+
+	public void setUbicacion(Integer ubicacion) {
+		this.ubicacion = ubicacion;
+	}
+
+	@Override
+	public String toString() {
+		return "Jugador [apodo=" + apodo + ", email=" + email + ", password="
+				+ password +  ", invitacionesPendientes="
+				+ invitacionesPendientes + ", categoria=" + categoria
+				+ ", ubicacion=" + ubicacion + "]";
+	}
+  
 	public static ArrayList<JugadorDTO> buscarTop10(int categoria) throws ComunicacionException {
 		ArrayList<JugadorDTO> ranking = new ArrayList<JugadorDTO>();
 		for (Jugador j : JugadorDAO.getInstancia().getTopTenJugadores(categoria)) {

@@ -47,15 +47,14 @@ public class JugadorDTO implements Serializable {
 		return apodo;
 	}
 
-	public void setApodo(String apodo) {
+	public JugadorDTO(String apodo, CategoriaDTO categoria) {
 		this.apodo = apodo;
+		//this.id = id;
+		this.categoria = categoria;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
+	public JugadorDTO(String apodo, String email, ArrayList<InvitacionDTO> invitacionesPendientes, CategoriaDTO categoria) {
+		this.apodo = apodo;
 		this.email = email;
 	}
 
@@ -73,13 +72,6 @@ public class JugadorDTO implements Serializable {
 
 	public void setInvitacionesPendientes(ArrayList<InvitacionDTO> invitacionesPendientes) {
 		this.invitacionesPendientes = invitacionesPendientes;
-	}
-
-	public CategoriaDTO getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(CategoriaDTO categoria) {
 		this.categoria = categoria;
 	}
 
