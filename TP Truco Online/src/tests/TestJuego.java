@@ -146,7 +146,7 @@ public class TestJuego {
 		i++;
 		
 	}
-	j.calcularPuntos();
+	j.actualizarJuego();
 	System.out.println("impar:  "+j.getPuntajeImpar());
 	System.out.println("par:  "+j.getPuntajePar());
 	
