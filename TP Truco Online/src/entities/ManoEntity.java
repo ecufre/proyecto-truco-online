@@ -18,16 +18,12 @@ public class ManoEntity {
 	@GeneratedValue
 	private Integer id;
 	@ManyToOne()
-	@JoinColumn(name="id_juego")
 	private JuegoEntity juego;
 	@OneToMany
-	@JoinColumn(name="id_mano")
 	private List<BazaEntity> bazas;
 	@OneToMany
-	@JoinColumn(name="id_mano")
 	private List<CantoEntity> cantos;
 	@OneToMany
-	@JoinColumn(name="id_mano")
 	private List<CartaEntity> cartas;
 	
 	public ManoEntity() {}

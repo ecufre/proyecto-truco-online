@@ -22,10 +22,8 @@ public class PartidaEntity {
 	@GeneratedValue
 	private Integer id;
 	@OneToMany
-	@JoinColumn(name="id_partida")
 	private List<JuegoEntity> juegos;
 	@OneToMany
-	@JoinColumn(name="id_partida")
 	private List<JugadorEntity> jugadores;
 	private List<Boolean> jugadoresListos;
 	

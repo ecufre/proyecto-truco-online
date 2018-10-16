@@ -18,12 +18,11 @@ public class CartaEntity {
 	@Id
 	@GeneratedValue
 	private Integer id;
-	@ManyToOne()
-	@JoinColumn(name="id_mano")
+	@ManyToOne
 	private ManoEntity mano;
-	@ManyToOne()
-	@JoinColumn(name="id_baza")
+	@ManyToOne
 	private BazaEntity baza;
+	//TODO  AGREGAR JUGADOR
 	
 	public CartaEntity() {}
 

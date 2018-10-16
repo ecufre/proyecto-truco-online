@@ -22,12 +22,10 @@ public class JuegoEntity {
 	@Id
 	@GeneratedValue
 	private Integer id;
-	@ManyToOne()
-	@JoinColumn(name="id_partida")
+	@ManyToOne
 	private PartidaEntity partida;
 	
 	@OneToMany
-	@JoinColumn(name="id_juego")
 	private List<ManoEntity> manos;
 	
 	public JuegoEntity() {}

@@ -24,14 +24,11 @@ public class BazaEntity {
 	@GeneratedValue
 	private Integer id;
 	@OneToMany
-	@JoinColumn(name="id_carta")
 	private List<Carta> cartasbaza;
-	@ManyToOne()
-	@JoinColumn(name="id_mano")
+	@ManyToOne
 	private ManoEntity mano;
 
-	@ManyToOne()
-	@JoinColumn(name="id_jugador")
+	@ManyToOne
 	private JugadorEntity ganadorBaza;
 	
 	public BazaEntity() {}

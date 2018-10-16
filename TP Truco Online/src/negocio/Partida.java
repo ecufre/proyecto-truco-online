@@ -301,9 +301,9 @@ public class Partida {
 
 
 	public void agregarJugador(Jugador j1, int i) {
-		j1.setUbicacion(i);
-		this.jugadores.add(j1);
-		
+		Jugador j = new Jugador(j1.getApodo(), j1.getEmail(), j1.getPassword(), j1.getLoggedSession());
+		j.setUbicacion(i);
+		this.jugadores.add(j);
 	}
 	
 	public void responderEnvite(Jugador j, boolean respuesta) {} //TODO

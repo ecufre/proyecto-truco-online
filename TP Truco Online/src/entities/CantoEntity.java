@@ -20,8 +20,7 @@ public class CantoEntity {
 	@Id
 	@GeneratedValue
 	private Integer id;
-	@ManyToOne()
-	@JoinColumn(name="id_mano")
+	@ManyToOne
 	private ManoEntity mano;
 	
 	public CantoEntity() {}
