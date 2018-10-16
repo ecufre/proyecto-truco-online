@@ -78,7 +78,9 @@ public class AdministradorPartida {
 	}
 	
 	
-	public EstadoPartida getEstadoPartida(int idPartida) {} //TODO
+	public EstadoPartida getEstadoPartida(int idPartida) {
+		return null;
+	} //TODO
 
 	
 	private Partida buscarPartida(int partida) {

@@ -53,7 +53,7 @@ public class Grupo {
 	}
 		
 	public void crearPartida(Pareja p1, Pareja p2) {
-		Partida p = new Partida(); //TODO Metodo en el AdministradorPartida que hace lo mismo que el "CrearPartida" pero devuelve la partida creada, para guardarla en el grupo.
+		Partida p = AdministradorPartida.getInstancia().crearPartidaCerrada(p1.getJugador1(), p2.getJugador1(), p1.getJugador2(), p2.getJugador2());
 		this.partidas.add(p);
 		this.grabar();
 	}

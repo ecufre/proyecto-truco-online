@@ -33,7 +33,7 @@ public class Partida {
 		jugadoresListos[3]=false;
 		
 		this.esAbierta = esAbierta;
-		this.estado = EstadoPartida.PENDIENTE;
+		this.estado = EstadoPartida.Pendiente;
 		this.ganador = null;
 		this.juegos = new ArrayList<Juego>();
 		this.juegoActual = new Juego();
@@ -58,7 +58,7 @@ public class Partida {
 		}
 		
 		if(respuesta==true){
-			this.estado=EstadoPartida.ENCURSO;
+			this.estado=EstadoPartida.EnCurso;
 		}
 		
 		return respuesta;
@@ -113,11 +113,11 @@ public class Partida {
 					}
 				}
 				if(juegosImpar ==2 ){
-					this.estado = EstadoPartida.FINALIZADA;
+					this.estado = EstadoPartida.Finalizada;
 					this.setGanador(1);
 				}
 				if(juegosPar==2){
-					this.estado = EstadoPartida.FINALIZADA;
+					this.estado = EstadoPartida.Finalizada;
 					this.setGanador(2);
 				}
 			
@@ -301,10 +301,8 @@ public class Partida {
 
 
 	public void agregarJugador(Jugador j1, int i) {
-		Jugador j = new Jugador();
-		j.setApodo(j1.getApodo());
-		j.setUbicacion(i);
-		this.jugadores.add(j);
+		j1.setUbicacion(i);
+		this.jugadores.add(j1);
 		
 	}
 	

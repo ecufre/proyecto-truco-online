@@ -29,7 +29,9 @@ public class PartidaEntity {
 	private List<JugadorEntity> jugadores;
 	private List<Boolean> jugadoresListos;
 	
-	public PartidaEntity() {}
+	public PartidaEntity(Integer id) {
+		this.id = id;
+	}
 
 	public PartidaEntity(boolean esAbierta, int estado, int ganador, Integer id, List<JuegoEntity> juegos,
 			List<JugadorEntity> jugadores, List<Boolean> jugadoresListos) {
