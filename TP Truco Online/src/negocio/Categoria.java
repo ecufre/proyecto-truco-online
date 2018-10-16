@@ -46,7 +46,8 @@ public class Categoria {
 	}
 	
 	private float calcularPromedio() {
-		return (this.partidasJugadas / this.puntosTotales);
+		if (this.partidasJugadas > 0) return (this.puntosTotales / this.partidasJugadas);
+		else return 0;
 	}
 	
 	public CategoriaDTO toDTO() {

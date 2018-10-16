@@ -12,7 +12,7 @@ import negocio.Mazo;
 public class TestJuego {
 
 	static Mazo m = new Mazo();
-	
+	static String[] jugadorTurno = {"","jugador 1","jugador 2","jugador 3","jugador 4"};
 	static ArrayList<Carta> cartas = new ArrayList<Carta>();
 	static ArrayList<Jugador> js= new ArrayList<Jugador>();
 	
@@ -40,17 +40,17 @@ public class TestJuego {
 	while(!j.getManoActual().manoCompleta()){
 		int carta=0;
 		int jugador = j.getTurno();
-	
-		      
+		
+		String def = jugadorTurno[jugador];
         
         for(Carta c:j.getManoActual().getCartas()){
-    		if(c.getJugador().getId()==jugador){
+    		if(c.getJugador().getApodo().equals(def)){
     			carta = c.getId();
     			
     		}
     	}
-        System.out.println("turno: "+jugador);
-        j.mostrarCartasJugador(jugador);
+        System.out.println("turno: "+jugador+jugadorTurno[jugador]);
+        j.mostrarCartasJugador(jugadorTurno[jugador]);
         System.out.println("20) jugar 21)Retirarse 1) envido 2) envido envido 3) real 4) falta 5) turco 6) re 7) vale 8) quiero 9) no queiro  \n ------------------------------------\n opcion: ");
     	String entradaTeclado = "";
         Scanner entradaEscaner = new Scanner (System.in); //Creación de un objeto Scanner
@@ -63,7 +63,7 @@ public class TestJuego {
         	  entradaEscaner = new Scanner (System.in); //Creación de un objeto Scanner
              entradaTeclado = entradaEscaner.nextLine ();
               carta = Integer.parseInt(entradaTeclado);
-        	 j.jugarCarta(jugador, carta);
+        	 j.jugarCarta(jugadorTurno[jugador], carta);
         	break;
         
         	
@@ -114,7 +114,7 @@ public class TestJuego {
         case 21:
         	 int ubicacion =0;
              for(Jugador jj:js){	
-             if(jj.getId()==jugador){
+             if(jj.getApodo().equals(jugadorTurno[jugador])){
              	ubicacion = jj.getUbicacion();
              }
              }
@@ -146,7 +146,7 @@ public class TestJuego {
 		i++;
 		
 	}
-	j.calcularPuntos();
+	j.actualizarJuego();
 	System.out.println("impar:  "+j.getPuntajeImpar());
 	System.out.println("par:  "+j.getPuntajePar());
 	
@@ -214,28 +214,28 @@ public class TestJuego {
 	
 	
 	Jugador j1  = new Jugador();
-	j1.setId(1);
+
 	j1.setUbicacion(1);
 	j1.setApodo("jugador 1");
 	
 	js.add(j1);
 	
 	Jugador j2 = new Jugador();
-	j2.setId(2);
+	
 	j2.setUbicacion(2);
 	j2.setApodo("jugador 2");
 	
 	js.add(j2);
 	
 	Jugador j3  = new Jugador();
-	j3.setId(3);
+	
 	j3.setUbicacion(3);
 	j3.setApodo("jugador 3");
 	
 	js.add(j3);
 	
 	Jugador j4  = new Jugador();
-	j4.setId(4);
+	
 	j4.setUbicacion(4);
 	j4.setApodo("jugador 4");
 	

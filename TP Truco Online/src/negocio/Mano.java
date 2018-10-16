@@ -108,7 +108,7 @@ public class Mano {
 			return 0;
 		}
 		
-		public void jugarCarta(int jugador, int carta) {
+		public void jugarCarta(String jugador, int carta) {
 			Carta c = this.buscarCarta(carta);
 			if(this.esJugadaValida(jugador, c )){
 				
@@ -124,14 +124,14 @@ public class Mano {
 			
 		}
 		
-		public boolean esJugadaValida(int jugador, Carta c) {
+		public boolean esJugadaValida(String jugador, Carta c) {
 			
 			
 			if(c!=null){
 			
 				if(c.getJugador().getUbicacion()==this.bazaActual.getTurno()){
 				
-				return (c.getJugador().getId()==jugador);
+				return (c.getJugador().getApodo().equals(jugador));
 				}
 			}
 			
@@ -357,9 +357,9 @@ public class Mano {
 			System.out.println(this.envidoValor.toString());
 		}
 
-		public void mostrarCartasJugador(int jugador) {
+		public void mostrarCartasJugador(String jugador) {
 			for(Carta c: cartas){
-				if(c.getJugador().getId()==jugador){
+				if(c.getJugador().getApodo().equals(jugador)){
 					System.out.println(c.toString2());
 				}
 			}

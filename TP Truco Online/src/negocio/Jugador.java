@@ -4,33 +4,37 @@ import java.util.ArrayList;
 
 import dao.JugadorDAO;
 import dto.CategoriaDTO;
+import dto.GrupoDTO;
 import dto.InvitacionDTO;
 import dto.JugadorDTO;
+import excepciones.ComunicacionException;
 
 public class Jugador {
 	private String apodo;
 	private String email;
 	private String password;
-	private int id;
+	private Integer ubicacion;
 	private ArrayList<Invitacion> invitacionesPendientes;
 	private Categoria categoria;
-	private Integer ubicacion;
+	private ArrayList<Grupo> grupos;
+	private String loggedSession;
 	
-	public Jugador(String apodo, String email, String password) {
-		//Constructor para nuevos jugadores.
-		this.apodo = apodo;
-		this.email = email;
-		this.password = password;
-		this.invitacionesPendientes = new ArrayList<Invitacion>();
-		this.categoria = new Categoria(0,0);
+	public ArrayList<Grupo> getGrupos() {
+		return grupos;
 	}
 
-	public Jugador(String apodo, String email, String password, int id) {
-		//Constructor para jugadores existentes (Persistidos)
+	public void setGrupos(ArrayList<Grupo> grupos) {
+		this.grupos = grupos;
+	}
+
+	public Jugador(String apodo, String email, String password, String loggedSession) {
 		this.apodo = apodo;
 		this.email = email;
 		this.password = password;
-		this.id = id;
+		this.loggedSession = loggedSession;
+		this.invitacionesPendientes = new ArrayList<Invitacion>();
+		this.grupos = new ArrayList<Grupo>();
+		this.categoria = new Categoria(0,0);
 	}
 
 	public String getApodo() {
@@ -57,14 +61,6 @@ public class Jugador {
 		this.password = password;
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	public ArrayList<Invitacion> getInvitacionesPendientes() {
 		return invitacionesPendientes;
 	}
@@ -81,16 +77,31 @@ public class Jugador {
 		this.categoria = categoria;
 	}
 
+	public String getLoggedSession() {
+		return loggedSession;
+	}
+
+	public void setLoggedSession(String loggedSession) {
+		this.loggedSession = loggedSession;
+	}
+
 	public boolean passwordCorrecta(String password) {
 		return (this.password.equals(password));
 	}
 	
+	/** Requiere que se grabe el jugador **/
 	public void actualizarPuntaje(int puntosASumar) {
 		this.categoria.sumarPuntos(puntosASumar);
 	}
 	
 	public void crearInvitacion(Jugador remitente) {
+		int proximoID = 1;
+		for (Invitacion i : this.invitacionesPendientes) {
+			if (i.getRemitente().getApodo().equals(remitente.getApodo())) return; //Ya tiene una invitacion del jugador
+			if (i.getId() >= proximoID) proximoID = i.getId() + 1;
+		}
 		Invitacion i = new Invitacion(remitente, this.invitacionesPendientes.size());
+		this.invitacionesPendientes.add(i);
 	}
 	
 	//Metodo no necesario, reemplazable por el getter.
@@ -117,9 +128,9 @@ public class Jugador {
 		}
 		return null;
 	}
-	
+
 	public JugadorDTO toDTO_reducido() {
-		return new JugadorDTO(this.apodo, this.id, this.categoria.toDTO());
+		return new JugadorDTO(this.apodo, this.categoria.toDTO());
 	}
 	
 	public JugadorDTO toDTO() {
@@ -128,31 +139,23 @@ public class Jugador {
 			invitaciones.add(i.toDTO());
 		}
 		CategoriaDTO c = this.categoria.toDTO();
-		return new JugadorDTO(this.apodo, this.email, this.id, invitaciones, c);
+		ArrayList<GrupoDTO> grupos = new ArrayList<GrupoDTO>();
+		for (Grupo g : this.grupos) {
+			grupos.add(g.toDTO_reducido());
+		}
+		JugadorDTO j = new JugadorDTO(this.apodo, this.email, invitaciones, c);
+		j.setGrupos(grupos);
+		return j;
 	}
-	
-	public Integer crear() {
-		return JugadorDAO.getInstancia().crear(this);
-	}
-	
+			
 	public void grabar() {
 		JugadorDAO.getInstancia().grabar(this);
 	}
 	
-	public void actualizar() {
+	public void actualizar() throws ComunicacionException {
 		JugadorDAO.getInstancia().actualizar(this);
 	}
 	
-	public Jugador(){
-		//este metodo lo cree para testar El juego hay que borrarlo
-		this.id = 0;
-		this.ubicacion = null;
-		this.apodo = null;
-		this.email = null;
-		this.password = null;
-		this.invitacionesPendientes = new ArrayList<Invitacion>();
-		this.categoria = new Categoria(0,0);
-	}
 
 	public Integer getUbicacion() {
 		return ubicacion;
@@ -165,13 +168,23 @@ public class Jugador {
 	@Override
 	public String toString() {
 		return "Jugador [apodo=" + apodo + ", email=" + email + ", password="
-				+ password + ", id=" + id + ", invitacionesPendientes="
+				+ password +  ", invitacionesPendientes="
 				+ invitacionesPendientes + ", categoria=" + categoria
 				+ ", ubicacion=" + ubicacion + "]";
 	}
+  
+	public static ArrayList<JugadorDTO> buscarTop10(int categoria) throws ComunicacionException {
+		ArrayList<JugadorDTO> ranking = new ArrayList<JugadorDTO>();
+		for (Jugador j : JugadorDAO.getInstancia().getTopTenJugadores(categoria)) {
+			ranking.add(j.toDTO_reducido());
+		}
+		return ranking;
+	}
 
-	
-	
-	
-	
+	public void agregarAGrupo(Grupo grupo) {
+		for (Grupo g : this.grupos) {
+			if (grupo.getId() == g.getId()) return;
+		}
+		this.grupos.add(grupo);
+	}
 }

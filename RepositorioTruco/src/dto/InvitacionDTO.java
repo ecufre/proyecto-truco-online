@@ -1,6 +1,8 @@
 package dto;
 
-public class InvitacionDTO {
+import java.io.Serializable;
+
+public class InvitacionDTO implements Serializable {
 	private JugadorDTO remitente;
 	private Integer id;
 	

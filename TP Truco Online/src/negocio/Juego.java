@@ -54,16 +54,14 @@ public class Juego {
 		
 	}
 	
-	public void jugarCarta(int jugador, int carta) {
+	public void jugarCarta(String jugador, int carta) {
 		
 		manoActual.jugarCarta(jugador, carta);
 		
 		
 	}
 	
-	
-	
-	
+		
 	public void retirarseMano(Jugador ganador){
 				this.getManoActual().administrarRetiro(ganador);
 				
@@ -112,65 +110,27 @@ public class Juego {
 		
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getPuntajePar() {
-		return puntajePar;
-	}
-
-	public void setPuntajePar(int puntajePar) {
-		this.puntajePar = puntajePar;
-	}
-
-	public int getPuntajeImpar() {
-		return puntajeImpar;
-	}
-
-	public void setPuntajeImpar(int puntajeImpar) {
-		this.puntajeImpar = puntajeImpar;
-	}
-
-	public boolean isFinalizado() {
-		return finalizado;
-	}
-
-	public void setFinalizado(boolean finalizado) {
-		this.finalizado = finalizado;
-	}
-
-	public ArrayList<Mano> getManos() {
-		return manos;
-	}
-
-	public void setManos(ArrayList<Mano> manos) {
-		this.manos = manos;
-	}
-
-	public Mano getManoActual() {
-		return manoActual;
-	}
-
-	public void setManoActual(Mano manoActual) {
-		this.manoActual = manoActual;
-	}
-
-	public int getTurno() {
-		
-		return manoActual.getBazaActual().getTurno();
-	}
-
-	public void calcularPuntos() {
+	
+	private void calcularPuntos() {
 		
 		this.setPuntajeImpar(this.getPuntajeImpar()+manoActual.calcularPuntaje(1));
 		this.setPuntajePar(this.getPuntajePar()+manoActual.calcularPuntaje(2));
 		this.setFinalizado(((this.getPuntajeImpar()>=30)|(this.getPuntajePar()>=30)));
 	}
+
+
+	public void mostrarPuntosEnvido() {
+	this.getManoActual().mostrarPuntosEnvido();
+
+		}
+
+	public void mostrarCartasJugador(String jugador) {
+			this.getManoActual().mostrarCartasJugador(jugador);
+
+	}
+
+
+	public void mostrarCartasMesa(){}
 
 	public void sumarPuntosEnvido() {
 		int a = (this.getPuntajeImpar());
@@ -224,17 +184,73 @@ public class Juego {
 	
 	}
 
-	public void mostrarPuntosEnvido() {
-			this.getManoActual().mostrarPuntosEnvido();
+		
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getPuntajePar() {
+		return puntajePar;
+	}
+
+	public void setPuntajePar(int puntajePar) {
+		this.puntajePar = puntajePar;
+	}
+
+	public int getPuntajeImpar() {
+		return puntajeImpar;
+	}
+
+	public void setPuntajeImpar(int puntajeImpar) {
+		this.puntajeImpar = puntajeImpar;
+	}
+
+	public boolean isFinalizado() {
+		return finalizado;
+	}
+
+	public void setFinalizado(boolean finalizado) {
+		this.finalizado = finalizado;
+	}
+
+	public ArrayList<Mano> getManos() {
+		return manos;
+	}
+
+	public void setManos(ArrayList<Mano> manos) {
+		this.manos = manos;
+	}
+
+	public Mano getManoActual() {
+		return manoActual;
+	}
+
+	public void setManoActual(Mano manoActual) {
+		this.manoActual = manoActual;
+	}
+
+	public int getTurno() {
+		
+		return manoActual.getBazaActual().getTurno();
+	}
+
+	public void actualizarJuego() {
+		if(this.getManoActual().manoCompleta()){
+		this.calcularPuntos();
+		
+		}
 		
 	}
 
-	public void mostrarCartasJugador(int jugador) {
-		this.getManoActual().mostrarCartasJugador(jugador);
+	public boolean manoCompleta() {
 		
+		return this.getManoActual().manoCompleta();
 	}
 
-	
 	
 	
 	

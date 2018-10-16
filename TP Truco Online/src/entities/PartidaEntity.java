@@ -98,10 +98,4 @@ public class PartidaEntity {
 	public void setJugadoresListos(List<Boolean> jugadoresListos) {
 		this.jugadoresListos = jugadoresListos;
 	}
-
-
-
-	
-	
-	
 }
