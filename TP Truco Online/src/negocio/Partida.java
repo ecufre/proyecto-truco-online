@@ -65,11 +65,6 @@ public class Partida {
 	}
 	
 	
-	
-	
-	
-	
-	
 	//----------------Metodos del Juego-----------------------------------------
 	public void nuevoJuego(){
 			
