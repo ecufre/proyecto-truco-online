@@ -28,8 +28,8 @@ public class Invitacion {
 		this.id = id;
 	}
 
-	public void aceptar(Jugador destinatario) {
-		CreadorPartida.getInstancia().agregarPareja(remitente, destinatario);
+	public void aceptar(Jugador invitado) {
+		CreadorPartida.getInstancia().agregarPareja(remitente, invitado);
 	}
 	
 	public InvitacionDTO toDTO() {

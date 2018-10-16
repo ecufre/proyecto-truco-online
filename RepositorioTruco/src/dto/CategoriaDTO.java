@@ -1,6 +1,8 @@
 package dto;
 
-public class CategoriaDTO {
+import java.io.Serializable;
+
+public class CategoriaDTO implements Serializable {
 	private Integer partidasJugadas;
 	private Integer puntosTotales;
 	private Float promedio;

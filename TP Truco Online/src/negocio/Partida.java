@@ -3,6 +3,10 @@ package negocio;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import dto.PartidaDTO;
+import enumeraciones.EstadoPartida;
+import enumeraciones.TipoCanto;
+
 public class Partida {
 	private int id;
 	private ArrayList<Jugador> jugadores;
@@ -309,9 +313,14 @@ public class Partida {
 		
 	}
 	
+	public void responderEnvite(Jugador j, boolean respuesta) {} //TODO
 	
-	
-	
-	
-	
+	public PartidaDTO toDTO() {
+		//TODO Devuelve todo el DTO completo
+		return null;
+	}
+	public PartidaDTO toDTO_reducido() {
+		//TODO Arma un dto reducido, solo con las primitivas y quizas los participantes.
+		return null;
+	}
 }

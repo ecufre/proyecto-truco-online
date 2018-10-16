@@ -1,16 +1,27 @@
 package controladores;
 
 import java.util.ArrayList;
-import java.util.Vector;
-
 import dto.AccionDTO;
+
+import enumeraciones.EstadoPartida;
+import enumeraciones.TipoCanto;
+import negocio.Grupo;
 import negocio.Jugador;
 import negocio.Partida;
 
 public class AdministradorPartida {
 	private ArrayList<Partida> partidas;
+	private static AdministradorPartida instancia;
 	
+	private AdministradorPartida() {}
 	
+  	public static AdministradorPartida getInstancia() {
+		if (instancia == null) {
+			instancia = new AdministradorPartida();
+		}
+		return instancia;
+	}
+
 	public void crearPartida(Jugador j1, Jugador j2, Jugador j3, Jugador j4) {
 			Partida p = new Partida(true);
 			p.agregarJugador(j1,1);
@@ -67,6 +78,8 @@ public class AdministradorPartida {
 	}
 	
 	
+	public EstadoPartida getEstadoPartida(int idPartida) {} //TODO
+
 	
 	private Partida buscarPartida(int partida) {
 		for(Partida p:this.partidas){
@@ -77,5 +90,5 @@ public class AdministradorPartida {
 		return null;
 	}
 	
-	
+	public void responderEnvite(int idPartida, String apodo, boolean respuesta) {} //TODO
 }

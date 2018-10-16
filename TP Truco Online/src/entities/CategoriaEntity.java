@@ -6,6 +6,7 @@ import javax.persistence.Embeddable;
 public class CategoriaEntity {
 	private int partidasJugadas;
 	private int puntosTotales;
+
 	public CategoriaEntity(int partidasJugadas, int puntosTotales) {
 		this.partidasJugadas = partidasJugadas;
 		this.puntosTotales = puntosTotales;
