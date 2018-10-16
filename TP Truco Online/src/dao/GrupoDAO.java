@@ -47,7 +47,7 @@ public class GrupoDAO {
 		for (ParejaEntity pe : ge.getParejas()) parejas.add(ParejaDAO.getInstancia().toNegocio(pe));
 		g.setParejas(parejas);
 		ArrayList<Partida> partidas = new ArrayList<Partida>();
-		for (PartidaEntity pe : ge.getPartidas()) {}//TODO parejas.add(PartidaDAO.getInstancia().toNegocio(pe));
+		for (PartidaEntity pe : ge.getPartidas()) {partidas.add(PartidaDAO.getInstancia().toNegocio(pe));}
 		g.setPartidas(partidas);
 		return g;
 	}

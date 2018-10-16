@@ -107,26 +107,25 @@ public class Jugador {
 	//Metodo no necesario, reemplazable por el getter.
 	//public void listarInvitacionesPendientes() {}
 	
-	public void aceptarInvitacion(int idInvitacion) {
+	public void aceptarInvitacion(int idInvitacion) throws ComunicacionException {
 		Invitacion i = this.buscarInvitacion(idInvitacion);
-		//TODO Agregar error si no existe?
 		if (i != null) {
 			i.aceptar(this);
 			this.invitacionesPendientes.remove(i);
 		}
 	}
 	
-	public void rechazarInvitacion(int idInvitacion) {
+	public void rechazarInvitacion(int idInvitacion) throws ComunicacionException {
 		this.invitacionesPendientes.remove(this.buscarInvitacion(idInvitacion));
 	}
 	
-	private Invitacion buscarInvitacion(int idInvitacion) {
+	private Invitacion buscarInvitacion(int idInvitacion) throws ComunicacionException {
 		for (Invitacion i : this.invitacionesPendientes) {
 			if (i.getId() == idInvitacion) {
 				return i;
 			}
 		}
-		return null;
+		throw new ComunicacionException("La invitacion solicitada no existe");
 	}
 
 	public JugadorDTO toDTO_reducido() {

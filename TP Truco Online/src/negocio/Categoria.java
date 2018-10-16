@@ -32,7 +32,7 @@ public class Categoria {
 		this.puntosTotales = this.puntosTotales + puntos;
 	}
 	public int calcularCategoria() {
-		//TODO Categorias definidas como int entre 1 y 4.
+		//TODO Categorias definidas como int entre 1 y 4. Tendria que armar un Enum
 		float promedio = this.calcularPromedio();
 		if (this.partidasJugadas > 1000 && this.puntosTotales > 8000 && promedio > 8) {
 			return 4;

@@ -94,7 +94,7 @@ public class Grupo {
 	public ArrayList<JugadorDTO> calcularRankingCerrado() {
 		ArrayList<JugadorDTO> ranking = new ArrayList<JugadorDTO>();
 		for (Partida p : partidas) {
-			if (p.getEstado().equals(EstadoPartida.Finalizada)) { //TODO ni idea que numero va a ser "Terminada"
+			if (p.getEstado().equals(EstadoPartida.Finalizada)) { 
 				ArrayList<Jugador> jugadores = p.getJugadores();
 				for (int i = 0; i < jugadores.size(); i++) {
 					Jugador j = jugadores.get(i);
