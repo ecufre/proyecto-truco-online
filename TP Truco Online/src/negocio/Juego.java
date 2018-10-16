@@ -2,6 +2,8 @@ package negocio;
 
 import java.util.ArrayList;
 
+import dto.CartaDTO;
+
 
 public class Juego {
 	private int id;
@@ -105,8 +107,10 @@ public class Juego {
 		
 	}
 	
-	public boolean responderEnvite(int jugadorUbicacion, boolean respuesta) {
-		return this.manoActual.responderEnvite(jugadorUbicacion, respuesta);
+	public void responderEnvite(int jugadorUbicacion, boolean respuesta) {
+		if(this.manoActual.responderEnvite(jugadorUbicacion, respuesta)){
+			this.sumarPuntosEnvido();
+		}
 		
 	}
 
@@ -119,18 +123,21 @@ public class Juego {
 	}
 
 
-	public void mostrarPuntosEnvido() {
-	this.getManoActual().mostrarPuntosEnvido();
+	public Integer mostrarPuntosEnvido(Integer pos) {
+	return this.getManoActual().mostrarPuntosEnvido(pos);
 
 		}
 
-	public void mostrarCartasJugador(String jugador) {
-			this.getManoActual().mostrarCartasJugador(jugador);
+	public ArrayList<CartaDTO> mostrarCartasJugador(String jugador) {
+			return this.getManoActual().mostrarCartasJugador(jugador);
 
 	}
 
 
-	public void mostrarCartasMesa(){}
+	public  ArrayList<CartaDTO> mostrarCartasMesa(){
+		return this.getManoActual().mostarCartasMesa();
+		
+	}
 
 	public void sumarPuntosEnvido() {
 		int a = (this.getPuntajeImpar());
@@ -249,6 +256,13 @@ public class Juego {
 	public boolean manoCompleta() {
 		
 		return this.getManoActual().manoCompleta();
+	}
+
+	public void senia(Integer ubicacion, String apodoJugador, Integer carta) {
+		
+		manoActual.senia( ubicacion,apodoJugador, carta);
+		
+		
 	}
 
 	

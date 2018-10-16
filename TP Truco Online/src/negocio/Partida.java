@@ -3,6 +3,9 @@ package negocio;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import dto.JugadorDTO;
+import dto.PartidaDTO;
+
 public class Partida {
 	private int id;
 	private ArrayList<Jugador> jugadores;
@@ -12,8 +15,7 @@ public class Partida {
 	private Integer ganador;
 	private ArrayList<Juego> juegos;
 	private Juego juegoActual;
-	
-	
+	private String charla;
 	
 	
 	
@@ -33,7 +35,8 @@ public class Partida {
 		this.ganador = null;
 		this.juegos = new ArrayList<Juego>();
 		this.juegoActual = new Juego();
-		
+		this.charla = null;
+	
 		
 	}
 
@@ -99,6 +102,16 @@ public class Partida {
 			}
 		}
 	
+
+	public void responderEnvite(String apodoJugador, Boolean respuesta) {
+		Jugador j = this.buscarJugadorApodo(apodoJugador);
+		if(j!=null){
+			juegoActual.responderEnvite(j.getUbicacion(), respuesta);
+				
+		}
+		}
+	
+	
 	public void actualizarPartida(){
 			this.getJuegoActual().actualizarJuego();
 			
@@ -149,6 +162,8 @@ public class Partida {
 		return null;
 	
 	}
+	
+	
 	
 	private Jugador buscarJugadorPosicion(int ubicacion) {
 		  for(Jugador jj:this.jugadores){	
@@ -296,8 +311,55 @@ public class Partida {
 	}
 
 
+	
 
 
+
+
+	public boolean[] getJugadoresListos() {
+		return jugadoresListos;
+	}
+
+
+
+
+
+
+
+	public void setJugadoresListos(boolean[] jugadoresListos) {
+		this.jugadoresListos = jugadoresListos;
+	}
+
+
+
+
+
+
+
+	public String getCharla() {
+		return charla;
+	}
+
+
+
+
+
+
+
+	public void setCharla(String charla) {
+		this.charla = charla;
+	}
+
+
+	public void setGanador(Integer ganador) {
+		this.ganador = ganador;
+	}
+
+
+
+	public void nuevoMesnaje(String mensaje){
+		this.charla= charla + mensaje;
+	}
 
 
 
@@ -308,7 +370,84 @@ public class Partida {
 		this.jugadores.add(j);
 		
 	}
-	
+
+
+
+
+
+
+
+	public void senia(String apodoJugador, Integer carta) {
+		Jugador j= this.buscarJugadorApodo(apodoJugador);
+		if(j!=null){
+			
+		juegoActual.senia(j.getUbicacion(),j.getApodo(),carta);
+		}
+	}
+
+
+
+
+
+
+
+	public PartidaDTO toDTO(int partida, String Jugador , Boolean ptosEnvido) {
+		PartidaDTO pd = new PartidaDTO(partida);
+		int juegosImpar = 0,juegosPar = 0;
+		for(Juego j : juegos){
+			if(j.getPuntajePar()<j.getPuntajeImpar()){
+				
+				juegosImpar++;
+			}else{
+			
+				juegosPar++;
+			}
+		}
+		pd.setJuegosPar(juegosPar);
+		pd.setJuegosImpar(juegosImpar);
+		
+		pd.setPuntosJuegoImpar(this.juegoActual.getPuntajeImpar());
+		pd.setPuntosJuegoPar(this.juegoActual.getPuntajePar());
+		pd.setChat(this.getCharla());
+		pd.setSeniasPar(this.juegoActual.getManoActual().getSeniasPar());
+		pd.setSeniasImpar(this.juegoActual.getManoActual().getSeniasImpar());
+		
+		for(Jugador j:jugadores){
+			JugadorDTO jd = new JugadorDTO(j.getApodo(), null);
+			
+			switch (j.getUbicacion()){
+			case 1:
+				pd.setJugador1(jd);
+				pd.setValorEnvido1(j.getApodo()+": "+this.juegoActual.mostrarPuntosEnvido(j.getUbicacion()));
+				
+			break;
+			case 2:
+				pd.setJugador2(jd);
+				pd.setValorEnvido2(j.getApodo()+": "+this.juegoActual.mostrarPuntosEnvido(j.getUbicacion()));
+			break;
+			case 3:
+				pd.setJugador3(jd);
+				pd.setValorEnvido3(j.getApodo()+": "+this.juegoActual.mostrarPuntosEnvido(j.getUbicacion()));
+			break;
+			case 4:
+				pd.setJugador4(jd);
+				pd.setValorEnvido1(j.getApodo()+": "+this.juegoActual.mostrarPuntosEnvido(j.getUbicacion()));
+			break;
+			}
+				
+		}
+		
+		pd.setCartasJugador(this.juegoActual.mostrarCartasJugador(Jugador));
+		pd.setCartasMesa(this.juegoActual.mostrarCartasMesa());
+		return pd;
+	}
+
+
+
+
+
+
+
 	
 	
 	
