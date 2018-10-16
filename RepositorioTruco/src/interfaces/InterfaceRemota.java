@@ -4,6 +4,6 @@ import java.rmi.Remote;
 
 public interface InterfaceRemota extends Remote {
 
-	//hice un cambio EW1
+	//hice un cambio EW11
 	
 }
