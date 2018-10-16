@@ -1,15 +1,16 @@
 package negocio;
 
+import java.util.List;
 import java.util.Vector;
 
 public class Partida {
 	private int id;
-	private Vector<Jugador> jugadores;
-	private Vector<Boolean> jugadoresListos;
+	private List<Jugador> jugadores;
+	private List<Boolean> jugadoresListos;
 	private boolean esAbierta;
 	private int estado;
 	private int ganador;
-	private Vector<Juego> juegos;
+	private List<Juego> juegos;
 	
 	
 	public void jugadorListo(Jugador j) {}
