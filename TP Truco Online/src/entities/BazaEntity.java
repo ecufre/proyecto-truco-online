@@ -1,43 +1,27 @@
 package entities;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import negocio.Carta;
-import negocio.Jugador;
-
 @Entity
 @Table(name="bazaas")
 public class BazaEntity {
-	
-	private int turno;
-	
 	@Id
-	@GeneratedValue
-	private Integer id;
+	private int turno;
 	@OneToMany
-	private List<Carta> cartasbaza;
-	@ManyToOne
-	private ManoEntity mano;
-
+	private List<CartaEntity> cartas;
 	@ManyToOne
 	private JugadorEntity ganadorBaza;
 	
 	public BazaEntity() {}
 
-	public BazaEntity(int turno, List<Carta> cartasbaza, ManoEntity mano, JugadorEntity ganadorBaza) {
-		super();
+	public BazaEntity(int turno, JugadorEntity ganadorBaza) {
 		this.turno = turno;
-		this.cartasbaza = cartasbaza;
-		this.mano = mano;
 		this.ganadorBaza = ganadorBaza;
 	}
 
@@ -49,28 +33,12 @@ public class BazaEntity {
 		this.turno = turno;
 	}
 
-	public Integer getId() {
-		return id;
+	public List<CartaEntity> getCartas() {
+		return cartas;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public List<Carta> getCartasbaza() {
-		return cartasbaza;
-	}
-
-	public void setCartasbaza(List<Carta> cartasbaza) {
-		this.cartasbaza = cartasbaza;
-	}
-
-	public ManoEntity getMano() {
-		return mano;
-	}
-
-	public void setMano(ManoEntity mano) {
-		this.mano = mano;
+	public void setCartas(List<CartaEntity> cartas) {
+		this.cartas = cartas;
 	}
 
 	public JugadorEntity getGanadorBaza() {
@@ -80,9 +48,4 @@ public class BazaEntity {
 	public void setGanadorBaza(JugadorEntity ganadorBaza) {
 		this.ganadorBaza = ganadorBaza;
 	}
-	
-	
-	
-	
-
 }

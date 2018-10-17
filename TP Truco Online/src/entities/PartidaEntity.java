@@ -5,12 +5,10 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import negocio.Juego;
-import negocio.Jugador;
+import org.hibernate.annotations.CollectionOfElements;
 
 @Entity
 @Table(name="partida")
@@ -25,6 +23,7 @@ public class PartidaEntity {
 	private List<JuegoEntity> juegos;
 	@OneToMany
 	private List<JugadorEntity> jugadores;
+	@CollectionOfElements
 	private List<Boolean> jugadoresListos;
 	
 	public PartidaEntity(Integer id) {

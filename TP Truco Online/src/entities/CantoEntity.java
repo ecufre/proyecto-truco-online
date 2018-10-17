@@ -1,10 +1,7 @@
 package entities;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import negocio.TipoCanto;
@@ -14,23 +11,14 @@ import negocio.TipoCanto;
 public class CantoEntity {
 	
 	private boolean querido;
-	private TipoCanto tipoCanto;
-	private int valor;
-	
 	@Id
-	@GeneratedValue
-	private Integer id;
-	@ManyToOne
-	private ManoEntity mano;
+	private TipoCanto tipoCanto;
 	
 	public CantoEntity() {}
 
-	public CantoEntity(boolean querido, TipoCanto tipoCanto, int valor, ManoEntity mano) {
-		super();
+	public CantoEntity(boolean querido, TipoCanto tipoCanto) {
 		this.querido = querido;
 		this.tipoCanto = tipoCanto;
-		this.valor = valor;
-		this.mano = mano;
 	}
 
 	public boolean isQuerido() {
@@ -48,31 +36,4 @@ public class CantoEntity {
 	public void setTipoCanto(TipoCanto tipoCanto) {
 		this.tipoCanto = tipoCanto;
 	}
-
-	public int getValor() {
-		return valor;
-	}
-
-	public void setValor(int valor) {
-		this.valor = valor;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public ManoEntity getMano() {
-		return mano;
-	}
-
-	public void setMano(ManoEntity mano) {
-		this.mano = mano;
-	}
-	
-	
-
 }

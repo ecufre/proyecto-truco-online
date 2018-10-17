@@ -3,7 +3,6 @@ package entities;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -20,19 +19,16 @@ public class CartaEntity {
 	private Integer id;
 	@ManyToOne
 	private ManoEntity mano;
-	@ManyToOne
-	private BazaEntity baza;
 	//TODO  AGREGAR JUGADOR
 	
 	public CartaEntity() {}
 
-	public CartaEntity(int valor, String palo, int jugada, ManoEntity mano, BazaEntity baza) {
+	public CartaEntity(int valor, String palo, int jugada, ManoEntity mano) {
 		super();
 		this.valor = valor;
 		this.palo = palo;
 		this.jugada = jugada;
 		this.mano = mano;
-		this.baza = baza;
 	}
 
 	public int getValor() {
@@ -74,17 +70,4 @@ public class CartaEntity {
 	public void setMano(ManoEntity mano) {
 		this.mano = mano;
 	}
-
-	public BazaEntity getBaza() {
-		return baza;
-	}
-
-	public void setBaza(BazaEntity baza) {
-		this.baza = baza;
-	}
-	
-	
-	
-	
-
 }

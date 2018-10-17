@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -17,7 +16,7 @@ public class ManoEntity {
 	@Id
 	@GeneratedValue
 	private Integer id;
-	@ManyToOne()
+	@ManyToOne
 	private JuegoEntity juego;
 	@OneToMany
 	private List<BazaEntity> bazas;
