@@ -412,15 +412,19 @@ public class Mano {
 			
 		}
 
-		public ArrayList<CartaDTO> mostarCartasMesa() {
+		public ArrayList<CartaDTO> mostarCartasMesa(Integer ubicacion) {
 			 ArrayList<CartaDTO> cm = new  ArrayList<CartaDTO>();
 			for(Baza b : this.bazas){
 				for(Carta c :b.getCartasbaza()){
+					if(c.getJugador().getUbicacion()==ubicacion){
 					cm.add(c.toDTO());
+					}
 				}
 			}
 			for(Carta c :this.bazaActual.getCartasbaza()){
-				cm.add(c.toDTO());
+				if(c.getJugador().getUbicacion()==ubicacion){
+					cm.add(c.toDTO());
+					}
 			}
 			return cm;
 		}

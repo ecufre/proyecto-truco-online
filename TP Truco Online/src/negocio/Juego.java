@@ -134,8 +134,8 @@ public class Juego {
 	}
 
 
-	public  ArrayList<CartaDTO> mostrarCartasMesa(){
-		return this.getManoActual().mostarCartasMesa();
+	public  ArrayList<CartaDTO> mostrarCartasMesa(Integer ubicacion){
+		return this.getManoActual().mostarCartasMesa(ubicacion);
 		
 	}
 
@@ -265,7 +265,15 @@ public class Juego {
 		
 	}
 
+	public String mostrarSeniasPar() {
 	
+		return getManoActual().getSeniasPar();
+	}
+
+	public String mostrarSeniasImpar() {
+		
+		return getManoActual().getSeniasImpar();
+	}
 	
 	
 	

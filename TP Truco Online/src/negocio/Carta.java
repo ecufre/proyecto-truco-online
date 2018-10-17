@@ -119,6 +119,13 @@ public class Carta {
 		return (new CartaDTO(this.getId(),this.getNumero(),this.getPalo(),this.getJugador().getUbicacion()));
 		
 	}
+
+
+	public CartaDTO toDTOHistoria() {
+		CartaDTO c = this.toDTO();
+		c.setApodoJugador(c.getApodoJugador());
+		return c;
+	}
 	
 	
 	
