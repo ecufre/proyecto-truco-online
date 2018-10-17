@@ -10,130 +10,159 @@ public class PartidaDTO implements Serializable{
 	 */
 	private static final long serialVersionUID = -542658652968920332L;
 	private Integer partidaID;
-	private Integer JuegosPar;
-	private Integer JuegosImpar;
-	private Integer PuntosJuegoPar;
-	private Integer PuntosJuegoImpar;
-	private String valorEnvido1;
-	private String valorEnvido2;
-	private String valorEnvido3;
-	private String valorEnvido4;
+	private Boolean turno;
+	private Integer JuegosNosotros;
+	private Integer JuegosEllos;
+	private Integer PuntosJuegoNosotros;
+	private Integer PuntosJuegoEllos;
+	private Integer valorEnvidoJugador;
+	private Integer valorEnvidoJugadorFrente;
+	private Integer valorEnvidoJugadorIquierda;
+	private Integer valorEnvidoJugadorDerecha;
 	
 	private ArrayList<CartaDTO> cartasJugador;
-	private ArrayList<CartaDTO> cartasMesa;
+	private ArrayList<CartaDTO> cartasMesaJugador;
+	private ArrayList<CartaDTO> cartasMesaJugadorFrente;
+	private ArrayList<CartaDTO> cartasMesajugadorIzquierda;
+	private ArrayList<CartaDTO> cartasMesaJugadorDerecha;
 	
 	private Integer vista; 
-	private JugadorDTO jugador1;
-	private JugadorDTO jugador2;
-	private JugadorDTO jugador3;
-	private JugadorDTO jugador4;
+	private JugadorDTO jugador;
+	private JugadorDTO jugadorFrente;
+	private JugadorDTO jugadorIzquierda;
+	private JugadorDTO jugadorDerecha;
 	
 	private String chat;
-	private String seniasPar;
-	private String SeniasImpar;
+	private String senias;
+	
 	
 	
 	public PartidaDTO(Integer partidaId) {
 		super();
 		partidaID = partidaId;
-		JuegosPar = 0;
-		JuegosImpar = 0;
-		PuntosJuegoPar = 0;
-		PuntosJuegoImpar = 0;
-		this.valorEnvido1 = "-";
-		this.valorEnvido2 = "-";
-		this.valorEnvido3 = "-";
-		this.valorEnvido4 = "-";
+		JuegosNosotros= 0;
+		JuegosEllos = 0;
+		PuntosJuegoNosotros = 0;
+		PuntosJuegoEllos = 0;
+		this.turno=false;
+		this.valorEnvidoJugador = null;
+		this.valorEnvidoJugadorFrente = null;
+		this.valorEnvidoJugadorIquierda= null;
+		this.valorEnvidoJugadorDerecha = null;
 		this.cartasJugador = new ArrayList<CartaDTO>() ;
-		this.cartasMesa = new ArrayList<CartaDTO>() ;
+		this.cartasMesaJugador = new ArrayList<CartaDTO>() ;
+		this.cartasMesaJugadorFrente = new ArrayList<CartaDTO>() ;
+		this.cartasMesajugadorIzquierda = new ArrayList<CartaDTO>() ;
+		this.cartasMesaJugadorDerecha = new ArrayList<CartaDTO>() ;
+		
 		this.vista = 0;
-		this.jugador1 = null;
-		this.jugador2 = null;
-		this.jugador3 = null;
-		this.jugador4 = null;
+		this.jugador = null;
+		this.jugadorFrente = null;
+		this.jugadorDerecha = null;
+		this.jugadorIzquierda = null;
 		this.chat = "";
-		this.seniasPar = "";
-		this.SeniasImpar = "";
+		this.senias = "";
+	
 	}
 
 
-	public Integer getJuegosPar() {
-		return JuegosPar;
+	public Integer getPartidaID() {
+		return partidaID;
 	}
 
 
-	public void setJuegosPar(Integer juegosPar) {
-		JuegosPar = juegosPar;
+	public void setPartidaID(Integer partidaID) {
+		this.partidaID = partidaID;
 	}
 
 
-	public Integer getJuegosImpar() {
-		return JuegosImpar;
+	public Boolean getTurno() {
+		return turno;
 	}
 
 
-	public void setJuegosImpar(Integer juegosImpar) {
-		JuegosImpar = juegosImpar;
+	public void setTurno(Boolean turno) {
+		this.turno = turno;
 	}
 
 
-	public Integer getPuntosJuegoPar() {
-		return PuntosJuegoPar;
+	public Integer getJuegosNosotros() {
+		return JuegosNosotros;
 	}
 
 
-	public void setPuntosJuegoPar(Integer puntosJuegoPar) {
-		PuntosJuegoPar = puntosJuegoPar;
+	public void setJuegosNosotros(Integer juegosNosotros) {
+		JuegosNosotros = juegosNosotros;
 	}
 
 
-	public Integer getPuntosJuegoImpar() {
-		return PuntosJuegoImpar;
+	public Integer getJuegosEllos() {
+		return JuegosEllos;
 	}
 
 
-	public void setPuntosJuegoImpar(Integer puntosJuegoImpar) {
-		PuntosJuegoImpar = puntosJuegoImpar;
+	public void setJuegosEllos(Integer juegosEllos) {
+		JuegosEllos = juegosEllos;
 	}
 
 
-	public String getValorEnvido1() {
-		return valorEnvido1;
+	public Integer getPuntosJuegoNosotros() {
+		return PuntosJuegoNosotros;
 	}
 
 
-	public void setValorEnvido1(String valorEnvido1) {
-		this.valorEnvido1 = valorEnvido1;
+	public void setPuntosJuegoNosotros(Integer puntosJuegoNosotros) {
+		PuntosJuegoNosotros = puntosJuegoNosotros;
 	}
 
 
-	public String getValorEnvido2() {
-		return valorEnvido2;
+	public Integer getPuntosJuegoEllos() {
+		return PuntosJuegoEllos;
 	}
 
 
-	public void setValorEnvido2(String valorEnvido2) {
-		this.valorEnvido2 = valorEnvido2;
+	public void setPuntosJuegoEllos(Integer puntosJuegoEllos) {
+		PuntosJuegoEllos = puntosJuegoEllos;
 	}
 
 
-	public String getValorEnvido3() {
-		return valorEnvido3;
+	public Integer getValorEnvidoJugador() {
+		return valorEnvidoJugador;
 	}
 
 
-	public void setValorEnvido3(String valorEnvido3) {
-		this.valorEnvido3 = valorEnvido3;
+	public void setValorEnvidoJugador(Integer valorEnvidoJugador) {
+		this.valorEnvidoJugador = valorEnvidoJugador;
 	}
 
 
-	public String getValorEnvido4() {
-		return valorEnvido4;
+	public Integer getValorEnvidoJugadorFrente() {
+		return valorEnvidoJugadorFrente;
 	}
 
 
-	public void setValorEnvido4(String valorEnvido4) {
-		this.valorEnvido4 = valorEnvido4;
+	public void setValorEnvidoJugadorFrente(Integer valorEnvidoJugadorFrente) {
+		this.valorEnvidoJugadorFrente = valorEnvidoJugadorFrente;
+	}
+
+
+	public Integer getValorEnvidoJugadorIquierda() {
+		return valorEnvidoJugadorIquierda;
+	}
+
+
+	public void setValorEnvidoJugadorIquierda(Integer valorEnvidoJugadorIquierda) {
+		this.valorEnvidoJugadorIquierda = valorEnvidoJugadorIquierda;
+	}
+
+
+	public Integer getValorEnvidoJugadorDerecha() {
+		return valorEnvidoJugadorDerecha;
+	}
+
+
+	public void setValorEnvidoJugadorDerecha(Integer valorEnvidoJugadorDerecha) {
+		this.valorEnvidoJugadorDerecha = valorEnvidoJugadorDerecha;
 	}
 
 
@@ -147,13 +176,46 @@ public class PartidaDTO implements Serializable{
 	}
 
 
-	public ArrayList<CartaDTO> getCartasMesa() {
-		return cartasMesa;
+	public ArrayList<CartaDTO> getCartasMesaJugador() {
+		return cartasMesaJugador;
 	}
 
 
-	public void setCartasMesa(ArrayList<CartaDTO> cartasMesa) {
-		this.cartasMesa = cartasMesa;
+	public void setCartasMesaJugador(ArrayList<CartaDTO> cartasMesaJugador) {
+		this.cartasMesaJugador = cartasMesaJugador;
+	}
+
+
+	public ArrayList<CartaDTO> getCartasMesaJugadorFrente() {
+		return cartasMesaJugadorFrente;
+	}
+
+
+	public void setCartasMesaJugadorFrente(
+			ArrayList<CartaDTO> cartasMesaJugadorFrente) {
+		this.cartasMesaJugadorFrente = cartasMesaJugadorFrente;
+	}
+
+
+	public ArrayList<CartaDTO> getCartasMesajugadorIzquierda() {
+		return cartasMesajugadorIzquierda;
+	}
+
+
+	public void setCartasMesajugadorIzquierda(
+			ArrayList<CartaDTO> cartasMesajugadorIzquierda) {
+		this.cartasMesajugadorIzquierda = cartasMesajugadorIzquierda;
+	}
+
+
+	public ArrayList<CartaDTO> getCartasMesaJugadorDerecha() {
+		return cartasMesaJugadorDerecha;
+	}
+
+
+	public void setCartasMesaJugadorDerecha(
+			ArrayList<CartaDTO> cartasMesaJugadorDerecha) {
+		this.cartasMesaJugadorDerecha = cartasMesaJugadorDerecha;
 	}
 
 
@@ -167,43 +229,43 @@ public class PartidaDTO implements Serializable{
 	}
 
 
-	public JugadorDTO getJugador1() {
-		return jugador1;
+	public JugadorDTO getJugador() {
+		return jugador;
 	}
 
 
-	public void setJugador1(JugadorDTO jugador1) {
-		this.jugador1 = jugador1;
+	public void setJugador(JugadorDTO jugador) {
+		this.jugador = jugador;
 	}
 
 
-	public JugadorDTO getJugador2() {
-		return jugador2;
+	public JugadorDTO getJugadorFrente() {
+		return jugadorFrente;
 	}
 
 
-	public void setJugador2(JugadorDTO jugador2) {
-		this.jugador2 = jugador2;
+	public void setJugadorFrente(JugadorDTO jugadorFrente) {
+		this.jugadorFrente = jugadorFrente;
 	}
 
 
-	public JugadorDTO getJugador3() {
-		return jugador3;
+	public JugadorDTO getJugadorIzquierda() {
+		return jugadorIzquierda;
 	}
 
 
-	public void setJugador3(JugadorDTO jugador3) {
-		this.jugador3 = jugador3;
+	public void setJugadorIzquierda(JugadorDTO jugadorIzquierda) {
+		this.jugadorIzquierda = jugadorIzquierda;
 	}
 
 
-	public JugadorDTO getJugador4() {
-		return jugador4;
+	public JugadorDTO getJugadorDerecha() {
+		return jugadorDerecha;
 	}
 
 
-	public void setJugador4(JugadorDTO jugador4) {
-		this.jugador4 = jugador4;
+	public void setJugadorDerecha(JugadorDTO jugadorDerecha) {
+		this.jugadorDerecha = jugadorDerecha;
 	}
 
 
@@ -217,28 +279,18 @@ public class PartidaDTO implements Serializable{
 	}
 
 
-	public String getSeniasPar() {
-		return seniasPar;
+	public String getSenias() {
+		return senias;
 	}
 
 
-	public void setSeniasPar(String seniasPar) {
-		this.seniasPar = seniasPar;
+	public void setSenias(String senias) {
+		this.senias = senias;
 	}
 
 
-	public String getSeniasImpar() {
-		return SeniasImpar;
-	}
+	
 
-
-	public void setSeniasImpar(String seniasImpar) {
-		SeniasImpar = seniasImpar;
-	}
-	
-	
-	
-	
 	
 	
 	

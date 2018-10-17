@@ -1,14 +1,20 @@
 package dto;
 
+import java.io.Serializable;
 
 
-public class CartaDTO {
 
+public class CartaDTO implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2897638576412881813L;
 	private Integer id;
 	private Integer numero;
 	private String palo;
 	private Integer idJugador;
-	
+	private String apodoJugador;
 		
 	public CartaDTO(Integer id, Integer numero, String palo, Integer idJugador) {
 		super();
@@ -16,6 +22,13 @@ public class CartaDTO {
 		this.numero = numero;
 		this.palo = palo;
 		this.idJugador = idJugador;
+		this.apodoJugador=null;
+	}
+
+
+
+	public CartaDTO() {
+		// TODO Auto-generated constructor stub
 	}
 
 
@@ -73,6 +86,19 @@ public class CartaDTO {
 		return "CartaDTO [id=" + id + ", numero=" + numero + ", palo=" + palo
 				+ ", idJugador=" + idJugador + "]";
 	}
+
+
+
+	public String getApodoJugador() {
+		return apodoJugador;
+	}
+
+
+
+	public void setApodoJugador(String apodoJugador) {
+		this.apodoJugador = apodoJugador;
+	}
+	
 	
 
 	
