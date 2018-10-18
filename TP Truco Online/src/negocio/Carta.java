@@ -1,5 +1,7 @@
 package negocio;
 
+import dto.CartaDTO;
+
 public class Carta {
 	private int id;
 	private int valor;
@@ -110,6 +112,19 @@ public class Carta {
 	public String toString2() {
 		return "Carta [id=" + id+ ", valor=" + valor + " , jugador= "+this.getJugador().getApodo()+ " , ubicacion= "+jugador.getUbicacion()
 	;
+	}
+
+
+	public CartaDTO toDTO() {
+		return (new CartaDTO(this.getId(),this.getNumero(),this.getPalo(),this.getJugador().getUbicacion()));
+		
+	}
+
+
+	public CartaDTO toDTOHistoria() {
+		CartaDTO c = this.toDTO();
+		c.setApodoJugador(c.getApodoJugador());
+		return c;
 	}
 	
 	

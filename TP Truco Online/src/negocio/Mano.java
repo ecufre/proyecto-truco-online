@@ -1,6 +1,9 @@
 package negocio;
 
 import java.util.ArrayList;
+import java.util.Random;
+
+import dto.CartaDTO;
 
 
 public class Mano {
@@ -12,6 +15,9 @@ public class Mano {
 		private Canto ultimoCanto;
 		private static int turno;
 		private Integer[] envidoValor;
+		private String seniasPar;
+		private String seniasImpar;
+		
 		
 		public Mano() {
 			super();
@@ -22,6 +28,8 @@ public class Mano {
 			this.ultimoCanto =null;
 			this.bazaActual = new Baza(this.asignarMano());
 			envidoValor = new Integer[4];
+			this.seniasPar=null;
+			this.seniasImpar=null;
 			
 		}
 
@@ -90,7 +98,7 @@ public class Mano {
 			}
 			
 			if(ultimoCanto.getTipoCanto().getId()<=4){
-				band = true;
+				return true;
 			}
 			ultimoCanto=null;
 			return band;
@@ -99,14 +107,7 @@ public class Mano {
 		public boolean esRespuestaValida(int jugador) {
 			return (this.esPar(jugador) && (!this.esPar(this.bazaActual.getTurno())));
 		}
-		public int calcularPuntos(String equipo) {
-			return 0;
-		}
 		
-		public int calcularBaza() {
-			
-			return 0;
-		}
 		
 		public void jugarCarta(String jugador, int carta) {
 			Carta c = this.buscarCarta(carta);
@@ -225,6 +226,24 @@ public class Mano {
 
 		public void setBazas(ArrayList<Baza> bazas) {
 			this.bazas = bazas;
+		}
+
+		
+		
+		public String getSeniasPar() {
+			return seniasPar;
+		}
+
+		public void setSeniasPar(String seniasPar) {
+			this.seniasPar = seniasPar;
+		}
+
+		public String getSeniasImpar() {
+			return seniasImpar;
+		}
+
+		public void setSeniasImpar(String seniasImpar) {
+			this.seniasImpar = seniasImpar;
 		}
 
 		public Baza getBazaActual() {
@@ -353,17 +372,61 @@ public class Mano {
 			return puntos;
 		}
 
-		public void mostrarPuntosEnvido() {
-			System.out.println(this.envidoValor.toString());
+		public Integer mostrarPuntosEnvido(Integer pos) {
+			return this.envidoValor[pos-1];
 		}
 
-		public void mostrarCartasJugador(String jugador) {
+		public ArrayList<CartaDTO> mostrarCartasJugador(String jugador) {
+			ArrayList<CartaDTO> cd = new ArrayList<CartaDTO>();
 			for(Carta c: cartas){
 				if(c.getJugador().getApodo().equals(jugador)){
-					System.out.println(c.toString2());
+					cd.add(c.toDTO());
+				}
+			}
+			return cd;
+		}
+
+	
+		
+		
+		public void senia(Integer ubicacion, String apodoJugador, Integer carta) {
+			Carta c = this.buscarCarta(carta);
+			Random aleatorio = new Random();
+			int suerte= aleatorio.nextInt((10));
+			String cartaS= null;
+			if(c!=null){
+				cartaS=apodoJugador+": "+Integer.toString(c.getNumero())+" "+c.getPalo()+"\n";
+			}
+			if(this.esPar(ubicacion)){
+				this.seniasPar=this.seniasPar+cartaS;
+				if(suerte==5){
+					this.seniasImpar=this.seniasImpar+cartaS;
+				}
+				
+			}else{
+				this.seniasImpar=this.seniasImpar+cartaS;
+				if(suerte==5){
+					this.seniasPar=this.seniasPar+cartaS;
 				}
 			}
 			
+		}
+
+		public ArrayList<CartaDTO> mostarCartasMesa(Integer ubicacion) {
+			 ArrayList<CartaDTO> cm = new  ArrayList<CartaDTO>();
+			for(Baza b : this.bazas){
+				for(Carta c :b.getCartasbaza()){
+					if(c.getJugador().getUbicacion()==ubicacion){
+					cm.add(c.toDTO());
+					}
+				}
+			}
+			for(Carta c :this.bazaActual.getCartasbaza()){
+				if(c.getJugador().getUbicacion()==ubicacion){
+					cm.add(c.toDTO());
+					}
+			}
+			return cm;
 		}
 			
 		

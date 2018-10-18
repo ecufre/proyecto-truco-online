@@ -1,8 +1,12 @@
 package interfaces;
 
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
+import dto.HistoriaPartidaDTO;
+import dto.PartidaDTO;
+import dto.AccionDTO;
 import dto.GrupoDTO;
 import dto.InvitacionDTO;
 import dto.JugadorDTO;
@@ -47,4 +51,23 @@ public interface InterfaceRemota extends Remote {
 	public void crearPartida(JugadorDTO admin, GrupoDTO grupo, ParejaDTO pareja1, ParejaDTO pareja2) throws LoggedInException, ComunicacionException;
   
 	public ArrayList<JugadorDTO> calcularRankingCerrado(GrupoDTO grupo) throws ComunicacionException;
+  
+  //AdministradorPartidas
+  public boolean jugadorListos(AccionDTO ad) throws RemoteException;
+  
+	public void JugarCarta(AccionDTO ad) throws RemoteException;
+	
+  public void Retirarse(AccionDTO ad) throws RemoteException;
+	
+  public void cantarEnvite(AccionDTO ad) throws RemoteException;
+	
+  public void responderEnvite(AccionDTO ad) throws RemoteException;
+	
+  public PartidaDTO mostrarPartida(AccionDTO ad) throws RemoteException;
+	
+  public void enviarMensaje(AccionDTO ad) throws RemoteException;
+	
+  public void enviarSenia(AccionDTO ad) throws RemoteException;
+	
+	public HistoriaPartidaDTO mostrarHistoria(AccionDTO ad) throws RemoteException;
 }

@@ -64,6 +64,4 @@ public class GrupoDTO implements Serializable {
 		this.partidas = partidas;
 	}
 	
-	
-
 }
