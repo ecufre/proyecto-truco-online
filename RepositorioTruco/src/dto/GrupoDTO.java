@@ -1,8 +1,9 @@
 package dto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class GrupoDTO {
+public class GrupoDTO implements Serializable {
 	private String nombre;
 	private int id;
 	private JugadorDTO administrador;
@@ -63,6 +64,4 @@ public class GrupoDTO {
 		this.partidas = partidas;
 	}
 	
-	
-
 }

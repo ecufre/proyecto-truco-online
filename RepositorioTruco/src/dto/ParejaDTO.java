@@ -1,6 +1,7 @@
 package dto;
+import java.io.Serializable;
 
-public class ParejaDTO {
+public class ParejaDTO implements Serializable {
 	private Integer id;
 	private JugadorDTO jugador1;
 	private JugadorDTO jugador2;

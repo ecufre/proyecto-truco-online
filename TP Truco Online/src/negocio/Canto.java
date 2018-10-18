@@ -4,6 +4,7 @@ public class Canto {
 
 	private boolean querido;
 	private TipoCanto tipoCanto;
+	
 	public Canto() {
 		super();
 		querido=false;

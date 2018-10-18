@@ -211,7 +211,7 @@ public class TestJuego {
 			}
 	
 	
-	
+	/*
 	
 	Jugador j1  = new Jugador();
 
@@ -240,7 +240,7 @@ public class TestJuego {
 	j4.setApodo("jugador 4");
 	
 	js.add(j4);
-	
+	*/
 	}
 
 }

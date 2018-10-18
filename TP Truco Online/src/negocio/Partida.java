@@ -1,12 +1,13 @@
 package negocio;
 
 import java.util.ArrayList;
-import java.util.Vector;
 
 import dto.CartaDTO;
 import dto.HistoriaPartidaDTO;
 import dto.JugadorDTO;
 import dto.PartidaDTO;
+import enumeraciones.EstadoPartida;
+import enumeraciones.TipoCanto;
 
 public class Partida {
 	private int id;
@@ -33,7 +34,7 @@ public class Partida {
 		jugadoresListos[3]=false;
 		
 		this.esAbierta = esAbierta;
-		this.estado = EstadoPartida.PENDIENTE;
+		this.estado = EstadoPartida.Pendiente;
 		this.ganador = null;
 		this.juegos = new ArrayList<Juego>();
 		this.juegoActual = new Juego();
@@ -59,16 +60,11 @@ public class Partida {
 		}
 		
 		if(respuesta==true){
-			this.estado=EstadoPartida.ENCURSO;
+			this.estado=EstadoPartida.EnCurso;
 		}
 		
 		return respuesta;
 	}
-	
-	
-	
-	
-	
 	
 	
 	//----------------Metodos del Juego-----------------------------------------
@@ -129,11 +125,11 @@ public class Partida {
 					}
 				}
 				if(juegosImpar ==2 ){
-					this.estado = EstadoPartida.FINALIZADA;
+					this.estado = EstadoPartida.Finalizada;
 					this.setGanador(1);
 				}
 				if(juegosPar==2){
-					this.estado = EstadoPartida.FINALIZADA;
+					this.estado = EstadoPartida.Finalizada;
 					this.setGanador(2);
 				}
 			
@@ -366,18 +362,10 @@ public class Partida {
 
 
 	public void agregarJugador(Jugador j1, int i) {
-		Jugador j = new Jugador();
-		j.setApodo(j1.getApodo());
+		Jugador j = new Jugador(j1.getApodo(), j1.getEmail(), j1.getPassword(), j1.getLoggedSession());
 		j.setUbicacion(i);
 		this.jugadores.add(j);
-		
 	}
-
-
-
-
-
-
 
 	public void senia(String apodoJugador, Integer carta) {
 		Jugador j= this.buscarJugadorApodo(apodoJugador);
@@ -524,13 +512,13 @@ public class Partida {
 
 
 
-
-
-
-
 	
-	
-	
-	
-	
+	public PartidaDTO toDTO() {
+		//TODO Devuelve todo el DTO completo
+		return null;
+	}
+	public PartidaDTO toDTO_reducido() {
+		//TODO Arma un dto reducido, solo con las primitivas y quizas los participantes.
+		return null;
+	}
 }
