@@ -8,59 +8,56 @@ public class AccionDTO implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -1825347752050944183L;
-	private int partida;
-	private String apodoJugador;
-	private Integer valor;
-	private Boolean respuesta;
-	private Boolean mostrarValoresEnvido;
+	private PartidaDTO partida;
+	private JugadorDTO jugador;
+	private CartaDTO carta;
+	private EnviteDTO envite;
 	private String mensaje ;
-	public AccionDTO(int partida ,String apodoJugador, Integer valor,Boolean bool,String mensaje) {
-		super();
+	
+	public AccionDTO(PartidaDTO partida ,JugadorDTO jugador, Integer valor, Boolean bool, String mensaje) {
 		this.partida = partida;
-		this.apodoJugador = apodoJugador;
-		this.valor = valor;
-		this.respuesta=bool;
-		this.mostrarValoresEnvido=false;
-		this.mensaje = apodoJugador+": "+mensaje+"\n";
-		
+		this.jugador = jugador;
+		this.mensaje = jugador.getApodo() + ": " + mensaje + "\n";
 	}
-	public String getApodoJugador() {
-		return apodoJugador;
-	}
-	public void setApodoJugador(String apodoJugador) {
-		this.apodoJugador = apodoJugador;
-	}
-	public Integer getValor() {
-		return valor;
-	}
-	public void setValor(Integer valor) {
-		this.valor = valor;
-	}
-	public int getPartida() {
+
+	public PartidaDTO getPartida() {
 		return partida;
 	}
-	public void setPartida(int partida) {
+
+	public void setPartida(PartidaDTO partida) {
 		this.partida = partida;
 	}
-	public Boolean getRespuesta() {
-		return respuesta;
+
+	public JugadorDTO getJugador() {
+		return jugador;
 	}
-	public void setRespuesta(Boolean respuesta) {
-		this.respuesta = respuesta;
+
+	public void setJugador(JugadorDTO jugador) {
+		this.jugador = jugador;
 	}
+
+	public CartaDTO getCarta() {
+		return carta;
+	}
+
+	public void setCarta(CartaDTO carta) {
+		this.carta = carta;
+	}
+
+	public EnviteDTO getEnvite() {
+		return envite;
+	}
+
+	public void setEnvite(EnviteDTO envite) {
+		this.envite = envite;
+	}
+
 	public String getMensaje() {
 		return mensaje;
 	}
+
 	public void setMensaje(String mensaje) {
 		this.mensaje = mensaje;
 	}
-	public Boolean getMostrarValoresEnvido() {
-		return mostrarValoresEnvido;
-	}
-	public void setMostrarValoresEnvido(Boolean mostrarValoresEnvido) {
-		this.mostrarValoresEnvido = mostrarValoresEnvido;
-	}
-	
-	
-	
+
 }

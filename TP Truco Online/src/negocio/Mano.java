@@ -1,433 +1,254 @@
 package negocio;
 
 import java.util.ArrayList;
-import java.util.Random;
 
-import dto.CartaDTO;
+import enumeraciones.TipoCanto;
+import excepciones.ComunicacionException;
 
 
 public class Mano {
-		private Integer id;
-		private ArrayList<Canto> cantos;
-		private ArrayList<Carta> cartas;
-		private ArrayList<Baza> bazas;
-		private Baza bazaActual;
-		private Canto ultimoCanto;
-		private static int turno;
-		private Integer[] envidoValor;
-		private String seniasPar;
-		private String seniasImpar;
-		
-		
-		public Mano() {
-			super();
-			this.id =  null;
-			this.cantos = new ArrayList<Canto>();
-			this.cartas = new ArrayList<Carta>();
-			this.bazas = new ArrayList<Baza>();
-			this.ultimoCanto =null;
-			this.bazaActual = new Baza(this.asignarMano());
-			envidoValor = new Integer[4];
-			this.seniasPar=null;
-			this.seniasImpar=null;
-			
-		}
+	private static int siguienteId = 1; //TODO esto se reemplaza por la persistencia
+	private Integer id;
+	private Integer numeroMano;
+	private ArrayList<Canto> cantos;
+	private ArrayList<Carta> cartas;
+	private ArrayList<Baza> bazas;
 
-		private static int asignarMano(){
-			if(turno ==4)
-				turno=0;
-				turno++;
-				return turno;
-		
-		}
-			
-		public void cantarEnvite(int jugadorUbicacion, Canto canto) {
-			
-			if(this.esCantoValido(jugadorUbicacion, canto)){
-				
-				
-				if(ultimoCanto!=null){
-					if(ultimoCanto.getTipoCanto().getId()>4 && canto.getTipoCanto().getId()<5 ){
-						ultimoCanto = canto;
-					}else{
-					ultimoCanto.setQuerido(true);
-					this.cantos.add(ultimoCanto);
-					ultimoCanto = canto;}
-					
-				}else{
-					ultimoCanto = canto;
-					System.out.println(ultimoCanto);
-				}
+	//Metodo a eliminar con persistencia
+	private static int getSiguienteId() {
+		return siguienteId++;
+	}
+
+	public Mano(Integer numeroMano) {
+		this.id = Mano.getSiguienteId();
+		this.numeroMano = numeroMano;
+		this.cantos = new ArrayList<Canto>();
+		this.cartas = new ArrayList<Carta>();
+		this.bazas = new ArrayList<Baza>();
+		bazas.add(new Baza(this.calcularJugManoBaza()));
+	}
+
+	public void grabar() {
+		//TODO Grabar
+	}
+
+	public Baza getBazaActual() {
+		return this.bazas.get(this.bazas.size() - 1);
+	}
+
+	private Canto getUltimoCanto() {
+		if (cantos.size() > 0) return this.cantos.get(this.cantos.size() - 1);
+		else return null;
+	}
+
+	public void jugarCarta(int ubicacionJugador, int carta) throws ComunicacionException {
+		Carta c = this.buscarCarta(carta);
+		if(this.esJugadaValida(ubicacionJugador, c)){
+			this.getBazaActual().agregarCarta(c);
+			//this.cartas.remove(c);
+			c.setJugada(true);
+			c.grabar();
+			if(this.getBazaActual().isCompleta()){
+				this.getBazaActual().determinarGanador();
+				int mano = this.getBazaActual().getGanadorBaza();
+				bazas.add(new Baza(mano));
 			}
-			
-			
 		}
-		
-		public boolean esCantoValido(int jugadorUbicacion, Canto canto) {
-			boolean eval=true;
-			
-			if((jugadorUbicacion!=this.getBazaActual().getTurno())){
-				return false;
-			}
-			if(this.getBazas().size()>0 && this.getBazas()==null){
-				if(canto.getTipoCanto().getId()<=4){
-					return false;
-				}
-			}
-			for(Canto c:this.cantos){
-				if(c.getTipoCanto().getId()==canto.getTipoCanto().getId()){
-					return false;
-				}
-			}
-			if(canto.getTipoCanto().getId()>5){
-				for(Canto c:this.cantos){
-					if(c.getTipoCanto().getId()==canto.getTipoCanto().getPredecesor()){
-						eval=true;
-					}
-			}
-			
-			}
-			return eval;
-		}
-		
-		public boolean responderEnvite(int jugador, boolean respuesta) {
-			boolean band=false;
-			if(this.esRespuestaValida(jugador)){
-				this.ultimoCanto.setQuerido(respuesta);
-				cantos.add(ultimoCanto);
-			}
-			
-			if(ultimoCanto.getTipoCanto().getId()<=4){
-				return true;
-			}
-			ultimoCanto=null;
-			return band;
-		}
-		
-		public boolean esRespuestaValida(int jugador) {
-			return (this.esPar(jugador) && (!this.esPar(this.bazaActual.getTurno())));
-		}
-		
-		
-		public void jugarCarta(String jugador, int carta) {
-			Carta c = this.buscarCarta(carta);
-			if(this.esJugadaValida(jugador, c )){
-				
-				this.bazaActual.agregarCarta(c);
-				this.cartas.remove(c);
-				if(this.bazaActual.completa()){
-					this.bazaActual.determinarGanador();
-					this.bazas.add(bazaActual);
-					int mano=bazaActual.getGanadorBaza().getUbicacion();
-					this.bazaActual = new Baza(mano);
-				}
-			}
-			
-		}
-		
-		public boolean esJugadaValida(String jugador, Carta c) {
-			
-			
-			if(c!=null){
-			
-				if(c.getJugador().getUbicacion()==this.bazaActual.getTurno()){
-				
-				return (c.getJugador().getApodo().equals(jugador));
-				}
-			}
-			
-			return false;
-		}
-		
-		private Carta buscarCarta(int carta) {
-			for(Carta c :cartas){
-				
-				if(c.getId()==carta){
-					
-					return c;
-				}
-			}
-			return null;
-		}
+		else throw new ComunicacionException("Jugada invalida");
 
-		public int calcularPuntaje(int equipo) {
-			int puntosImpar =0;
-			int puntosPar=0;
-			int ptoAd=0;
-			for(Canto c : cantos){
-				if(c.getTipoCanto().getId()>4){
-					if(c.isQuerido()){
-						ptoAd=ptoAd+c.getTipoCanto().getValor();
-								
-					}
-				}
-			}
-			for(Baza b:this.getBazas()){
-				if(b.getGanadorBaza().getUbicacion()==1 |b.getGanadorBaza().getUbicacion()==3 ){
-					puntosImpar++; 
-					puntosImpar=puntosImpar;
-					}
-				if(b.getGanadorBaza().getUbicacion()==2 |b.getGanadorBaza().getUbicacion()==4 ){
-					puntosPar++;
-					puntosPar=puntosPar;
-					}
-				
-			}
-			
-			if(equipo==1){
-				if(puntosImpar>puntosPar){
-					return 1+ptoAd;
-				}else{
-					return 0;
-				}
-			}
-			
-			if(equipo==2){
-				if(puntosImpar<puntosPar){
-					return 1+ptoAd;
-				}else{
-					return 0;
-				}
-			}
-			return 0;
-			
-		}
+	}
 
-		public int getId() {
-			return id;
-		}
+	public boolean esJugadaValida(int ubicacionJugador, Carta c) {
+		if (ubicacionJugador == this.getBazaActual().getTurno()) return (ubicacionJugador == c.getJugador() && ! c.isJugada());
+		else return false;
+	}
 
-		public void setId(int id) {
-			this.id = id;
-		}
+	private Carta buscarCarta(int carta) throws ComunicacionException {
+		for(Carta c : this.cartas) if(c.getId() == carta) return c;
+		throw new ComunicacionException("La carta buscada no existe");
+	}
 
-		public ArrayList<Canto> getCantos() {
-			return cantos;
-		}
-
-		public void setCantos(ArrayList<Canto> cantos) {
-			this.cantos = cantos;
-		}
-
-		public ArrayList<Carta> getCartas() {
-			return cartas;
-		}
-
-		public void setCartas(ArrayList<Carta> cartas2) {
-			this.cartas = cartas2;
-		}
-
-		
-		
-		
-		public ArrayList<Baza> getBazas() {
-			return bazas;
-		}
-
-		public void setBazas(ArrayList<Baza> bazas) {
-			this.bazas = bazas;
-		}
-
-		
-		
-		public String getSeniasPar() {
-			return seniasPar;
-		}
-
-		public void setSeniasPar(String seniasPar) {
-			this.seniasPar = seniasPar;
-		}
-
-		public String getSeniasImpar() {
-			return seniasImpar;
-		}
-
-		public void setSeniasImpar(String seniasImpar) {
-			this.seniasImpar = seniasImpar;
-		}
-
-		public Baza getBazaActual() {
-			return bazaActual;
-		}
-
-		public void setBazaActual(Baza bazaActual) {
-			this.bazaActual = bazaActual;
-		}
-
-		public static int getTurno() {
-			return turno;
-		}
-
-		public static void setTurno(int turno) {
-			Mano.turno = turno;
-		}
-
-		public void setId(Integer id) {
-			this.id = id;
-		}
-
-		public boolean manoCompleta() {
-			if(3==this.bazas.size()){
-				return true;
-			}
-			if(2==this.bazas.size()){
-			int par=0;
-			int impar=0;
-			for(Baza b: this.bazas){
-				if(b.getGanadorBaza().getUbicacion() ==1 | b.getGanadorBaza().getUbicacion() ==3){
-					impar ++;
-				}
-				if(b.getGanadorBaza().getUbicacion() ==2 | b.getGanadorBaza().getUbicacion() ==4){
-					par ++;
-				}
-				
-			}
-			boolean respuesta =(par==2 | impar==2);
-			
-			return (par==2 | impar==2);
-		}
-		return false;
-		}
-
-		
-
-		public void administrarRetiro(Jugador ganador) {
-			
-			this.bazas.add(this.getBazaActual());
-			while(this.bazas.size()<3){
-				Baza b= new Baza(1);
-				this.bazas.add(b);
-			}
-			for(Baza b:this.getBazas()){
-				b.setGanadorBaza(ganador);
-			}
-			
-		}
-		
-		public boolean esPar(int nro){
-			
-			if(nro==2) return true;
-			if(nro==4) return true;
-			return false;
-		}
-
-		public void calcularEnvidos() {
-			for(int i=1;i<5;i++){
-				Carta[] manoj = new Carta[3];
-				int a=0;
-				int mejor=0;
-				for(Carta c:cartas){
-					if(c.getJugador().getUbicacion()==i){
-						manoj[a]=c;
-						a++;
-					}
-				}
-					for(int b=0;b<2;b++){
-						for(int cc=b+1;cc<3;cc++){
-							
-							int p=(manoj[b].getValorEnvite()+manoj[cc].getValorEnvite());
-							if (manoj[b].getPalo().equals(manoj[cc].getPalo())){
-								p=p+20;
-							}
-							if(mejor<(p)){
-								mejor=p;
-							}
-						}
-					}
-					this.envidoValor[i-1]=mejor;
-				}
-				
-			}
-
-		public int darEnvidoValor(int de){
-			return this.envidoValor[de];
-		}
-		
-		public Integer[] getEnvidoValor() {
-			return envidoValor;
-		}
-
-		public void setEnvidoValor(int pos) {
-			this.envidoValor[pos] = 0;
-		}
-
-		public int sumarPuntosEnvido(int dif) {
-			int puntos = 1;
-			int cant = 1;
-			for(Canto c: cantos){
-				if(c.isQuerido()){
-					if(c.getTipoCanto().getId()!=4){
-						
-					puntos = c.getTipoCanto().getValor();
-					}else{
-						puntos = c.getTipoCanto().getValor()-dif;	
-					}
-				}else{
-					if(cant==1){
-						puntos=1;
-					}
-				}
-				cant++;
-			}
-			return puntos;
-		}
-
-		public Integer mostrarPuntosEnvido(Integer pos) {
-			return this.envidoValor[pos-1];
-		}
-
-		public ArrayList<CartaDTO> mostrarCartasJugador(String jugador) {
-			ArrayList<CartaDTO> cd = new ArrayList<CartaDTO>();
-			for(Carta c: cartas){
-				if(c.getJugador().getApodo().equals(jugador)){
-					cd.add(c.toDTO());
-				}
-			}
-			return cd;
-		}
-
+	private int calcularJugManoBaza(){
+		if (this.numeroMano % 4 == 0) return 4;
+		else return this.numeroMano % 4;
+	}
 	
+	//Calcula la posicion relativa de un jugador respecto del mano de la primer baza
+	private int posicionRelativa(int ubicacion) {
+		if (ubicacion >= this.calcularJugManoBaza()) return (this.calcularJugManoBaza() - ubicacion);
+		else return (4 + this.calcularJugManoBaza() - ubicacion);
+	}
+
+	public void administrarRetiro(int ganador) {
+		while(this.bazas.size()<3) this.bazas.add(new Baza(1));
+		for(Baza b : this.bazas) b.setGanadorBaza(ganador);
+	}
+
+	public boolean manoCompleta() {
+		//Tres bazas completas -> Mano completa
+		if (this.bazas.size() == 3) return this.bazas.get(2).isCompleta();
+		//Dos bazas completas
+		if(this.bazas.size() == 2 && this.bazas.get(1).isCompleta()) {
+			//Ambas terminaron empatadas -> Mano incompleta
+			if (this.bazas.get(0).isParda() && this.bazas.get(1).isParda()) return false;
+			//Solo una de las dos termino empatada -> Mano completa
+			else if (this.bazas.get(0).isParda() || this.bazas.get(1).isParda()) return true;
+			//El ganador de ambas bazas es el mismo equipo -> Mano completa
+			else if (this.bazas.get(0).getGanadorBaza() % 2 == this.bazas.get(1).getGanadorBaza() % 2) return true;
+			//Dos bazas con ganadores distintos -> Mano incompleta
+			else return false;
+		}
+		//No se termino de jugar la 2da Baza -> Mano incompleta
+		return false;
+	}
+	
+	public int calcularGanadorMano() {
+		int ganador;
+		//Ultima baza es empate -> Ganador de la primer baza gano la mano
+		if (this.bazas.get(this.bazas.size() - 1).isParda()) ganador = this.bazas.get(0).getGanadorBaza() % 2;
+		//Sino el ganador de la ultima baza es el ganador de la mano
+		else ganador = this.bazas.get(this.bazas.size() - 1).getGanadorBaza() % 2;
 		
-		
-		public void senia(Integer ubicacion, String apodoJugador, Integer carta) {
-			Carta c = this.buscarCarta(carta);
-			Random aleatorio = new Random();
-			int suerte= aleatorio.nextInt((10));
-			String cartaS= null;
-			if(c!=null){
-				cartaS=apodoJugador+": "+Integer.toString(c.getNumero())+" "+c.getPalo()+"\n";
-			}
-			if(this.esPar(ubicacion)){
-				this.seniasPar=this.seniasPar+cartaS;
-				if(suerte==5){
-					this.seniasImpar=this.seniasImpar+cartaS;
-				}
-				
-			}else{
-				this.seniasImpar=this.seniasImpar+cartaS;
-				if(suerte==5){
-					this.seniasPar=this.seniasPar+cartaS;
-				}
-			}
-			
+		if (ganador == 0) return 2;
+		else return 1;
+	}
+
+	public boolean esCantoValido(int jugadorUbicacion, TipoCanto canto) {
+		//No es el turno del jugador
+		if (jugadorUbicacion != this.getBazaActual().getTurno()) return false;
+
+		//Canta envido despues de la primer baza
+		if (this.bazas.size() > 1 && canto.getId() <= 4) return false;
+
+		//Si ya se realizo el canto
+		for (Canto c : this.cantos) if (c.getTipoCanto().getId() == canto.getId()) return false;
+
+		//Si es un retruco o valecuatro buscar que este el canto anterior
+		if (canto.getId() > 5) {
+			for (Canto c : this.cantos) if (c.getTipoCanto().getId() == canto.getPredecesor()) return true;
+			return false;
 		}
 
-		public ArrayList<CartaDTO> mostarCartasMesa(Integer ubicacion) {
-			 ArrayList<CartaDTO> cm = new  ArrayList<CartaDTO>();
-			for(Baza b : this.bazas){
-				for(Carta c :b.getCartasbaza()){
-					if(c.getJugador().getUbicacion()==ubicacion){
-					cm.add(c.toDTO());
+		//Si es un envido buscar que no este el posterior.
+		if (canto.getId() < 4) for (Canto c : this.cantos) if (c.getTipoCanto().getId() < 5 && c.getTipoCanto().getId() > canto.getId()) return false;
+
+		//Si es envido envido, buscar que este el envido
+		if (canto.getId() == 2) for (Canto c : this.cantos) if (c.getTipoCanto().getId() == 1) return true;
+
+		//Todas las demas opciones son validas
+		return true;
+	}
+
+	public void cantarEnvite(int jugadorUbicacion, TipoCanto canto) throws ComunicacionException {
+		if (this.esCantoValido(jugadorUbicacion, canto)) {
+			if (this.getUltimoCanto() != null) {
+				//Si canto el envido despues de que se canto el truco, el envido sobreescribe al truco.
+				if (this.getUltimoCanto().getTipoCanto().getId() == 5 && canto.getId() < 5) this.cantos.remove(this.getUltimoCanto());
+				//Si el canto anterior era del mismo tipo, acepto el canto anterior.
+				else if ((this.getUltimoCanto().getTipoCanto().getId() > 4 && canto.getId() > 4) || (this.getUltimoCanto().getTipoCanto().getId() < 5 && canto.getId() < 5)) this.getUltimoCanto().setQuerido(true);	
+			}
+			Canto c = new Canto(jugadorUbicacion);
+			c.setTipoCanto(canto);
+			c.grabar();
+			this.cantos.add(c);
+		}
+		else throw new ComunicacionException("El canto es invalido");
+	}
+
+	public boolean esRespuestaValida(int jugador) {
+		return (jugador % 2  != this.getBazaActual().getTurno() % 2);
+	}
+
+	public void responderEnvite(int jugador, boolean respuesta) throws ComunicacionException {
+		if (this.esRespuestaValida(jugador)) {
+			this.getUltimoCanto().setQuerido(respuesta);
+			this.getUltimoCanto().grabar();
+		}
+		else throw new ComunicacionException("La respuesta es invalida");
+	}
+	
+	public int calcularPuntaje(int equipo, int puntosEquipo, int puntosRival) {
+		int puntosTruco = 0;
+		//Si equipo gano el truco se suman los puntos del truco
+		if (equipo % 2 == this.calcularGanadorMano() % 2) {
+			puntosTruco = 1;
+			for (Canto c : cantos) {
+				if (c.getTipoCanto().getId() > 4 && c.isQuerido()) puntosTruco++;
+			}
+		}
+		
+		int puntosEnvido = 0;
+		//Calculo los puntos del envido
+		int maximoCanto = 0;
+		boolean maximoCantoQuerido = false;
+		int jugadorMaximoCanto = 0;
+		for (Canto c : cantos) {
+			if (c.getTipoCanto().getId() < 5) {
+				//Busco el maximo canto de envido, y guardo si fue querido o no.
+				if (c.getTipoCanto().getId() > maximoCanto) {
+					maximoCanto = c.getTipoCanto().getId();
+					maximoCantoQuerido = c.isQuerido();
+					jugadorMaximoCanto = c.getCantante();
+				}
+				//Si el canto fue querido, sumo los puntos.
+				if (c.isQuerido()) {
+					//Si no fue FaltaEnvido (Y no fue cantada), acumulo los puntos
+					if (c.getTipoCanto().getId() < 4 && maximoCanto < 4) puntosEnvido = puntosEnvido + c.getTipoCanto().getValor();
+					//Si fue falta envido reviso si estaban en malas y gana el partido, o calculo cuanto vale.
+					else {
+						//Los dos equipos en malas
+						if (puntosEquipo < 15 && puntosRival < 15) puntosEnvido = 30 - puntosEquipo;
+						//El equipo calculado va ganando la partida
+						else if (puntosEquipo > puntosRival) puntosEnvido = 30 - puntosEquipo;
+						//El equipo calculado va perdiendo la partida
+						else puntosEnvido = 30 - puntosRival;
 					}
 				}
 			}
-			for(Carta c :this.bazaActual.getCartasbaza()){
-				if(c.getJugador().getUbicacion()==ubicacion){
-					cm.add(c.toDTO());
-					}
-			}
-			return cm;
 		}
-			
-		
+		//Si todos empatan en 0, gana el mano de la primer baza
+		int jugadorGanador = this.calcularJugManoBaza();
+		if (! maximoCantoQuerido && maximoCanto > 0) {
+			if (maximoCanto == 1) puntosEnvido = 1;
+			jugadorGanador = jugadorMaximoCanto;
+		}
+		else {
+			//Verifico que equipo gano el envido
+			int puntosGanador = 0;
+			int comb1, comb2, comb3;
+			for (int i = 0; i < 4; i++) {
+				//Valor de Envido de cartas 1 y 2 del jugador
+				comb1 = this.cartas.get(0 + 3 * i).getValorEnvite() + this.cartas.get(1 + 3 * i).getValorEnvite();
+				if (this.cartas.get(0 + 3 * i).getPalo().equals(this.cartas.get(1 + 3 * i).getPalo())) comb1 = comb1 + 20;
+				//Valor de Envido de cartas 1 y 3 del jugador
+				comb2 = this.cartas.get(0 + 3 * i).getValorEnvite() + this.cartas.get(2 + 3 * i).getValorEnvite();
+				if (this.cartas.get(0 + 3 * i).getPalo().equals(this.cartas.get(2 + 3 * i).getPalo())) comb2 = comb2 + 20;
+				//Valor de Envido de cartas 2 y 3 del jugador
+				comb3 = this.cartas.get(1 + 3 * i).getValorEnvite() + this.cartas.get(2 + 3 * i).getValorEnvite();
+				if (this.cartas.get(1 + 3 * i).getPalo().equals(this.cartas.get(2 + 3 * i).getPalo())) comb3 = comb3 + 20;
+				
+				//Agrego el mayor valor al array
+				if (comb1 >= comb2 && comb1 >= comb3 && comb1 > puntosGanador && this.posicionRelativa(i + 1) < this.posicionRelativa(jugadorGanador)) {
+					puntosGanador = comb1;
+					jugadorGanador = i + 1;
+				}
+				else if (comb2 >= comb3 && comb2 > puntosGanador && this.posicionRelativa(i + 1) < this.posicionRelativa(jugadorGanador)) {
+					puntosGanador = comb2;
+					jugadorGanador = i + 1;
+				}
+				else if (comb3 > puntosGanador && this.posicionRelativa(i + 1) < this.posicionRelativa(jugadorGanador)) {
+					puntosGanador = comb3;
+					jugadorGanador = i + 1;
+				}
+			}
+		}
+		//Si el ganador es del equipo, sumar los puntos
+		if (jugadorGanador % 2 == equipo % 2) return puntosTruco + puntosEnvido;
+		else return puntosTruco;
+	}
+
+	public void setCartas(ArrayList<Carta> cartas) {
+		this.cartas = cartas;
+	}
+	
 }

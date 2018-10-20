@@ -3,131 +3,64 @@ package negocio;
 import dto.CartaDTO;
 
 public class Carta {
+	private static int siguienteId = 1; //TODO esto se reemplaza por la persistencia
 	private int id;
+	private int cartaId;
 	private int valor;
 	private int valorEnvite;
 	private int numero;
 	private String palo;
-	private int jugada;
-	private Jugador jugador;
+	private int ubicacionJugador;
+	private boolean jugada;
 	
-	
-	
-	
-	public Carta(int id, int valor,int valorEnvite, int numero, String palo) {
-		super();
-		this.id = id;
+	//Metodo a eliminar con persistencia
+	private static int getSiguienteId() {
+		return siguienteId++;
+	}
+
+	public Carta(int cartaId, int valor,int valorEnvite, int numero, String palo) {
+		this.id = Carta.getSiguienteId();
+		this.cartaId = cartaId;
 		this.valor = valor;
 		this.valorEnvite=valorEnvite;
 		this.numero = numero;
 		this.palo = palo;
-		this.jugada = 0;
-		this.jugador = null;
+		this.jugada = false;
+	}
+	
+	public void grabar() {
+		//TODO Grabar
 	}
 
-
-	public void jugarCarta(int nroBaza) {}
-
-
-	public int getId() {
-		return id;
+	public int getJugador() {
+		return ubicacionJugador;
 	}
-
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
 
 	public int getValor() {
 		return valor;
 	}
 
-
-	public void setValor(int valor) {
-		this.valor = valor;
+	public int getId() {
+		return id;
 	}
 
-
-	public int getNumero() {
-		return numero;
+	public void setJugador(int ubicacionJugador) {
+		this.ubicacionJugador = ubicacionJugador;
 	}
 
-
-	public void setNumero(int numero) {
-		this.numero = numero;
-	}
-
-
-	public String getPalo() {
-		return palo;
-	}
-
-
-	public void setPalo(String palo) {
-		this.palo = palo;
-	}
-
-
-	public int getJugada() {
+	public boolean isJugada() {
 		return jugada;
 	}
 
-
-	public void setJugada(int jugada) {
+	public void setJugada(boolean jugada) {
 		this.jugada = jugada;
 	}
-
-
-	public Jugador getJugador() {
-		return jugador;
-	}
-
-
-	public void setJugador(Jugador jugador) {
-		this.jugador = jugador;
-	}
-
-
-	
 
 	public int getValorEnvite() {
 		return valorEnvite;
 	}
 
-
-	public void setValorEnvite(int valorEnvite) {
-		this.valorEnvite = valorEnvite;
+	public String getPalo() {
+		return palo;
 	}
-
-
-	@Override
-	public String toString() {
-		return "Carta [id=" + id + ", valor=" + valor + ", valorEnvite="
-				+ valorEnvite + ", numero=" + numero + ", palo=" + palo
-				+ ", jugada=" + jugada + ", jugador=" + jugador + "]";
-	}
-
-
-	public String toString2() {
-		return "Carta [id=" + id+ ", valor=" + valor + " , jugador= "+this.getJugador().getApodo()+ " , ubicacion= "+jugador.getUbicacion()
-	;
-	}
-
-
-	public CartaDTO toDTO() {
-		return (new CartaDTO(this.getId(),this.getNumero(),this.getPalo(),this.getJugador().getUbicacion()));
-		
-	}
-
-
-	public CartaDTO toDTOHistoria() {
-		CartaDTO c = this.toDTO();
-		c.setApodoJugador(c.getApodoJugador());
-		return c;
-	}
-	
-	
-	
-	
 }

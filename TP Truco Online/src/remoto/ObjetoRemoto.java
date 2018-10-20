@@ -6,10 +6,13 @@ import java.util.ArrayList;
 
 import controladores.AdministradorGrupo;
 import controladores.AdministradorJugador;
+import dto.AccionDTO;
 import dto.GrupoDTO;
+import dto.HistoriaPartidaDTO;
 import dto.InvitacionDTO;
 import dto.JugadorDTO;
 import dto.ParejaDTO;
+import dto.PartidaDTO;
 import excepciones.ComunicacionException;
 import excepciones.LoggedInException;
 import interfaces.InterfaceRemota;
@@ -104,5 +107,4 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfaceRemota
 	public ArrayList<JugadorDTO> calcularRankingCerrado(GrupoDTO grupo) throws ComunicacionException {
 		return AdministradorGrupo.getInstancia().calcularRankingCerrado(grupo);
 	}
-
 }

@@ -11,7 +11,7 @@ public class Mazo {
 
 	public Mazo() {
 		super();
-		this.cartas = CartaDAOv.getInstance().getCartas();
+		this.cartas = CartaDAOv.getInstance().getCartas(); //TODO MazoDAO
 	}
 	
 	public Carta darCarta(){

@@ -6,6 +6,8 @@ import dto.HistoriaPartidaDTO;
 import dto.PartidaDTO;
 import enumeraciones.EstadoPartida;
 import enumeraciones.TipoCanto;
+import excepciones.ComunicacionException;
+import excepciones.LoggedInException;
 import negocio.Grupo;
 import negocio.Jugador;
 import negocio.Partida;
@@ -24,131 +26,86 @@ public class AdministradorPartida {
 	}
 
 	public void crearPartida(Jugador j1, Jugador j2, Jugador j3, Jugador j4) {
+			ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
+			jugadores.add(j1);
+			jugadores.add(j2);
+			jugadores.add(j3);
+			jugadores.add(j4);
 			Partida p = new Partida(true);
-			p.agregarJugador(j1,1);
-			p.agregarJugador(j2,2);
-			p.agregarJugador(j3,3);
-			p.agregarJugador(j4,4);
-			p.nuevaMano();
-			this.partidas.add(p);
-		
+			p.setJugadores(jugadores);
+			this.partidas.add(p); //TODO Sacar cuando se persista
 	}
 	
 	public Partida crearPartidaCerrada(Jugador j1, Jugador j2, Jugador j3, Jugador j4) {
+		ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
+		jugadores.add(j1);
+		jugadores.add(j2);
+		jugadores.add(j3);
+		jugadores.add(j4);
 		Partida p = new Partida(false);
-		p.agregarJugador(j1,1);
-		p.agregarJugador(j2,2 );
-		p.agregarJugador(j3,3 );
-		p.agregarJugador(j4,4 );
-		p.nuevaMano();
-		this.partidas.add(p);
+		p.setJugadores(jugadores);
+		this.partidas.add(p); //TODO Sacar cuando se persista
+		p.grabar();
 		return p;
 	}
 	
-	public boolean jugadorListos(AccionDTO ad) {
-		Partida p=this.buscarPartida(ad.getPartida());
-		if(p!=null){
-		return	p.jugadorListos(ad.getApodoJugador());
-			
+	public void jugadorListo(AccionDTO ad) throws LoggedInException, ComunicacionException {
+		if (AdministradorJugador.getInstancia().isLoggedIn(ad.getJugador())) {
+			Jugador j = AdministradorJugador.getInstancia().buscarJugador(ad.getJugador().getApodo());
+			Partida p = this.buscarPartida(ad.getPartida().getPartidaID());
+			p.jugadorListo(j);
+			p.grabar();
 		}
-		
-		return false;
 	}
 	
-	public void JugarCarta(AccionDTO ad){
-		Partida p=this.buscarPartida(ad.getPartida());
-		if(p!=null){
-		if(p.getEstado()==EstadoPartida.ENCURSO){
-			p.jugarCarta(ad.getApodoJugador(),ad.getValor());
-			p.actualizarPartida();
+	public void JugarCarta(AccionDTO ad) throws LoggedInException, ComunicacionException{
+		if (AdministradorJugador.getInstancia().isLoggedIn(ad.getJugador())) {
+			Jugador j = AdministradorJugador.getInstancia().buscarJugador(ad.getJugador().getApodo());
+			Partida p = this.buscarPartida(ad.getPartida().getPartidaID());
+			if (p.getEstado() == EstadoPartida.EnCurso) {
+				p.jugarCarta(j, ad.getCarta().getId());
+				p.grabar(); 
+			}
 		}
+	}
+	
+	public void Retirarse(AccionDTO ad) throws LoggedInException, ComunicacionException{
+		if (AdministradorJugador.getInstancia().isLoggedIn(ad.getJugador())) {
+			Jugador j = AdministradorJugador.getInstancia().buscarJugador(ad.getJugador().getApodo());
+			Partida p = this.buscarPartida(ad.getPartida().getPartidaID());
+			if (p.getEstado() == EstadoPartida.EnCurso) {
+				p.retiraseMano(j);
+				p.grabar();
+			}
+		}
+	}
+	
+	public void cantarEnvite(AccionDTO ad) throws LoggedInException, ComunicacionException{
+		if (AdministradorJugador.getInstancia().isLoggedIn(ad.getJugador())) {
+			Jugador j = AdministradorJugador.getInstancia().buscarJugador(ad.getJugador().getApodo());
+			Partida p = this.buscarPartida(ad.getPartida().getPartidaID());
+			if (p.getEstado() == EstadoPartida.EnCurso) {
+				p.cantarEnvite(j, ad.getEnvite().getTipoCanto()); //Agregar actualizarPartida
+				p.grabar();
+			}
 		}
 	}
 
-	public void Retirarse(AccionDTO ad){
-		Partida p=this.buscarPartida(ad.getPartida());
-		if(p!=null){
-		if(p.getEstado()==EstadoPartida.ENCURSO){
-			p.retiraseMano(ad.getApodoJugador());
-			p.actualizarPartida();
-		}
+	public void responderEnvite(AccionDTO ad) throws LoggedInException, ComunicacionException{
+		if (AdministradorJugador.getInstancia().isLoggedIn(ad.getJugador())) {
+			Jugador j = AdministradorJugador.getInstancia().buscarJugador(ad.getJugador().getApodo());
+			Partida p = this.buscarPartida(ad.getPartida().getPartidaID());
+			if (p.getEstado() == EstadoPartida.EnCurso) {
+				p.responderEnvite(j, ad.getEnvite().isRespuesta()); //Agregar actualizarPartida
+				p.grabar();
+			}
 		}
 	}
 	
-	public void cantarEnvite(AccionDTO ad){
-		Partida p=this.buscarPartida(ad.getPartida());
-		if(p!=null){
-		if(p.getEstado()==EstadoPartida.ENCURSO){
-			p.cantarEnvite(ad.getApodoJugador(),ad.getValor());
-			p.actualizarPartida();
-		}
-		}
-	}
-	
-	public void responderEnvite(AccionDTO ad){
-		Partida p=this.buscarPartida(ad.getPartida());
-		if(p!=null){
-		if(p.getEstado()==EstadoPartida.ENCURSO){
-        	p.responderEnvite(ad.getApodoJugador(), ad.getRespuesta());
-        	}
-			}
-			}
-	
-	public PartidaDTO mostrarPartida(AccionDTO ad){
-		
-		
-		Partida p=this.buscarPartida(ad.getPartida());
-		if(p!=null){
-		if(p.getEstado()==EstadoPartida.ENCURSO){
-        return 	p.toDTO(ad.getPartida(), ad.getApodoJugador() ,ad.getMostrarValoresEnvido());
-        	}
-			}
-			
-		
-		
-		return null;
-		
-	}
 
-	public void enviarMensaje(AccionDTO ad){
-		Partida p=this.buscarPartida(ad.getPartida());
-		if(p!=null){
-			p.nuevoMesnaje(ad.getMensaje());
-		}
-	}
-
-	public void enviarSenia(AccionDTO ad){
-		Partida p=this.buscarPartida(ad.getPartida());
-		if(p!=null){
-		if(p.getEstado()==EstadoPartida.ENCURSO){
-        	p.senia(ad.getApodoJugador(),ad.getValor());
-        	}
-			}
-			
-	}
-	
-	public HistoriaPartidaDTO mostrarHistoria(AccionDTO ad){
-		
-		Partida p = new Partida(false); //completar con el GetPartidaById del DAO el adi viene en el AccionDAO
-		if(p!=null){
-		if(p.getEstado()==EstadoPartida.FINALIZADA){
-			
-		return p.mostrarHistoria();
-		}
-		}
-		return null;
-	}
-	public EstadoPartida getEstadoPartida(int idPartida) {
-		return null;
-	} //TODO
-
-	
-	private Partida buscarPartida(int partida) {
-		for(Partida p:this.partidas){
-			if(p.getId()==partida){
-				return p;
-			}
-		}
-		return null;
+	private Partida buscarPartida(int partida) throws ComunicacionException {
+		//TODO Pedirsela al PartidaDAO
+		for (Partida p:this.partidas) if(p.getId()==partida) return p;
+		throw new ComunicacionException("Partida no encontrada");
 	}
 }
