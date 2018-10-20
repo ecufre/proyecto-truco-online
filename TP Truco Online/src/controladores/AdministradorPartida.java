@@ -16,7 +16,9 @@ public class AdministradorPartida {
 	private ArrayList<Partida> partidas;
 	private static AdministradorPartida instancia;
 	
-	private AdministradorPartida() {}
+	private AdministradorPartida() {
+		this.partidas = new ArrayList<Partida>();
+	}
 	
   	public static AdministradorPartida getInstancia() {
 		if (instancia == null) {

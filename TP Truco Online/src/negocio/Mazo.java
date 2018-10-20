@@ -13,12 +13,16 @@ public class Mazo {
 		super();
 		this.cartas = CartaDAOv.getInstance().getCartas(); //TODO MazoDAO
 	}
-	
 	public Carta darCarta(){
 		Random aleatorio = new Random();
-		
 		Carta c = cartas.get(aleatorio.nextInt((cartas.size())));
-		
+		cartas.remove(c);
+		return c;
+	}
+	
+	public Carta darCarta(int i){
+		//No random para pruebas
+		Carta c = cartas.get(i);
 		cartas.remove(c);
 		return c;
 	}

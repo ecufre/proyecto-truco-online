@@ -39,6 +39,7 @@ public class Juego {
 	public void crearMano() {
 		Mazo mazo = new Mazo();
 		ArrayList<Carta> cartas = new ArrayList<Carta>();
+		/*
 		for(int j= 1; j <= 4 ; j++){
 			for (int i = 0; i < 3; i ++) {
 				Carta c = mazo.darCarta();
@@ -47,6 +48,59 @@ public class Juego {
 				cartas.add(c);
 			}
 		}
+		*/
+		
+		//Metodo no random para pruebas TODO: Sacarlo
+		Carta c = mazo.darCarta(1);
+		c.setJugador(1);
+		System.out.println(c.toString());
+		cartas.add(c);
+		c = mazo.darCarta(3);
+		c.setJugador(1);
+		System.out.println(c.toString());
+		cartas.add(c);
+		c = mazo.darCarta(4);
+		c.setJugador(1);
+		System.out.println(c.toString());
+		cartas.add(c);
+		c = mazo.darCarta(2);
+		c.setJugador(2);
+		System.out.println(c.toString());
+		cartas.add(c);
+		c = mazo.darCarta(5);
+		c.setJugador(2);
+		System.out.println(c.toString());
+		cartas.add(c);
+		c = mazo.darCarta(6);
+		c.setJugador(2);
+		System.out.println(c.toString());
+		cartas.add(c);
+		c = mazo.darCarta(7);
+		c.setJugador(3);
+		System.out.println(c.toString());
+		cartas.add(c);
+		c = mazo.darCarta(9);
+		c.setJugador(3);
+		System.out.println(c.toString());
+		cartas.add(c);
+		c = mazo.darCarta(11);
+		c.setJugador(3);
+		System.out.println(c.toString());
+		cartas.add(c);
+		c = mazo.darCarta(21);
+		c.setJugador(4);
+		System.out.println(c.toString());
+		cartas.add(c);
+		c = mazo.darCarta(10);
+		c.setJugador(4);
+		System.out.println(c.toString());
+		cartas.add(c);
+		c = mazo.darCarta(22);
+		c.setJugador(4);
+		System.out.println(c.toString());
+		cartas.add(c);
+		
+		
 		Mano mano = new Mano(this.manos.size() + 1);
 		
 		mano.setCartas(cartas);

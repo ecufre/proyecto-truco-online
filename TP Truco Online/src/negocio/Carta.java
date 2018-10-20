@@ -77,5 +77,13 @@ public class Carta {
 	public CartaDTO toDTO() {
 		return (new CartaDTO(this.getId(),this.getNumero(),this.getPalo(),this.getJugador()));
 		
-}
+	}
+
+	@Override
+	public String toString() {
+		return "Carta [id=" + id + ", cartaId=" + cartaId + ", valor=" + valor + ", valorEnvite=" + valorEnvite
+				+ ", numero=" + numero + ", palo=" + palo + ", ubicacionJugador=" + ubicacionJugador + ", jugada="
+				+ jugada + "]";
+	}
+	
 }

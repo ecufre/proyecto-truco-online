@@ -4,7 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import negocio.TipoCanto;
+import enumeraciones.TipoCanto;
+
 
 @Entity
 @Table(name="cantos")

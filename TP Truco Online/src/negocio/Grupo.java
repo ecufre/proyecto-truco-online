@@ -55,7 +55,7 @@ public class Grupo {
 	public void crearPartida(Pareja p1, Pareja p2) {
 		Partida p = AdministradorPartida.getInstancia().crearPartidaCerrada(p1.getJugador1(), p2.getJugador1(), p1.getJugador2(), p2.getJugador2());
 		this.partidas.add(p);
-		this.grabar();
+		//this.grabar(); TODO des quotear.
 	}
 	
 	public void agregarPartida(Partida p) {

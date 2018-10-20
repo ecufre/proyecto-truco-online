@@ -21,9 +21,9 @@ public class JuegoEntity {
 	private int puntajeImpar;
 	private boolean finalizado;
 	@OneToMany
-	private List<Mano> manos;
+	private List<ManoEntity> manos;
 	@OneToOne
-	private Mano manoActual;
+	private ManoEntity manoActual;
 	
 	public JuegoEntity() {}
 
@@ -33,8 +33,8 @@ public class JuegoEntity {
 		this.puntajePar = puntajePar;
 		this.puntajeImpar = puntajeImpar;
 		this.finalizado = finalizado;
-		this.manos = manos;
-		this.manoActual = manoActual;
+		//this.manos = manos;
+		//this.manoActual = manoActual;
 	}
 
 	public int getId() {
@@ -68,7 +68,7 @@ public class JuegoEntity {
 	public void setFinalizado(boolean finalizado) {
 		this.finalizado = finalizado;
 	}
-
+	/*
 	public List<Mano> getManos() {
 		return manos;
 	}
@@ -84,5 +84,5 @@ public class JuegoEntity {
 	public void setManoActual(Mano manoActual) {
 		this.manoActual = manoActual;
 	}
-
+*/
 }

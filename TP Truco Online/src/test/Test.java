@@ -4,11 +4,15 @@ import java.util.ArrayList;
 
 import controladores.AdministradorGrupo;
 import controladores.AdministradorJugador;
+import controladores.AdministradorPartida;
 import controladores.CreadorPartida;
+import dto.AccionDTO;
+import dto.CartaDTO;
 import dto.GrupoDTO;
 import dto.InvitacionDTO;
 import dto.JugadorDTO;
 import dto.ParejaDTO;
+import dto.PartidaDTO;
 import excepciones.ComunicacionException;
 import excepciones.LoggedInException;
 import negocio.Invitacion;
@@ -20,6 +24,7 @@ public class Test {
 		try {
 			AdministradorJugador c1 = AdministradorJugador.getInstancia();
 			CreadorPartida cp = CreadorPartida.getInstancia();
+			AdministradorPartida c3 = AdministradorPartida.getInstancia();
 			JugadorDTO admin = new JugadorDTO("fer", "fer@fer", "Pass", "SessionID");
 			AdministradorJugador.getInstancia().crearJugador(admin);			
 			JugadorDTO jugador1 = new JugadorDTO("eze", "eze@eze", "Pass", "SessionID2");
@@ -49,11 +54,22 @@ public class Test {
 			c2.crearPareja(admin, g, jugador1, jugador4);
 			ParejaDTO p1 = new ParejaDTO(1, admin, jugador);
 			ParejaDTO p2 = new ParejaDTO(2, jugador1, jugador4);
-			//c2.crearPartida(admin, g, p1, p2); no funciona todavia
-			c2.eliminarJugadorDeGrupo(admin, g, jugador1);
-			ArrayList<JugadorDTO> ranking = Jugador.buscarTop10(1);
-			for (JugadorDTO j : ranking) System.out.println("Jugador: " + j.getApodo() + " - Promedio: " + j.getCategoria().getPromedio());
+			c2.crearPartida(admin, g, p1, p2);
+			PartidaDTO pdo = new PartidaDTO(1);
 			
+			AccionDTO ad = new AccionDTO(pdo, admin, 1, false, "");
+			c3.jugadorListo(ad);
+			ad.setJugador(jugador);
+			c3.jugadorListo(ad);
+			ad.setJugador(jugador1);
+			c3.jugadorListo(ad);
+			ad.setJugador(jugador4);
+			c3.jugadorListo(ad);
+			
+			ad.setJugador(admin);
+			CartaDTO cd = new CartaDTO(7, 7, "espada", 1);
+			ad.setCarta(cd);
+			c3.JugarCarta(ad);
 			
 			return;
 		} catch (ComunicacionException ce) {
