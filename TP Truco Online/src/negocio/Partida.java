@@ -2,6 +2,7 @@ package negocio;
 
 import java.util.ArrayList;
 
+import dto.JugadorDTO;
 import dto.PartidaDTO;
 import enumeraciones.EstadoPartida;
 import enumeraciones.TipoCanto;
@@ -32,6 +33,7 @@ public class Partida {
 		juegoActual.crearMano();
 		juegoActual.grabar();
 		this.charla = null;
+		
 	}
 	
 	public void grabar() {
@@ -145,4 +147,110 @@ public class Partida {
 	public ArrayList<Jugador> getJugadores() {
 		return jugadores;
 	}
+
+	public PartidaDTO toDTO(int partida, Jugador j2 , Boolean ptosEnvido) throws ComunicacionException {
+	
+		boolean par=true;
+		
+		
+		if(j2!=null){
+			PartidaDTO pd = new PartidaDTO(partida);
+			//pd.setChat(this.getCharla()); queda para la proxima entrega
+			pd.setCartasJugador(this.getJuegoActual().mostrarCartasJugador(this.ubicacionJugador(j2)));
+			if(ptosEnvido){
+			pd.setValorEnvidoJugador(this.getJuegoActual().mostrarPuntosEnvido(this.ubicacionJugador(j2)));	
+			}
+			pd.setCartasMesaJugador(this.getJuegoActual().mostrarCartasMesa(this.ubicacionJugador(j2)));
+			pd.setTurno(this.ubicacionJugador(j2)==this.getJuegoActual().getTurno());
+		if(this.ubicacionJugador(j2)==1||this.ubicacionJugador(j2)==3){
+			par=false;
+		}else{
+			par=true;
+		}
+			
+		
+		int juegosImpar = 0,juegosPar = 0;
+		for(Juego j : juegos){
+			if(j.getPuntajePar()<j.getPuntajeImpar()){
+				
+				juegosImpar++;
+			}else{
+			
+				juegosPar++;
+			}
+		}
+		
+		if(par){
+			pd.setJuegosNosotros(juegosPar);
+			pd.setJuegosEllos(juegosImpar);
+			pd.setPuntosJuegoNosotros(this.getJuegoActual().getPuntajePar());
+			pd.setPuntosJuegoEllos(this.getJuegoActual().getPuntajeImpar());
+			//pd.setSenias(this.getJuegoActual().mostrarSeniasPar());
+		}else{
+			pd.setJuegosNosotros(juegosImpar);
+			pd.setJuegosEllos(juegosPar);
+			pd.setPuntosJuegoNosotros(this.getJuegoActual().getPuntajeImpar());
+			pd.setPuntosJuegoEllos(this.getJuegoActual().getPuntajePar());
+			//pd.setSenias(this.getJuegoActual().mostrarSeniasImpar());
+			
+		}
+		
+		
+		
+		for(Jugador j:jugadores){
+			JugadorDTO jd = new JugadorDTO(j.getApodo(), null);
+			
+			switch (this.ubicacionJugador(j2)){
+			case 1:
+				pd.setCartasMesaJugadorFrente(this.getJuegoActual().mostrarCartasMesa(3));
+				pd.setCartasMesajugadorIzquierda(this.getJuegoActual().mostrarCartasMesa(2));
+				pd.setCartasMesaJugadorDerecha(this.getJuegoActual().mostrarCartasMesa(4));
+				if(ptosEnvido){
+					pd.setValorEnvidoJugadorFrente(3);
+					pd.setValorEnvidoJugadorIquierda(2);
+					pd.setValorEnvidoJugadorDerecha(4);
+				}
+				
+			break;
+			case 2:
+				pd.setCartasMesaJugadorFrente(this.getJuegoActual().mostrarCartasMesa(4));
+				pd.setCartasMesajugadorIzquierda(this.getJuegoActual().mostrarCartasMesa(3));
+				pd.setCartasMesaJugadorDerecha(this.getJuegoActual().mostrarCartasMesa(1));
+				if(ptosEnvido){
+					pd.setValorEnvidoJugadorFrente(4);
+					pd.setValorEnvidoJugadorIquierda(3);
+					pd.setValorEnvidoJugadorDerecha(1);
+				}
+			break;
+			case 3:
+				pd.setCartasMesaJugadorFrente(this.getJuegoActual().mostrarCartasMesa(1));
+				pd.setCartasMesajugadorIzquierda(this.getJuegoActual().mostrarCartasMesa(4));
+				pd.setCartasMesaJugadorDerecha(this.getJuegoActual().mostrarCartasMesa(2));
+				if(ptosEnvido){
+					pd.setValorEnvidoJugadorFrente(1);
+					pd.setValorEnvidoJugadorIquierda(4);
+					pd.setValorEnvidoJugadorDerecha(2);
+				}
+			break;
+			case 4:
+				pd.setCartasMesaJugadorFrente(this.getJuegoActual().mostrarCartasMesa(2));
+				pd.setCartasMesajugadorIzquierda(this.getJuegoActual().mostrarCartasMesa(1));
+				pd.setCartasMesaJugadorDerecha(this.getJuegoActual().mostrarCartasMesa(3));
+				if(ptosEnvido){
+					pd.setValorEnvidoJugadorFrente(2);
+					pd.setValorEnvidoJugadorIquierda(1);
+					pd.setValorEnvidoJugadorDerecha(3);
+				}
+			break;
+			}
+				
+		}
+		
+		
+		
+		return pd;
+		}else{
+			return null;
+		}
+}
 }

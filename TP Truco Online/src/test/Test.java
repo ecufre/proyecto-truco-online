@@ -53,6 +53,8 @@ public class Test {
 			c2.eliminarJugadorDeGrupo(admin, g, jugador1);
 			ArrayList<JugadorDTO> ranking = Jugador.buscarTop10(1);
 			for (JugadorDTO j : ranking) System.out.println("Jugador: " + j.getApodo() + " - Promedio: " + j.getCategoria().getPromedio());
+			
+			
 			return;
 		} catch (ComunicacionException ce) {
 			System.err.println(ce.getMessage());

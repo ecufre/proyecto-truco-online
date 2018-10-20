@@ -2,6 +2,7 @@ package negocio;
 
 import java.util.ArrayList;
 
+import dto.CartaDTO;
 import enumeraciones.TipoCanto;
 import excepciones.ComunicacionException;
 
@@ -13,7 +14,8 @@ public class Mano {
 	private ArrayList<Canto> cantos;
 	private ArrayList<Carta> cartas;
 	private ArrayList<Baza> bazas;
-
+	private Integer[] envidoValor;
+	
 	//Metodo a eliminar con persistencia
 	private static int getSiguienteId() {
 		return siguienteId++;
@@ -26,6 +28,7 @@ public class Mano {
 		this.cartas = new ArrayList<Carta>();
 		this.bazas = new ArrayList<Baza>();
 		bazas.add(new Baza(this.calcularJugManoBaza()));
+		this.envidoValor = new Integer[4];
 	}
 
 	public void grabar() {
@@ -250,5 +253,62 @@ public class Mano {
 	public void setCartas(ArrayList<Carta> cartas) {
 		this.cartas = cartas;
 	}
+
+	public ArrayList<CartaDTO> mostrarCartasJugador(int i) {
+			ArrayList<CartaDTO> cd = new ArrayList<CartaDTO>();
+			for(Carta c: cartas){
+				if(c.getJugador()==i){
+					cd.add(c.toDTO());
+				}
+			}
+			return cd;
+}
+
+	public Integer mostrarPuntosEnvido(Integer pos) {
+		
+		return this.envidoValor[pos-1];
+	}
 	
+	public void calcularEnvidos() {
+		for(int i=1;i<5;i++){
+			Carta[] manoj = new Carta[3];
+			int a=0;
+			int mejor=0;
+			for(Carta c:cartas){
+				if(c.getJugador()==i){
+					manoj[a]=c;
+					a++;
+				}
+			}
+				for(int b=0;b<2;b++){
+					for(int cc=b+1;cc<3;cc++){
+						
+						int p=(manoj[b].getValorEnvite()+manoj[cc].getValorEnvite());
+						if (manoj[b].getPalo().equals(manoj[cc].getPalo())){
+							p=p+20;
+						}
+						if(mejor<(p)){
+							mejor=p;
+						}
+					}
+				}
+				this.envidoValor[i-1]=mejor;
+			}
+			
+}
+
+	
+
+	public ArrayList<CartaDTO> mostarCartasMesa(Integer ubicacion) {
+		 ArrayList<CartaDTO> cm = new  ArrayList<CartaDTO>();
+		for(Baza b : this.bazas){
+			for(Carta c :b.getCartasbaza()){
+				if(c.getJugador()==ubicacion){
+				cm.add(c.toDTO());
+				}
+			}
+			
+		}
+		return cm;
+	}
 }

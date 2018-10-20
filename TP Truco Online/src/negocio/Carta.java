@@ -63,4 +63,19 @@ public class Carta {
 	public String getPalo() {
 		return palo;
 	}
+	
+	
+
+	public int getNumero() {
+		return numero;
+	}
+
+	public void setNumero(int numero) {
+		this.numero = numero;
+	}
+
+	public CartaDTO toDTO() {
+		return (new CartaDTO(this.getId(),this.getNumero(),this.getPalo(),this.getJugador()));
+		
+}
 }

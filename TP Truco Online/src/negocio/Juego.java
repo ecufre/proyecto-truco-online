@@ -48,7 +48,9 @@ public class Juego {
 			}
 		}
 		Mano mano = new Mano(this.manos.size() + 1);
+		
 		mano.setCartas(cartas);
+		mano.calcularEnvidos();
 		manos.add(mano);
 		mano.grabar();
 	}
@@ -78,6 +80,7 @@ public class Juego {
 		this.getManoActual().responderEnvite(jugadorUbicacion, respuesta);
 	}
 	
+
 	private void calcularPuntos() {
 		this.puntajeImpar = this.puntajeImpar + this.getManoActual().calcularPuntaje(1, this.puntajeImpar, this.puntajePar);
 		this.puntajePar = this.puntajePar + this.getManoActual().calcularPuntaje(2, this.puntajePar, this.puntajeImpar);
@@ -95,4 +98,28 @@ public class Juego {
 	public boolean isFinalizado() {
 		return finalizado;
 	}
+
+	
+	
+	public ArrayList<CartaDTO> mostrarCartasJugador(int i) {
+		return this.getManoActual().mostrarCartasJugador(i);
+
+}
+
+	public Integer mostrarPuntosEnvido(Integer pos) {
+		return this.getManoActual().mostrarPuntosEnvido(pos);
+
+	}
+
+	
+		public  ArrayList<CartaDTO> mostrarCartasMesa(Integer ubicacion){
+			return this.getManoActual().mostarCartasMesa(ubicacion);
+			
+	
+	}
+
+		public int getTurno() {
+		
+		return this.getManoActual().getBazaActual().getTurno();
+}
 }

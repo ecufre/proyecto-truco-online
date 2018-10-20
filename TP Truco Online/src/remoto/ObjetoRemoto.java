@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import controladores.AdministradorGrupo;
 import controladores.AdministradorJugador;
+import controladores.AdministradorPartida;
 import dto.AccionDTO;
 import dto.GrupoDTO;
 import dto.HistoriaPartidaDTO;
@@ -106,5 +107,60 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfaceRemota
 	@Override
 	public ArrayList<JugadorDTO> calcularRankingCerrado(GrupoDTO grupo) throws ComunicacionException {
 		return AdministradorGrupo.getInstancia().calcularRankingCerrado(grupo);
+	}
+
+	@Override
+	public void jugadorListos(AccionDTO ad) throws RemoteException, LoggedInException, ComunicacionException {
+		
+		AdministradorPartida.getInstancia().jugadorListo(ad);
+	}
+
+	@Override
+	public void JugarCarta(AccionDTO ad) throws RemoteException, LoggedInException, ComunicacionException {
+			AdministradorPartida.getInstancia().JugarCarta(ad);		
+	}
+
+	@Override
+	public void Retirarse(AccionDTO ad) throws RemoteException, LoggedInException, ComunicacionException {
+		AdministradorPartida.getInstancia().Retirarse(ad);
+		
+	}
+
+	@Override
+	public void cantarEnvite(AccionDTO ad) throws RemoteException, LoggedInException, ComunicacionException {
+		AdministradorPartida.getInstancia().cantarEnvite(ad);
+		
+	}
+
+	@Override
+	public void responderEnvite(AccionDTO ad) throws RemoteException, LoggedInException, ComunicacionException {
+		AdministradorPartida.getInstancia().responderEnvite(ad);
+		
+	}
+
+	@Override
+	public PartidaDTO mostrarPartida(AccionDTO ad) throws RemoteException {
+		// TODO Auto-generated method stub
+		System.out.println("falta el metodo");
+		return null;
+	}
+
+	@Override
+	public void enviarMensaje(AccionDTO ad) throws RemoteException {
+		// TODO proxima entrega
+		
+	}
+
+	@Override
+	public void enviarSenia(AccionDTO ad) throws RemoteException {
+		// TODO proxima entrega
+		
+	}
+
+	@Override
+	public HistoriaPartidaDTO mostrarHistoria(AccionDTO ad)
+			throws RemoteException {
+		// TODO proxima entrega
+		return null;
 	}
 }

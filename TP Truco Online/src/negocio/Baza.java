@@ -86,4 +86,8 @@ public class Baza {
 	public boolean isParda() {
 		return parda;
 	}
+
+	public ArrayList<Carta> getCartasbaza() {
+		return cartasbaza;
+	}
 }

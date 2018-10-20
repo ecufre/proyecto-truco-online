@@ -102,6 +102,22 @@ public class AdministradorPartida {
 		}
 	}
 	
+	public PartidaDTO mostrarPartida(AccionDTO ad) throws ComunicacionException, LoggedInException{
+		
+		if (AdministradorJugador.getInstancia().isLoggedIn(ad.getJugador())) {
+			Jugador j = AdministradorJugador.getInstancia().buscarJugador(ad.getJugador().getApodo());
+			Partida p = this.buscarPartida(ad.getPartida().getPartidaID());
+			if (p.getEstado() == EstadoPartida.EnCurso) {
+			
+        return 	p.toDTO(ad.getPartida().getPartidaID(), j , true);
+        	}
+			}
+			
+		
+		
+		return null;
+		
+	}
 
 	private Partida buscarPartida(int partida) throws ComunicacionException {
 		//TODO Pedirsela al PartidaDAO
