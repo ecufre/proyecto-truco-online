@@ -1,7 +1,12 @@
 package dao;
 
+import java.util.ArrayList;
+
+import entities.CartaEntity;
 import entities.JuegoEntity;
 import entities.ManoEntity;
+import negocio.Baza;
+import negocio.Carta;
 import negocio.Juego;
 import negocio.Mano;
 
@@ -40,7 +45,7 @@ private static ManoDAO instancia;
 		}
 		
 		public Mano toNegocio(ManoEntity me) {
-			return null; //TODO
+		return null;
 		}
 		
 		public ManoEntity toEntity(Mano m) {

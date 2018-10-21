@@ -37,6 +37,12 @@ public class Canto {
 	public void setCantante(int cantante) {
 		this.cantante = cantante;
 	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public void grabar() {
 		// TODO Grabar
