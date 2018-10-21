@@ -158,6 +158,7 @@ public class Partida {
 		
 		if(j2!=null){
 			PartidaDTO pd = new PartidaDTO(partida);
+			pd.setJugador(j2.toDTO());
 			//pd.setChat(this.getCharla()); queda para la proxima entrega
 			pd.setCartasJugador(this.getJuegoActual().mostrarCartasJugador(this.ubicacionJugador(j2)));
 			if(ptosEnvido){
@@ -201,49 +202,59 @@ public class Partida {
 		
 		
 		for(Jugador j:jugadores){
-			JugadorDTO jd = new JugadorDTO(j.getApodo(), null);
-			jd.setLoggedSession(j.getLoggedSession());
-			pd.setJugador(jd);
+			
 			switch (this.ubicacionJugador(j2)){
 			case 1:
+				pd.setJugadorFrente(this.jugadores.get(2).toDTO());
+				pd.setJugadorIzquierda(this.jugadores.get(1).toDTO());
+				pd.setJugadorDerecha(this.jugadores.get(3).toDTO());
 				pd.setCartasMesaJugadorFrente(this.getJuegoActual().mostrarCartasMesa(3));
 				pd.setCartasMesajugadorIzquierda(this.getJuegoActual().mostrarCartasMesa(2));
 				pd.setCartasMesaJugadorDerecha(this.getJuegoActual().mostrarCartasMesa(4));
 				if(ptosEnvido){
-					pd.setValorEnvidoJugadorFrente(3);
-					pd.setValorEnvidoJugadorIquierda(2);
-					pd.setValorEnvidoJugadorDerecha(4);
+					pd.setValorEnvidoJugadorFrente(this.getJuegoActual().mostrarPuntosEnvido(3));
+					pd.setValorEnvidoJugadorIquierda(this.getJuegoActual().mostrarPuntosEnvido(2));
+					pd.setValorEnvidoJugadorDerecha(this.getJuegoActual().mostrarPuntosEnvido(4));
 				}
 				
 			break;
 			case 2:
+				pd.setJugadorFrente(this.jugadores.get(3).toDTO());
+				pd.setJugadorIzquierda(this.jugadores.get(2).toDTO());
+				pd.setJugadorDerecha(this.jugadores.get(0).toDTO());
 				pd.setCartasMesaJugadorFrente(this.getJuegoActual().mostrarCartasMesa(4));
 				pd.setCartasMesajugadorIzquierda(this.getJuegoActual().mostrarCartasMesa(3));
 				pd.setCartasMesaJugadorDerecha(this.getJuegoActual().mostrarCartasMesa(1));
 				if(ptosEnvido){
-					pd.setValorEnvidoJugadorFrente(4);
-					pd.setValorEnvidoJugadorIquierda(3);
-					pd.setValorEnvidoJugadorDerecha(1);
+					pd.setValorEnvidoJugadorFrente(this.getJuegoActual().mostrarPuntosEnvido(4));
+					pd.setValorEnvidoJugadorIquierda(this.getJuegoActual().mostrarPuntosEnvido(3));
+					pd.setValorEnvidoJugadorDerecha(this.getJuegoActual().mostrarPuntosEnvido(1));
 				}
 			break;
 			case 3:
+				pd.setJugadorFrente(this.jugadores.get(0).toDTO());
+				pd.setJugadorIzquierda(this.jugadores.get(3).toDTO());
+				pd.setJugadorDerecha(this.jugadores.get(1).toDTO());
 				pd.setCartasMesaJugadorFrente(this.getJuegoActual().mostrarCartasMesa(1));
 				pd.setCartasMesajugadorIzquierda(this.getJuegoActual().mostrarCartasMesa(4));
 				pd.setCartasMesaJugadorDerecha(this.getJuegoActual().mostrarCartasMesa(2));
 				if(ptosEnvido){
-					pd.setValorEnvidoJugadorFrente(1);
-					pd.setValorEnvidoJugadorIquierda(4);
-					pd.setValorEnvidoJugadorDerecha(2);
+					pd.setValorEnvidoJugadorFrente(this.getJuegoActual().mostrarPuntosEnvido(1));
+					pd.setValorEnvidoJugadorIquierda(this.getJuegoActual().mostrarPuntosEnvido(4));
+					pd.setValorEnvidoJugadorDerecha(this.getJuegoActual().mostrarPuntosEnvido(2));
 				}
 			break;
 			case 4:
+				pd.setJugadorFrente(this.jugadores.get(1).toDTO());
+				pd.setJugadorIzquierda(this.jugadores.get(0).toDTO());
+				pd.setJugadorDerecha(this.jugadores.get(2).toDTO());
 				pd.setCartasMesaJugadorFrente(this.getJuegoActual().mostrarCartasMesa(2));
 				pd.setCartasMesajugadorIzquierda(this.getJuegoActual().mostrarCartasMesa(1));
 				pd.setCartasMesaJugadorDerecha(this.getJuegoActual().mostrarCartasMesa(3));
 				if(ptosEnvido){
-					pd.setValorEnvidoJugadorFrente(2);
-					pd.setValorEnvidoJugadorIquierda(1);
-					pd.setValorEnvidoJugadorDerecha(3);
+					pd.setValorEnvidoJugadorFrente(this.getJuegoActual().mostrarPuntosEnvido(2));
+					pd.setValorEnvidoJugadorIquierda(this.getJuegoActual().mostrarPuntosEnvido(1));
+					pd.setValorEnvidoJugadorDerecha(this.getJuegoActual().mostrarPuntosEnvido(3));
 				}
 			break;
 			}

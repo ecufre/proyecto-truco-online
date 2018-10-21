@@ -88,50 +88,54 @@ public class Test {
 			baza2.add(new CartaDTO(26, 6, "copa", 1));
 			baza2.add(new CartaDTO(30, 12, "copa", 1));
 			
-			/*
+			ad.setJugador(admin);
+			mostrarPartida(c3,ad);
+		System.out.println("ARRANCAMOS");
+
+			
 			for (int i = 0; i < 30; i++) {
 				//Primera baza
 				CartaDTO cd = baza1.get((i+0)%4);
 				ad.setJugador(jugadores.get((i+0)%4));
 				ad.setCarta(cd);
 				c3.JugarCarta(ad);
-				
+				mostrarPartida(c3,ad);
 				cd = baza1.get((i+1)%4);
 				ad.setJugador(jugadores.get((i+1)%4));
 				ad.setCarta(cd);
 				c3.JugarCarta(ad);
-				
+				mostrarPartida(c3,ad);
 				cd = baza1.get((i+2)%4);
 				ad.setJugador(jugadores.get((i+2)%4));
 				ad.setCarta(cd);
 				c3.JugarCarta(ad);
-				
+				mostrarPartida(c3,ad);
 				cd = baza1.get((i+3)%4);
 				ad.setJugador(jugadores.get((i+3)%4));
 				ad.setCarta(cd);
 				c3.JugarCarta(ad);
-				
+				mostrarPartida(c3,ad);
 				//Segunda baza
 				cd = baza2.get(0);
 				ad.setJugador(jugadores.get(0));
 				ad.setCarta(cd);
 				c3.JugarCarta(ad);
-				
+				mostrarPartida(c3,ad);
 				cd = baza2.get(1);
 				ad.setJugador(jugadores.get(1));
 				ad.setCarta(cd);
 				c3.JugarCarta(ad);
-				
+				mostrarPartida(c3,ad);
 				cd = baza2.get(2);
 				ad.setJugador(jugadores.get(2));
 				ad.setCarta(cd);
 				c3.JugarCarta(ad);
-				
+				mostrarPartida(c3,ad);
 				cd = baza2.get(3);
 				ad.setJugador(jugadores.get(3));
 				ad.setCarta(cd);
 				c3.JugarCarta(ad);
-				/*
+				
 				//Tercera baza
 				cd = new CartaDTO(10, 12, "espada", 1);
 				ad.setJugador(jugador1);
@@ -154,7 +158,7 @@ public class Test {
 				c3.JugarCarta(ad);
 				
 			}
-			*/
+			/*
 			//Primera baza
 				EnviteDTO edto = new EnviteDTO(TipoCanto.Envido, true, true);
 				ad.setEnvite(edto);
@@ -169,7 +173,7 @@ public class Test {
 				c3.responderEnvite(ad);
 				ad.setCarta(cd);
 				c3.JugarCarta(ad);
-				
+				mostrarPartida(c3,ad);
 				cd = baza1.get(1);
 				ad.setJugador(jugadores.get(1));
 				ad.setCarta(cd);
@@ -222,7 +226,7 @@ public class Test {
 				//c3.JugarCarta(ad);
 				*/
 				
-	
+				
 			return;
 		} catch (ComunicacionException ce) {
 			System.err.print(ce.getMessage());
@@ -234,5 +238,52 @@ public class Test {
 	public static void jugarMano(int numeroMano) {
 		
 	}
-
+	public static void mostrarPartida(AdministradorPartida c3,AccionDTO ad) throws ComunicacionException, LoggedInException{
+	
+	PartidaDTO pd = c3.mostrarPartida(ad);
+	System.out.println(c3.mostrarPartida(ad));
+	System.out.println("Juegos\n Nosotros:"+pd.getJuegosNosotros()+" Ellos: "+pd.getJuegosEllos() );
+	System.out.println("Puntos Juegos\n Nosotros:"+pd.getPuntosJuegoNosotros()+" Ellos: "+pd.getPuntosJuegoEllos() );
+	System.out.println("jugador:"			+pd.getJugador().getApodo()+" suma Envido: "+pd.getValorEnvidoJugador());
+	System.out.println("jugador frente:"	+pd.getJugadorFrente().getApodo()+" suma Envido: "+pd.getValorEnvidoJugadorFrente());
+	System.out.println("jugador IZQ:"		+pd.getJugadorIzquierda().getApodo()+" suma Envido: "+pd.getValorEnvidoJugadorIquierda());
+	System.out.println("jugador DER:"		+pd.getJugadorDerecha().getApodo()+" suma Envido: "+pd.getValorEnvidoJugadorDerecha());
+	
+	System.out.println(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n"
+			+ 		   ":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n"
+			+ 			":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
+	System.out.println("Cartas Jugador: "+pd.getJugador().getApodo());
+	for(CartaDTO c :pd.getCartasJugador()){
+		System.out.println(c.toString());
+	}
+	System.out.println(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n"
+			+ 		   ":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n"
+			+ 			":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
+	System.out.println("Cartas Jugador Mesa: "+pd.getJugador().getApodo());
+	for(CartaDTO c :pd.getCartasMesaJugador()){
+		System.out.println(c.toString());
+	}
+	System.out.println(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n"
+			+ 		   ":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n"
+			+ 			":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
+	System.out.println("Cartas Jugador Mesa Frente: "+pd.getJugadorFrente().getApodo());
+	for(CartaDTO c :pd.getCartasMesaJugadorFrente()){
+		System.out.println(c.toString());
+	}
+	System.out.println(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n"
+			+ 		   ":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n"
+			+ 			":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
+	System.out.println("Cartas Jugador Mesa Izquieda: "+pd.getJugadorIzquierda().getApodo());
+	for(CartaDTO c :pd.getCartasMesajugadorIzquierda()){
+		System.out.println(c.toString());
+	}
+	System.out.println(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n"
+			+ 		   ":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n"
+			+ 			":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
+	System.out.println("Cartas Jugador Mesa Derecha: "+pd.getJugadorDerecha().getApodo());
+	for(CartaDTO c :pd.getCartasMesaJugadorDerecha()){
+		System.out.println(c.toString());
+	}
+	}
 }
+

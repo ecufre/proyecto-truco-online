@@ -266,7 +266,7 @@ public class Mano {
 	public ArrayList<CartaDTO> mostrarCartasJugador(int i) {
 			ArrayList<CartaDTO> cd = new ArrayList<CartaDTO>();
 			for(Carta c: cartas){
-				if(c.getJugador()==i){
+				if(c.getJugador()==i && !c.isJugada()){
 					cd.add(c.toDTO());
 				}
 			}
