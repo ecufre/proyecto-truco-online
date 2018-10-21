@@ -51,10 +51,12 @@ public class Mano {
 			//this.cartas.remove(c);
 			c.setJugada(true);
 			c.grabar();
-			if(this.getBazaActual().isCompleta() && this.bazas.size() < 3){
+			if(this.getBazaActual().isCompleta()){
 				this.getBazaActual().determinarGanador();
-				int mano = this.getBazaActual().getGanadorBaza();
-				bazas.add(new Baza(mano));
+				if  (! this.manoCompleta()) {
+					int mano = this.getBazaActual().getGanadorBaza();
+					bazas.add(new Baza(mano));
+				}
 			}
 		}
 		else throw new ComunicacionException("Jugada invalida");

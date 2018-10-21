@@ -65,70 +65,73 @@ public class Test {
 			c3.jugadorListo(ad);
 			ad.setJugador(jugador4);
 			c3.jugadorListo(ad);
-			
-			//Primera baza
-			CartaDTO cd = new CartaDTO(7, 7, "espada", 1);
-			ad.setJugador(admin);
-			ad.setCarta(cd);
-			c3.JugarCarta(ad);
-			
-			cd = new CartaDTO(4, 4, "espada", 1);
-			ad.setJugador(jugador1);
-			ad.setCarta(cd);
-			c3.JugarCarta(ad);
-			
-			cd = new CartaDTO(14, 4, "basto", 1);
-			ad.setJugador(jugador);
-			ad.setCarta(cd);
-			c3.JugarCarta(ad);
-			
-			cd = new CartaDTO(34, 4, "oro", 1);
-			ad.setJugador(jugador4);
-			ad.setCarta(cd);
-			c3.JugarCarta(ad);
-			
-			//Segunda baza
-			cd = new CartaDTO(5, 5, "espada", 1);
-			ad.setJugador(admin);
-			ad.setCarta(cd);
-			c3.JugarCarta(ad);
-			
-			cd = new CartaDTO(12, 2, "basto", 1);
-			ad.setJugador(jugador1);
-			ad.setCarta(cd);
-			c3.JugarCarta(ad);
-			
-			cd = new CartaDTO(17, 7, "basto", 1);
-			ad.setJugador(jugador);
-			ad.setCarta(cd);
-			c3.JugarCarta(ad);
-			
-			cd = new CartaDTO(19, 11, "basto", 1);
-			ad.setJugador(jugador4);
-			ad.setCarta(cd);
-			c3.JugarCarta(ad);
-			
-			//Tercera baza
-			cd = new CartaDTO(10, 12, "espada", 1);
-			ad.setJugador(jugador1);
-			ad.setCarta(cd);
-			c3.JugarCarta(ad);
-			
-			cd = new CartaDTO(20, 12, "basto", 1);
-			ad.setJugador(jugador);
-			ad.setCarta(cd);
-			c3.JugarCarta(ad);
-			
-			cd = new CartaDTO(31, 1, "oro", 1);
-			ad.setJugador(jugador4);
-			ad.setCarta(cd);
-			c3.JugarCarta(ad);
-			
-			cd = new CartaDTO(2, 2, "espada", 1);
-			ad.setJugador(admin);
-			ad.setCarta(cd);
-			c3.JugarCarta(ad);
-			
+			for (int i = 0; i < 30; i++) {
+				//Primera baza
+				CartaDTO cd = new CartaDTO(7, 7, "espada", 1);
+				ad.setJugador(admin);
+				ad.setCarta(cd);
+				c3.JugarCarta(ad);
+				
+				cd = new CartaDTO(4, 4, "espada", 1);
+				ad.setJugador(jugador1);
+				ad.setCarta(cd);
+				c3.JugarCarta(ad);
+				
+				cd = new CartaDTO(14, 4, "basto", 1);
+				ad.setJugador(jugador);
+				ad.setCarta(cd);
+				c3.JugarCarta(ad);
+				
+				cd = new CartaDTO(34, 4, "oro", 1);
+				ad.setJugador(jugador4);
+				ad.setCarta(cd);
+				c3.JugarCarta(ad);
+				
+				//Segunda baza
+				cd = new CartaDTO(2, 2, "espada", 1);
+				ad.setJugador(admin);
+				ad.setCarta(cd);
+				c3.JugarCarta(ad);
+				
+				cd = new CartaDTO(12, 2, "basto", 1);
+				ad.setJugador(jugador1);
+				ad.setCarta(cd);
+				c3.JugarCarta(ad);
+				
+				cd = new CartaDTO(17, 7, "basto", 1);
+				ad.setJugador(jugador);
+				ad.setCarta(cd);
+				c3.JugarCarta(ad);
+				
+				cd = new CartaDTO(19, 11, "basto", 1);
+				ad.setJugador(jugador4);
+				ad.setCarta(cd);
+				c3.JugarCarta(ad);
+				/*
+				//Tercera baza
+				cd = new CartaDTO(10, 12, "espada", 1);
+				ad.setJugador(jugador1);
+				ad.setCarta(cd);
+				c3.JugarCarta(ad);
+				
+				cd = new CartaDTO(20, 12, "basto", 1);
+				ad.setJugador(jugador);
+				ad.setCarta(cd);
+				c3.JugarCarta(ad);
+				
+				cd = new CartaDTO(31, 1, "oro", 1);
+				ad.setJugador(jugador4);
+				ad.setCarta(cd);
+				c3.JugarCarta(ad);
+				
+				cd = new CartaDTO(5, 5, "espada", 1);
+				ad.setJugador(admin);
+				ad.setCarta(cd);
+				c3.JugarCarta(ad);
+				
+				*/
+			}
+	
 			return;
 		} catch (ComunicacionException ce) {
 			System.err.print(ce.getMessage());
