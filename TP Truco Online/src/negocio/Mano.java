@@ -21,13 +21,15 @@ public class Mano {
 		return siguienteId++;
 	}
 
-	public Mano(Integer numeroMano) {
+	public Mano(Integer numeroMano) throws ComunicacionException {
 		this.id = Mano.getSiguienteId();
 		this.numeroMano = numeroMano;
 		this.cantos = new ArrayList<Canto>();
 		this.cartas = new ArrayList<Carta>();
 		this.bazas = new ArrayList<Baza>();
-		bazas.add(new Baza(this.calcularJugManoBaza()));
+		Baza b = new Baza(this.calcularJugManoBaza());
+		b.crear();
+		bazas.add(b);
 		this.envidoValor = new Integer[4];
 	}
 
@@ -55,7 +57,9 @@ public class Mano {
 				this.getBazaActual().determinarGanador();
 				if  (! this.manoCompleta()) {
 					int mano = this.getBazaActual().getGanadorBaza();
-					bazas.add(new Baza(mano));
+					Baza b = new Baza(mano);
+					b.crear();
+					bazas.add(b);bazas.add(b);
 				}
 			}
 		}
@@ -84,8 +88,12 @@ public class Mano {
 		else return (4 + this.calcularJugManoBaza() - ubicacion);
 	}
 
-	public void administrarRetiro(int ganador) {
-		while(this.bazas.size()<3) this.bazas.add(new Baza(1));
+	public void administrarRetiro(int ganador) throws ComunicacionException {
+		while(this.bazas.size()<3) {
+			Baza b = new Baza(1);
+			b.crear();
+			bazas.add(b);
+		}
 		for(Baza b : this.bazas) b.setGanadorBaza(ganador);
 	}
 

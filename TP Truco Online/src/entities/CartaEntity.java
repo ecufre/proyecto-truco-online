@@ -3,55 +3,45 @@ package entities;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="cartas")
 public class CartaEntity {
 	
-	private int valor;
-	private String palo;
-	private int jugada;
-	
 	@Id
 	@GeneratedValue
 	private Integer id;
-	@ManyToOne
-	private ManoEntity mano;
-	//TODO  AGREGAR JUGADOR
+	private Integer cartaId;
+	private Integer valor;
+	private Integer valorEnvite;
+	private Integer numero;
+	private String palo;
+	private Integer ubicacionJugador;
+	private Boolean jugada;
 	
 	public CartaEntity() {}
 
-	public CartaEntity(int valor, String palo, int jugada, ManoEntity mano) {
-		super();
+	public CartaEntity(Integer cartaId, Integer valor, Integer valorEnvite, Integer numero, String palo,
+			Integer ubicacionJugador, Boolean jugada) {
+		this.cartaId = cartaId;
 		this.valor = valor;
+		this.valorEnvite = valorEnvite;
+		this.numero = numero;
 		this.palo = palo;
+		this.ubicacionJugador = ubicacionJugador;
 		this.jugada = jugada;
-		this.mano = mano;
 	}
 
-	public int getValor() {
-		return valor;
-	}
-
-	public void setValor(int valor) {
+	public CartaEntity(Integer id, Integer cartaId, Integer valor, Integer valorEnvite, Integer numero, String palo,
+			Integer ubicacionJugador, Boolean jugada) {
+		this.id = id;
+		this.cartaId = cartaId;
 		this.valor = valor;
-	}
-
-	public String getPalo() {
-		return palo;
-	}
-
-	public void setPalo(String palo) {
+		this.valorEnvite = valorEnvite;
+		this.numero = numero;
 		this.palo = palo;
-	}
-
-	public int getJugada() {
-		return jugada;
-	}
-
-	public void setJugada(int jugada) {
+		this.ubicacionJugador = ubicacionJugador;
 		this.jugada = jugada;
 	}
 
@@ -63,11 +53,59 @@ public class CartaEntity {
 		this.id = id;
 	}
 
-	public ManoEntity getMano() {
-		return mano;
+	public Integer getCartaId() {
+		return cartaId;
 	}
 
-	public void setMano(ManoEntity mano) {
-		this.mano = mano;
+	public void setCartaId(Integer cartaId) {
+		this.cartaId = cartaId;
+	}
+
+	public Integer getValor() {
+		return valor;
+	}
+
+	public void setValor(Integer valor) {
+		this.valor = valor;
+	}
+
+	public Integer getValorEnvite() {
+		return valorEnvite;
+	}
+
+	public void setValorEnvite(Integer valorEnvite) {
+		this.valorEnvite = valorEnvite;
+	}
+
+	public Integer getNumero() {
+		return numero;
+	}
+
+	public void setNumero(Integer numero) {
+		this.numero = numero;
+	}
+
+	public String getPalo() {
+		return palo;
+	}
+
+	public void setPalo(String palo) {
+		this.palo = palo;
+	}
+
+	public Integer getUbicacionJugador() {
+		return ubicacionJugador;
+	}
+
+	public void setUbicacionJugador(Integer ubicacionJugador) {
+		this.ubicacionJugador = ubicacionJugador;
+	}
+
+	public Boolean getJugada() {
+		return jugada;
+	}
+
+	public void setJugada(Boolean jugada) {
+		this.jugada = jugada;
 	}
 }

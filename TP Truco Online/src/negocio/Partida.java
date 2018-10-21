@@ -20,7 +20,7 @@ public class Partida {
 	
 	
 	// Creacion y preparacion de partida
-	public Partida(boolean esAbierta) {
+	public Partida(boolean esAbierta) throws ComunicacionException {
 		this.id = 1; // terminar
 		this.jugadores = new ArrayList<Jugador>();
 		this.jugadoresListos = new ArrayList<Jugador>();
@@ -78,7 +78,7 @@ public class Partida {
 		this.actualizarEsatdoPartida();
 	}
 	
-	public void actualizarEsatdoPartida(){
+	public void actualizarEsatdoPartida() throws ComunicacionException{
 		this.getJuegoActual().actualizarJuego(); //TODO Revisar cuando este el conteo de envites
 		this.getJuegoActual().grabar();
 		

@@ -3,6 +3,7 @@ package controladores;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import excepciones.ComunicacionException;
 import negocio.Jugador;
 import negocio.Pareja;
 
@@ -23,18 +24,18 @@ public class CreadorPartida {
 		return instancia;
 	}
 	
-	public void agregarJugadorIndividual(Jugador j) {
+	public void agregarJugadorIndividual(Jugador j) throws ComunicacionException {
 		this.jugadoresDisponibles.add(j);
 		this.crearPartidasIndividuales();
 	}
 	
-	public void agregarPareja(Jugador j1, Jugador j2) {
+	public void agregarPareja(Jugador j1, Jugador j2) throws ComunicacionException {
 		Pareja p = new Pareja(j1, j2);
 		this.parejasDisponibles.add(p);
 		this.crearPartidasPareja();
 	}
 	
-	private void crearPartidasPareja() {
+	private void crearPartidasPareja() throws ComunicacionException {
 		//JugadoresPareja
 		ArrayList<Pareja> Cat1 = new ArrayList<Pareja>();
 		ArrayList<Pareja> Cat2 = new ArrayList<Pareja>();
@@ -94,7 +95,7 @@ public class CreadorPartida {
 		}
 	}
 
-	private void crearPartidasIndividuales() {
+	private void crearPartidasIndividuales() throws ComunicacionException {
 		//JugadoresIndividuales
 		ArrayList<Jugador> Cat1 = new ArrayList<Jugador>();
 		ArrayList<Jugador> Cat2 = new ArrayList<Jugador>();

@@ -2,6 +2,9 @@ package negocio;
 
 import java.util.ArrayList;
 
+import dao.BazaDAO;
+import excepciones.ComunicacionException;
+
 public class Baza {
 	private static int siguienteId = 1; //TODO esto se reemplaza por la persistencia
 	private int id;
@@ -17,15 +20,28 @@ public class Baza {
 	}
 
 	public Baza(int turno) {
-		this.id = Baza.getSiguienteId();
 		this.cartasbaza = new ArrayList<Carta>();
 		this.ganadorBaza = null;
 		this.turno = turno;
 		this.mano = turno;
 	}
 	
-	public void grabar() {
-		//TODO Grabar
+	public Baza(int id, int turno, int mano, boolean parda, Integer ganadorBaza) {
+		this.id = id;
+		this.cartasbaza = new ArrayList<Carta>();
+		this.ganadorBaza = ganadorBaza;
+		this.turno = turno;
+		this.mano = mano;
+	}
+	
+	public void grabar(int a) {
+		BazaDAO.getInstancia().grabar(this);
+	}
+	
+	public void crear() throws ComunicacionException {
+		Integer id = BazaDAO.getInstancia().crear(this);
+		if (id != null) this.id = id;
+		else throw new ComunicacionException("Hubo un error al generar una nueva baza");
 	}
 		
 	//Calcula la posicion relativa de un jugador respecto del mano de la baza
@@ -91,5 +107,17 @@ public class Baza {
 
 	public ArrayList<Carta> getCartasbaza() {
 		return cartasbaza;
+	}
+
+	public int getMano() {
+		return mano;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setCartasbaza(ArrayList<Carta> cartasbaza) {
+		this.cartasbaza = cartasbaza;
 	}
 }

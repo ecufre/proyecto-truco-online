@@ -1,51 +1,92 @@
 package entities;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import negocio.Carta;
 
 @Entity
 @Table(name="bazaas")
 public class BazaEntity {
 	@Id
-	private int turno;
+	@GeneratedValue
+	private Integer id;
 	@OneToMany
-	private List<CartaEntity> cartas;
-	@ManyToOne
-	private JugadorEntity ganadorBaza;
+	private ArrayList<CartaEntity> cartasbaza;
+	private Integer ganadorBaza;
+	private Integer turno;
+	private Integer mano;
+	private Boolean parda;
 	
 	public BazaEntity() {}
 
-	public BazaEntity(int turno, JugadorEntity ganadorBaza) {
-		this.turno = turno;
+	public BazaEntity(Integer ganadorBaza, Integer turno, Integer mano, Boolean parda) {
 		this.ganadorBaza = ganadorBaza;
-	}
-
-	public int getTurno() {
-		return turno;
-	}
-
-	public void setTurno(int turno) {
 		this.turno = turno;
+		this.mano = mano;
+		this.parda = parda;
 	}
 
-	public List<CartaEntity> getCartas() {
-		return cartas;
+	public BazaEntity(Integer id, Integer ganadorBaza, Integer turno, Integer mano, Boolean parda) {
+		this.id = id;
+		this.ganadorBaza = ganadorBaza;
+		this.turno = turno;
+		this.mano = mano;
+		this.parda = parda;
 	}
 
-	public void setCartas(List<CartaEntity> cartas) {
-		this.cartas = cartas;
+	public Integer getId() {
+		return id;
 	}
 
-	public JugadorEntity getGanadorBaza() {
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public ArrayList<CartaEntity> getCartasbaza() {
+		return cartasbaza;
+	}
+
+	public void setCartasbaza(ArrayList<CartaEntity> cartasbaza) {
+		this.cartasbaza = cartasbaza;
+	}
+
+	public Integer getGanadorBaza() {
 		return ganadorBaza;
 	}
 
-	public void setGanadorBaza(JugadorEntity ganadorBaza) {
+	public void setGanadorBaza(Integer ganadorBaza) {
 		this.ganadorBaza = ganadorBaza;
 	}
+
+	public Integer getTurno() {
+		return turno;
+	}
+
+	public void setTurno(Integer turno) {
+		this.turno = turno;
+	}
+
+	public Integer getMano() {
+		return mano;
+	}
+
+	public void setMano(Integer mano) {
+		this.mano = mano;
+	}
+
+	public Boolean getParda() {
+		return parda;
+	}
+
+	public void setParda(Boolean parda) {
+		this.parda = parda;
+	}
+
+
 }

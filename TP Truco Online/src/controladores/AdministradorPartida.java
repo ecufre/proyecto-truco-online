@@ -27,7 +27,7 @@ public class AdministradorPartida {
 		return instancia;
 	}
 
-	public void crearPartida(Jugador j1, Jugador j2, Jugador j3, Jugador j4) {
+	public void crearPartida(Jugador j1, Jugador j2, Jugador j3, Jugador j4) throws ComunicacionException {
 			ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
 			jugadores.add(j1);
 			jugadores.add(j2);
@@ -38,7 +38,7 @@ public class AdministradorPartida {
 			this.partidas.add(p); //TODO Sacar cuando se persista
 	}
 	
-	public Partida crearPartidaCerrada(Jugador j1, Jugador j2, Jugador j3, Jugador j4) {
+	public Partida crearPartidaCerrada(Jugador j1, Jugador j2, Jugador j3, Jugador j4) throws ComunicacionException {
 		ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
 		jugadores.add(j1);
 		jugadores.add(j2);

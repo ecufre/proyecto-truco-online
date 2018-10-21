@@ -89,7 +89,10 @@ public class GrupoDAO {
 		}
 		ge.setParejas(parejas);
 		ArrayList<PartidaEntity> partidas = new ArrayList<PartidaEntity>();
-		for (Partida p : g.getPartidas()) partidas.add(new PartidaEntity(p.getId()));
+		for (Partida p : g.getPartidas()) {
+			PartidaEntity pe = new PartidaEntity(p.getId(), false, p.getEstado(), p.getGanador());
+			partidas.add(pe);
+		}
 		ge.setPartidas(partidas);
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();

@@ -8,14 +8,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.CollectionOfElements;
+import enumeraciones.EstadoPartida;
 
 @Entity
 @Table(name="partida")
 public class PartidaEntity {
-	private boolean esAbierta;
-	private int estado;
-	private int ganador;
 	@Id
 	@GeneratedValue
 	private Integer id;
@@ -23,46 +20,24 @@ public class PartidaEntity {
 	private List<JuegoEntity> juegos;
 	@OneToMany
 	private List<JugadorEntity> jugadores;
-	@CollectionOfElements
-	private List<Boolean> jugadoresListos;
+	@OneToMany
+	private List<JugadorEntity> jugadoresListos;
+	private Boolean esAbierta;
+	private EstadoPartida estado;
+	private Integer ganador;
 	
-	public PartidaEntity(Integer id) {
-		this.id = id;
-	}
+	public PartidaEntity() {}
 
-	public PartidaEntity(boolean esAbierta, int estado, int ganador, Integer id, List<JuegoEntity> juegos,
-			List<JugadorEntity> jugadores, List<Boolean> jugadoresListos) {
-		super();
+	public PartidaEntity(Boolean esAbierta, EstadoPartida estado, Integer ganador) {
 		this.esAbierta = esAbierta;
 		this.estado = estado;
 		this.ganador = ganador;
+	}
+
+	public PartidaEntity(Integer id, Boolean esAbierta, EstadoPartida estado, Integer ganador) {
 		this.id = id;
-		this.juegos = juegos;
-		this.jugadores = jugadores;
-		this.jugadoresListos = jugadoresListos;
-	}
-
-	public boolean isEsAbierta() {
-		return esAbierta;
-	}
-
-	public void setEsAbierta(boolean esAbierta) {
 		this.esAbierta = esAbierta;
-	}
-
-	public int getEstado() {
-		return estado;
-	}
-
-	public void setEstado(int estado) {
 		this.estado = estado;
-	}
-
-	public int getGanador() {
-		return ganador;
-	}
-
-	public void setGanador(int ganador) {
 		this.ganador = ganador;
 	}
 
@@ -90,11 +65,35 @@ public class PartidaEntity {
 		this.jugadores = jugadores;
 	}
 
-	public List<Boolean> getJugadoresListos() {
+	public List<JugadorEntity> getJugadoresListos() {
 		return jugadoresListos;
 	}
 
-	public void setJugadoresListos(List<Boolean> jugadoresListos) {
+	public void setJugadoresListos(List<JugadorEntity> jugadoresListos) {
 		this.jugadoresListos = jugadoresListos;
+	}
+
+	public Boolean getEsAbierta() {
+		return esAbierta;
+	}
+
+	public void setEsAbierta(Boolean esAbierta) {
+		this.esAbierta = esAbierta;
+	}
+
+	public EstadoPartida getEstado() {
+		return estado;
+	}
+
+	public void setEstado(EstadoPartida estado) {
+		this.estado = estado;
+	}
+
+	public Integer getGanador() {
+		return ganador;
+	}
+
+	public void setGanador(Integer ganador) {
+		this.ganador = ganador;
 	}
 }

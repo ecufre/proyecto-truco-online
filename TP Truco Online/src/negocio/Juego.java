@@ -36,7 +36,7 @@ public class Juego {
 		return this.manos.get(this.manos.size() - 1);
 	}
 
-	public void crearMano() {
+	public void crearMano() throws ComunicacionException {
 		Mazo mazo = new Mazo();
 		ArrayList<Carta> cartas = new ArrayList<Carta>();
 		
@@ -113,7 +113,7 @@ public class Juego {
 		this.getManoActual().jugarCarta(ubicacionJugador, carta);
 	}
 
-	public void retirarseMano(int ganador){
+	public void retirarseMano(int ganador) throws ComunicacionException{
 		this.getManoActual().administrarRetiro(ganador);
 	}
 

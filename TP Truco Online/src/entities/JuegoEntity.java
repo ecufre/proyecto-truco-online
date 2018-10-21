@@ -6,83 +6,73 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import negocio.Mano;
 
 @Entity
 @Table(name="juegos")
 public class JuegoEntity {
 	@Id
 	@GeneratedValue
-	private int id;
-	private int puntajePar;
-	private int puntajeImpar;
-	private boolean finalizado;
+	private Integer id;
+	private Integer puntajePar;
+	private Integer puntajeImpar;
+	private Boolean finalizado;
 	@OneToMany
 	private List<ManoEntity> manos;
-	@OneToOne
-	private ManoEntity manoActual;
 	
 	public JuegoEntity() {}
 
-	public JuegoEntity(int id, int puntajePar, int puntajeImpar, boolean finalizado, List<Mano> manos,
-			Mano manoActual) {
+	public JuegoEntity(Integer puntajePar, Integer puntajeImpar, Boolean finalizado) {
+		this.puntajePar = puntajePar;
+		this.puntajeImpar = puntajeImpar;
+		this.finalizado = finalizado;
+	}
+
+	public JuegoEntity(Integer id, Integer puntajePar, Integer puntajeImpar, Boolean finalizado) {
 		this.id = id;
 		this.puntajePar = puntajePar;
 		this.puntajeImpar = puntajeImpar;
 		this.finalizado = finalizado;
-		//this.manos = manos;
-		//this.manoActual = manoActual;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public int getPuntajePar() {
+	public Integer getPuntajePar() {
 		return puntajePar;
 	}
 
-	public void setPuntajePar(int puntajePar) {
+	public void setPuntajePar(Integer puntajePar) {
 		this.puntajePar = puntajePar;
 	}
 
-	public int getPuntajeImpar() {
+	public Integer getPuntajeImpar() {
 		return puntajeImpar;
 	}
 
-	public void setPuntajeImpar(int puntajeImpar) {
+	public void setPuntajeImpar(Integer puntajeImpar) {
 		this.puntajeImpar = puntajeImpar;
 	}
 
-	public boolean isFinalizado() {
+	public Boolean getFinalizado() {
 		return finalizado;
 	}
 
-	public void setFinalizado(boolean finalizado) {
+	public void setFinalizado(Boolean finalizado) {
 		this.finalizado = finalizado;
 	}
-	/*
-	public List<Mano> getManos() {
+
+	public List<ManoEntity> getManos() {
 		return manos;
 	}
 
-	public void setManos(List<Mano> manos) {
+	public void setManos(List<ManoEntity> manos) {
 		this.manos = manos;
 	}
 
-	public Mano getManoActual() {
-		return manoActual;
-	}
-
-	public void setManoActual(Mano manoActual) {
-		this.manoActual = manoActual;
-	}
-*/
 }

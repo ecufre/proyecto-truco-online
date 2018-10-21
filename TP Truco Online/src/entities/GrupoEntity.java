@@ -29,7 +29,7 @@ public class GrupoEntity {
 	
 	public GrupoEntity() {}
 
-	public GrupoEntity(String nombre, int id) {
+	public GrupoEntity(String nombre, Integer id) {
 		this.nombre = nombre;
 		this.id = id;
 	}
@@ -46,11 +46,11 @@ public class GrupoEntity {
 		this.nombre = nombre;
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
