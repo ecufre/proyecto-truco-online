@@ -41,8 +41,8 @@ public class Partida {
 	}
 
 	public void jugadorListo(Jugador j) {
-		for (int i = 0; i < this.jugadores.size(); i++) {
-			if (this.jugadores.get(i).getApodo().equals(j.getApodo())) return;
+		for (int i = 0; i < this.jugadoresListos.size(); i++) {
+			if (this.jugadoresListos.get(i).getApodo().equals(j.getApodo())) return;
 		}
 		this.jugadoresListos.add(j);
 		if (this.jugadoresListos.size() == 4) this.estado = EstadoPartida.EnCurso;

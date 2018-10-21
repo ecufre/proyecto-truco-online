@@ -51,7 +51,7 @@ public class Mano {
 			//this.cartas.remove(c);
 			c.setJugada(true);
 			c.grabar();
-			if(this.getBazaActual().isCompleta()){
+			if(this.getBazaActual().isCompleta() && this.bazas.size() < 3){
 				this.getBazaActual().determinarGanador();
 				int mano = this.getBazaActual().getGanadorBaza();
 				bazas.add(new Baza(mano));
