@@ -102,6 +102,7 @@ public class Partida {
 				else {
 					Juego juegoActual = new Juego();
 					this.juegos.add(juegoActual);
+					juegoActual.crearMano();
 					juegoActual.grabar();
 				}	
 			}
@@ -109,6 +110,7 @@ public class Partida {
 			else {
 				Juego juegoActual = new Juego();
 				this.juegos.add(juegoActual);
+				juegoActual.crearMano();
 				juegoActual.grabar();
 			}
 		}
@@ -120,8 +122,9 @@ public class Partida {
 		this.getJuegoActual().cantarEnvite(this.ubicacionJugador(jugador), canto);
 	}
 	
-	public void responderEnvite(Jugador jugador, Boolean respuesta) throws ComunicacionException {
-		this.getJuegoActual().responderEnvite(this.ubicacionJugador(jugador), respuesta);
+	public void responderEnvite(Jugador jugador, TipoCanto tipoCanto, Boolean respuesta) throws ComunicacionException {
+		this.getJuegoActual().responderEnvite(this.ubicacionJugador(jugador), tipoCanto, respuesta);
+		if (tipoCanto.getId() > 4 && ! respuesta) this.actualizarEsatdoPartida();
 	}
 
 	public EstadoPartida getEstado() {
@@ -199,7 +202,8 @@ public class Partida {
 		
 		for(Jugador j:jugadores){
 			JugadorDTO jd = new JugadorDTO(j.getApodo(), null);
-			
+			jd.setLoggedSession(j.getLoggedSession());
+			pd.setJugador(jd);
 			switch (this.ubicacionJugador(j2)){
 			case 1:
 				pd.setCartasMesaJugadorFrente(this.getJuegoActual().mostrarCartasMesa(3));

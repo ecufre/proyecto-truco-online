@@ -8,11 +8,13 @@ import controladores.AdministradorPartida;
 import controladores.CreadorPartida;
 import dto.AccionDTO;
 import dto.CartaDTO;
+import dto.EnviteDTO;
 import dto.GrupoDTO;
 import dto.InvitacionDTO;
 import dto.JugadorDTO;
 import dto.ParejaDTO;
 import dto.PartidaDTO;
+import enumeraciones.TipoCanto;
 import excepciones.ComunicacionException;
 import excepciones.LoggedInException;
 import negocio.Invitacion;
@@ -40,9 +42,12 @@ public class Test {
 			
 			AdministradorJugador.getInstancia().login(admin);
 			AdministradorJugador.getInstancia().jugarLibreIndividual(admin);
+			AdministradorJugador.getInstancia().jugarLibreIndividual(jugador);
+			AdministradorJugador.getInstancia().jugarLibreIndividual(jugador1);
+			AdministradorJugador.getInstancia().jugarLibreIndividual(jugador4);
 			AdministradorJugador.getInstancia().jugarLibrePareja(admin, "kike2");
 			ArrayList<InvitacionDTO> inv = AdministradorJugador.getInstancia().listarInvitacionesPendientes(jugador);
-			AdministradorJugador.getInstancia().aceptarInvitacion(jugador, inv.get(0));
+/*			AdministradorJugador.getInstancia().aceptarInvitacion(jugador, inv.get(0));
 			AdministradorGrupo c2 = AdministradorGrupo.getInstancia();
 			c2.crearGrupo(admin, "La Cumbancha");
 			GrupoDTO g = new GrupoDTO("La Cumbancha", 1);
@@ -54,7 +59,7 @@ public class Test {
 			c2.crearPareja(admin, g, jugador1, jugador4);
 			ParejaDTO p1 = new ParejaDTO(1, admin, jugador);
 			ParejaDTO p2 = new ParejaDTO(2, jugador1, jugador4);
-			c2.crearPartida(admin, g, p1, p2);
+			c2.crearPartida(admin, g, p1, p2);*/
 			PartidaDTO pdo = new PartidaDTO(1);
 			
 			AccionDTO ad = new AccionDTO(pdo, admin, 1, false, "");
@@ -65,46 +70,65 @@ public class Test {
 			c3.jugadorListo(ad);
 			ad.setJugador(jugador4);
 			c3.jugadorListo(ad);
+			ArrayList<JugadorDTO> jugadores = new ArrayList<JugadorDTO>();
+			jugadores.add(admin);
+			jugadores.add(jugador);
+			jugadores.add(jugador1);
+			jugadores.add(jugador4);
+			
+			ArrayList<CartaDTO> baza1 = new ArrayList<CartaDTO>();
+			baza1.add(new CartaDTO(3, 3, "espada", 1));
+			baza1.add(new CartaDTO(38, 10, "oro", 2));
+			baza1.add(new CartaDTO(4, 4, "espada", 3));
+			baza1.add(new CartaDTO(5, 5, "espada", 4));
+			
+			ArrayList<CartaDTO> baza2 = new ArrayList<CartaDTO>();
+			baza2.add(new CartaDTO(2, 2, "espada", 1));
+			baza2.add(new CartaDTO(39, 11, "oro", 1));
+			baza2.add(new CartaDTO(26, 6, "copa", 1));
+			baza2.add(new CartaDTO(30, 12, "copa", 1));
+			
+			/*
 			for (int i = 0; i < 30; i++) {
 				//Primera baza
-				CartaDTO cd = new CartaDTO(7, 7, "espada", 1);
-				ad.setJugador(admin);
+				CartaDTO cd = baza1.get((i+0)%4);
+				ad.setJugador(jugadores.get((i+0)%4));
 				ad.setCarta(cd);
 				c3.JugarCarta(ad);
 				
-				cd = new CartaDTO(4, 4, "espada", 1);
-				ad.setJugador(jugador1);
+				cd = baza1.get((i+1)%4);
+				ad.setJugador(jugadores.get((i+1)%4));
 				ad.setCarta(cd);
 				c3.JugarCarta(ad);
 				
-				cd = new CartaDTO(14, 4, "basto", 1);
-				ad.setJugador(jugador);
+				cd = baza1.get((i+2)%4);
+				ad.setJugador(jugadores.get((i+2)%4));
 				ad.setCarta(cd);
 				c3.JugarCarta(ad);
 				
-				cd = new CartaDTO(34, 4, "oro", 1);
-				ad.setJugador(jugador4);
+				cd = baza1.get((i+3)%4);
+				ad.setJugador(jugadores.get((i+3)%4));
 				ad.setCarta(cd);
 				c3.JugarCarta(ad);
 				
 				//Segunda baza
-				cd = new CartaDTO(2, 2, "espada", 1);
-				ad.setJugador(admin);
+				cd = baza2.get(0);
+				ad.setJugador(jugadores.get(0));
 				ad.setCarta(cd);
 				c3.JugarCarta(ad);
 				
-				cd = new CartaDTO(12, 2, "basto", 1);
-				ad.setJugador(jugador1);
+				cd = baza2.get(1);
+				ad.setJugador(jugadores.get(1));
 				ad.setCarta(cd);
 				c3.JugarCarta(ad);
 				
-				cd = new CartaDTO(17, 7, "basto", 1);
-				ad.setJugador(jugador);
+				cd = baza2.get(2);
+				ad.setJugador(jugadores.get(2));
 				ad.setCarta(cd);
 				c3.JugarCarta(ad);
 				
-				cd = new CartaDTO(19, 11, "basto", 1);
-				ad.setJugador(jugador4);
+				cd = baza2.get(3);
+				ad.setJugador(jugadores.get(3));
 				ad.setCarta(cd);
 				c3.JugarCarta(ad);
 				/*
@@ -129,8 +153,75 @@ public class Test {
 				ad.setCarta(cd);
 				c3.JugarCarta(ad);
 				
-				*/
 			}
+			*/
+			//Primera baza
+				EnviteDTO edto = new EnviteDTO(TipoCanto.Envido, true, true);
+				ad.setEnvite(edto);
+				
+				CartaDTO cd = baza1.get(0);
+				ad.setJugador(jugadores.get(0));
+				c3.cantarEnvite(ad);
+				ad.setJugador(jugadores.get(1));
+				ad.getEnvite().setTipoCanto(TipoCanto.EnvidoEnvido);
+				c3.cantarEnvite(ad);
+				ad.setJugador(jugadores.get(0));
+				c3.responderEnvite(ad);
+				ad.setCarta(cd);
+				c3.JugarCarta(ad);
+				
+				cd = baza1.get(1);
+				ad.setJugador(jugadores.get(1));
+				ad.setCarta(cd);
+				c3.JugarCarta(ad);
+				
+				cd = baza1.get(2);
+				ad.setJugador(jugadores.get(2));
+				ad.setCarta(cd);
+				c3.JugarCarta(ad);
+				
+				cd = baza1.get(3);
+				ad.setJugador(jugadores.get(3));
+				ad.setCarta(cd);
+				c3.JugarCarta(ad);
+				
+				//Segunda baza
+				cd = baza2.get(0);
+				ad.setJugador(jugadores.get(0));
+				ad.setCarta(cd);
+				ad.getEnvite().setTipoCanto(TipoCanto.Truco);
+				c3.cantarEnvite(ad);
+				ad.setJugador(jugadores.get(1));
+				c3.responderEnvite(ad);
+				ad.setJugador(jugadores.get(0));
+				c3.JugarCarta(ad);
+				
+				cd = baza2.get(1);
+				ad.setJugador(jugadores.get(1));
+				ad.setCarta(cd);
+				c3.JugarCarta(ad);
+				
+				cd = baza2.get(2);
+				ad.setJugador(jugadores.get(2));
+				c3.Retirarse(ad);
+				/*
+				ad.setCarta(cd);
+				c3.JugarCarta(ad);
+				
+				cd = baza2.get(3);
+				ad.setJugador(jugadores.get(3));
+				ad.getEnvite().setTipoCanto(TipoCanto.ReTruco);
+				c3.cantarEnvite(ad);
+				ad.setJugador(jugadores.get(0));
+				ad.getEnvite().setTipoCanto(TipoCanto.ValeCuatro);
+				c3.cantarEnvite(ad);
+				ad.setJugador(jugadores.get(3));
+				ad.getEnvite().setRespuesta(false);
+				c3.responderEnvite(ad);
+				//ad.setCarta(cd);
+				//c3.JugarCarta(ad);
+				*/
+				
 	
 			return;
 		} catch (ComunicacionException ce) {
@@ -138,6 +229,10 @@ public class Test {
 		} catch (LoggedInException le) {
 			System.err.println(le.getMessage());
 		}
+	}
+	
+	public static void jugarMano(int numeroMano) {
+		
 	}
 
 }

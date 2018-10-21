@@ -98,7 +98,7 @@ public class AdministradorPartida {
 			Jugador j = AdministradorJugador.getInstancia().buscarJugador(ad.getJugador().getApodo());
 			Partida p = this.buscarPartida(ad.getPartida().getPartidaID());
 			if (p.getEstado() == EstadoPartida.EnCurso) {
-				p.responderEnvite(j, ad.getEnvite().isRespuesta()); //Agregar actualizarPartida
+				p.responderEnvite(j,ad.getEnvite().getTipoCanto(), ad.getEnvite().isRespuesta()); //Agregar actualizarPartida
 				p.grabar();
 			}
 		}

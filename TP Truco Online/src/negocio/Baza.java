@@ -6,7 +6,7 @@ public class Baza {
 	private static int siguienteId = 1; //TODO esto se reemplaza por la persistencia
 	private int id;
 	private ArrayList<Carta> cartasbaza;
-	private int ganadorBaza;
+	private Integer ganadorBaza;
 	private int turno;
 	private int mano;
 	private boolean parda;
@@ -19,6 +19,7 @@ public class Baza {
 	public Baza(int turno) {
 		this.id = Baza.getSiguienteId();
 		this.cartasbaza = new ArrayList<Carta>();
+		this.ganadorBaza = null;
 		this.turno = turno;
 		this.mano = turno;
 	}
@@ -35,6 +36,7 @@ public class Baza {
 
 	public void agregarCarta(Carta c){
 		cartasbaza.add(c);
+		System.out.println("Se jugo la carta:" + c.toString());
 		if(c.getJugador() == 4) turno=1;
 		else turno = c.getJugador() + 1;
 	}
@@ -57,7 +59,7 @@ public class Baza {
 				}
 				
 				//Si las cartas son iguales gana el mano
-				if(c.getValor() == MejorCarta.getValor()) {
+				else if(c.getValor() == MejorCarta.getValor()) {
 					if(this.posicionRelativa(c.getJugador()) < this.posicionRelativa(MejorCarta.getJugador())) MejorCarta = c;
 					this.parda = true;
 				}
@@ -68,10 +70,10 @@ public class Baza {
 	}
 	
 	public boolean isCompleta() {
-		return (4 == this.cartasbaza.size());
+		return (this.ganadorBaza != null);
 	}
 
-	public int getGanadorBaza() {
+	public Integer getGanadorBaza() {
 		return ganadorBaza;
 	}
 

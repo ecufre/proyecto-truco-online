@@ -41,7 +41,7 @@ public class Carta {
 	}
 
 	public int getId() {
-		return id;
+		return cartaId;
 	}
 
 	public void setJugador(int ubicacionJugador) {

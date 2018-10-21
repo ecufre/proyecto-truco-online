@@ -120,17 +120,28 @@ public class Mano {
 
 	public boolean esCantoValido(int jugadorUbicacion, TipoCanto canto) {
 		//No es el turno del jugador
-		if (jugadorUbicacion != this.getBazaActual().getTurno()) return false;
+		//Para el envido
+		if (canto.getId() < 5) {
+			
+			int cantidadDeCantos = 0;
+			//Cuanto la cantidad de cantos
+			for (Canto c : this.cantos) {
+				if (c.getTipoCanto().getId() < 5) cantidadDeCantos++;
+			}
+			//Si los cantos son pares
+			if (jugadorUbicacion % 2  != (this.getBazaActual().getTurno() + cantidadDeCantos) % 2) return false;
+			//if (jugadorUbicacion != this.getBazaActual().getTurno()) return false;
 
-		//Canta envido despues de la primer baza
-		if (this.bazas.size() > 1 && canto.getId() <= 4) return false;
-
+			//Canta envido despues de la primer baza
+			if (this.bazas.size() > 1 && canto.getId() <= 4) return false;
+		}
+		
 		//Si ya se realizo el canto
 		for (Canto c : this.cantos) if (c.getTipoCanto().getId() == canto.getId()) return false;
 
 		//Si es un retruco o valecuatro buscar que este el canto anterior
 		if (canto.getId() > 5) {
-			for (Canto c : this.cantos) if (c.getTipoCanto().getId() == canto.getPredecesor()) return true;
+			for (Canto c : this.cantos) if (c.getTipoCanto().getId() == canto.getPredecesor() && (c.getCantante() % 2 != jugadorUbicacion % 2)) return true;
 			return false;
 		}
 
@@ -159,15 +170,28 @@ public class Mano {
 		}
 		else throw new ComunicacionException("El canto es invalido");
 	}
-
-	public boolean esRespuestaValida(int jugador) {
-		return (jugador % 2  != this.getBazaActual().getTurno() % 2);
+	
+	public boolean esRespuestaValida(int jugador, TipoCanto tipoCanto) {
+		int cantidadDeCantos = 0;
+		int cantoTrucoMaximo = 0;
+		int cantanteUltimoTruco = 0;
+		//Cuanto la cantidad de cantos
+		for (Canto c : this.cantos) {
+			if (c.getTipoCanto().getId() < 5) cantidadDeCantos++;
+			if (c.getTipoCanto().getId() > cantoTrucoMaximo) {
+				cantoTrucoMaximo = c.getTipoCanto().getId();
+				cantanteUltimoTruco = c.getCantante();
+			}
+		}
+		if (tipoCanto.getId() < 5) return (jugador % 2  == (this.getBazaActual().getTurno() + cantidadDeCantos) % 2);
+		else return (cantanteUltimoTruco % 2 != jugador % 2);
 	}
 
-	public void responderEnvite(int jugador, boolean respuesta) throws ComunicacionException {
-		if (this.esRespuestaValida(jugador)) {
+	public void responderEnvite(int jugador, TipoCanto tipoCanto, boolean respuesta) throws ComunicacionException {
+		if (this.esRespuestaValida(jugador, tipoCanto)) {
 			this.getUltimoCanto().setQuerido(respuesta);
 			this.getUltimoCanto().grabar();
+			if (tipoCanto.getId() > 4 && ! respuesta) this.administrarRetiro(jugador % 2 + 1); 
 		}
 		else throw new ComunicacionException("La respuesta es invalida");
 	}
@@ -187,8 +211,10 @@ public class Mano {
 		int maximoCanto = 0;
 		boolean maximoCantoQuerido = false;
 		int jugadorMaximoCanto = 0;
+		int cantidadEnvidosCantados = 0;
 		for (Canto c : cantos) {
 			if (c.getTipoCanto().getId() < 5) {
+				cantidadEnvidosCantados++;
 				//Busco el maximo canto de envido, y guardo si fue querido o no.
 				if (c.getTipoCanto().getId() > maximoCanto) {
 					maximoCanto = c.getTipoCanto().getId();
@@ -214,36 +240,17 @@ public class Mano {
 		//Si todos empatan en 0, gana el mano de la primer baza
 		int jugadorGanador = this.calcularJugManoBaza();
 		if (! maximoCantoQuerido && maximoCanto > 0) {
-			if (maximoCanto == 1) puntosEnvido = 1;
+			if (cantidadEnvidosCantados == 1) puntosEnvido = 1;
 			jugadorGanador = jugadorMaximoCanto;
 		}
 		else {
 			//Verifico que equipo gano el envido
 			int puntosGanador = 0;
-			int comb1, comb2, comb3;
 			for (int i = 0; i < 4; i++) {
-				//Valor de Envido de cartas 1 y 2 del jugador
-				comb1 = this.cartas.get(0 + 3 * i).getValorEnvite() + this.cartas.get(1 + 3 * i).getValorEnvite();
-				if (this.cartas.get(0 + 3 * i).getPalo().equals(this.cartas.get(1 + 3 * i).getPalo())) comb1 = comb1 + 20;
-				//Valor de Envido de cartas 1 y 3 del jugador
-				comb2 = this.cartas.get(0 + 3 * i).getValorEnvite() + this.cartas.get(2 + 3 * i).getValorEnvite();
-				if (this.cartas.get(0 + 3 * i).getPalo().equals(this.cartas.get(2 + 3 * i).getPalo())) comb2 = comb2 + 20;
-				//Valor de Envido de cartas 2 y 3 del jugador
-				comb3 = this.cartas.get(1 + 3 * i).getValorEnvite() + this.cartas.get(2 + 3 * i).getValorEnvite();
-				if (this.cartas.get(1 + 3 * i).getPalo().equals(this.cartas.get(2 + 3 * i).getPalo())) comb3 = comb3 + 20;
-				
-				//Agrego el mayor valor al array
-				if (comb1 >= comb2 && comb1 >= comb3 && comb1 > puntosGanador && this.posicionRelativa(i + 1) < this.posicionRelativa(jugadorGanador)) {
-					puntosGanador = comb1;
+				if (this.envidoValor[i] > puntosGanador || (this.envidoValor[i] == puntosGanador && this.posicionRelativa(i + 1) < this.posicionRelativa(jugadorGanador))) {
+					puntosGanador = this.envidoValor[i];
 					jugadorGanador = i + 1;
-				}
-				else if (comb2 >= comb3 && comb2 > puntosGanador && this.posicionRelativa(i + 1) < this.posicionRelativa(jugadorGanador)) {
-					puntosGanador = comb2;
-					jugadorGanador = i + 1;
-				}
-				else if (comb3 > puntosGanador && this.posicionRelativa(i + 1) < this.posicionRelativa(jugadorGanador)) {
-					puntosGanador = comb3;
-					jugadorGanador = i + 1;
+					System.out.println(jugadorGanador + ": " + puntosGanador);
 				}
 			}
 		}
@@ -282,22 +289,26 @@ public class Mano {
 					a++;
 				}
 			}
-				for(int b=0;b<2;b++){
-					for(int cc=b+1;cc<3;cc++){
-						
-						int p=(manoj[b].getValorEnvite()+manoj[cc].getValorEnvite());
-						if (manoj[b].getPalo().equals(manoj[cc].getPalo())){
-							p=p+20;
-						}
-						if(mejor<(p)){
-							mejor=p;
-						}
+			for(int b=0;b<2;b++){
+				for(int cc=b+1;cc<3;cc++){
+					int s= manoj[cc].getValorEnvite();
+					int p=(manoj[b].getValorEnvite());
+					if (manoj[b].getPalo().equals(manoj[cc].getPalo())){
+						p=p+s+20;
+					}
+					if(mejor<(p)){
+						mejor=p;
+					}
+					if(mejor<(s)){
+						mejor=s;
 					}
 				}
-				this.envidoValor[i-1]=mejor;
 			}
-			
-}
+			this.envidoValor[i-1]=mejor;
+		}
+		for (int i = 0; i < 4; i++) System.out.println(i + ": " + this.envidoValor[i]);
+
+	}
 
 	
 
