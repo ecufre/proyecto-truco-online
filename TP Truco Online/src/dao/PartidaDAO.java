@@ -109,8 +109,8 @@ private PartidaDAO() {}
 	
 	
 	public Partida toNegocio(PartidaEntity pe) {
-		Partida p = new Partida(pe.getEsAbierta()); //Usar otro constructor, este es para cuando la partida es nueva... y hace "cosas"
-		p.setId(pe.getId());
+		Partida p = new Partida(pe.getId()); //Usar otro constructor, este es para cuando la partida es nueva... y hace "cosas"
+		p.setEsAbierta(pe.getEsAbierta());
 		p.setEstado(pe.getEstado());
 		p.setGanador(pe.getGanador());
 		ArrayList<Juego> juegos = new ArrayList<Juego>();
