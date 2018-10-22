@@ -3,6 +3,8 @@ package negocio;
 import java.util.ArrayList;
 
 import dao.ManoDAO;
+import dto.BazaDTO;
+import dto.CantoDTO;
 import dto.CartaDTO;
 import enumeraciones.TipoCanto;
 import excepciones.ComunicacionException;
@@ -318,14 +320,14 @@ public class Mano {
 	}
 
 	public ArrayList<CartaDTO> mostrarCartasJugador(int i) {
-		ArrayList<CartaDTO> cd = new ArrayList<CartaDTO>();
-		for(Carta c: cartas){
-			if(c.getJugador()==i && !c.isJugada()){
-				cd.add(c.toDTO());
+			ArrayList<CartaDTO> cd = new ArrayList<CartaDTO>();
+			for(Carta c: cartas){
+				if(c.getJugador()==i && !c.isJugada()){
+					cd.add(c.toDTO());
+				}
 			}
-		}
-		return cd;
-	}
+			return cd;
+}
 
 	public Integer mostrarPuntosEnvido(Integer pos) {
 		return this.envidoValor[pos-1];
@@ -364,11 +366,11 @@ public class Mano {
 	}
 
 	public ArrayList<CartaDTO> mostarCartasMesa(Integer ubicacion) {
-		ArrayList<CartaDTO> cm = new  ArrayList<CartaDTO>();
+		 ArrayList<CartaDTO> cm = new  ArrayList<CartaDTO>();
 		for(Baza b : this.bazas){
 			for(Carta c :b.getCartasbaza()){
 				if(c.getJugador()==ubicacion){
-					cm.add(c.toDTO());
+				cm.add(c.toDTO());
 				}
 			}
 		}

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import dao.JuegoDAO;
 import dto.CartaDTO;
+import dto.JuegoDTO;
+import dto.ManoDTO;
 import enumeraciones.TipoCanto;
 import excepciones.ComunicacionException;
 
@@ -63,7 +65,7 @@ public class Juego {
 	}
 
 	public void grabar() {
-		//TODO Grabar
+		JuegoDAO.getInstancia().grabar(this);
 	}
 
 	private Mano getManoActual() {
@@ -213,5 +215,16 @@ public class Juego {
 	public int getTurno() {
 
 		return this.getManoActual().getBazaActual().getTurno();
+	}
+
+	public JuegoDTO toDTO() {
+		ArrayList<ManoDTO> manos = new ArrayList<ManoDTO> ();
+		for(Mano m : this.getManos()){
+			manos.add(m.toDTO());
+		}
+		JuegoDTO jdto  = new JuegoDTO(this.getId(), this.getPuntajePar(), this.getPuntajeImpar(),
+				this.isFinalizado(),  manos);
+
+		return jdto;
 	}
 }

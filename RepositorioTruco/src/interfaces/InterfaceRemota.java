@@ -11,6 +11,7 @@ import dto.GrupoDTO;
 import dto.InvitacionDTO;
 import dto.JugadorDTO;
 import dto.ParejaDTO;
+import dto.PartidaPantallaDTO;
 import excepciones.ComunicacionException;
 import excepciones.LoggedInException;
 
@@ -53,21 +54,21 @@ public interface InterfaceRemota extends Remote {
 	public ArrayList<JugadorDTO> calcularRankingCerrado(GrupoDTO grupo) throws ComunicacionException;
   
   //AdministradorPartidas
-  public boolean jugadorListos(AccionDTO ad) throws RemoteException;
+  public void jugadorListos(AccionDTO ad) throws RemoteException, LoggedInException, ComunicacionException;
   
-	public void JugarCarta(AccionDTO ad) throws RemoteException;
+	public void JugarCarta(AccionDTO ad) throws RemoteException, LoggedInException, ComunicacionException;
 	
-  public void Retirarse(AccionDTO ad) throws RemoteException;
+  public void Retirarse(AccionDTO ad) throws RemoteException, LoggedInException, ComunicacionException;
 	
-  public void cantarEnvite(AccionDTO ad) throws RemoteException;
+  public void cantarEnvite(AccionDTO ad) throws RemoteException, LoggedInException, ComunicacionException;
 	
-  public void responderEnvite(AccionDTO ad) throws RemoteException;
+  public void responderEnvite(AccionDTO ad) throws RemoteException, LoggedInException, ComunicacionException;
 	
-  public PartidaDTO mostrarPartida(AccionDTO ad) throws RemoteException;
+  public PartidaPantallaDTO mostrarPartida(AccionDTO ad) throws RemoteException, ComunicacionException, LoggedInException;
 	
   public void enviarMensaje(AccionDTO ad) throws RemoteException;
 	
   public void enviarSenia(AccionDTO ad) throws RemoteException;
 	
-	public HistoriaPartidaDTO mostrarHistoria(AccionDTO ad) throws RemoteException;
+	public PartidaDTO mostrarHistoria(AccionDTO ad) throws RemoteException, ComunicacionException, LoggedInException;
 }

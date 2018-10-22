@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import dao.PartidaDAO;
 import dto.AccionDTO;
 import dto.PartidaDTO;
+import dto.PartidaPantallaDTO;
 import enumeraciones.EstadoPartida;
 import excepciones.ComunicacionException;
 import excepciones.LoggedInException;
@@ -104,11 +105,21 @@ public class AdministradorPartida {
 		}
 	}
 
-	public PartidaDTO mostrarPartida(AccionDTO ad) throws ComunicacionException, LoggedInException{
+	public PartidaPantallaDTO mostrarPartida(AccionDTO ad) throws ComunicacionException, LoggedInException{
 
 		if (AdministradorJugador.getInstancia().isLoggedIn(ad.getJugador())) {
 			Jugador j = AdministradorJugador.getInstancia().buscarJugador(ad.getJugador().getApodo());
 			Partida p = this.buscarPartida(ad.getPartida().getId());
+			if (p.getEstado() == EstadoPartida.EnCurso) {
+				return 	p.toPantallaDTO(ad.getPartida().getId(),j,ad.getEnvite().isMostrarValoresEnvido());
+			}
+		}
+		return null;
+	}
+	
+	public PartidaDTO mostarPartidaCompleta(AccionDTO ad) throws ComunicacionException, LoggedInException{
+		if (AdministradorJugador.getInstancia().isLoggedIn(ad.getJugador())) {
+				Partida p = this.buscarPartida(ad.getPartida().getId());
 			if (p.getEstado() == EstadoPartida.EnCurso) {
 				return 	p.toDTO();
 			}
@@ -116,6 +127,7 @@ public class AdministradorPartida {
 		return null;
 	}
 
+	
 	private Partida buscarPartida(int partida) throws ComunicacionException {
 		return PartidaDAO.getInstancia().getPartidaById(partida);
 		/* Para cuando no hay persistencia

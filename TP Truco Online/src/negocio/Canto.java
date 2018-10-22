@@ -1,5 +1,6 @@
 package negocio;
 
+import dto.CantoDTO;
 import enumeraciones.TipoCanto;
 
 public class Canto {
@@ -52,5 +53,14 @@ public class Canto {
 	
 	public void crear() {
 		//TODO
+	}
+
+	public CantoDTO toDTO() {
+		
+		return (new CantoDTO(this.getId(),this.isQuerido(),
+				this.getTipoCanto().getId(),this.getTipoCanto().getNombre(),this.getTipoCanto().getValor(),
+				this.getCantante()));
+		
+	
 	}
 }

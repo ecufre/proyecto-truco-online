@@ -14,6 +14,7 @@ import dto.InvitacionDTO;
 import dto.JugadorDTO;
 import dto.ParejaDTO;
 import dto.PartidaDTO;
+import dto.PartidaPantallaDTO;
 import excepciones.ComunicacionException;
 import excepciones.LoggedInException;
 import interfaces.InterfaceRemota;
@@ -139,10 +140,10 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfaceRemota
 	}
 
 	@Override
-	public PartidaDTO mostrarPartida(AccionDTO ad) throws RemoteException {
+	public PartidaPantallaDTO mostrarPartida(AccionDTO ad) throws RemoteException, ComunicacionException, LoggedInException {
 		// TODO Auto-generated method stub
-		System.out.println("falta el metodo");
-		return null;
+		
+		return AdministradorPartida.getInstancia().mostrarPartida(ad);
 	}
 
 	@Override
@@ -158,9 +159,9 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfaceRemota
 	}
 
 	@Override
-	public HistoriaPartidaDTO mostrarHistoria(AccionDTO ad)
-			throws RemoteException {
-		// TODO proxima entrega
-		return null;
+	public PartidaDTO mostrarHistoria(AccionDTO ad)
+			throws RemoteException, ComunicacionException, LoggedInException {
+		
+		return AdministradorPartida.getInstancia().mostarPartidaCompleta(ad);
 	}
 }

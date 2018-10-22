@@ -3,6 +3,8 @@ package negocio;
 import java.util.ArrayList;
 
 import dao.PartidaDAO;
+import dto.JuegoDTO;
+import dto.JugadorDTO;
 import dto.PartidaDTO;
 import dto.PartidaPantallaDTO;
 import enumeraciones.EstadoPartida;
@@ -186,9 +188,26 @@ public class Partida {
 	}
 
 	public PartidaDTO toDTO() {
-		return null; //TODO
-	}
+		ArrayList<JugadorDTO> jugadores = new ArrayList<JugadorDTO>();
+		ArrayList<JuegoDTO> juegos  =new ArrayList<JuegoDTO>();
+		for(Jugador j : this.getJugadores()){
+			jugadores.add(j.toDTO_reducido());
+		}
+		for(Juego jj : this.getJuegos()){
+			juegos.add(jj.toDTO());
+		}
+		
+		
+		PartidaDTO  pdto= new PartidaDTO(this.getId(),jugadores,this.isEsAbierta(),this.getEstado(), this.getGanador(),juegos,charla);
+		return 	pdto;
+		}
 
+	
+
+
+	
+	
+	
 	public PartidaPantallaDTO toPantallaDTO(int partida, Jugador j2 , Boolean ptosEnvido) throws ComunicacionException {
 
 		boolean par=true;

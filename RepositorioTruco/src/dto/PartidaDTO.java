@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 
 
+
 import enumeraciones.EstadoPartida;
 
 public class PartidaDTO implements Serializable {
@@ -33,6 +34,8 @@ public class PartidaDTO implements Serializable {
 		this.juegos = juegos;
 		this.charla = charla;
 	}
+
+
 
 	public int getId() {
 		return id;
