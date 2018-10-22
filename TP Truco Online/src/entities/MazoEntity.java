@@ -12,7 +12,6 @@ import javax.persistence.Table;
 @Table(name="mazo")
 public class MazoEntity {
 	@Id
-	@GeneratedValue
 	private Integer cartaId;
 	private Integer valor;
 	private Integer valorEnvite;

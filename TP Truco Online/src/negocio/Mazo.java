@@ -3,16 +3,18 @@ package negocio;
 import java.util.ArrayList;
 import java.util.Random;
 
+import excepciones.ComunicacionException;
 import tests.CartaDAOv;
 
 public class Mazo {
 
 	private ArrayList<Carta>cartas;
 
-	public Mazo() {
-		super();
-		this.cartas = CartaDAOv.getInstance().getCartas(); //TODO MazoDAO
+	public Mazo(ArrayList<Carta> cartas) throws ComunicacionException {
+		if (cartas != null) this.cartas = cartas;
+		else throw new ComunicacionException("Hubo un error al construir el mazo");
 	}
+	
 	public Carta darCarta(){
 		Random aleatorio = new Random();
 		Carta c = cartas.get(aleatorio.nextInt((cartas.size())));

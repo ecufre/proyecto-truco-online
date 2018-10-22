@@ -3,6 +3,7 @@ package negocio;
 import java.util.ArrayList;
 
 import dao.JuegoDAO;
+import dao.MazoDAO;
 import dto.CartaDTO;
 import dto.JuegoDTO;
 import dto.ManoDTO;
@@ -73,7 +74,7 @@ public class Juego {
 	}
 
 	public void crearMano() throws ComunicacionException {
-		Mazo mazo = new Mazo(); //TODO Pedirselo al MazoDAO
+		Mazo mazo = MazoDAO.getInstancia().getMazo();
 		ArrayList<Carta> cartas = new ArrayList<Carta>();
 
 		/*
