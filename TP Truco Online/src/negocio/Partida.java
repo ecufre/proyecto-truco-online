@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import dto.JugadorDTO;
 import dto.PartidaDTO;
+import dto.PartidaPantallaDTO;
 import enumeraciones.EstadoPartida;
 import enumeraciones.TipoCanto;
 import excepciones.ComunicacionException;
@@ -151,13 +152,13 @@ public class Partida {
 		return jugadores;
 	}
 
-	public PartidaDTO toDTO(int partida, Jugador j2 , Boolean ptosEnvido) throws ComunicacionException {
+	public PartidaPantallaDTO toDTO(int partida, Jugador j2 , Boolean ptosEnvido) throws ComunicacionException {
 	
 		boolean par=true;
 		
 		
 		if(j2!=null){
-			PartidaDTO pd = new PartidaDTO(partida);
+			PartidaPantallaDTO pd = new PartidaPantallaDTO(partida);
 			pd.setJugador(j2.toDTO());
 			//pd.setChat(this.getCharla()); queda para la proxima entrega
 			pd.setCartasJugador(this.getJuegoActual().mostrarCartasJugador(this.ubicacionJugador(j2)));
@@ -178,7 +179,8 @@ public class Partida {
 			if(j.getPuntajePar()<j.getPuntajeImpar()){
 				
 				juegosImpar++;
-			}else{
+			}
+			if(j.getPuntajePar()>j.getPuntajeImpar()){
 			
 				juegosPar++;
 			}
