@@ -13,11 +13,11 @@ import negocio.Jugador;
 import negocio.Partida;
 
 public class AdministradorPartida {
-	private ArrayList<Partida> partidas;
+	//private ArrayList<Partida> partidas;
 	private static AdministradorPartida instancia;
 
 	private AdministradorPartida() {
-		this.partidas = new ArrayList<Partida>();
+		//this.partidas = new ArrayList<Partida>();
 	}
 
 	public static AdministradorPartida getInstancia() {
@@ -36,7 +36,7 @@ public class AdministradorPartida {
 		Partida p = new Partida(true);
 		p.setJugadores(jugadores);
 		p.crear();
-		this.partidas.add(p); //Solo para pruebas sin persistencia
+		//this.partidas.add(p); //Solo para pruebas sin persistencia
 	}
 
 	public Partida crearPartidaCerrada(Jugador j1, Jugador j2, Jugador j3, Jugador j4) throws ComunicacionException {
@@ -48,7 +48,7 @@ public class AdministradorPartida {
 		Partida p = new Partida(false);
 		p.setJugadores(jugadores);
 		p.crear();
-		this.partidas.add(p); //Solo para pruebas sin persistencia
+		//this.partidas.add(p); //Solo para pruebas sin persistencia
 		return p;
 	}
 

@@ -78,15 +78,80 @@ public class Test {
 			
 			ArrayList<CartaDTO> baza2 = new ArrayList<CartaDTO>();
 			baza2.add(new CartaDTO(2, 2, "espada", 1));
-			baza2.add(new CartaDTO(39, 11, "oro", 1));
-			baza2.add(new CartaDTO(26, 6, "copa", 1));
-			baza2.add(new CartaDTO(30, 12, "copa", 1));
+			baza2.add(new CartaDTO(39, 11, "oro", 2));
+			baza2.add(new CartaDTO(26, 6, "copa", 3));
+			baza2.add(new CartaDTO(30, 12, "copa", 4));
 			
 			ad.setJugador(admin);
 			//mostrarPartida(c3,ad);
 		System.out.println("ARRANCAMOS");
 
 			
+			for (int i = 0; i < 30; i++) {
+				//Primera baza
+				CartaDTO cd = baza1.get((i+0)%4);
+				ad.setJugador(jugadores.get((i+0)%4));
+				ad.setCarta(cd);
+				c3.JugarCarta(ad);
+				//mostrarPartida(c3,ad);
+				cd = baza1.get((i+1)%4);
+				ad.setJugador(jugadores.get((i+1)%4));
+				ad.setCarta(cd);
+				c3.JugarCarta(ad);
+				//mostrarPartida(c3,ad);
+				cd = baza1.get((i+2)%4);
+				ad.setJugador(jugadores.get((i+2)%4));
+				ad.setCarta(cd);
+				c3.JugarCarta(ad);
+				//mostrarPartida(c3,ad);
+				cd = baza1.get((i+3)%4);
+				ad.setJugador(jugadores.get((i+3)%4));
+				ad.setCarta(cd);
+				c3.JugarCarta(ad);
+				//mostrarPartida(c3,ad);
+				//Segunda baza
+				cd = baza2.get(0);
+				ad.setJugador(jugadores.get(0));
+				ad.setCarta(cd);
+				c3.JugarCarta(ad);
+				//mostrarPartida(c3,ad);
+				cd = baza2.get(1);
+				ad.setJugador(jugadores.get(1));
+				ad.setCarta(cd);
+				c3.JugarCarta(ad);
+				//mostrarPartida(c3,ad);
+				cd = baza2.get(2);
+				ad.setJugador(jugadores.get(2));
+				ad.setCarta(cd);
+				c3.JugarCarta(ad);
+				//mostrarPartida(c3,ad);
+				cd = baza2.get(3);
+				ad.setJugador(jugadores.get(3));
+				ad.setCarta(cd);
+				c3.JugarCarta(ad);
+				/*
+				//Tercera baza
+				cd = new CartaDTO(10, 12, "espada", 1);
+				ad.setJugador(jugador1);
+				ad.setCarta(cd);
+				c3.JugarCarta(ad);
+				
+				cd = new CartaDTO(20, 12, "basto", 1);
+				ad.setJugador(jugador);
+				ad.setCarta(cd);
+				c3.JugarCarta(ad);
+				
+				cd = new CartaDTO(31, 1, "oro", 1);
+				ad.setJugador(jugador4);
+				ad.setCarta(cd);
+				c3.JugarCarta(ad);
+				
+				cd = new CartaDTO(5, 5, "espada", 1);
+				ad.setJugador(admin);
+				ad.setCarta(cd);
+				c3.JugarCarta(ad);
+				*/
+			}
 			for (int i = 0; i < 30; i++) {
 				//Primera baza
 				CartaDTO cd = baza1.get((i+0)%4);
