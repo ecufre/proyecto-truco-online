@@ -1,6 +1,8 @@
 package negocio;
 
+import controladores.CreadorPartida;
 import dto.InvitacionDTO;
+import excepciones.ComunicacionException;
 
 public class Invitacion {
 	private Jugador remitente;
@@ -27,8 +29,8 @@ public class Invitacion {
 		this.id = id;
 	}
 
-	public void aceptar(Jugador destinatario) {
-		//TODO se agregan al remitente y al destinatario a la "queue" de partidas abiertas en pareja.
+	public void aceptar(Jugador invitado) throws ComunicacionException {
+		CreadorPartida.getInstancia().agregarPareja(remitente, invitado);
 	}
 	
 	public InvitacionDTO toDTO() {

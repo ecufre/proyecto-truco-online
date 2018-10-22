@@ -4,24 +4,25 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public class CategoriaEntity {
-	private int partidasJugadas;
-	private int puntosTotales;
-	public CategoriaEntity(int partidasJugadas, int puntosTotales) {
+	private Integer partidasJugadas;
+	private Integer puntosTotales;
+
+	public CategoriaEntity(Integer partidasJugadas, Integer puntosTotales) {
 		this.partidasJugadas = partidasJugadas;
 		this.puntosTotales = puntosTotales;
 	}
 	public CategoriaEntity() {
 	}
-	public int getPartidasJugadas() {
+	public Integer getPartidasJugadas() {
 		return partidasJugadas;
 	}
-	public void setPartidasJugadas(int partidasJugadas) {
+	public void setPartidasJugadas(Integer partidasJugadas) {
 		this.partidasJugadas = partidasJugadas;
 	}
-	public int getPuntosTotales() {
+	public Integer getPuntosTotales() {
 		return puntosTotales;
 	}
-	public void setPuntosTotales(int puntosTotales) {
+	public void setPuntosTotales(Integer puntosTotales) {
 		this.puntosTotales = puntosTotales;
 	}
 }

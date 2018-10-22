@@ -1,45 +1,50 @@
 package dto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Vector;
 
-public class JugadorDTO {
+public class JugadorDTO implements Serializable {
 	private String apodo;
 	private String email;
 	private String password;
-	private Integer id;
+	//private Integer id;
 	private ArrayList<InvitacionDTO> invitacionesPendientes;
 	private CategoriaDTO categoria;
+	private ArrayList<GrupoDTO> grupos;
+	private String loggedSession;
 	
-	public JugadorDTO(String apodo, Integer id, CategoriaDTO categoria) {
+	public ArrayList<GrupoDTO> getGrupos() {
+		return grupos;
+	}
+
+	public void setGrupos(ArrayList<GrupoDTO> grupos) {
+		this.grupos = grupos;
+	}
+
+	public JugadorDTO(String apodo, CategoriaDTO categoria) {
 		this.apodo = apodo;
-		this.id = id;
+		//this.id = id;
 		this.categoria = categoria;
 	}
 
-	public JugadorDTO(String apodo, String email, Integer id,
-			ArrayList<InvitacionDTO> invitacionesPendientes, CategoriaDTO categoria) {
+	public JugadorDTO(String apodo, String email, ArrayList<InvitacionDTO> invitacionesPendientes, CategoriaDTO categoria) {
 		this.apodo = apodo;
 		this.email = email;
-		this.id = id;
+		//this.id = id;
 		this.invitacionesPendientes = invitacionesPendientes;
 		this.categoria = categoria;
 	}
 
+	public JugadorDTO(String apodo, String email, String password, String loggedSession) {
+		this.apodo = apodo;
+		this.email = email;
+		this.password = password;
+		this.loggedSession = loggedSession;
+	}
+
 	public String getApodo() {
 		return apodo;
-	}
-
-	public void setApodo(String apodo) {
-		this.apodo = apodo;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	public String getPassword() {
@@ -50,20 +55,28 @@ public class JugadorDTO {
 		this.password = password;
 	}
 
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
 	public ArrayList<InvitacionDTO> getInvitacionesPendientes() {
 		return invitacionesPendientes;
 	}
 
 	public void setInvitacionesPendientes(ArrayList<InvitacionDTO> invitacionesPendientes) {
 		this.invitacionesPendientes = invitacionesPendientes;
+		this.categoria = categoria;
+	}
+
+	public String getLoggedSession() {
+		return loggedSession;
+	}
+
+	public void setLoggedSession(String loggedSession) {
+		this.loggedSession = loggedSession;
+	}
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public CategoriaDTO getCategoria() {
@@ -72,5 +85,9 @@ public class JugadorDTO {
 
 	public void setCategoria(CategoriaDTO categoria) {
 		this.categoria = categoria;
+	}
+
+	public void setApodo(String apodo) {
+		this.apodo = apodo;
 	}
 }
