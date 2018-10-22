@@ -2,30 +2,21 @@ package test;
 
 import java.util.ArrayList;
 
-import controladores.AdministradorGrupo;
 import controladores.AdministradorJugador;
 import controladores.AdministradorPartida;
-import controladores.CreadorPartida;
 import dto.AccionDTO;
 import dto.CartaDTO;
-import dto.EnviteDTO;
-import dto.GrupoDTO;
-import dto.InvitacionDTO;
 import dto.JugadorDTO;
-import dto.ParejaDTO;
 import dto.PartidaDTO;
-import enumeraciones.TipoCanto;
 import excepciones.ComunicacionException;
 import excepciones.LoggedInException;
-import negocio.Invitacion;
-import negocio.Jugador;
 
 public class Test {
 
 	public static void main(String[] args) {
 		try {
 			AdministradorJugador c1 = AdministradorJugador.getInstancia();
-			CreadorPartida cp = CreadorPartida.getInstancia();
+			//CreadorPartida cp = CreadorPartida.getInstancia();
 			AdministradorPartida c3 = AdministradorPartida.getInstancia();
 			JugadorDTO admin = new JugadorDTO("fer", "fer@fer", "Pass", "SessionID");
 			AdministradorJugador.getInstancia().crearJugador(admin);			
@@ -40,13 +31,13 @@ public class Test {
 			JugadorDTO jugador = new JugadorDTO("kike2", "kike2@kike", "Pass", "SessionID6");
 			AdministradorJugador.getInstancia().crearJugador(jugador);			
 			
-			AdministradorJugador.getInstancia().login(admin);
+			c1.login(admin);
 			AdministradorJugador.getInstancia().jugarLibreIndividual(admin);
 			AdministradorJugador.getInstancia().jugarLibreIndividual(jugador);
 			AdministradorJugador.getInstancia().jugarLibreIndividual(jugador1);
 			AdministradorJugador.getInstancia().jugarLibreIndividual(jugador4);
 			AdministradorJugador.getInstancia().jugarLibrePareja(admin, "kike2");
-			ArrayList<InvitacionDTO> inv = AdministradorJugador.getInstancia().listarInvitacionesPendientes(jugador);
+			//ArrayList<InvitacionDTO> inv = AdministradorJugador.getInstancia().listarInvitacionesPendientes(jugador);
 /*			AdministradorJugador.getInstancia().aceptarInvitacion(jugador, inv.get(0));
 			AdministradorGrupo c2 = AdministradorGrupo.getInstancia();
 			c2.crearGrupo(admin, "La Cumbancha");
@@ -60,7 +51,8 @@ public class Test {
 			ParejaDTO p1 = new ParejaDTO(1, admin, jugador);
 			ParejaDTO p2 = new ParejaDTO(2, jugador1, jugador4);
 			c2.crearPartida(admin, g, p1, p2);*/
-			PartidaDTO pdo = new PartidaDTO(1);
+			PartidaDTO pdo = new PartidaDTO();
+			pdo.setId(1);
 			
 			AccionDTO ad = new AccionDTO(pdo, admin, 1, false, "");
 			c3.jugadorListo(ad);
@@ -89,7 +81,7 @@ public class Test {
 			baza2.add(new CartaDTO(30, 12, "copa", 1));
 			
 			ad.setJugador(admin);
-			mostrarPartida(c3,ad);
+			//mostrarPartida(c3,ad);
 		System.out.println("ARRANCAMOS");
 
 			
@@ -99,38 +91,38 @@ public class Test {
 				ad.setJugador(jugadores.get((i+0)%4));
 				ad.setCarta(cd);
 				c3.JugarCarta(ad);
-				mostrarPartida(c3,ad);
+				//mostrarPartida(c3,ad);
 				cd = baza1.get((i+1)%4);
 				ad.setJugador(jugadores.get((i+1)%4));
 				ad.setCarta(cd);
 				c3.JugarCarta(ad);
-				mostrarPartida(c3,ad);
+				//mostrarPartida(c3,ad);
 				cd = baza1.get((i+2)%4);
 				ad.setJugador(jugadores.get((i+2)%4));
 				ad.setCarta(cd);
 				c3.JugarCarta(ad);
-				mostrarPartida(c3,ad);
+				//mostrarPartida(c3,ad);
 				cd = baza1.get((i+3)%4);
 				ad.setJugador(jugadores.get((i+3)%4));
 				ad.setCarta(cd);
 				c3.JugarCarta(ad);
-				mostrarPartida(c3,ad);
+				//mostrarPartida(c3,ad);
 				//Segunda baza
 				cd = baza2.get(0);
 				ad.setJugador(jugadores.get(0));
 				ad.setCarta(cd);
 				c3.JugarCarta(ad);
-				mostrarPartida(c3,ad);
+				//mostrarPartida(c3,ad);
 				cd = baza2.get(1);
 				ad.setJugador(jugadores.get(1));
 				ad.setCarta(cd);
 				c3.JugarCarta(ad);
-				mostrarPartida(c3,ad);
+				//mostrarPartida(c3,ad);
 				cd = baza2.get(2);
 				ad.setJugador(jugadores.get(2));
 				ad.setCarta(cd);
 				c3.JugarCarta(ad);
-				mostrarPartida(c3,ad);
+				//mostrarPartida(c3,ad);
 				cd = baza2.get(3);
 				ad.setJugador(jugadores.get(3));
 				ad.setCarta(cd);
@@ -238,6 +230,7 @@ public class Test {
 	public static void jugarMano(int numeroMano) {
 		
 	}
+	/*
 	public static void mostrarPartida(AdministradorPartida c3,AccionDTO ad) throws ComunicacionException, LoggedInException{
 	
 	PartidaDTO pd = c3.mostrarPartida(ad);
@@ -285,5 +278,6 @@ public class Test {
 		System.out.println(c.toString());
 	}
 	}
+	*/
 }
 

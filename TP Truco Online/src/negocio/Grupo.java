@@ -86,7 +86,7 @@ public class Grupo {
 	public ArrayList<PartidaDTO> listarPartidas() {
 		ArrayList<PartidaDTO> partidasDTO = new ArrayList<PartidaDTO>();
 		for (Partida p : partidas) {
-			partidasDTO.add(p.toDTO_reducido());
+			partidasDTO.add(p.toDTO()); //TODO Quizas no hace falta recuperar TODA la partida.
 		}
 		return partidasDTO;
 	}
@@ -143,7 +143,7 @@ public class Grupo {
 		}
 		ArrayList<PartidaDTO> partidas = new ArrayList<PartidaDTO>();
 		for (Partida p : this.partidas) {
-			partidas.add(p.toDTO_reducido());
+			partidas.add(p.toDTO()); //TODO idem el otro de esta clase
 		}
 		ArrayList<ParejaDTO> parejas = new ArrayList<ParejaDTO>();
 		for (Pareja p : this.parejas) {

@@ -14,6 +14,7 @@ public class Carta {
 	private int ubicacionJugador;
 	private boolean jugada;
 	
+
 	public Carta(int cartaId, int valor,int valorEnvite, int numero, String palo) {
 		this.cartaId = cartaId;
 		this.valor = valor;
@@ -34,7 +35,7 @@ public class Carta {
 		this.ubicacionJugador = ubicacionJugador;
 		this.jugada = jugada;
 	}
-	
+
 	public void crear() throws ComunicacionException {
 		Integer id = CartaDAO.getInstancia().crear(this);
 		if (id != null) this.id = id;
@@ -43,54 +44,73 @@ public class Carta {
 	public void grabar() {
 		CartaDAO.getInstancia().grabar(this);
 	}
-	
-	public int getJugador() {
-		return ubicacionJugador;
+
+	public int getId() {
+		return id;
+	}
+
+	public int getCartaId() {
+		return cartaId;
 	}
 
 	public int getValor() {
 		return valor;
 	}
 
-	public int getId() {
-		return cartaId;
-	}
-
-	public void setJugador(int ubicacionJugador) {
-		this.ubicacionJugador = ubicacionJugador;
-	}
-
-	public boolean isJugada() {
-		return jugada;
-	}
-
-	public void setJugada(boolean jugada) {
-		this.jugada = jugada;
-	}
-
 	public int getValorEnvite() {
 		return valorEnvite;
-	}
-
-	public String getPalo() {
-		return palo;
-	}
-	
-	public int getCartaId() {
-		return cartaId;
 	}
 
 	public int getNumero() {
 		return numero;
 	}
 
+	public String getPalo() {
+		return palo;
+	}
+
+	public int getJugador() {
+		return ubicacionJugador;
+	}
+
+	public boolean isJugada() {
+		return jugada;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setCartaId(int cartaId) {
+		this.cartaId = cartaId;
+	}
+
+	public void setValor(int valor) {
+		this.valor = valor;
+	}
+
+	public void setValorEnvite(int valorEnvite) {
+		this.valorEnvite = valorEnvite;
+	}
+
 	public void setNumero(int numero) {
 		this.numero = numero;
 	}
 
+	public void setPalo(String palo) {
+		this.palo = palo;
+	}
+
+	public void setJugador(int ubicacionJugador) {
+		this.ubicacionJugador = ubicacionJugador;
+	}
+
+	public void setJugada(boolean jugada) {
+		this.jugada = jugada;
+	}
+
 	public CartaDTO toDTO() {
 		return (new CartaDTO(this.getId(),this.getNumero(),this.getPalo(),this.getJugador()));
-		
 	}
 
 	@Override
