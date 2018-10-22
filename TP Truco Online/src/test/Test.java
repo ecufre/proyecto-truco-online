@@ -129,7 +129,7 @@ public class Test {
 				ad.setJugador(jugadores.get(3));
 				ad.setCarta(cd);
 				c3.JugarCarta(ad);
-				
+				/*
 				//Tercera baza
 				cd = new CartaDTO(10, 12, "espada", 1);
 				ad.setJugador(jugador1);
@@ -150,7 +150,7 @@ public class Test {
 				ad.setJugador(admin);
 				ad.setCarta(cd);
 				c3.JugarCarta(ad);
-				
+				*/
 			}
 			/*
 			//Primera baza

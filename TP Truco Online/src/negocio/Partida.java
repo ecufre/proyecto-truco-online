@@ -163,7 +163,10 @@ public class Partida {
 			}
 		}
 		//Si se termino la mano, creo una nueva mano.
-		else if (this.getJuegoActual().manoCompleta()) this.getJuegoActual().crearMano();
+		else if (this.getJuegoActual().manoCompleta()) {
+			this.getJuegoActual().crearMano();
+			this.getJuegoActual().grabar();
+		}
 	}
 
 	public void cantarEnvite(Jugador jugador, TipoCanto canto) throws ComunicacionException{

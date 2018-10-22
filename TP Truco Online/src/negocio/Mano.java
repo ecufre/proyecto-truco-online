@@ -116,7 +116,7 @@ public class Mano {
 	}
 
 	private Carta buscarCarta(int carta) throws ComunicacionException {
-		for(Carta c : this.cartas) if(c.getId() == carta) return c;
+		for(Carta c : this.cartas) if(c.getCartaId() == carta) return c;
 		throw new ComunicacionException("La carta buscada no existe");
 	}
 
@@ -362,7 +362,7 @@ public class Mano {
 			}
 			this.envidoValor[i-1]=mejor;
 		}
-		for (int i = 0; i < 4; i++) System.out.println(i + ": " + this.envidoValor[i]);
+		//for (int i = 0; i < 4; i++) System.out.println(i + ": " + this.envidoValor[i]);
 
 	}
 

@@ -82,7 +82,7 @@ public class Baza {
 	}
 	
 	public boolean isCompleta() {
-		return (this.ganadorBaza != null);
+		return (this.cartasbaza.size() == 4 || this.ganadorBaza != null);
 	}
 
 	public Integer getGanadorBaza() {
