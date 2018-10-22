@@ -1,14 +1,12 @@
 package entities;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import negocio.Carta;
 
 @Entity
 @Table(name="bazas")
@@ -17,7 +15,7 @@ public class BazaEntity {
 	@GeneratedValue
 	private Integer id;
 	@OneToMany
-	private ArrayList<CartaEntity> cartasbaza;
+	private List<CartaEntity> cartasbaza;
 	private Integer ganadorBaza;
 	private Integer turno;
 	private Integer mano;
@@ -48,11 +46,11 @@ public class BazaEntity {
 		this.id = id;
 	}
 
-	public ArrayList<CartaEntity> getCartasbaza() {
+	public List<CartaEntity> getCartasbaza() {
 		return cartasbaza;
 	}
 
-	public void setCartasbaza(ArrayList<CartaEntity> cartasbaza) {
+	public void setCartasbaza(List<CartaEntity> cartasbaza) {
 		this.cartasbaza = cartasbaza;
 	}
 

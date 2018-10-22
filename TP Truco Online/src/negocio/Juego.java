@@ -2,32 +2,26 @@ package negocio;
 
 import java.util.ArrayList;
 
+import dao.JuegoDAO;
 import dto.CartaDTO;
 import enumeraciones.TipoCanto;
 import excepciones.ComunicacionException;
 
 
 public class Juego {
-	private static int siguienteId = 1; //TODO esto se reemplaza por la persistencia
+
 	private int id;
 	private int puntajePar;
 	private int puntajeImpar;
 	private boolean finalizado;
 	private ArrayList<Mano> manos;
 
-	//Metodo a eliminar con persistencia
-	private static int getSiguienteId() {
-		return siguienteId++;
-	}
-
 	public Juego() {
-		this.id = Juego.getSiguienteId();
 		this.puntajePar = 0;
 		this.puntajeImpar = 0;
 		this.finalizado = false;
 		this.manos = new ArrayList<Mano>();
 	}
-	
 
 	public int getId() {
 		return id;
@@ -62,8 +56,12 @@ public class Juego {
 		return finalizado;
 	}
 
-	
-	
+	public void crear() throws ComunicacionException {
+		Integer id = JuegoDAO.getInstancia().crear(this);
+		if (id != null) this.id = id;
+		else throw new ComunicacionException("Hubo un error al generar un nuevo juego");
+	}
+
 	public void grabar() {
 		//TODO Grabar
 	}
@@ -73,9 +71,9 @@ public class Juego {
 	}
 
 	public void crearMano() throws ComunicacionException {
-		Mazo mazo = new Mazo();
+		Mazo mazo = new Mazo(); //TODO Pedirselo al MazoDAO
 		ArrayList<Carta> cartas = new ArrayList<Carta>();
-		
+
 		/*
 		for(int j= 1; j <= 4 ; j++){
 			for (int i = 0; i < 3; i ++) {
@@ -85,88 +83,90 @@ public class Juego {
 				cartas.add(c);
 			}
 		}
-		*/
+		 */
 		//Metodo no random para pruebas TODO: Sacarlo
 		Carta c = mazo.darCarta(1);
 		c.setJugador(1);
-		c.grabar();
+		c.crear();
 		System.out.println(c.toString());
 		cartas.add(c);
 		c = mazo.darCarta(1);
 		c.setJugador(1);
-		c.grabar();
+		c.crear();
 		System.out.println(c.toString());
 		cartas.add(c);
 		c = mazo.darCarta(24);
 		c.setJugador(1);
-		c.grabar();
+		c.crear();
 		System.out.println(c.toString());
 		cartas.add(c);
 		c = mazo.darCarta(33);
 		c.setJugador(2);
-		c.grabar();
+		c.crear();
 		System.out.println(c.toString());
 		cartas.add(c);
 		c = mazo.darCarta(33);
 		c.setJugador(2);
-		c.grabar();
+		c.crear();
 		System.out.println(c.toString());
 		cartas.add(c);
 		c = mazo.darCarta(33);
 		c.setJugador(2);
-		c.grabar();
+		c.crear();
 		System.out.println(c.toString());
 		cartas.add(c);
 		c = mazo.darCarta(1);
 		c.setJugador(3);
-		c.grabar();
+		c.crear();
 		System.out.println(c.toString());
 		cartas.add(c);
 		c = mazo.darCarta(10);
 		c.setJugador(3);
-		c.grabar();
+		c.crear();
 		System.out.println(c.toString());
 		cartas.add(c);
 		c = mazo.darCarta(21);
 		c.setJugador(3);
-		c.grabar();
+		c.crear();
 		System.out.println(c.toString());
 		cartas.add(c);
 		c = mazo.darCarta(1);
 		c.setJugador(4);
-		c.grabar();
+		c.crear();
 		System.out.println(c.toString());
 		cartas.add(c);
 		c = mazo.darCarta(10);
 		c.setJugador(4);
-		c.grabar();
+		c.crear();
 		System.out.println(c.toString());
 		cartas.add(c);
 		c = mazo.darCarta(21);
 		c.setJugador(4);
-		c.grabar();
+		c.crear();
 		System.out.println(c.toString());
 		cartas.add(c);
-		
-		
+		// Aca termina la seccion de prueba
+
 		Mano mano = new Mano(this.manos.size() + 1);
-		
 		mano.setCartas(cartas);
 		mano.calcularEnvidos();
 		manos.add(mano);
-		mano.grabar();
+		mano.crear();
 	}
 
 	public void jugarCarta(int ubicacionJugador, int carta) throws ComunicacionException {
 		this.getManoActual().jugarCarta(ubicacionJugador, carta);
+		this.grabar();
 	}
 
 	public void retirarseMano(int ganador) throws ComunicacionException{
 		this.getManoActual().administrarRetiro(ganador);
+		this.grabar();
 	}
 
 	public void actualizarJuego() {
 		if(this.getManoActual().manoCompleta()) this.calcularPuntos();
+		this.grabar();
 	}
 
 	public boolean manoCompleta() {
@@ -177,11 +177,12 @@ public class Juego {
 		this.getManoActual().cantarEnvite(jugadorUbicacion, canto);
 		this.getManoActual().grabar();
 	}
-	
+
 	public void responderEnvite(int jugadorUbicacion, TipoCanto tipoCanto, boolean respuesta) throws ComunicacionException {
 		this.getManoActual().responderEnvite(jugadorUbicacion, tipoCanto, respuesta);
+		this.grabar();
 	}
-	
+
 
 	private void calcularPuntos() {
 		this.puntajeImpar = this.puntajeImpar + this.getManoActual().calcularPuntaje(1, this.puntajeImpar, this.puntajePar);
@@ -190,27 +191,27 @@ public class Juego {
 	}
 
 
-	
-	
+
+
 	public ArrayList<CartaDTO> mostrarCartasJugador(int i) {
 		return this.getManoActual().mostrarCartasJugador(i);
 
-}
+	}
 
 	public Integer mostrarPuntosEnvido(Integer pos) {
 		return this.getManoActual().mostrarPuntosEnvido(pos);
 
 	}
 
-	
-		public  ArrayList<CartaDTO> mostrarCartasMesa(Integer ubicacion){
-			return this.getManoActual().mostarCartasMesa(ubicacion);
-			
-	
+
+	public  ArrayList<CartaDTO> mostrarCartasMesa(Integer ubicacion){
+		return this.getManoActual().mostarCartasMesa(ubicacion);
+
+
 	}
 
-		public int getTurno() {
-		
+	public int getTurno() {
+
 		return this.getManoActual().getBazaActual().getTurno();
-}
+	}
 }

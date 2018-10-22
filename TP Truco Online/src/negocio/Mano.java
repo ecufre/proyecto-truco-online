@@ -2,27 +2,21 @@ package negocio;
 
 import java.util.ArrayList;
 
+import dao.ManoDAO;
 import dto.CartaDTO;
 import enumeraciones.TipoCanto;
 import excepciones.ComunicacionException;
 
 
 public class Mano {
-	private static int siguienteId = 1; //TODO esto se reemplaza por la persistencia
 	private Integer id;
 	private Integer numeroMano;
 	private ArrayList<Canto> cantos;
 	private ArrayList<Carta> cartas;
 	private ArrayList<Baza> bazas;
 	private Integer[] envidoValor;
-	
-	//Metodo a eliminar con persistencia
-	private static int getSiguienteId() {
-		return siguienteId++;
-	}
 
 	public Mano(Integer numeroMano) throws ComunicacionException {
-		this.id = Mano.getSiguienteId();
 		this.numeroMano = numeroMano;
 		this.cantos = new ArrayList<Canto>();
 		this.cartas = new ArrayList<Carta>();
@@ -32,16 +26,14 @@ public class Mano {
 		bazas.add(b);
 		this.envidoValor = new Integer[4];
 	}
-	
-	
 
 	public Mano(Integer id, Integer numeroMano) {
-		super();
 		this.id = id;
 		this.numeroMano = numeroMano;
 		this.cantos = new ArrayList<Canto>();
 		this.cartas = new ArrayList<Carta>();
 		this.bazas = new ArrayList<Baza>();
+		this.envidoValor = new Integer[4];
 	}
 
 	public ArrayList<Canto> getCantos() {
@@ -74,7 +66,13 @@ public class Mano {
 	}
 
 	public void grabar() {
-		//TODO Grabar
+		ManoDAO.getInstancia().grabar(this);
+	}
+	
+	public void crear() throws ComunicacionException {
+		Integer id = ManoDAO.getInstancia().crear(this);
+		if (id != null) this.id = id;
+		else throw new ComunicacionException("Hubo un error al generar una nueva mano");
 	}
 
 	public Baza getBazaActual() {
@@ -103,6 +101,7 @@ public class Mano {
 					bazas.add(b);
 				}
 			}
+			this.grabar();
 		}
 		else throw new ComunicacionException("Jugada invalida");
 
@@ -122,7 +121,7 @@ public class Mano {
 		if (this.numeroMano % 4 == 0) return 4;
 		else return this.numeroMano % 4;
 	}
-	
+
 	//Calcula la posicion relativa de un jugador respecto del mano de la primer baza
 	private int posicionRelativa(int ubicacion) {
 		if (ubicacion >= this.calcularJugManoBaza()) return (this.calcularJugManoBaza() - ubicacion);
@@ -139,6 +138,7 @@ public class Mano {
 			b.setGanadorBaza(ganador);
 			b.grabar();
 		}
+		this.grabar();
 	}
 
 	public boolean manoCompleta() {
@@ -158,14 +158,14 @@ public class Mano {
 		//No se termino de jugar la 2da Baza -> Mano incompleta
 		return false;
 	}
-	
+
 	public int calcularGanadorMano() {
 		int ganador;
 		//Ultima baza es empate -> Ganador de la primer baza gano la mano
 		if (this.bazas.get(this.bazas.size() - 1).isParda()) ganador = this.bazas.get(0).getGanadorBaza() % 2;
 		//Sino el ganador de la ultima baza es el ganador de la mano
 		else ganador = this.bazas.get(this.bazas.size() - 1).getGanadorBaza() % 2;
-		
+
 		if (ganador == 0) return 2;
 		else return 1;
 	}
@@ -174,7 +174,7 @@ public class Mano {
 		//No es el turno del jugador
 		//Para el envido
 		if (canto.getId() < 5) {
-			
+
 			int cantidadDeCantos = 0;
 			//Cuanto la cantidad de cantos
 			for (Canto c : this.cantos) {
@@ -187,7 +187,7 @@ public class Mano {
 			//Canta envido despues de la primer baza
 			if (this.bazas.size() > 1 && canto.getId() <= 4) return false;
 		}
-		
+
 		//Si ya se realizo el canto
 		for (Canto c : this.cantos) if (c.getTipoCanto().getId() == canto.getId()) return false;
 
@@ -219,10 +219,11 @@ public class Mano {
 			c.setTipoCanto(canto);
 			c.grabar();
 			this.cantos.add(c);
+			this.grabar();
 		}
 		else throw new ComunicacionException("El canto es invalido");
 	}
-	
+
 	public boolean esRespuestaValida(int jugador, TipoCanto tipoCanto) {
 		int cantidadDeCantos = 0;
 		int cantoTrucoMaximo = 0;
@@ -244,10 +245,11 @@ public class Mano {
 			this.getUltimoCanto().setQuerido(respuesta);
 			this.getUltimoCanto().grabar();
 			if (tipoCanto.getId() > 4 && ! respuesta) this.administrarRetiro(jugador % 2 + 1); 
+			this.grabar();
 		}
 		else throw new ComunicacionException("La respuesta es invalida");
 	}
-	
+
 	public int calcularPuntaje(int equipo, int puntosEquipo, int puntosRival) {
 		int puntosTruco = 0;
 		//Si equipo gano el truco se suman los puntos del truco
@@ -257,7 +259,7 @@ public class Mano {
 				if (c.getTipoCanto().getId() > 4 && c.isQuerido()) puntosTruco++;
 			}
 		}
-		
+
 		int puntosEnvido = 0;
 		//Calculo los puntos del envido
 		int maximoCanto = 0;
@@ -316,20 +318,19 @@ public class Mano {
 	}
 
 	public ArrayList<CartaDTO> mostrarCartasJugador(int i) {
-			ArrayList<CartaDTO> cd = new ArrayList<CartaDTO>();
-			for(Carta c: cartas){
-				if(c.getJugador()==i && !c.isJugada()){
-					cd.add(c.toDTO());
-				}
+		ArrayList<CartaDTO> cd = new ArrayList<CartaDTO>();
+		for(Carta c: cartas){
+			if(c.getJugador()==i && !c.isJugada()){
+				cd.add(c.toDTO());
 			}
-			return cd;
-}
+		}
+		return cd;
+	}
 
 	public Integer mostrarPuntosEnvido(Integer pos) {
-		
 		return this.envidoValor[pos-1];
 	}
-	
+
 	public void calcularEnvidos() {
 		for(int i=1;i<5;i++){
 			Carta[] manoj = new Carta[3];
@@ -362,17 +363,14 @@ public class Mano {
 
 	}
 
-	
-
 	public ArrayList<CartaDTO> mostarCartasMesa(Integer ubicacion) {
-		 ArrayList<CartaDTO> cm = new  ArrayList<CartaDTO>();
+		ArrayList<CartaDTO> cm = new  ArrayList<CartaDTO>();
 		for(Baza b : this.bazas){
 			for(Carta c :b.getCartasbaza()){
 				if(c.getJugador()==ubicacion){
-				cm.add(c.toDTO());
+					cm.add(c.toDTO());
 				}
 			}
-			
 		}
 		return cm;
 	}

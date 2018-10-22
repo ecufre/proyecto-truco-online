@@ -39,6 +39,7 @@ public class JuegoDAO {
 			for (Mano m : j.getManos()) {
 				ManoEntity me = new ManoEntity();
 				me.setId(m.getId());
+				manos.add(me);
 			}
 			je.setManos(manos);
 			SessionFactory sf = HibernateUtil.getSessionFactory();
@@ -56,6 +57,7 @@ public class JuegoDAO {
 			for (Mano m : j.getManos()) {
 				ManoEntity me = new ManoEntity();
 				me.setId(m.getId());
+				manos.add(me);
 			}
 			je.setManos(manos);
 			SessionFactory sf = HibernateUtil.getSessionFactory();

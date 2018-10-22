@@ -31,6 +31,7 @@ private static BazaDAO instancia;
 			for (Carta c : b.getCartasbaza()) {
 				CartaEntity ce = new CartaEntity();
 				ce.setId(c.getId());
+				cartas.add(ce);
 			}
 			be.setCartasbaza(cartas);
 			SessionFactory sf = HibernateUtil.getSessionFactory();

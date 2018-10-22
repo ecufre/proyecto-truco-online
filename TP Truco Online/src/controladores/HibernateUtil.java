@@ -11,6 +11,7 @@ import entities.GrupoEntity;
 import entities.JuegoEntity;
 import entities.JugadorEntity;
 import entities.ManoEntity;
+import entities.MazoEntity;
 import entities.ParejaEntity;
 import entities.PartidaEntity;
 
@@ -33,6 +34,7 @@ public class HibernateUtil
              config.addAnnotatedClass(CantoEntity.class);
              config.addAnnotatedClass(JuegoEntity.class);
              config.addAnnotatedClass(ManoEntity.class);
+             config.addAnnotatedClass(MazoEntity.class);
              sessionFactory = config.buildSessionFactory();
         }
         catch (Throwable ex)

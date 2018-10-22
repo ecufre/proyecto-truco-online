@@ -6,15 +6,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import controladores.HibernateUtil;
-import entities.BazaEntity;
-import entities.CantoEntity;
-import entities.CartaEntity;
 import entities.JuegoEntity;
 import entities.JugadorEntity;
 import entities.PartidaEntity;
 import excepciones.ComunicacionException;
-import negocio.Baza;
-import negocio.Carta;
 import negocio.Juego;
 import negocio.Jugador;
 import negocio.Partida;
@@ -43,7 +38,7 @@ private PartidaDAO() {}
 			return PartidaDAO.getInstancia().toNegocio(pe);
 		}
 		else 
-			throw new ComunicacionException("La Partida solicitado no existe");
+			throw new ComunicacionException("La Partida solicitada no existe");
 	}
 	
 	
@@ -54,18 +49,21 @@ private PartidaDAO() {}
 		for (Juego j : p.getJuegos()) {
 			JuegoEntity je = new JuegoEntity();
 			je.setId(j.getId());
+			juegos.add(je);
 		}
 		pe.setJuegos(juegos);
 		ArrayList<JugadorEntity> jugadores = new ArrayList<JugadorEntity>();
 		for (Jugador j : p.getJugadores()) {
 			JugadorEntity je = new JugadorEntity();
 			je.setApodo(j.getApodo());
+			jugadores.add(je);
 		}
 		pe.setJugadores(jugadores);
 		ArrayList<JugadorEntity> jugadoresListos = new ArrayList<JugadorEntity>();
 		for (Jugador j : p.getJugadoresListos()) {
 			JugadorEntity je = new JugadorEntity();
 			je.setApodo(j.getApodo());
+			jugadoresListos.add(je);
 		}
 		pe.setJugadoresListos(jugadoresListos);
 		SessionFactory sf = HibernateUtil.getSessionFactory();
@@ -84,18 +82,21 @@ private PartidaDAO() {}
 		for (Juego j : p.getJuegos()) {
 			JuegoEntity je = new JuegoEntity();
 			je.setId(j.getId());
+			juegos.add(je);
 		}
 		pe.setJuegos(juegos);
 		ArrayList<JugadorEntity> jugadores = new ArrayList<JugadorEntity>();
 		for (Jugador j : p.getJugadores()) {
 			JugadorEntity je = new JugadorEntity();
 			je.setApodo(j.getApodo());
+			jugadores.add(je);
 		}
 		pe.setJugadores(jugadores);
 		ArrayList<JugadorEntity> jugadoresListos = new ArrayList<JugadorEntity>();
 		for (Jugador j : p.getJugadoresListos()) {
 			JugadorEntity je = new JugadorEntity();
 			je.setApodo(j.getApodo());
+			jugadoresListos.add(je);
 		}
 		pe.setJugadoresListos(jugadoresListos);
 		SessionFactory sf = HibernateUtil.getSessionFactory();
@@ -109,7 +110,7 @@ private PartidaDAO() {}
 	
 	
 	public Partida toNegocio(PartidaEntity pe) {
-		Partida p = new Partida(pe.getId()); //Usar otro constructor, este es para cuando la partida es nueva... y hace "cosas"
+		Partida p = new Partida(pe.getId());
 		p.setEsAbierta(pe.getEsAbierta());
 		p.setEstado(pe.getEstado());
 		p.setGanador(pe.getGanador());
@@ -124,7 +125,7 @@ private PartidaDAO() {}
 		}
 		p.setJugadores(jugadores);
 		ArrayList<Jugador> jugadoresListos = new ArrayList<Jugador>();
-		for (JugadorEntity je : pe.getJugadores()) {
+		for (JugadorEntity je : pe.getJugadoresListos()) {
 			jugadoresListos.add(JugadorDAO.getInstancia().toNegocio(je));
 		}
 		p.setJugadoresListos(jugadoresListos);

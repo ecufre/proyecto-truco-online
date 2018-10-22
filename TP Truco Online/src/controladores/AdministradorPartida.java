@@ -2,6 +2,7 @@ package controladores;
 
 import java.util.ArrayList;
 
+import dao.PartidaDAO;
 import dto.AccionDTO;
 import dto.PartidaDTO;
 import enumeraciones.EstadoPartida;
@@ -33,7 +34,8 @@ public class AdministradorPartida {
 		jugadores.add(j4);
 		Partida p = new Partida(true);
 		p.setJugadores(jugadores);
-		this.partidas.add(p); //TODO Sacar cuando se persista
+		p.crear();
+		this.partidas.add(p); //Solo para pruebas sin persistencia
 	}
 
 	public Partida crearPartidaCerrada(Jugador j1, Jugador j2, Jugador j3, Jugador j4) throws ComunicacionException {
@@ -44,8 +46,8 @@ public class AdministradorPartida {
 		jugadores.add(j4);
 		Partida p = new Partida(false);
 		p.setJugadores(jugadores);
-		this.partidas.add(p); //TODO Sacar cuando se persista
-		p.grabar();
+		p.crear();
+		this.partidas.add(p); //Solo para pruebas sin persistencia
 		return p;
 	}
 
@@ -115,8 +117,10 @@ public class AdministradorPartida {
 	}
 
 	private Partida buscarPartida(int partida) throws ComunicacionException {
-		//TODO Pedirsela al PartidaDAO
+		return PartidaDAO.getInstancia().getPartidaById(partida);
+		/* Para cuando no hay persistencia
 		for (Partida p:this.partidas) if(p.getId()==partida) return p;
 		throw new ComunicacionException("Partida no encontrada");
+		*/
 	}
 }

@@ -2,6 +2,7 @@ package negocio;
 
 import java.util.ArrayList;
 
+import dao.PartidaDAO;
 import dto.PartidaDTO;
 import dto.PartidaPantallaDTO;
 import enumeraciones.EstadoPartida;
@@ -21,7 +22,6 @@ public class Partida {
 
 	// Creacion y preparacion de partida
 	public Partida(boolean esAbierta) throws ComunicacionException {
-		this.id = 1; // terminar
 		this.jugadores = new ArrayList<Jugador>();
 		this.jugadoresListos = new ArrayList<Jugador>();
 		this.esAbierta = esAbierta;
@@ -31,19 +31,14 @@ public class Partida {
 		Juego juegoActual = new Juego();
 		this.juegos.add(juegoActual);
 		juegoActual.crearMano();
-		juegoActual.grabar();
+		juegoActual.crear();
 		this.charla = null;
 	}
 
-
 	public Partida(int id) {
-		super();
 		this.id = id;
 		this.jugadores = new ArrayList<Jugador>();
 		this.jugadoresListos = new ArrayList<Jugador>();
-		this.esAbierta = esAbierta;
-		this.estado = EstadoPartida.Pendiente;
-		this.ganador = null;
 		this.juegos = new ArrayList<Juego>();
 	}
 
@@ -80,9 +75,15 @@ public class Partida {
 	public void setGanador(Integer ganador) {
 		this.ganador = ganador;
 	}
-
+	
 	public void grabar() {
-		//TODO Grabar
+		PartidaDAO.getInstancia().grabar(this);
+	}
+	
+	public void crear() throws ComunicacionException {
+		Integer id = PartidaDAO.getInstancia().crear(this);
+		if (id != null) this.id = id;
+		else throw new ComunicacionException("Hubo un error al generar una nueva partida");
 	}
 
 	public void jugadorListo(Jugador j) {
@@ -124,7 +125,7 @@ public class Partida {
 	}
 
 	public void actualizarEsatdoPartida() throws ComunicacionException{
-		this.getJuegoActual().actualizarJuego(); //TODO Revisar cuando este el conteo de envites
+		this.getJuegoActual().actualizarJuego();
 		this.getJuegoActual().grabar();
 
 		//Analizo que hacer si se termino el juego
@@ -148,7 +149,7 @@ public class Partida {
 					Juego juegoActual = new Juego();
 					this.juegos.add(juegoActual);
 					juegoActual.crearMano();
-					juegoActual.grabar();
+					juegoActual.crear();
 				}	
 			}
 			//Un juego completo creo un juevo nuevo
@@ -156,7 +157,7 @@ public class Partida {
 				Juego juegoActual = new Juego();
 				this.juegos.add(juegoActual);
 				juegoActual.crearMano();
-				juegoActual.grabar();
+				juegoActual.crear();
 			}
 		}
 		//Si se termino la mano, creo una nueva mano.

@@ -1,11 +1,13 @@
 package entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -19,10 +21,19 @@ public class PartidaEntity {
 	private Integer id;
 	@OneToMany
 	private List<JuegoEntity> juegos;
+	//@OneToMany
+	//private List<JugadorEntity> jugadores;
+	@ManyToOne
+	private JugadorEntity jugador1;
+	@ManyToOne
+	private JugadorEntity jugador2;
+	@ManyToOne
+	private JugadorEntity jugador3;
+	@ManyToOne
+	private JugadorEntity jugador4;
+	
 	@OneToMany
-	private List<JugadorEntity> jugadores;
-	@OneToMany
-	@JoinTable(name="partida_jugadoes_listos")
+	@JoinTable(name="partidas_jugadores_listos")
 	private List<JugadorEntity> jugadoresListos;
 	private Boolean esAbierta;
 	private EstadoPartida estado;
@@ -60,11 +71,19 @@ public class PartidaEntity {
 	}
 
 	public List<JugadorEntity> getJugadores() {
+		List<JugadorEntity> jugadores = new ArrayList<JugadorEntity>();
+		jugadores.add(jugador1);
+		jugadores.add(jugador2);
+		jugadores.add(jugador3);
+		jugadores.add(jugador4);
 		return jugadores;
 	}
 
 	public void setJugadores(List<JugadorEntity> jugadores) {
-		this.jugadores = jugadores;
+		if (jugadores.size() > 0) this.jugador1 = jugadores.get(0);
+		if (jugadores.size() > 1) this.jugador2 = jugadores.get(1);
+		if (jugadores.size() > 2) this.jugador3 = jugadores.get(2);
+		if (jugadores.size() > 3) this.jugador4 = jugadores.get(3);
 	}
 
 	public List<JugadorEntity> getJugadoresListos() {

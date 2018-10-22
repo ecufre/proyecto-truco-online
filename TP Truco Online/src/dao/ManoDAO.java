@@ -9,12 +9,10 @@ import controladores.HibernateUtil;
 import entities.BazaEntity;
 import entities.CantoEntity;
 import entities.CartaEntity;
-import entities.JuegoEntity;
 import entities.ManoEntity;
 import negocio.Baza;
 import negocio.Canto;
 import negocio.Carta;
-import negocio.Juego;
 import negocio.Mano;
 
 public class ManoDAO {
@@ -39,16 +37,19 @@ private static ManoDAO instancia;
 			for (Carta c : m.getCartas()) {
 				CartaEntity ce = new CartaEntity();
 				ce.setId(c.getId());
+				cartas.add(ce);
 			}
 			me.setCartas(cartas);
 			for (Canto c : m.getCantos()) {
 				CantoEntity ce = new CantoEntity();
 				ce.setId(c.getId());
+				cantos.add(ce);
 			}
 			me.setCantos(cantos);
 			for (Baza b : m.getBazas()) {
 				BazaEntity be = new BazaEntity();
 				be.setId(b.getId());
+				bazas.add(be);
 			}
 			me.setBazas(bazas);
 			SessionFactory sf = HibernateUtil.getSessionFactory();
@@ -68,16 +69,19 @@ private static ManoDAO instancia;
 			for (Carta c : m.getCartas()) {
 				CartaEntity ce = new CartaEntity();
 				ce.setId(c.getId());
+				cartas.add(ce);
 			}
 			me.setCartas(cartas);
 			for (Canto c : m.getCantos()) {
 				CantoEntity ce = new CantoEntity();
 				ce.setId(c.getId());
+				cantos.add(ce);
 			}
 			me.setCantos(cantos);
 			for (Baza b : m.getBazas()) {
 				BazaEntity be = new BazaEntity();
 				be.setId(b.getId());
+				bazas.add(be);
 			}
 			me.setBazas(bazas);
 			SessionFactory sf = HibernateUtil.getSessionFactory();
@@ -88,10 +92,8 @@ private static ManoDAO instancia;
 			session.close();
 		}
 		
-
-		
 		public Mano toNegocio(ManoEntity me) {
-			Mano m = new Mano(me.getId(), me.getNumeroMano()); //Usar otro constructor, este es de negocio y hace cosas!
+			Mano m = new Mano(me.getId(), me.getNumeroMano());
 			ArrayList<Carta> cartas = new ArrayList<Carta>();
 			ArrayList<Canto> cantos = new ArrayList<Canto>();
 			ArrayList<Baza> bazas = new ArrayList<Baza>();
@@ -107,6 +109,7 @@ private static ManoDAO instancia;
 				bazas.add(BazaDAO.getInstancia().toNegocio(be));
 			}
 			m.setBazas(bazas);
+			m.calcularEnvidos();
 			return m;
 		}
 		

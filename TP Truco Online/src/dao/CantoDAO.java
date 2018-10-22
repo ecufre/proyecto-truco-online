@@ -20,21 +20,7 @@ public class CantoDAO {
 				instancia = new CantoDAO();
 			}
 			return instancia;
-		}
-		
-		public Canto getCantoById(int id) throws ComunicacionException {
-			SessionFactory sf = HibernateUtil.getSessionFactory();
-			Session session = sf.openSession();
-			CantoEntity ce = (CantoEntity) session.createQuery("from CantoEntity where id = ?")
-						.setParameter(0, id)
-						.uniqueResult();
-			if(ce != null){
-				return CantoDAO.getInstancia().toNegocio(ce);
-			}
-			else 
-				throw new ComunicacionException("El canto solicitado no existe");
-		}
-		
+		}	
 		
 		public Integer crear(Canto c) {
 			CantoEntity ce = new CantoEntity(c.isQuerido(), c.getTipoCanto(), c.getCantante());
