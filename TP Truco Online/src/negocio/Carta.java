@@ -1,9 +1,10 @@
 package negocio;
 
+import dao.CartaDAO;
 import dto.CartaDTO;
+import excepciones.ComunicacionException;
 
 public class Carta {
-	private static int siguienteId = 1; //TODO esto se reemplaza por la persistencia
 	private int id;
 	private int cartaId;
 	private int valor;
@@ -13,13 +14,7 @@ public class Carta {
 	private int ubicacionJugador;
 	private boolean jugada;
 	
-	//Metodo a eliminar con persistencia
-	private static int getSiguienteId() {
-		return siguienteId++;
-	}
-
 	public Carta(int cartaId, int valor,int valorEnvite, int numero, String palo) {
-		this.id = Carta.getSiguienteId();
 		this.cartaId = cartaId;
 		this.valor = valor;
 		this.valorEnvite=valorEnvite;
@@ -28,10 +23,27 @@ public class Carta {
 		this.jugada = false;
 	}
 	
-	public void grabar() {
-		//TODO Grabar
+	public Carta(int id, int cartaId, int valor, int valorEnvite, int numero, String palo, int ubicacionJugador,
+			boolean jugada) {
+		this.id = id;
+		this.cartaId = cartaId;
+		this.valor = valor;
+		this.valorEnvite = valorEnvite;
+		this.numero = numero;
+		this.palo = palo;
+		this.ubicacionJugador = ubicacionJugador;
+		this.jugada = jugada;
 	}
-
+	
+	public void crear() throws ComunicacionException {
+		Integer id = CartaDAO.getInstancia().crear(this);
+		if (id != null) this.id = id;
+		else throw new ComunicacionException("Hubo un error al generar la nueva carta");
+	}
+	public void grabar() {
+		CartaDAO.getInstancia().grabar(this);
+	}
+	
 	public int getJugador() {
 		return ubicacionJugador;
 	}
@@ -64,7 +76,9 @@ public class Carta {
 		return palo;
 	}
 	
-	
+	public int getCartaId() {
+		return cartaId;
+	}
 
 	public int getNumero() {
 		return numero;

@@ -2,6 +2,7 @@ package negocio;
 
 import controladores.CreadorPartida;
 import dto.InvitacionDTO;
+import excepciones.ComunicacionException;
 
 public class Invitacion {
 	private Jugador remitente;
@@ -28,7 +29,7 @@ public class Invitacion {
 		this.id = id;
 	}
 
-	public void aceptar(Jugador invitado) {
+	public void aceptar(Jugador invitado) throws ComunicacionException {
 		CreadorPartida.getInstancia().agregarPareja(remitente, invitado);
 	}
 	

@@ -8,10 +8,8 @@ import org.hibernate.SessionFactory;
 import controladores.HibernateUtil;
 import entities.BazaEntity;
 import entities.CartaEntity;
-import entities.ManoEntity;
 import negocio.Baza;
 import negocio.Carta;
-import negocio.Mano;
 
 public class BazaDAO {
 
@@ -45,17 +43,10 @@ private static BazaDAO instancia;
 		}
 		
 		public void grabar(Baza b) {
-			BazaEntity be = new BazaEntity(b.getId(), b.getGanadorBaza(), b.getTurno(), b.getMano(), b.isParda());
-			ArrayList<CartaEntity> cartas = new ArrayList<CartaEntity>();
-			for (Carta c : b.getCartasbaza()) {
-				CartaEntity ce = new CartaEntity();
-				ce.setId(c.getId());
-			}
-			be.setCartasbaza(cartas);
 			SessionFactory sf = HibernateUtil.getSessionFactory();
 			Session session = sf.openSession();
 			session.beginTransaction();
-			session.saveOrUpdate(be);
+			session.saveOrUpdate(this.toEntity(b));
 			session.getTransaction().commit();
 			session.close();
 		}
@@ -71,6 +62,10 @@ private static BazaDAO instancia;
 		}
 		
 		public BazaEntity toEntity(Baza b) {
-			return null; //TODO
+			BazaEntity be = new BazaEntity(b.getId(), b.getGanadorBaza(), b.getTurno(), b.getMano(), b.isParda());
+			ArrayList<CartaEntity> cartas = new ArrayList<CartaEntity>();
+			for (Carta c : b.getCartasbaza()) cartas.add(CartaDAO.getInstancia().toEntity(c));
+			be.setCartasbaza(cartas);
+			return be;
 		}
 }

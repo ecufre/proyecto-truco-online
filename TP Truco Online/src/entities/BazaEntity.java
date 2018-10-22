@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import negocio.Carta;
 
 @Entity
-@Table(name="bazaas")
+@Table(name="bazas")
 public class BazaEntity {
 	@Id
 	@GeneratedValue

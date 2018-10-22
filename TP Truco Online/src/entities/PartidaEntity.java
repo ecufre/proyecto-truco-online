@@ -5,13 +5,14 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import enumeraciones.EstadoPartida;
 
 @Entity
-@Table(name="partida")
+@Table(name="partidas")
 public class PartidaEntity {
 	@Id
 	@GeneratedValue
@@ -21,6 +22,7 @@ public class PartidaEntity {
 	@OneToMany
 	private List<JugadorEntity> jugadores;
 	@OneToMany
+	@JoinTable(name="partida_jugadoes_listos")
 	private List<JugadorEntity> jugadoresListos;
 	private Boolean esAbierta;
 	private EstadoPartida estado;

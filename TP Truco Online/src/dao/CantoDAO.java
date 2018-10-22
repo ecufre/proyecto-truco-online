@@ -1,50 +1,55 @@
 package dao;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
+import controladores.HibernateUtil;
 import entities.CantoEntity;
-import entities.CartaEntity;
 import negocio.Canto;
-import negocio.Carta;
 
 public class CantoDAO {
 
+	private static CantoDAO instancia;
 
-private static CantoDAO instancia;
-	
-	
 	private CantoDAO() {}
-		
-		public static CantoDAO getInstancia() {
-			if (instancia == null) {
-				instancia = new CantoDAO();
-			}
-			return instancia;
-		}
-		
-		public CantoEntity getCantoById(int id) {
-			return null; //TODO
-		}
-		
-		
-		public Integer crear(Canto c) {
-			
-			return null; //TODO
-		}
-		
-		public void grabar(Canto c) {
-			
-			//TODO
-		}
-		
-		public void actualizar(Canto c) {
 
-			//TODO
+	public static CantoDAO getInstancia() {
+		if (instancia == null) {
+			instancia = new CantoDAO();
 		}
-		
-		public Canto toNegocio(CantoEntity ce) {
-			return null; //TODO
-		}
-		
-		public CantoEntity toEntity(Canto c) {
-			return null; //TODO
-		}
+		return instancia;
+	}
+
+	public Integer crear(Canto c) {
+		CantoEntity ce = new CantoEntity(c.isQuerido(), c.getTipoCanto(), c.getCantante());
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		session.beginTransaction();
+		Integer numero = (Integer)session.save(ce);
+		session.getTransaction().commit();
+		session.close();
+		return numero;
+	}
+
+	public void grabar(Canto c) {
+		CantoEntity ce = new CantoEntity(c.getId(),c.isQuerido(), c.getTipoCanto(), c.getCantante());
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		session.beginTransaction();
+		session.saveOrUpdate(ce);
+		session.getTransaction().commit();
+		session.close();
+	}
+
+	public Canto toNegocio(CantoEntity ce) {
+		Canto c = new Canto(ce.getCantante());
+		c.setQuerido(ce.getQuerido());
+		c.setTipoCanto(ce.getTipoCanto());
+		c.setId(ce.getId());
+		return c;
+	}
+
+	public CantoEntity toEntity(Canto c) {
+		return null; //TODO
+	}
 }

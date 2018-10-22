@@ -6,18 +6,12 @@ import dao.BazaDAO;
 import excepciones.ComunicacionException;
 
 public class Baza {
-	private static int siguienteId = 1; //TODO esto se reemplaza por la persistencia
 	private int id;
 	private ArrayList<Carta> cartasbaza;
 	private Integer ganadorBaza;
 	private int turno;
 	private int mano;
 	private boolean parda;
-	
-	//Metodo a eliminar con persistencia
-	private static int getSiguienteId() {
-		return siguienteId++;
-	}
 
 	public Baza(int turno) {
 		this.cartasbaza = new ArrayList<Carta>();
@@ -34,7 +28,7 @@ public class Baza {
 		this.mano = mano;
 	}
 	
-	public void grabar(int a) {
+	public void grabar() {
 		BazaDAO.getInstancia().grabar(this);
 	}
 	

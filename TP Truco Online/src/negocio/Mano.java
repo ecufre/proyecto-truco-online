@@ -50,16 +50,17 @@ public class Mano {
 		Carta c = this.buscarCarta(carta);
 		if(this.esJugadaValida(ubicacionJugador, c)){
 			this.getBazaActual().agregarCarta(c);
-			//this.cartas.remove(c);
+			this.getBazaActual().grabar();
 			c.setJugada(true);
 			c.grabar();
 			if(this.getBazaActual().isCompleta()){
 				this.getBazaActual().determinarGanador();
+				this.getBazaActual().grabar();
 				if  (! this.manoCompleta()) {
 					int mano = this.getBazaActual().getGanadorBaza();
 					Baza b = new Baza(mano);
 					b.crear();
-					bazas.add(b);bazas.add(b);
+					bazas.add(b);
 				}
 			}
 		}
@@ -94,7 +95,10 @@ public class Mano {
 			b.crear();
 			bazas.add(b);
 		}
-		for(Baza b : this.bazas) b.setGanadorBaza(ganador);
+		for(Baza b : this.bazas) {
+			b.setGanadorBaza(ganador);
+			b.grabar();
+		}
 	}
 
 	public boolean manoCompleta() {

@@ -52,10 +52,10 @@ public class Grupo {
 		this.parejas.add(p);
 	}
 		
-	public void crearPartida(Pareja p1, Pareja p2) {
+	public void crearPartida(Pareja p1, Pareja p2) throws ComunicacionException {
 		Partida p = AdministradorPartida.getInstancia().crearPartidaCerrada(p1.getJugador1(), p2.getJugador1(), p1.getJugador2(), p2.getJugador2());
 		this.partidas.add(p);
-		//this.grabar(); TODO des quotear.
+		this.grabar();
 	}
 	
 	public void agregarPartida(Partida p) {
