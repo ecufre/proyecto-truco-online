@@ -9,7 +9,6 @@ import controladores.AdministradorJugador;
 import controladores.AdministradorPartida;
 import dto.AccionDTO;
 import dto.GrupoDTO;
-import dto.HistoriaPartidaDTO;
 import dto.InvitacionDTO;
 import dto.JugadorDTO;
 import dto.ParejaDTO;
@@ -26,87 +25,87 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfaceRemota
 	public ObjetoRemoto() throws RemoteException {}
 
 	@Override
-	public void crearJugador(JugadorDTO jugador) throws ComunicacionException {
+	public void crearJugador(JugadorDTO jugador) throws RemoteException, ComunicacionException {
 		AdministradorJugador.getInstancia().crearJugador(jugador);
 	}
 
 	@Override
-	public void login(JugadorDTO jugador) throws ComunicacionException {
+	public void login(JugadorDTO jugador) throws RemoteException, ComunicacionException {
 		AdministradorJugador.getInstancia().login(jugador);
 	}
 
 	@Override
-	public void logout(JugadorDTO jugador) throws LoggedInException, ComunicacionException {
+	public void logout(JugadorDTO jugador) throws RemoteException, LoggedInException, ComunicacionException {
 		AdministradorJugador.getInstancia().logout(jugador);
 	}
 
 	@Override
-	public void jugarLibreIndividual(JugadorDTO jugador) throws LoggedInException, ComunicacionException {
+	public void jugarLibreIndividual(JugadorDTO jugador) throws RemoteException, LoggedInException, ComunicacionException {
 		AdministradorJugador.getInstancia().jugarLibreIndividual(jugador);
 	}
 
 	@Override
-	public void jugarLibrePareja(JugadorDTO remitente, String invitado) throws LoggedInException, ComunicacionException {
+	public void jugarLibrePareja(JugadorDTO remitente, String invitado) throws RemoteException, LoggedInException, ComunicacionException {
 		AdministradorJugador.getInstancia().jugarLibrePareja(remitente, invitado);
 	}
 
 	@Override
-	public ArrayList<InvitacionDTO> listarInvitacionesPendientes(JugadorDTO jugador) throws LoggedInException, ComunicacionException {
+	public ArrayList<InvitacionDTO> listarInvitacionesPendientes(JugadorDTO jugador) throws RemoteException, LoggedInException, ComunicacionException {
 		return AdministradorJugador.getInstancia().listarInvitacionesPendientes(jugador);
 	}
 
 	@Override
-	public void aceptarInvitacion(JugadorDTO jugador, InvitacionDTO invitacion) throws LoggedInException, ComunicacionException {
+	public void aceptarInvitacion(JugadorDTO jugador, InvitacionDTO invitacion) throws RemoteException, LoggedInException, ComunicacionException {
 		AdministradorJugador.getInstancia().aceptarInvitacion(jugador, invitacion);
 	}
 
 	@Override
-	public void rechazarInvitacion(JugadorDTO jugador, InvitacionDTO invitacion) throws LoggedInException, ComunicacionException {
+	public void rechazarInvitacion(JugadorDTO jugador, InvitacionDTO invitacion) throws RemoteException, LoggedInException, ComunicacionException {
 		AdministradorJugador.getInstancia().rechazarInvitacion(jugador, invitacion);
 	}
 
 	@Override
-	public ArrayList<JugadorDTO> listarTopTen(Integer categoria) throws ComunicacionException {
+	public ArrayList<JugadorDTO> listarTopTen(Integer categoria) throws RemoteException, ComunicacionException {
 		return AdministradorJugador.getInstancia().listarTopTen(categoria);
 	}
 
 	@Override
-	public JugadorDTO buscarJugadorDTO(String apodo) throws ComunicacionException {
+	public JugadorDTO buscarJugadorDTO(String apodo) throws RemoteException, ComunicacionException {
 		return AdministradorJugador.getInstancia().buscarJugadorDTO(apodo);
 	}
 
 	@Override
-	public void crearGrupo(JugadorDTO admin, String nombre) throws LoggedInException, ComunicacionException {
+	public void crearGrupo(JugadorDTO admin, String nombre) throws RemoteException, LoggedInException, ComunicacionException {
 		AdministradorGrupo.getInstancia().crearGrupo(admin, nombre);
 	}
 
 	@Override
-	public void buscarGrupoDTO(Integer id) throws ComunicacionException {
+	public void buscarGrupoDTO(Integer id) throws RemoteException, ComunicacionException {
 		AdministradorGrupo.getInstancia().buscarGrupoDTO(id);
 	}
 
 	@Override
-	public void agregarJugadorAGrupo(JugadorDTO admin, GrupoDTO grupo, String apodo) throws LoggedInException, ComunicacionException {
+	public void agregarJugadorAGrupo(JugadorDTO admin, GrupoDTO grupo, String apodo) throws RemoteException, LoggedInException, ComunicacionException {
 		AdministradorGrupo.getInstancia().agregarJugadorAGrupo(admin, grupo, apodo);
 	}
 
 	@Override
-	public void eliminarJugadorDeGrupo(JugadorDTO admin, GrupoDTO grupo, JugadorDTO jugador) throws LoggedInException, ComunicacionException {
+	public void eliminarJugadorDeGrupo(JugadorDTO admin, GrupoDTO grupo, JugadorDTO jugador) throws RemoteException, LoggedInException, ComunicacionException {
 		AdministradorGrupo.getInstancia().eliminarJugadorDeGrupo(admin, grupo, jugador);
 	}
 
 	@Override
-	public void crearPareja(JugadorDTO admin, GrupoDTO grupo, JugadorDTO jugador1, JugadorDTO jugador2) throws LoggedInException, ComunicacionException {
+	public void crearPareja(JugadorDTO admin, GrupoDTO grupo, JugadorDTO jugador1, JugadorDTO jugador2) throws RemoteException, LoggedInException, ComunicacionException {
 		AdministradorGrupo.getInstancia().crearPareja(admin, grupo, jugador1, jugador2);
 	}
 
 	@Override
-	public void crearPartida(JugadorDTO admin, GrupoDTO grupo, ParejaDTO pareja1, ParejaDTO pareja2) throws LoggedInException, ComunicacionException {
+	public void crearPartida(JugadorDTO admin, GrupoDTO grupo, ParejaDTO pareja1, ParejaDTO pareja2) throws RemoteException, LoggedInException, ComunicacionException {
 		AdministradorGrupo.getInstancia().crearPartida(admin, grupo, pareja1, pareja2);
 	}
 
 	@Override
-	public ArrayList<JugadorDTO> calcularRankingCerrado(GrupoDTO grupo) throws ComunicacionException {
+	public ArrayList<JugadorDTO> calcularRankingCerrado(GrupoDTO grupo) throws RemoteException, ComunicacionException {
 		return AdministradorGrupo.getInstancia().calcularRankingCerrado(grupo);
 	}
 
@@ -143,7 +142,7 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfaceRemota
 	public PartidaPantallaDTO mostrarPartida(AccionDTO ad) throws RemoteException, ComunicacionException, LoggedInException {
 		return AdministradorPartida.getInstancia().mostrarPartida(ad);
 	}
-
+	/*
 	@Override
 	public void enviarMensaje(AccionDTO ad) throws RemoteException {
 		// TODO proxima entrega
@@ -155,7 +154,7 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfaceRemota
 		// TODO proxima entrega
 		
 	}
-
+*/
 	@Override
 	public PartidaDTO mostrarHistoria(AccionDTO ad)
 			throws RemoteException, ComunicacionException, LoggedInException {
