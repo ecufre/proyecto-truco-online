@@ -22,10 +22,7 @@ public class CantoDTO implements Serializable {
 	
 	
 	
-	public CantoDTO() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	public CantoDTO() { }
 	
 	
 	

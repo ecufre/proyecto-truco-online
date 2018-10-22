@@ -2,6 +2,7 @@ package negocio;
 
 import java.util.ArrayList;
 
+import dao.CantoDAO;
 import dao.ManoDAO;
 import dto.BazaDTO;
 import dto.CantoDTO;
@@ -214,9 +215,15 @@ public class Mano {
 		if (this.esCantoValido(jugadorUbicacion, canto)) {
 			if (this.getUltimoCanto() != null) {
 				//Si canto el envido despues de que se canto el truco, el envido sobreescribe al truco.
-				if (this.getUltimoCanto().getTipoCanto().getId() == 5 && canto.getId() < 5) this.cantos.remove(this.getUltimoCanto());
+				if (this.getUltimoCanto().getTipoCanto().getId() == 5 && canto.getId() < 5) {
+					CantoDAO.getInstancia().borrar(this.getUltimoCanto());
+					this.cantos.remove(this.getUltimoCanto()); 
+				}
 				//Si el canto anterior era del mismo tipo, acepto el canto anterior.
-				else if ((this.getUltimoCanto().getTipoCanto().getId() > 4 && canto.getId() > 4) || (this.getUltimoCanto().getTipoCanto().getId() < 5 && canto.getId() < 5)) this.getUltimoCanto().setQuerido(true);	
+				else if ((this.getUltimoCanto().getTipoCanto().getId() > 4 && canto.getId() > 4) || (this.getUltimoCanto().getTipoCanto().getId() < 5 && canto.getId() < 5)) {
+					this.getUltimoCanto().setQuerido(true);	
+					this.getUltimoCanto().grabar();
+				}
 			}
 			Canto c = new Canto(jugadorUbicacion);
 			c.setTipoCanto(canto);

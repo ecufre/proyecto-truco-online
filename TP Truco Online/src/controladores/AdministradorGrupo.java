@@ -98,7 +98,7 @@ public class AdministradorGrupo {
 				if (p1 != null && p2 != null) g.crearPartida(p1, p2);
 				else throw new ComunicacionException("Fallo la creacion de partida");
 				System.out.println("El jugador " + administrador.getApodo() + " creo una partida en el grupo: " + grupo.getNombre() + "(" + String.valueOf(grupo.getId()) + ")");
-				//g.grabar(); TODO sacar quoteo
+				g.grabar();
 			}
 		}
 	}

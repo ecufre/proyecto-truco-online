@@ -27,9 +27,7 @@ public class CartaDTO implements Serializable{
 
 
 
-	public CartaDTO() {
-		// TODO Auto-generated constructor stub
-	}
+	public CartaDTO() { }
 
 
 

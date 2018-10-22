@@ -43,6 +43,16 @@ public class CantoDAO {
 			session.close();
 		}
 		
+		public void borrar(Canto c) {
+			CantoEntity ce = new CantoEntity(c.getId(),c.isQuerido(), c.getTipoCanto(), c.getCantante());
+			SessionFactory sf = HibernateUtil.getSessionFactory();
+			Session session = sf.openSession();
+			session.beginTransaction();
+			session.delete(ce);
+			session.getTransaction().commit();
+			session.close();
+		}
+		
 		public Canto toNegocio(CantoEntity ce) {
 			Canto c = new Canto(ce.getCantante());
 			c.setQuerido(ce.getQuerido());

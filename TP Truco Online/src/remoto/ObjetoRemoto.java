@@ -141,8 +141,6 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfaceRemota
 
 	@Override
 	public PartidaPantallaDTO mostrarPartida(AccionDTO ad) throws RemoteException, ComunicacionException, LoggedInException {
-		// TODO Auto-generated method stub
-		
 		return AdministradorPartida.getInstancia().mostrarPartida(ad);
 	}
 

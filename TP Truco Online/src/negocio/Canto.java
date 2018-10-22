@@ -1,40 +1,33 @@
 package negocio;
 
+import dao.CantoDAO;
 import dto.CantoDTO;
 import enumeraciones.TipoCanto;
+import excepciones.ComunicacionException;
 
 public class Canto {
-	private static int siguienteId = 1; //TODO esto se reemplaza por la persistencia
-
 	private int id;
 	private boolean querido;
 	private TipoCanto tipoCanto;
 	private int cantante;
 	
-	private static int getSiguienteId() {
-		return siguienteId++;
-	}
-
 	public Canto(int cantante) {
-		this.id = Canto.getSiguienteId();
 		this.cantante = cantante;
 		this.querido=false;
 	}
-	public boolean isQuerido() {
-		return querido;
+	
+	public void setId(int id) {
+		this.id = id;
 	}
+
 	public void setQuerido(boolean querido) {
 		this.querido = querido;
 	}
-	public TipoCanto getTipoCanto() {
-		return tipoCanto;
-	}
+
 	public void setTipoCanto(TipoCanto tipoCanto) {
 		this.tipoCanto = tipoCanto;
 	}
-	public int getCantante() {
-		return cantante;
-	}
+
 	public void setCantante(int cantante) {
 		this.cantante = cantante;
 	}
@@ -43,16 +36,26 @@ public class Canto {
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public boolean isQuerido() {
+		return querido;
+	}
+
+	public TipoCanto getTipoCanto() {
+		return tipoCanto;
+	}
+
+	public int getCantante() {
+		return cantante;
 	}
 
 	public void grabar() {
-		// TODO Grabar
+		CantoDAO.getInstancia().grabar(this);
 	}
 	
-	public void crear() {
-		//TODO
+	public void crear() throws ComunicacionException {
+		Integer id = CantoDAO.getInstancia().crear(this);
+		if (id != null) this.id = id;
+		else throw new ComunicacionException("Hubo un error al crear el canto");
 	}
 
 	public CantoDTO toDTO() {
