@@ -3,6 +3,8 @@ package negocio;
 import java.util.ArrayList;
 
 import dao.BazaDAO;
+import dto.BazaDTO;
+import dto.CartaDTO;
 import excepciones.ComunicacionException;
 
 public class Baza {
@@ -113,5 +115,14 @@ public class Baza {
 
 	public void setCartasbaza(ArrayList<Carta> cartasbaza) {
 		this.cartasbaza = cartasbaza;
+	}
+
+	public BazaDTO toDTO() {
+		ArrayList<CartaDTO> cartas = 	new ArrayList<CartaDTO>();
+		for(Carta c : this.getCartasbaza()){
+				cartas.add(c.toDTO());
+		}
+		return (new BazaDTO(this.getId(), cartas, this.getGanadorBaza(),
+				this.getTurno(), this.getMano(), this.isParda()));
 	}
 }

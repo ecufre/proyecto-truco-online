@@ -3,6 +3,8 @@ package negocio;
 import java.util.ArrayList;
 
 import dto.CartaDTO;
+import dto.JuegoDTO;
+import dto.ManoDTO;
 import enumeraciones.TipoCanto;
 import excepciones.ComunicacionException;
 
@@ -213,4 +215,15 @@ public class Juego {
 		
 		return this.getManoActual().getBazaActual().getTurno();
 }
+
+		public JuegoDTO toDTO() {
+			ArrayList<ManoDTO> manos = new ArrayList<ManoDTO> ();
+			for(Mano m : this.getManos()){
+				manos.add(m.ToDTO());
+			}
+			JuegoDTO jdto  = new JuegoDTO(this.getId(), this.getPuntajePar(), this.getPuntajeImpar(),
+					this.isFinalizado(),  manos);
+			
+			return jdto;
+		}
 }

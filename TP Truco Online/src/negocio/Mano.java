@@ -2,7 +2,10 @@ package negocio;
 
 import java.util.ArrayList;
 
+import dto.BazaDTO;
+import dto.CantoDTO;
 import dto.CartaDTO;
+import dto.ManoDTO;
 import enumeraciones.TipoCanto;
 import excepciones.ComunicacionException;
 
@@ -375,5 +378,34 @@ public class Mano {
 			
 		}
 		return cm;
+	}
+
+	
+	
+	public Integer[] getEnvidoValor() {
+		return envidoValor;
+	}
+
+	public void setEnvidoValor(Integer[] envidoValor) {
+		this.envidoValor = envidoValor;
+	}
+
+	public ManoDTO ToDTO() {
+		ArrayList<CantoDTO> cantos = new ArrayList<CantoDTO>();
+		ArrayList<CartaDTO> cartas = new ArrayList<CartaDTO>();
+		ArrayList<BazaDTO> bazas =  new ArrayList<BazaDTO>();
+		
+		for(Canto c : this.getCantos()){
+			cantos.add(c.toDTO());
+		}
+		for(Carta c : this.getCartas()){
+			cartas.add(c.toDTO());
+		}
+		for(Baza b : this.getBazas()){
+			bazas.add(b.toDTO());
+		}
+		ManoDTO mdto = new ManoDTO(this.getId(),this.getNumeroMano(),cantos,cartas,bazas,this.getEnvidoValor());
+		
+		return mdto;
 	}
 }

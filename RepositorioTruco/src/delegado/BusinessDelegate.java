@@ -6,10 +6,11 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 import dto.AccionDTO;
-
 import dto.HistoriaPartidaDTO;
 import dto.PartidaDTO;
+import dto.PartidaPantallaDTO;
 import excepciones.ComunicacionException;
+import excepciones.LoggedInException;
 import interfaces.InterfaceRemota;
 
 public class BusinessDelegate {
@@ -42,16 +43,16 @@ public class BusinessDelegate {
 	}
 
 
-	public boolean jugadorListos(AccionDTO ad) throws ComunicacionException {
+	public void jugadorListos(AccionDTO ad) throws ComunicacionException, LoggedInException {
 		try {
-			return ir.jugadorListos(ad);
+			 ir.jugadorListos(ad);
 		} catch (RemoteException e) {
 			throw new ComunicacionException("Error en las comunicaciones");
 		}
 	}
 
 	
-	public void JugarCarta(AccionDTO ad) throws ComunicacionException {
+	public void JugarCarta(AccionDTO ad) throws ComunicacionException, LoggedInException {
 		try {
 			 ir.JugarCarta(ad);
 		} catch (RemoteException e) {
@@ -61,7 +62,7 @@ public class BusinessDelegate {
 	}
 
 
-	public void Retirarse(AccionDTO ad) throws ComunicacionException {
+	public void Retirarse(AccionDTO ad) throws ComunicacionException, LoggedInException {
 		try {
 			ir.Retirarse(ad);
 		} catch (RemoteException e) {
@@ -71,7 +72,7 @@ public class BusinessDelegate {
 	}
 
 	
-	public void cantarEnvite(AccionDTO ad) throws ComunicacionException {
+	public void cantarEnvite(AccionDTO ad) throws ComunicacionException, LoggedInException {
 		try {
 			 ir.cantarEnvite(ad);
 		} catch (RemoteException e) {
@@ -81,7 +82,7 @@ public class BusinessDelegate {
 	}
 
 	
-	public void responderEnvite(AccionDTO ad) throws ComunicacionException {
+	public void responderEnvite(AccionDTO ad) throws ComunicacionException, LoggedInException {
 		try {
 			ir.responderEnvite(ad);
 		} catch (RemoteException e) {
@@ -91,7 +92,7 @@ public class BusinessDelegate {
 	}
 
 
-	public PartidaDTO mostrarPartida(AccionDTO ad) throws ComunicacionException {
+	public PartidaPantallaDTO mostrarPartida(AccionDTO ad) throws ComunicacionException, LoggedInException {
 		try {
 			return ir.mostrarPartida(ad);
 		} catch (RemoteException e) {
@@ -120,8 +121,8 @@ public class BusinessDelegate {
 	}
 
 	
-	public HistoriaPartidaDTO mostrarHistoria(AccionDTO ad)
-			throws ComunicacionException {
+	public PartidaDTO mostrarHistoria(AccionDTO ad)
+			throws ComunicacionException, LoggedInException {
 		try {
 			return ir.mostrarHistoria(ad);
 		} catch (RemoteException e) {
