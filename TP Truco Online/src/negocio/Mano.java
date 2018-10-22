@@ -227,7 +227,7 @@ public class Mano {
 			}
 			Canto c = new Canto(jugadorUbicacion);
 			c.setTipoCanto(canto);
-			c.grabar();
+			c.crear();
 			this.cantos.add(c);
 			this.grabar();
 		}

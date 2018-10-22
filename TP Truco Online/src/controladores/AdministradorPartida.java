@@ -28,6 +28,7 @@ public class AdministradorPartida {
 	}
 
 	public void crearPartida(Jugador j1, Jugador j2, Jugador j3, Jugador j4) throws ComunicacionException {
+		System.out.println("Creando una nueva partida con los jugadores: " + j1.getApodo() + " y " + j3.getApodo() + " vs " + j2.getApodo() + " y " + j4.getApodo());
 		ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
 		jugadores.add(j1);
 		jugadores.add(j2);
@@ -40,6 +41,7 @@ public class AdministradorPartida {
 	}
 
 	public Partida crearPartidaCerrada(Jugador j1, Jugador j2, Jugador j3, Jugador j4) throws ComunicacionException {
+		System.out.println("Creando una nueva partida con los jugadores: " + j1.getApodo() + " y " + j3.getApodo() + " vs " + j2.getApodo() + " y " + j4.getApodo());
 		ArrayList<Jugador> jugadores = new ArrayList<Jugador>();
 		jugadores.add(j1);
 		jugadores.add(j2);
@@ -56,6 +58,7 @@ public class AdministradorPartida {
 		if (AdministradorJugador.getInstancia().isLoggedIn(ad.getJugador())) {
 			Jugador j = AdministradorJugador.getInstancia().buscarJugador(ad.getJugador().getApodo());
 			Partida p = this.buscarPartida(ad.getPartida().getId());
+			System.out.println("El siguiente jugador esta listo para jugar: " + ad.getJugador().getApodo());
 			p.jugadorListo(j);
 			p.grabar();
 		}
