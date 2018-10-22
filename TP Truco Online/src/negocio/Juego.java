@@ -27,7 +27,43 @@ public class Juego {
 		this.finalizado = false;
 		this.manos = new ArrayList<Mano>();
 	}
+	
 
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public ArrayList<Mano> getManos() {
+		return manos;
+	}
+	public void setManos(ArrayList<Mano> manos) {
+		this.manos = manos;
+	}
+	public void setPuntajePar(int puntajePar) {
+		this.puntajePar = puntajePar;
+	}
+	public void setPuntajeImpar(int puntajeImpar) {
+		this.puntajeImpar = puntajeImpar;
+	}
+	public void setFinalizado(boolean finalizado) {
+		this.finalizado = finalizado;
+	}
+	public int getPuntajePar() {
+		return puntajePar;
+	}
+
+	public int getPuntajeImpar() {
+		return puntajeImpar;
+	}
+
+	public boolean isFinalizado() {
+		return finalizado;
+	}
+
+	
+	
 	public void grabar() {
 		//TODO Grabar
 	}
@@ -153,17 +189,6 @@ public class Juego {
 		this.finalizado = (this.puntajeImpar >= 30 || this.puntajePar >= 30);
 	}
 
-	public int getPuntajePar() {
-		return puntajePar;
-	}
-
-	public int getPuntajeImpar() {
-		return puntajeImpar;
-	}
-
-	public boolean isFinalizado() {
-		return finalizado;
-	}
 
 	
 	

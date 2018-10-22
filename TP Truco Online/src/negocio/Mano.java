@@ -33,6 +33,36 @@ public class Mano {
 		this.envidoValor = new Integer[4];
 	}
 
+	
+	public ArrayList<Canto> getCantos() {
+		return cantos;
+	}
+	public void setCantos(ArrayList<Canto> cantos) {
+		this.cantos = cantos;
+	}
+	public ArrayList<Carta> getCartas() {
+		return cartas;
+	}
+
+	public Integer getNumeroMano() {
+		return numeroMano;
+	}
+	public void setNumeroMano(Integer numeroMano) {
+		this.numeroMano = numeroMano;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public ArrayList<Baza> getBazas() {
+		return bazas;
+	}
+	public void setBazas(ArrayList<Baza> bazas) {
+		this.bazas = bazas;
+	}
+
 	public void grabar() {
 		//TODO Grabar
 	}

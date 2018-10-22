@@ -36,6 +36,40 @@ public class Partida {
 		
 	}
 	
+	public int getId() {
+		return id;
+	}
+	public void setJugadores(ArrayList<Jugador> jugadores) {
+		this.jugadores = jugadores;
+	}
+	public ArrayList<Jugador> getJugadoresListos() {
+		return jugadoresListos;
+	}
+	public void setJugadoresListos(ArrayList<Jugador> jugadoresListos) {
+		this.jugadoresListos = jugadoresListos;
+	}
+	public boolean isEsAbierta() {
+		return esAbierta;
+	}
+	public void setEsAbierta(boolean esAbierta) {
+		this.esAbierta = esAbierta;
+	}
+	public ArrayList<Juego> getJuegos() {
+		return juegos;
+	}
+	public void setJuegos(ArrayList<Juego> juegos) {
+		this.juegos = juegos;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public void setEstado(EstadoPartida estado) {
+		this.estado = estado;
+	}
+	public void setGanador(Integer ganador) {
+		this.ganador = ganador;
+	}
+
 	public void grabar() {
 		//TODO Grabar
 	}
@@ -131,13 +165,7 @@ public class Partida {
 		return estado;
 	}
 
-	public int getId() {
-		return id;
-	}
 
-	public void setJugadores(ArrayList<Jugador> jugadores) {
-		this.jugadores = jugadores;
-	}
 	
 	public PartidaDTO toDTO_reducido() {
 		return null;//TODO Grabar
