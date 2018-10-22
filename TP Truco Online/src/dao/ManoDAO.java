@@ -2,10 +2,17 @@ package dao;
 
 import java.util.ArrayList;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
+import controladores.HibernateUtil;
+import entities.BazaEntity;
+import entities.CantoEntity;
 import entities.CartaEntity;
 import entities.JuegoEntity;
 import entities.ManoEntity;
 import negocio.Baza;
+import negocio.Canto;
 import negocio.Carta;
 import negocio.Juego;
 import negocio.Mano;
@@ -24,28 +31,78 @@ private static ManoDAO instancia;
 			return instancia;
 		}
 		
-		public ManoEntity getManoById(int id) {
-			return null; //TODO
-		}
-		
-		
 		public Integer crear(Mano m) {
-			
-			return null; //TODO
+			ManoEntity me = new ManoEntity(m.getNumeroMano());
+			ArrayList<CartaEntity> cartas = new ArrayList<CartaEntity>();
+			ArrayList<CantoEntity> cantos = new ArrayList<CantoEntity>();
+			ArrayList<BazaEntity> bazas = new ArrayList<BazaEntity>();
+			for (Carta c : m.getCartas()) {
+				CartaEntity ce = new CartaEntity();
+				ce.setId(c.getId());
+			}
+			me.setCartas(cartas);
+			for (Canto c : m.getCantos()) {
+				CantoEntity ce = new CantoEntity();
+				ce.setId(c.getId());
+			}
+			me.setCantos(cantos);
+			for (Baza b : m.getBazas()) {
+				BazaEntity be = new BazaEntity();
+				be.setId(b.getId());
+			}
+			me.setBazas(bazas);
+			SessionFactory sf = HibernateUtil.getSessionFactory();
+			Session session = sf.openSession();
+			session.beginTransaction();
+			Integer numero = (Integer)session.save(me);
+			session.getTransaction().commit();
+			session.close();
+			return numero;
 		}
 		
 		public void grabar(Mano m) {
-			
-			//TODO
+			ManoEntity me = new ManoEntity(m.getId(),m.getNumeroMano());
+			ArrayList<CartaEntity> cartas = new ArrayList<CartaEntity>();
+			ArrayList<CantoEntity> cantos = new ArrayList<CantoEntity>();
+			ArrayList<BazaEntity> bazas = new ArrayList<BazaEntity>();
+			for (Carta c : m.getCartas()) {
+				CartaEntity ce = new CartaEntity();
+				ce.setId(c.getId());
+			}
+			me.setCartas(cartas);
+			for (Canto c : m.getCantos()) {
+				CantoEntity ce = new CantoEntity();
+				ce.setId(c.getId());
+			}
+			me.setCantos(cantos);
+			for (Baza b : m.getBazas()) {
+				BazaEntity be = new BazaEntity();
+				be.setId(b.getId());
+			}
+			me.setBazas(bazas);
+			SessionFactory sf = HibernateUtil.getSessionFactory();
+			Session session = sf.openSession();
+			session.beginTransaction();
+			session.saveOrUpdate(me);
+			session.getTransaction().commit();
+			session.close();
 		}
 		
-		public void actualizar(Mano m) {
 
-			//TODO
-		}
 		
 		public Mano toNegocio(ManoEntity me) {
-		return null;
+			Mano m = new Mano(me.getNumeroMano());
+			ArrayList<Carta> cartas = new ArrayList<Carta>();
+			ArrayList<Canto> cantos = new ArrayList<Canto>();
+			for (CartaEntity ce : me.getCartas()) {
+				cartas.add(CartaDAO.getInstancia().toNegocio(ce));
+			}
+			m.setCartas(cartas);
+			for (CantoEntity ce : me.getCantos()) {
+				cantos.add(CartaDAO.getInstancia().toNegocio(ce));
+			}
+			m.setCantos(cantos);
+			return m;
 		}
 		
 		public ManoEntity toEntity(Mano m) {
