@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import controladores.AdministradorJugador;
 import controladores.AdministradorPartida;
+import dao.MazoDAO;
 import dto.AccionDTO;
 import dto.CartaDTO;
 import dto.JugadorDTO;
@@ -15,6 +16,7 @@ public class Test {
 
 	public static void main(String[] args) {
 		try {
+			MazoDAO.getInstancia().crearMazo();
 			AdministradorJugador c1 = AdministradorJugador.getInstancia();
 			//CreadorPartida cp = CreadorPartida.getInstancia();
 			AdministradorPartida c3 = AdministradorPartida.getInstancia();
