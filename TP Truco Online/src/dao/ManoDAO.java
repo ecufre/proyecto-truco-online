@@ -91,9 +91,10 @@ private static ManoDAO instancia;
 
 		
 		public Mano toNegocio(ManoEntity me) {
-			Mano m = new Mano(me.getNumeroMano()); //Usar otro constructor, este es de negocio y hace cosas!
+			Mano m = new Mano(me.getId(), me.getNumeroMano()); //Usar otro constructor, este es de negocio y hace cosas!
 			ArrayList<Carta> cartas = new ArrayList<Carta>();
 			ArrayList<Canto> cantos = new ArrayList<Canto>();
+			ArrayList<Baza> bazas = new ArrayList<Baza>();
 			for (CartaEntity ce : me.getCartas()) {
 				cartas.add(CartaDAO.getInstancia().toNegocio(ce));
 			}
@@ -102,6 +103,10 @@ private static ManoDAO instancia;
 				cantos.add(CantoDAO.getInstancia().toNegocio(ce));
 			}
 			m.setCantos(cantos);
+			for (BazaEntity be : me.getBazas()) {
+				bazas.add(BazaDAO.getInstancia().toNegocio(be));
+			}
+			m.setBazas(bazas);
 			return m;
 		}
 		

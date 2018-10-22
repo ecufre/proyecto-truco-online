@@ -32,8 +32,18 @@ public class Mano {
 		bazas.add(b);
 		this.envidoValor = new Integer[4];
 	}
-
 	
+	
+
+	public Mano(Integer id, Integer numeroMano) {
+		super();
+		this.id = id;
+		this.numeroMano = numeroMano;
+		this.cantos = new ArrayList<Canto>();
+		this.cartas = new ArrayList<Carta>();
+		this.bazas = new ArrayList<Baza>();
+	}
+
 	public ArrayList<Canto> getCantos() {
 		return cantos;
 	}

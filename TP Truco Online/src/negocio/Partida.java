@@ -33,7 +33,18 @@ public class Partida {
 		juegoActual.crearMano();
 		juegoActual.grabar();
 		this.charla = null;
+	}
 
+
+	public Partida(int id) {
+		super();
+		this.id = id;
+		this.jugadores = new ArrayList<Jugador>();
+		this.jugadoresListos = new ArrayList<Jugador>();
+		this.esAbierta = esAbierta;
+		this.estado = EstadoPartida.Pendiente;
+		this.ganador = null;
+		this.juegos = new ArrayList<Juego>();
 	}
 
 	public int getId() {
@@ -172,7 +183,7 @@ public class Partida {
 	public ArrayList<Jugador> getJugadores() {
 		return jugadores;
 	}
-	
+
 	public PartidaDTO toDTO() {
 		return null; //TODO
 	}
