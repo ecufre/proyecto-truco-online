@@ -77,17 +77,16 @@ public class Juego {
 		Mazo mazo = MazoDAO.getInstancia().getMazo();
 		ArrayList<Carta> cartas = new ArrayList<Carta>();
 
-		/*
 		for(int j= 1; j <= 4 ; j++){
 			for (int i = 0; i < 3; i ++) {
 				Carta c = mazo.darCarta();
 				c.setJugador(j);
-				c.grabar();
+				c.crear();
 				cartas.add(c);
 			}
 		}
-		 */
-		//Metodo no random para pruebas TODO: Sacarlo
+		 
+		/*Metodo no random para pruebas TODO: Sacarlo
 		Carta c = mazo.darCarta(1);
 		c.setJugador(1);
 		c.crear();
@@ -149,7 +148,7 @@ public class Juego {
 		System.out.println(c.toString());
 		cartas.add(c);
 		// Aca termina la seccion de prueba
-
+*/
 		Mano mano = new Mano(this.manos.size() + 1);
 		mano.setCartas(cartas);
 		mano.calcularEnvidos();
