@@ -7,7 +7,7 @@ import excepciones.ComunicacionException;
 
 public class Canto {
 	private int id;
-	private boolean querido;
+	private Boolean querido; //TODO Inicializarlo en null.
 	private TipoCanto tipoCanto;
 	private int cantante;
 	

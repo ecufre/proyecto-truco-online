@@ -1,5 +1,7 @@
 package controladores;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -31,7 +33,9 @@ public class AdministradorGrupo {
 			Integer id = g.crear();
 			if (id != null) {
 				g.setId(id);
-				System.out.println("El jugador " + administrador.getApodo() + " creo el grupo: " + nombreGrupo + "(" + String.valueOf(id) + ")");
+				LocalDateTime now = LocalDateTime.now();
+				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");  
+				System.out.println(dtf.format(now) + " - El jugador " + administrador.getApodo() + " creo el grupo: " + nombreGrupo + "(" + String.valueOf(id) + ")");
 			}
 		}
 	}
@@ -46,7 +50,9 @@ public class AdministradorGrupo {
 					g.grabar();
 					j.agregarAGrupo(g);
 					j.grabar();
-					System.out.println("El jugador " + administrador.getApodo() + " agrego un jugador (" + apodo + ") al grupo: " + grupo.getNombre() + "(" + String.valueOf(grupo.getId()) + ")");
+					LocalDateTime now = LocalDateTime.now();
+					DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");  
+					System.out.println(dtf.format(now) + " - El jugador " + administrador.getApodo() + " agrego un jugador (" + apodo + ") al grupo: " + grupo.getNombre() + "(" + String.valueOf(grupo.getId()) + ")");
 				}
 			}
 		}
@@ -60,7 +66,9 @@ public class AdministradorGrupo {
 				if (j != null && g.esMiembro(j)) {
 					g.eliminarJugador(j);
 					g.grabar();
-					System.out.println("El jugador " + administrador.getApodo() + " elimino un jugador (" + jugador.getApodo() + ") al grupo: " + grupo.getNombre() + "(" + String.valueOf(grupo.getId()) + ")");
+					LocalDateTime now = LocalDateTime.now();
+					DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");  
+					System.out.println(dtf.format(now) + " - El jugador " + administrador.getApodo() + " elimino un jugador (" + jugador.getApodo() + ") al grupo: " + grupo.getNombre() + "(" + String.valueOf(grupo.getId()) + ")");
 				} else throw new ComunicacionException("El jugador no forma parte del grupo");
 			}
 		}
@@ -83,8 +91,9 @@ public class AdministradorGrupo {
 				if (j1 != null && j2 != null && j1.getApodo().compareTo(j2.getApodo()) != 0 && g.esMiembro(j1) && g.esMiembro(j2)) g.crearPareja(j1, j2);
 				else throw new ComunicacionException("Creacion de pareja invalida");
 				g.grabar();
-				System.out.println("El jugador " + administrador.getApodo() + " creo una pareja (" + jugador1.getApodo() + " y " + jugador2.getApodo() + ") en el grupo: " + grupo.getNombre() + "(" + String.valueOf(grupo.getId()) + ")");
-
+				LocalDateTime now = LocalDateTime.now();
+				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");  
+				System.out.println(dtf.format(now) + " - El jugador " + administrador.getApodo() + " creo una pareja (" + jugador1.getApodo() + " y " + jugador2.getApodo() + ") en el grupo: " + grupo.getNombre() + "(" + String.valueOf(grupo.getId()) + ")");
 			}
 		}
 	}
@@ -97,7 +106,9 @@ public class AdministradorGrupo {
 				Pareja p2 = g.buscarPareja(pareja2.getId());
 				if (p1 != null && p2 != null) g.crearPartida(p1, p2);
 				else throw new ComunicacionException("Fallo la creacion de partida");
-				System.out.println("El jugador " + administrador.getApodo() + " creo una partida en el grupo: " + grupo.getNombre() + "(" + String.valueOf(grupo.getId()) + ")");
+				LocalDateTime now = LocalDateTime.now();
+				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");  
+				System.out.println(dtf.format(now) + " - El jugador " + administrador.getApodo() + " creo una partida en el grupo: " + grupo.getNombre() + "(" + String.valueOf(grupo.getId()) + ")");
 				g.grabar();
 			}
 		}

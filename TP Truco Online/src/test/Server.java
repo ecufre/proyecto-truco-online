@@ -16,6 +16,14 @@ public class Server {
 	public Server() throws RemoteException{
 		inicializar();
 	}
+	
+	public static void main(String[] args) {
+		try {
+			new Server();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+	}
 
 	private void inicializar() throws RemoteException {
 		
