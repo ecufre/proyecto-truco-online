@@ -10,6 +10,7 @@ import dto.PartidaPantallaDTO;
 import enumeraciones.EstadoPartida;
 import enumeraciones.TipoCanto;
 import excepciones.ComunicacionException;
+import net.sourceforge.jtds.jdbc.DateTime;
 
 public class Partida {
 	private int id;
@@ -20,6 +21,8 @@ public class Partida {
 	private Integer ganador;
 	private ArrayList<Juego> juegos;
 	private String charla;
+	private DateTime fechaCreacion; //TODO
+	private DateTime fechaActualizacion; //TODO
 
 
 	// Creacion y preparacion de partida

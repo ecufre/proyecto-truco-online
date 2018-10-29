@@ -28,6 +28,10 @@ private PartidaDAO() {}
 		return instancia;
 	}
 	
+	public ArrayList<Partida> getPartidasByApodo(String apodo) {
+		return null; //TODO
+	}
+	
 	public Partida getPartidaById(int id) throws ComunicacionException {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
