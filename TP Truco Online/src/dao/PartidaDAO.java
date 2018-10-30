@@ -1,5 +1,6 @@
 package dao;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import org.hibernate.Session;
@@ -13,6 +14,7 @@ import excepciones.ComunicacionException;
 import negocio.Juego;
 import negocio.Jugador;
 import negocio.Partida;
+import net.sourceforge.jtds.jdbc.DateTime;
 
 public class PartidaDAO {
 	
@@ -47,8 +49,7 @@ private PartidaDAO() {}
 	
 	
 	public Integer crear(Partida p) {
-		
-		PartidaEntity pe = new PartidaEntity(p.isEsAbierta(), p.getEstado(), p.getGanador());
+		PartidaEntity pe = new PartidaEntity(p.isEsAbierta(), p.getEstado(), p.getGanador(), p.getFechaCreacion(), LocalDateTime.now());
 		ArrayList<JuegoEntity> juegos = new ArrayList<JuegoEntity>();
 		for (Juego j : p.getJuegos()) {
 			JuegoEntity je = new JuegoEntity();
@@ -80,8 +81,7 @@ private PartidaDAO() {}
 	}
 	
 	public void grabar(Partida p) {
-		
-		PartidaEntity pe = new PartidaEntity(p.getId(), p.isEsAbierta(), p.getEstado(), p.getGanador());
+		PartidaEntity pe = new PartidaEntity(p.getId(), p.isEsAbierta(), p.getEstado(), p.getGanador(), p.getFechaCreacion(), LocalDateTime.now());
 		ArrayList<JuegoEntity> juegos = new ArrayList<JuegoEntity>();
 		for (Juego j : p.getJuegos()) {
 			JuegoEntity je = new JuegoEntity();
@@ -118,6 +118,8 @@ private PartidaDAO() {}
 		p.setEsAbierta(pe.getEsAbierta());
 		p.setEstado(pe.getEstado());
 		p.setGanador(pe.getGanador());
+		p.setFechaCreacion(pe.getFechaCreacion());
+		p.setFechaActualizacion(pe.getFechaActualizacion());
 		ArrayList<Juego> juegos = new ArrayList<Juego>();
 		for (JuegoEntity je : pe.getJuegos()) {
 			juegos.add(JuegoDAO.getInstancia().toNegocio(je));

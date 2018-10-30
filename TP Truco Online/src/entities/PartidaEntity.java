@@ -1,5 +1,6 @@
 package entities;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,8 +22,6 @@ public class PartidaEntity {
 	private Integer id;
 	@OneToMany
 	private List<JuegoEntity> juegos;
-	//@OneToMany
-	//private List<JugadorEntity> jugadores;
 	@ManyToOne
 	private JugadorEntity jugador1;
 	@ManyToOne
@@ -30,7 +29,10 @@ public class PartidaEntity {
 	@ManyToOne
 	private JugadorEntity jugador3;
 	@ManyToOne
-	private JugadorEntity jugador4;
+	private JugadorEntity jugador4;	
+	private LocalDateTime fechaCreacion; //TODO
+	private LocalDateTime fechaActualizacion; //TODO
+
 	
 	@OneToMany
 	@JoinTable(name="partidas_jugadores_listos")
@@ -41,13 +43,15 @@ public class PartidaEntity {
 	
 	public PartidaEntity() {}
 
-	public PartidaEntity(Boolean esAbierta, EstadoPartida estado, Integer ganador) {
+	public PartidaEntity(Boolean esAbierta, EstadoPartida estado, Integer ganador, LocalDateTime fechaCreacion, LocalDateTime fechaActualizacion) {
 		this.esAbierta = esAbierta;
 		this.estado = estado;
 		this.ganador = ganador;
+		this.fechaCreacion = fechaCreacion;
+		this.fechaActualizacion = fechaActualizacion;
 	}
 
-	public PartidaEntity(Integer id, Boolean esAbierta, EstadoPartida estado, Integer ganador) {
+	public PartidaEntity(Integer id, Boolean esAbierta, EstadoPartida estado, Integer ganador, LocalDateTime fechaCreacion, LocalDateTime fechaActualizacion) {
 		this.id = id;
 		this.esAbierta = esAbierta;
 		this.estado = estado;
@@ -117,4 +121,22 @@ public class PartidaEntity {
 	public void setGanador(Integer ganador) {
 		this.ganador = ganador;
 	}
+
+	public LocalDateTime getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(LocalDateTime fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+
+	public LocalDateTime getFechaActualizacion() {
+		return fechaActualizacion;
+	}
+
+	public void setFechaActualizacion(LocalDateTime fechaActualizacion) {
+		this.fechaActualizacion = fechaActualizacion;
+	}
+	
+	
 }

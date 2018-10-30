@@ -1,5 +1,6 @@
 package negocio;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import dao.PartidaDAO;
@@ -21,8 +22,8 @@ public class Partida {
 	private Integer ganador;
 	private ArrayList<Juego> juegos;
 	private String charla;
-	private DateTime fechaCreacion; //TODO
-	private DateTime fechaActualizacion; //TODO
+	private LocalDateTime fechaCreacion; //TODO
+	private LocalDateTime fechaActualizacion; //TODO
 
 
 	// Creacion y preparacion de partida
@@ -38,6 +39,7 @@ public class Partida {
 		juegoActual.crearMano();
 		juegoActual.crear();
 		this.charla = null;
+		this.fechaCreacion = LocalDateTime.now();
 	}
 
 	public Partida(int id) {
@@ -191,6 +193,18 @@ public class Partida {
 
 	public ArrayList<Jugador> getJugadores() {
 		return jugadores;
+	}
+	
+	public LocalDateTime getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+	public void setFechaActualizacion(LocalDateTime fechaActualizacion) {
+		this.fechaActualizacion = fechaActualizacion;
+	}
+
+	public void setFechaCreacion(LocalDateTime fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
 	}
 
 	public PartidaDTO toDTO() {
