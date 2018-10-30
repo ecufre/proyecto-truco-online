@@ -13,14 +13,14 @@ public class Canto {
 	
 	public Canto(int cantante) {
 		this.cantante = cantante;
-		this.querido=false;
+		this.querido=null;
 	}
 	
 	public void setId(int id) {
 		this.id = id;
 	}
 
-	public void setQuerido(boolean querido) {
+	public void setQuerido(Boolean querido) {
 		this.querido = querido;
 	}
 
@@ -36,7 +36,7 @@ public class Canto {
 		return id;
 	}
 
-	public boolean isQuerido() {
+	public Boolean isQuerido() {
 		return querido;
 	}
 

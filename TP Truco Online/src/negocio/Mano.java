@@ -72,7 +72,7 @@ public class Mano {
 	public void grabar() {
 		ManoDAO.getInstancia().grabar(this);
 	}
-	
+
 	public void crear() throws ComunicacionException {
 		Integer id = ManoDAO.getInstancia().crear(this);
 		if (id != null) this.id = id;
@@ -90,7 +90,7 @@ public class Mano {
 
 	public void jugarCarta(int ubicacionJugador, int carta) throws ComunicacionException {
 		Carta c = this.buscarCarta(carta);
-		if(this.esJugadaValida(ubicacionJugador, c)){
+		if(this.esJugadaValida(ubicacionJugador, c) && ! this.cantoPendiente()){
 			this.getBazaActual().agregarCarta(c);
 			this.getBazaActual().grabar();
 			c.setJugada(true);
@@ -176,17 +176,17 @@ public class Mano {
 
 	public boolean esCantoValido(int jugadorUbicacion, TipoCanto canto) {
 		//No es el turno del jugador
+		if (jugadorUbicacion != this.getBazaActual().getTurno()) return false;
 		//Para el envido
 		if (canto.getId() < 5) {
 
 			int cantidadDeCantos = 0;
-			//Cuanto la cantidad de cantos
+			//Cuento la cantidad de cantos
 			for (Canto c : this.cantos) {
 				if (c.getTipoCanto().getId() < 5) cantidadDeCantos++;
 			}
 			//Si los cantos son pares
 			if (jugadorUbicacion % 2  != (this.getBazaActual().getTurno() + cantidadDeCantos) % 2) return false;
-			//if (jugadorUbicacion != this.getBazaActual().getTurno()) return false;
 
 			//Canta envido despues de la primer baza
 			if (this.bazas.size() > 1 && canto.getId() <= 4) return false;
@@ -215,12 +215,12 @@ public class Mano {
 		if (this.esCantoValido(jugadorUbicacion, canto)) {
 			if (this.getUltimoCanto() != null) {
 				//Si canto el envido despues de que se canto el truco, el envido sobreescribe al truco.
-				if (this.getUltimoCanto().getTipoCanto().getId() == 5 && canto.getId() < 5) {
+				if (canto.getId() < 5 && this.getUltimoCanto().getTipoCanto().getId() == 5 && this.cantoPendiente()) {
 					CantoDAO.getInstancia().borrar(this.getUltimoCanto());
 					this.cantos.remove(this.getUltimoCanto()); 
 				}
 				//Si el canto anterior era del mismo tipo, acepto el canto anterior.
-				else if ((this.getUltimoCanto().getTipoCanto().getId() > 4 && canto.getId() > 4) || (this.getUltimoCanto().getTipoCanto().getId() < 5 && canto.getId() < 5)) {
+				else if (((canto.getId() > 4 && this.getUltimoCanto().getTipoCanto().getId() > 4) || (canto.getId() < 5 && this.getUltimoCanto().getTipoCanto().getId() < 5)) && this.cantoPendiente()) {
 					this.getUltimoCanto().setQuerido(true);	
 					this.getUltimoCanto().grabar();
 				}
@@ -251,7 +251,7 @@ public class Mano {
 	}
 
 	public void responderEnvite(int jugador, TipoCanto tipoCanto, boolean respuesta) throws ComunicacionException {
-		if (this.esRespuestaValida(jugador, tipoCanto)) {
+		if (this.cantoPendiente() && this.esRespuestaValida(jugador, tipoCanto)) {
 			this.getUltimoCanto().setQuerido(respuesta);
 			this.getUltimoCanto().grabar();
 			if (tipoCanto.getId() > 4 && ! respuesta) this.administrarRetiro(jugador % 2 + 1); 
@@ -328,14 +328,14 @@ public class Mano {
 	}
 
 	public ArrayList<CartaDTO> mostrarCartasJugador(int i) {
-			ArrayList<CartaDTO> cd = new ArrayList<CartaDTO>();
-			for(Carta c: cartas){
-				if(c.getJugador()==i && !c.isJugada()){
-					cd.add(c.toDTO());
-				}
+		ArrayList<CartaDTO> cd = new ArrayList<CartaDTO>();
+		for(Carta c: cartas){
+			if(c.getJugador()==i && !c.isJugada()){
+				cd.add(c.toDTO());
 			}
-			return cd;
-}
+		}
+		return cd;
+	}
 
 	public Integer mostrarPuntosEnvido(Integer pos) {
 		return this.envidoValor[pos-1];
@@ -374,17 +374,17 @@ public class Mano {
 	}
 
 	public ArrayList<CartaDTO> mostarCartasMesa(Integer ubicacion) {
-		 ArrayList<CartaDTO> cm = new  ArrayList<CartaDTO>();
+		ArrayList<CartaDTO> cm = new  ArrayList<CartaDTO>();
 		for(Baza b : this.bazas){
 			for(Carta c :b.getCartasbaza()){
 				if(c.getJugador()==ubicacion){
-				cm.add(c.toDTO());
+					cm.add(c.toDTO());
 				}
 			}
 		}
 		return cm;
 	}
-	
+
 	public Integer[] getEnvidoValor() {
 		return envidoValor;
 	}
@@ -397,7 +397,7 @@ public class Mano {
 		ArrayList<CantoDTO> cantos = new ArrayList<CantoDTO>();
 		ArrayList<CartaDTO> cartas = new ArrayList<CartaDTO>();
 		ArrayList<BazaDTO> bazas =  new ArrayList<BazaDTO>();
-		
+
 		for(Canto c : this.getCantos()){
 			cantos.add(c.toDTO());
 		}
@@ -408,7 +408,14 @@ public class Mano {
 			bazas.add(b.toDTO());
 		}
 		ManoDTO mdto = new ManoDTO(this.getId(),this.getNumeroMano(),cantos,cartas,bazas,this.getEnvidoValor());
-		
+
 		return mdto;
-}
+	}
+	
+	private boolean cantoPendiente() {
+		for (Canto c : cantos) {
+			if (c.isQuerido() == null) return true;
+		}
+		return false;
+	}
 }
