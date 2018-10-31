@@ -175,32 +175,44 @@ public class Mano {
 	}
 
 	public boolean esCantoValido(int jugadorUbicacion, TipoCanto canto) {
-		//No es el turno del jugador
-		if (jugadorUbicacion != this.getBazaActual().getTurno()) return false;
+		//No es el turno del jugador y no hay un canto pendiente
+		if (! this.cantoPendiente() && jugadorUbicacion != this.getBazaActual().getTurno()) return false;
+
+		//Si ya se realizo el mismo canto
+		for (Canto c : this.cantos) if (c.getTipoCanto().getId() == canto.getId()) return false;
+
 		//Para el envido
 		if (canto.getId() < 5) {
 			
 			//Si no es el pie
 			if (this.getUltimoCanto() == null && this.posicionRelativa(jugadorUbicacion) < 3) return false;
 			
+			//Si el ultimo canto ya fue respondido
+			if (this.getUltimoCanto() != null && this.getUltimoCanto().isQuerido() != null) return false;
+			
 			int cantidadDeCantos = 0;
-			//Cuanto la cantidad de cantos
+			//Cuanto la cantidad de cantos ya queridos
 			for (Canto c : this.cantos) {
-				if (c.getTipoCanto().getId() < 5) cantidadDeCantos++;
+				if (c.getTipoCanto().getId() < 5 && c.isQuerido() != null) cantidadDeCantos++;
 			}
-			//Si los cantos son pares
+			//Si los cantos son pares puede cantar el equipo de quien es turno, si son impares, puede cantar el equipo rival
 			if (jugadorUbicacion % 2  != (this.getBazaActual().getTurno() + cantidadDeCantos) % 2) return false;
 
 			//Canta envido despues de la primer baza
 			if (this.bazas.size() > 1 && canto.getId() <= 4) return false;
 		}
 
-		//Si ya se realizo el canto
-		for (Canto c : this.cantos) if (c.getTipoCanto().getId() == canto.getId()) return false;
-
 		//Si es un retruco o valecuatro buscar que este el canto anterior
 		if (canto.getId() > 5) {
-			for (Canto c : this.cantos) if (c.getTipoCanto().getId() == canto.getPredecesor() && (c.getCantante() % 2 != jugadorUbicacion % 2)) return true;
+			for (Canto c : this.cantos) {
+				//Si existe el anterior y fue cantado por el equipo rival al que esta cantando
+				if (c.getTipoCanto().getId() == canto.getPredecesor() && (c.getCantante() % 2 != jugadorUbicacion % 2)) {
+					//Si el canto anterior ya fue respondido, tiene que ser turno del que canta
+					if (c.isQuerido() != null) return (jugadorUbicacion == this.getBazaActual().getTurno());
+					//Si el canto anterior no fue respondido, puede subirse el canto
+					else return true;
+				}
+			}
 			return false;
 		}
 
