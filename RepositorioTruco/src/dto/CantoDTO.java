@@ -11,7 +11,7 @@ public class CantoDTO implements Serializable {
 	 */
 	private static final long serialVersionUID = 1788421376143417115L;
 	private int id;
-	private boolean querido;
+	private Boolean querido;
 	private Integer idTipoCanto;
 	private String DescTipoCanto;
 	private Integer ValorTipoCanto;
@@ -27,11 +27,22 @@ public class CantoDTO implements Serializable {
 	
 	
 	
-	public CantoDTO(int id, boolean querido, Integer idTipoCanto,
+	public CantoDTO(int id, Boolean querido, Integer idTipoCanto,
 			String descTipoCanto, Integer valorTipoCanto, int cantante) {
 		super();
 		this.id = id;
 		this.querido = querido;
+		this.idTipoCanto = idTipoCanto;
+		DescTipoCanto = descTipoCanto;
+		ValorTipoCanto = valorTipoCanto;
+		this.cantante = cantante;
+	}
+	
+	public CantoDTO(int id, Integer idTipoCanto,
+			String descTipoCanto, Integer valorTipoCanto, int cantante) {
+		super();
+		this.id = id;
+		this.querido = null;
 		this.idTipoCanto = idTipoCanto;
 		DescTipoCanto = descTipoCanto;
 		ValorTipoCanto = valorTipoCanto;
@@ -47,10 +58,10 @@ public class CantoDTO implements Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public boolean isQuerido() {
+	public Boolean isQuerido() {
 		return querido;
 	}
-	public void setQuerido(boolean querido) {
+	public void setQuerido(Boolean querido) {
 		this.querido = querido;
 	}
 	public Integer getIdTipoCanto() {

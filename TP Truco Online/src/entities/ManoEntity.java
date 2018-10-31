@@ -2,6 +2,7 @@ package entities;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -17,7 +18,7 @@ public class ManoEntity {
 	private Integer numeroMano;
 	@OneToMany
 	private List<BazaEntity> bazas;
-	@OneToMany
+	@OneToMany(cascade = CascadeType.REMOVE)
 	private List<CantoEntity> cantos;
 	@OneToMany
 	private List<CartaEntity> cartas;

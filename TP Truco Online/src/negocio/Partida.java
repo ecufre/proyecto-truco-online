@@ -228,11 +228,6 @@ public class Partida {
 		}
 
 	
-
-
-	
-	
-	
 	public PartidaPantallaDTO toPantallaDTO(int partida, Jugador j2 , Boolean ptosEnvido) throws ComunicacionException {
 
 		boolean par=true;
@@ -241,6 +236,9 @@ public class Partida {
 		if(j2!=null){
 			PartidaPantallaDTO pd = new PartidaPantallaDTO(partida);
 			pd.setJugador(j2.toDTO());
+			
+			pd.setTurnoJugador(this.jugadores.get(this.getJuegoActual().getManoActual().getBazaActual().getTurno() - 1).toDTO_reducido());
+			if (this.getJuegoActual().getManoActual().getUltimoCanto() != null) pd.setUltimoCanto(this.getJuegoActual().getManoActual().getUltimoCanto().toDTO());
 			//pd.setChat(this.getCharla()); queda para la proxima entrega
 			pd.setCartasJugador(this.getJuegoActual().mostrarCartasJugador(this.ubicacionJugador(j2)));
 			if(ptosEnvido){
@@ -288,9 +286,9 @@ public class Partida {
 
 				switch (this.ubicacionJugador(j2)){
 				case 1:
-					pd.setJugadorFrente(this.jugadores.get(2).toDTO());
-					pd.setJugadorIzquierda(this.jugadores.get(1).toDTO());
-					pd.setJugadorDerecha(this.jugadores.get(3).toDTO());
+					pd.setJugadorFrente(this.jugadores.get(2).toDTO_reducido());
+					pd.setJugadorIzquierda(this.jugadores.get(1).toDTO_reducido());
+					pd.setJugadorDerecha(this.jugadores.get(3).toDTO_reducido());
 					pd.setCartasMesaJugadorFrente(this.getJuegoActual().mostrarCartasMesa(3));
 					pd.setCartasMesajugadorIzquierda(this.getJuegoActual().mostrarCartasMesa(2));
 					pd.setCartasMesaJugadorDerecha(this.getJuegoActual().mostrarCartasMesa(4));
@@ -302,9 +300,9 @@ public class Partida {
 
 					break;
 				case 2:
-					pd.setJugadorFrente(this.jugadores.get(3).toDTO());
-					pd.setJugadorIzquierda(this.jugadores.get(2).toDTO());
-					pd.setJugadorDerecha(this.jugadores.get(0).toDTO());
+					pd.setJugadorFrente(this.jugadores.get(3).toDTO_reducido());
+					pd.setJugadorIzquierda(this.jugadores.get(2).toDTO_reducido());
+					pd.setJugadorDerecha(this.jugadores.get(0).toDTO_reducido());
 					pd.setCartasMesaJugadorFrente(this.getJuegoActual().mostrarCartasMesa(4));
 					pd.setCartasMesajugadorIzquierda(this.getJuegoActual().mostrarCartasMesa(3));
 					pd.setCartasMesaJugadorDerecha(this.getJuegoActual().mostrarCartasMesa(1));
@@ -315,9 +313,9 @@ public class Partida {
 					}
 					break;
 				case 3:
-					pd.setJugadorFrente(this.jugadores.get(0).toDTO());
-					pd.setJugadorIzquierda(this.jugadores.get(3).toDTO());
-					pd.setJugadorDerecha(this.jugadores.get(1).toDTO());
+					pd.setJugadorFrente(this.jugadores.get(0).toDTO_reducido());
+					pd.setJugadorIzquierda(this.jugadores.get(3).toDTO_reducido());
+					pd.setJugadorDerecha(this.jugadores.get(1).toDTO_reducido());
 					pd.setCartasMesaJugadorFrente(this.getJuegoActual().mostrarCartasMesa(1));
 					pd.setCartasMesajugadorIzquierda(this.getJuegoActual().mostrarCartasMesa(4));
 					pd.setCartasMesaJugadorDerecha(this.getJuegoActual().mostrarCartasMesa(2));
@@ -328,9 +326,9 @@ public class Partida {
 					}
 					break;
 				case 4:
-					pd.setJugadorFrente(this.jugadores.get(1).toDTO());
-					pd.setJugadorIzquierda(this.jugadores.get(0).toDTO());
-					pd.setJugadorDerecha(this.jugadores.get(2).toDTO());
+					pd.setJugadorFrente(this.jugadores.get(1).toDTO_reducido());
+					pd.setJugadorIzquierda(this.jugadores.get(0).toDTO_reducido());
+					pd.setJugadorDerecha(this.jugadores.get(2).toDTO_reducido());
 					pd.setCartasMesaJugadorFrente(this.getJuegoActual().mostrarCartasMesa(2));
 					pd.setCartasMesajugadorIzquierda(this.getJuegoActual().mostrarCartasMesa(1));
 					pd.setCartasMesaJugadorDerecha(this.getJuegoActual().mostrarCartasMesa(3));

@@ -185,12 +185,21 @@ public class Cliente {
 	public static void mostrarPartida(PartidaPantallaDTO pd) throws ComunicacionException, LoggedInException{
 
 		//		System.out.println(c3.mostrarPartida(ad));
-		//		System.out.println("Juegos\n Nosotros:"+pd.getJuegosNosotros()+" Ellos: "+pd.getJuegosEllos() );
-		System.out.println("Puntos Juegos\n Nosotros: "+pd.getPuntosJuegoNosotros()+" Ellos: "+pd.getPuntosJuegoEllos() );
+		System.out.println("Juegos\nNosotros:"+pd.getJuegosNosotros()+" Ellos: "+pd.getJuegosEllos() );
+		System.out.println("Puntos\nNosotros: "+pd.getPuntosJuegoNosotros()+" Ellos: "+pd.getPuntosJuegoEllos() );
 		//		System.out.println("jugador:"			+pd.getJugador().getApodo()+" suma Envido: "+pd.getValorEnvidoJugador());
 		//		System.out.println("jugador frente:"	+pd.getJugadorFrente().getApodo()+" suma Envido: "+pd.getValorEnvidoJugadorFrente());
 		//		System.out.println("jugador IZQ:"		+pd.getJugadorIzquierda().getApodo()+" suma Envido: "+pd.getValorEnvidoJugadorIquierda());
 		//		System.out.println("jugador DER:"		+pd.getJugadorDerecha().getApodo()+" suma Envido: "+pd.getValorEnvidoJugadorDerecha());
+		for (int i = 0; i < 2; i++) System.out.println(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
+		System.out.print("Ultimo canto: ");
+		if (pd.getUltimoCanto() == null) System.out.println("No se canto nada todavía");
+		else {
+			System.out.print(pd.getUltimoCanto().getDescTipoCanto());
+			if (pd.getUltimoCanto().isQuerido() == null) System.out.println(" - No fue respondido aun");
+			else if (pd.getUltimoCanto().isQuerido()) System.out.println(" - Querido");
+			else System.out.println(" - No querido");
+		}
 		for (int i = 0; i < 2; i++) System.out.println(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
 		System.out.println("Cartas Jugador Mesa: "+pd.getJugador().getApodo());
 		for(CartaDTO c :pd.getCartasMesaJugador()) System.out.println(c.getNumero() + " de " + c.getPalo() + " (" + c.getId() + ")");
@@ -207,6 +216,7 @@ public class Cliente {
 		System.out.println("Cartas Jugador: " + pd.getJugador().getApodo());
 		for(CartaDTO c :pd.getCartasJugador()) System.out.println(c.getNumero() + " de " + c.getPalo() + " (" + c.getId() + ")");
 		for (int i = 0; i < 2; i++) System.out.println(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
+		System.out.println("Turno de: " + pd.getTurnoJugador().getApodo());
 		System.out.println("Jugando: " + pd.getJugador().getApodo());
 	}
 
