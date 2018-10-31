@@ -190,17 +190,26 @@ public class Mano {
 			//Si el ultimo canto ya fue respondido
 			if (this.getUltimoCanto() != null && this.getUltimoCanto().isQuerido() != null) return false;
 			
+			
+			
 			int cantidadDeCantos = 0;
 			//Cuanto la cantidad de cantos ya queridos
 			for (Canto c : this.cantos) {
 				if (c.getTipoCanto().getId() < 5 && c.isQuerido() != null) cantidadDeCantos++;
 			}
+			
+			//Si se canto truco, en la primer baza, y no fue respondido, puede cantar el equipo rival al que canto truco, siempre que no haya un envido anterior
+			if (this.getUltimoCanto() != null && this.getUltimoCanto().getTipoCanto().getId() == 5 && this.getUltimoCanto().isQuerido() == null && cantidadDeCantos == 0) return true;
+			
 			//Si los cantos son pares puede cantar el equipo de quien es turno, si son impares, puede cantar el equipo rival
 			if (jugadorUbicacion % 2  != (this.getBazaActual().getTurno() + cantidadDeCantos) % 2) return false;
 
 			//Canta envido despues de la primer baza
 			if (this.bazas.size() > 1 && canto.getId() <= 4) return false;
 		}
+		
+		//Si es un truco, no tiene que haber un canto pendiente
+		if (canto.getId() == 5 && this.cantoPendiente()) return false;
 
 		//Si es un retruco o valecuatro buscar que este el canto anterior
 		if (canto.getId() > 5) {
@@ -230,7 +239,7 @@ public class Mano {
 		if (this.esCantoValido(jugadorUbicacion, canto)) {
 			if (this.getUltimoCanto() != null) {
 				//Si canto el envido despues de que se canto el truco, el envido sobreescribe al truco.
-				if (this.cantoPendiente() && this.getUltimoCanto().getTipoCanto().getId() < 4 && canto.getId() < 5) {
+				if (this.cantoPendiente() && this.getUltimoCanto().getTipoCanto().getId() > 4 && canto.getId() < 5) {
 					//CantoDAO.getInstancia().borrar(this.getUltimoCanto());
 					this.cantos.remove(this.getUltimoCanto());
 					this.grabar();
@@ -248,7 +257,7 @@ public class Mano {
 				this.cantos.add(c);
 				this.grabar();
 			}
-			else throw new ComunicacionException("Y hay un canto pendiente de respuesta");
+			else throw new ComunicacionException("Ya hay un canto pendiente de respuesta");
 		}
 		else throw new ComunicacionException("El canto es invalido");
 	}

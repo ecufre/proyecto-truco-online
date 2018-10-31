@@ -94,7 +94,7 @@ public class Cliente {
 				pdto = bd.mostrarPartida(ad);
 
 				mostrarPartida(pdto);
-				System.out.print("-1) Salir -2) Seleccionar otro jugador\n20) Jugar carta 21) Retirarse de la mano\n1) Envido 2) Envido Envido 3) Real Envido 4) Falta Envido\n5) Truco 6) ReTruco 7) Vale 4\n8) Quiero 9) No Queiro\n-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-\nSeleccione una opcion: ");
+				System.out.print("-1) Salir -2) Seleccionar otro jugador\n20) Jugar carta 21) Retirarse de la mano\n1) Envido 2) Envido Envido 3) Real Envido 4) Falta Envido\n5) Truco 6) ReTruco 7) Vale 4\n8) Quiero 9) No Queiro\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\nSeleccione una opcion: ");
 				val = Integer.parseInt(entradaEscaner.nextLine());
 				switch (val){
 				case 20:
@@ -185,6 +185,7 @@ public class Cliente {
 	public static void mostrarPartida(PartidaPantallaDTO pd) throws ComunicacionException, LoggedInException{
 
 		//		System.out.println(c3.mostrarPartida(ad));
+		for (int i = 0; i < 2; i++) System.out.println("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+");
 		System.out.println("Juegos\nNosotros:"+pd.getJuegosNosotros()+" Ellos: "+pd.getJuegosEllos() );
 		System.out.println("Puntos\nNosotros: "+pd.getPuntosJuegoNosotros()+" Ellos: "+pd.getPuntosJuegoEllos() );
 		//		System.out.println("jugador:"			+pd.getJugador().getApodo()+" suma Envido: "+pd.getValorEnvidoJugador());
