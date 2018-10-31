@@ -1,10 +1,10 @@
 package dao;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.joda.time.LocalDateTime;
 
 import controladores.HibernateUtil;
 import entities.JuegoEntity;
@@ -14,7 +14,6 @@ import excepciones.ComunicacionException;
 import negocio.Juego;
 import negocio.Jugador;
 import negocio.Partida;
-import net.sourceforge.jtds.jdbc.DateTime;
 
 public class PartidaDAO {
 	

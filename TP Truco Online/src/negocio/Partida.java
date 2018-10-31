@@ -1,7 +1,9 @@
 package negocio;
 
-import java.time.LocalDateTime;
+
 import java.util.ArrayList;
+
+import org.joda.time.LocalDateTime;
 
 import dao.PartidaDAO;
 import dto.JuegoDTO;
@@ -11,7 +13,6 @@ import dto.PartidaPantallaDTO;
 import enumeraciones.EstadoPartida;
 import enumeraciones.TipoCanto;
 import excepciones.ComunicacionException;
-import net.sourceforge.jtds.jdbc.DateTime;
 
 public class Partida {
 	private int id;
@@ -197,6 +198,10 @@ public class Partida {
 	
 	public LocalDateTime getFechaCreacion() {
 		return fechaCreacion;
+	}
+
+	public LocalDateTime getFechaActualizacion() {
+		return fechaActualizacion;
 	}
 
 	public void setFechaActualizacion(LocalDateTime fechaActualizacion) {
