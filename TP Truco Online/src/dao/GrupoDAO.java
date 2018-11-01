@@ -90,7 +90,7 @@ public class GrupoDAO {
 		ge.setParejas(parejas);
 		ArrayList<PartidaEntity> partidas = new ArrayList<PartidaEntity>();
 		for (Partida p : g.getPartidas()) {
-			PartidaEntity pe = new PartidaEntity(p.getId(), false, p.getEstado(), p.getGanador());
+			PartidaEntity pe = new PartidaEntity(p.getId(), false, p.getEstado(), p.getGanador(), p.getFechaCreacion(), p.getFechaActualizacion());
 			partidas.add(pe);
 		}
 		ge.setPartidas(partidas);

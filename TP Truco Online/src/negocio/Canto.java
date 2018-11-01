@@ -13,7 +13,7 @@ public class Canto {
 	
 	public Canto(int cantante) {
 		this.cantante = cantante;
-		this.querido=null;
+		this.querido = null;
 	}
 	
 	public void setId(int id) {
@@ -59,11 +59,11 @@ public class Canto {
 	}
 
 	public CantoDTO toDTO() {
-		
-		return (new CantoDTO(this.getId(),this.isQuerido(),
+		if (this.querido == null) return (new CantoDTO(this.getId(),
 				this.getTipoCanto().getId(),this.getTipoCanto().getNombre(),this.getTipoCanto().getValor(),
 				this.getCantante()));
-		
-	
+		else return (new CantoDTO(this.getId(),this.querido,
+				this.getTipoCanto().getId(),this.getTipoCanto().getNombre(),this.getTipoCanto().getValor(),
+				this.getCantante()));
 	}
 }

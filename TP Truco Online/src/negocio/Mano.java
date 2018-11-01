@@ -83,14 +83,14 @@ public class Mano {
 		return this.bazas.get(this.bazas.size() - 1);
 	}
 
-	private Canto getUltimoCanto() {
+	public Canto getUltimoCanto() {
 		if (cantos.size() > 0) return this.cantos.get(this.cantos.size() - 1);
 		else return null;
 	}
 
 	public void jugarCarta(int ubicacionJugador, int carta) throws ComunicacionException {
 		Carta c = this.buscarCarta(carta);
-		if(this.esJugadaValida(ubicacionJugador, c) && ! this.cantoPendiente()){
+		if(!this.cantoPendiente() && this.esJugadaValida(ubicacionJugador, c)){
 			this.getBazaActual().agregarCarta(c);
 			this.getBazaActual().grabar();
 			c.setJugada(true);
@@ -175,29 +175,53 @@ public class Mano {
 	}
 
 	public boolean esCantoValido(int jugadorUbicacion, TipoCanto canto) {
-		//No es el turno del jugador
-		if (jugadorUbicacion != this.getBazaActual().getTurno()) return false;
+		//No es el turno del jugador y no hay un canto pendiente
+		if (! this.cantoPendiente() && jugadorUbicacion != this.getBazaActual().getTurno()) return false;
+
+		//Si ya se realizo el mismo canto
+		for (Canto c : this.cantos) if (c.getTipoCanto().getId() == canto.getId()) return false;
+
 		//Para el envido
 		if (canto.getId() < 5) {
-
+			
+			//Si no es el pie
+			if (this.getUltimoCanto() == null && this.posicionRelativa(jugadorUbicacion) < 3) return false;
+			
+			//Si el ultimo canto ya fue respondido
+			if (this.getUltimoCanto() != null && this.getUltimoCanto().isQuerido() != null) return false;
+			
+			
+			
 			int cantidadDeCantos = 0;
-			//Cuento la cantidad de cantos
+			//Cuanto la cantidad de cantos ya queridos
 			for (Canto c : this.cantos) {
-				if (c.getTipoCanto().getId() < 5) cantidadDeCantos++;
+				if (c.getTipoCanto().getId() < 5 && c.isQuerido() != null) cantidadDeCantos++;
 			}
-			//Si los cantos son pares
+			
+			//Si se canto truco, en la primer baza, y no fue respondido, puede cantar el equipo rival al que canto truco, siempre que no haya un envido anterior
+			if (this.getUltimoCanto() != null && this.getUltimoCanto().getTipoCanto().getId() == 5 && this.getUltimoCanto().isQuerido() == null && cantidadDeCantos == 0) return true;
+			
+			//Si los cantos son pares puede cantar el equipo de quien es turno, si son impares, puede cantar el equipo rival
 			if (jugadorUbicacion % 2  != (this.getBazaActual().getTurno() + cantidadDeCantos) % 2) return false;
 
 			//Canta envido despues de la primer baza
 			if (this.bazas.size() > 1 && canto.getId() <= 4) return false;
 		}
-
-		//Si ya se realizo el canto
-		for (Canto c : this.cantos) if (c.getTipoCanto().getId() == canto.getId()) return false;
+		
+		//Si es un truco, no tiene que haber un canto pendiente
+		if (canto.getId() == 5 && this.cantoPendiente()) return false;
 
 		//Si es un retruco o valecuatro buscar que este el canto anterior
 		if (canto.getId() > 5) {
-			for (Canto c : this.cantos) if (c.getTipoCanto().getId() == canto.getPredecesor() && (c.getCantante() % 2 != jugadorUbicacion % 2)) return true;
+			for (Canto c : this.cantos) {
+				//Si existe el anterior y fue cantado por el equipo rival al que esta cantando
+				if (c.getTipoCanto().getId() == canto.getPredecesor() && (c.getCantante() % 2 != jugadorUbicacion % 2)) {
+					//Si el canto anterior ya fue respondido, tiene que ser turno del que canta
+					if (c.isQuerido() != null) return (jugadorUbicacion == this.getBazaActual().getTurno());
+					//Si el canto anterior no fue respondido, puede subirse el canto
+					else return true;
+				}
+			}
 			return false;
 		}
 
@@ -215,29 +239,36 @@ public class Mano {
 		if (this.esCantoValido(jugadorUbicacion, canto)) {
 			if (this.getUltimoCanto() != null) {
 				//Si canto el envido despues de que se canto el truco, el envido sobreescribe al truco.
-				if (canto.getId() < 5 && this.getUltimoCanto().getTipoCanto().getId() == 5 && this.cantoPendiente()) {
-					CantoDAO.getInstancia().borrar(this.getUltimoCanto());
-					this.cantos.remove(this.getUltimoCanto()); 
+				if (this.cantoPendiente() && this.getUltimoCanto().getTipoCanto().getId() > 4 && canto.getId() < 5) {
+					//CantoDAO.getInstancia().borrar(this.getUltimoCanto());
+					this.cantos.remove(this.getUltimoCanto());
+					this.grabar();
 				}
 				//Si el canto anterior era del mismo tipo, acepto el canto anterior.
-				else if (((canto.getId() > 4 && this.getUltimoCanto().getTipoCanto().getId() > 4) || (canto.getId() < 5 && this.getUltimoCanto().getTipoCanto().getId() < 5)) && this.cantoPendiente()) {
+				else if (((this.getUltimoCanto().getTipoCanto().getId() > 4 && canto.getId() > 4) || (this.getUltimoCanto().getTipoCanto().getId() < 5 && canto.getId() < 5)) && this.cantoPendiente()) {
 					this.getUltimoCanto().setQuerido(true);	
 					this.getUltimoCanto().grabar();
 				}
 			}
-			Canto c = new Canto(jugadorUbicacion);
-			c.setTipoCanto(canto);
-			c.crear();
-			this.cantos.add(c);
-			this.grabar();
+			if (! this.cantoPendiente()) {
+				Canto c = new Canto(jugadorUbicacion);
+				c.setTipoCanto(canto);
+				c.crear();
+				this.cantos.add(c);
+				this.grabar();
+			}
+			else throw new ComunicacionException("Ya hay un canto pendiente de respuesta");
 		}
 		else throw new ComunicacionException("El canto es invalido");
 	}
 
 	public boolean esRespuestaValida(int jugador, TipoCanto tipoCanto) {
+		if (! this.cantoPendiente()) return false;
+		
 		int cantidadDeCantos = 0;
 		int cantoTrucoMaximo = 0;
 		int cantanteUltimoTruco = 0;
+		
 		//Cuanto la cantidad de cantos
 		for (Canto c : this.cantos) {
 			if (c.getTipoCanto().getId() < 5) cantidadDeCantos++;
@@ -251,7 +282,7 @@ public class Mano {
 	}
 
 	public void responderEnvite(int jugador, TipoCanto tipoCanto, boolean respuesta) throws ComunicacionException {
-		if (this.cantoPendiente() && this.esRespuestaValida(jugador, tipoCanto)) {
+		if (this.esRespuestaValida(jugador, tipoCanto)) {
 			this.getUltimoCanto().setQuerido(respuesta);
 			this.getUltimoCanto().grabar();
 			if (tipoCanto.getId() > 4 && ! respuesta) this.administrarRetiro(jugador % 2 + 1); 
@@ -413,9 +444,7 @@ public class Mano {
 	}
 	
 	private boolean cantoPendiente() {
-		for (Canto c : cantos) {
-			if (c.isQuerido() == null) return true;
-		}
+		for (Canto c : this.cantos) if (c.isQuerido() == null) return true;
 		return false;
 	}
 }
