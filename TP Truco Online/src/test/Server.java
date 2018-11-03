@@ -35,8 +35,8 @@ public class Server {
 			LocalDateTime now = LocalDateTime.now();
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");  
 			System.out.println(dtf.format(now) + " - Server started successfully.");
-			MazoDAO.getInstancia().crearMazo();
-			System.out.println(dtf.format(now) + " - Se creo el Mazo.");
+			//MazoDAO.getInstancia().crearMazo();
+			//System.out.println(dtf.format(now) + " - Se creo el Mazo.");
 			
 
 		} catch (MalformedURLException e) {

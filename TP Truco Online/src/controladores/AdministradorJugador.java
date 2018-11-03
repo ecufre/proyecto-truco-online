@@ -37,9 +37,10 @@ public class AdministradorJugador {
 		} else throw new ComunicacionException("El jugador ya existe");
 	}
 	
-	public void login(JugadorDTO jugador) throws ComunicacionException {
-		Jugador j = this.buscarJugador(jugador.getApodo());
-		if (j != null) {
+	public void login(JugadorDTO jugador) throws LoggedInException {
+		Jugador j;
+		try {
+			j = this.buscarJugador(jugador.getApodo());
 			if (j.passwordCorrecta(jugador.getPassword())) {
 				j.setLoggedSession(jugador.getLoggedSession());
 				j.grabar();
@@ -48,11 +49,10 @@ public class AdministradorJugador {
 				System.out.println(dtf.format(now) + " - Autenticacion correcta de parte del jugador: " + jugador.getApodo());
 				return;
 			}
+			throw new LoggedInException("No pudo autenticarse el usuario");
+		} catch (ComunicacionException e) {
+			throw new LoggedInException("No pudo autenticarse el usuario");
 		}
-		LocalDateTime now = LocalDateTime.now();
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");  
-		System.out.println(dtf.format(now) + " - Autenticacion fallida de parte del jugador: " + jugador.getApodo());
-		throw new ComunicacionException ("No pudo autenticarse el usuario");
 	}
 	
 	public void logout(JugadorDTO jugador) throws LoggedInException, ComunicacionException {

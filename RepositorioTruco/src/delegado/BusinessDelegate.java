@@ -145,7 +145,7 @@ public class BusinessDelegate {
 			
 		}
 		
-		public void login(JugadorDTO jugador) throws ComunicacionException {
+		public void login(JugadorDTO jugador) throws ComunicacionException, LoggedInException {
 			try {
 				ir.login(jugador);
 			} catch (RemoteException e) {
@@ -163,6 +163,15 @@ public class BusinessDelegate {
 			
 		}
 		
+		public Boolean isLoggedIn(JugadorDTO jugador) throws LoggedInException, ComunicacionException {
+			try {
+				return ir.isLoggedIn(jugador);
+			} catch (RemoteException e) {
+				throw new ComunicacionException("Error en las comunicaciones");	
+			}
+			
+		}
+
 		public void jugarLibreIndividual(JugadorDTO jugador) throws LoggedInException, ComunicacionException {
 			try {
 				ir.jugarLibreIndividual(jugador);

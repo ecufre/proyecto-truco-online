@@ -21,15 +21,15 @@ public class Cliente {
 			BusinessDelegate bd = BusinessDelegate.getInstance();
 			JugadorDTO admin = new JugadorDTO("Ced", "fer@fer", "Pass", "SessionID");
 			bd.crearJugador(admin);
-			JugadorDTO jugador1 = new JugadorDTO("San", "eze@eze", "Pass", "SessionID2");
+			JugadorDTO jugador1 = new JugadorDTO("San", "eze@eze", "Pass", "SessionID");
 			bd.crearJugador(jugador1);			
-			JugadorDTO jugador2 = new JugadorDTO("Bru", "kike@kike", "Pass", "SessionID3");
+			JugadorDTO jugador2 = new JugadorDTO("Bru", "kike@kike", "Pass", "SessionID");
 			bd.crearJugador(jugador2);			
-			JugadorDTO jugador3 = new JugadorDTO("Ale", "fer2@fer", "Pass", "SessionID4");
+			JugadorDTO jugador3 = new JugadorDTO("Ale", "fer2@fer", "Pass", "SessionID");
 			bd.crearJugador(jugador3);			
-			JugadorDTO jugador4 = new JugadorDTO("Ger", "eze2@eze", "Pass", "SessionID5");
+			JugadorDTO jugador4 = new JugadorDTO("Ger", "eze2@eze", "Pass", "SessionID");
 			bd.crearJugador(jugador4);			
-			JugadorDTO jugador = new JugadorDTO("Fer", "kike2@kike", "Pass", "SessionID6");
+			JugadorDTO jugador = new JugadorDTO("Fer", "kike2@kike", "Pass", "SessionID");
 			bd.crearJugador(jugador);	
 
 			bd.login(admin);
@@ -71,10 +71,10 @@ public class Cliente {
 				Scanner entradaEscaner = new Scanner (System.in); //Creación de un objeto Scanner
 				String entradaTeclado;
 
-				JugadorDTO jugador1 = new JugadorDTO("San", "mail1@mail", "Pass", "SessionID2");
-				JugadorDTO jugador2 = new JugadorDTO("Bru", "mail2@mail", "Pass", "SessionID3");
-				JugadorDTO jugador3 = new JugadorDTO("Ale", "mail3@mail", "Pass", "SessionID4");
-				JugadorDTO jugador4 = new JugadorDTO("Ger", "mail4@mail", "Pass", "SessionID5");
+				JugadorDTO jugador1 = new JugadorDTO("San", "mail1@mail", "Pass", "SessionID");
+				JugadorDTO jugador2 = new JugadorDTO("Bru", "mail2@mail", "Pass", "SessionID");
+				JugadorDTO jugador3 = new JugadorDTO("Ale", "mail3@mail", "Pass", "SessionID");
+				JugadorDTO jugador4 = new JugadorDTO("Ger", "mail4@mail", "Pass", "SessionID");
 
 				PartidaDTO pd = new PartidaDTO();
 				pd.setId(1);

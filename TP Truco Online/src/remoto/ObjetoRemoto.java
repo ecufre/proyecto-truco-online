@@ -30,7 +30,7 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfaceRemota
 	}
 
 	@Override
-	public void login(JugadorDTO jugador) throws RemoteException, ComunicacionException {
+	public void login(JugadorDTO jugador) throws RemoteException, LoggedInException {
 		AdministradorJugador.getInstancia().login(jugador);
 	}
 
@@ -38,7 +38,12 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfaceRemota
 	public void logout(JugadorDTO jugador) throws RemoteException, LoggedInException, ComunicacionException {
 		AdministradorJugador.getInstancia().logout(jugador);
 	}
-
+	
+	@Override
+	public Boolean isLoggedIn(JugadorDTO jugador) throws RemoteException, LoggedInException, ComunicacionException {
+		return AdministradorJugador.getInstancia().isLoggedIn(jugador);
+	}
+	
 	@Override
 	public void jugarLibreIndividual(JugadorDTO jugador) throws RemoteException, LoggedInException, ComunicacionException {
 		AdministradorJugador.getInstancia().jugarLibreIndividual(jugador);
