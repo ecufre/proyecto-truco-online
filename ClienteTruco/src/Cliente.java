@@ -88,7 +88,7 @@ public class Cliente {
 				PartidaPantallaDTO pdto;
 				System.out.print("Inserte numero de jugador (0 a 3): ");
 				val = Integer.parseInt(entradaEscaner.nextLine());
-
+				if (val >= jugadores.length) throw new ComunicacionException("Jugador invalido");
 				JugadorDTO jugAct = jugadores[val];
 				ad = new AccionDTO(pd, jugAct,1,true,null);
 				pdto = bd.mostrarPartida(ad);

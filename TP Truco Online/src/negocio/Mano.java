@@ -183,14 +183,14 @@ public class Mano {
 
 		//Para el envido
 		if (canto.getId() < 5) {
+			//Canta envido despues de la primer baza
+			if (this.bazas.size() > 1 && canto.getId() <= 4) return false;
 			
 			//Si no es el pie
 			if (this.getUltimoCanto() == null && this.posicionRelativa(jugadorUbicacion) < 3) return false;
 			
 			//Si el ultimo canto ya fue respondido
 			if (this.getUltimoCanto() != null && this.getUltimoCanto().isQuerido() != null) return false;
-			
-			
 			
 			int cantidadDeCantos = 0;
 			//Cuanto la cantidad de cantos ya queridos
@@ -199,13 +199,15 @@ public class Mano {
 			}
 			
 			//Si se canto truco, en la primer baza, y no fue respondido, puede cantar el equipo rival al que canto truco, siempre que no haya un envido anterior
-			if (this.getUltimoCanto() != null && this.getUltimoCanto().getTipoCanto().getId() == 5 && this.getUltimoCanto().isQuerido() == null && cantidadDeCantos == 0) return true;
+			if (this.getUltimoCanto() != null && this.getUltimoCanto().getTipoCanto().getId() == 5 && this.getUltimoCanto().isQuerido() == null && cantidadDeCantos == 0 && this.getUltimoCanto().getCantante() % 2 != jugadorUbicacion % 2) return true;
 			
+			//Si hubo un canto anterior, verifico que no haya sido del mismo equipo
+			if (this.getUltimoCanto() != null && this.getUltimoCanto().getCantante() % 2 == jugadorUbicacion % 2) return false;
+			
+			/* Reemplazada por la anterior
 			//Si los cantos son pares puede cantar el equipo de quien es turno, si son impares, puede cantar el equipo rival
 			if (jugadorUbicacion % 2  != (this.getBazaActual().getTurno() + cantidadDeCantos) % 2) return false;
-
-			//Canta envido despues de la primer baza
-			if (this.bazas.size() > 1 && canto.getId() <= 4) return false;
+			*/
 		}
 		
 		//Si es un truco, no tiene que haber un canto pendiente
@@ -263,8 +265,15 @@ public class Mano {
 	}
 
 	public boolean esRespuestaValida(int jugador, TipoCanto tipoCanto) {
+		//Si no hay un canto pendiente de respuesta, la respuesta no es valida
 		if (! this.cantoPendiente()) return false;
+		//Sino, reviso que el ultimo canto sea del equipo rival
+		else return (this.getUltimoCanto().getCantante() % 2 != jugador % 2);
 		
+		//TODO ya no es necesario el TipoCanto en la respuesta. :D
+		
+		
+		/* Todo lo siguiente fue eliminado por una sola linea de codigo :'(
 		int cantidadDeCantos = 0;
 		int cantoTrucoMaximo = 0;
 		int cantanteUltimoTruco = 0;
@@ -279,6 +288,7 @@ public class Mano {
 		}
 		if (tipoCanto.getId() < 5) return (jugador % 2  == (this.getBazaActual().getTurno() + cantidadDeCantos) % 2);
 		else return (cantanteUltimoTruco % 2 != jugador % 2);
+		*/
 	}
 
 	public void responderEnvite(int jugador, TipoCanto tipoCanto, boolean respuesta) throws ComunicacionException {
@@ -335,7 +345,7 @@ public class Mano {
 		//Si todos empatan en 0, gana el mano de la primer baza
 		int jugadorGanador = this.calcularJugManoBaza();
 		if (! maximoCantoQuerido && maximoCanto > 0) {
-			if (cantidadEnvidosCantados == 1) puntosEnvido = 1;
+			if (cantidadEnvidosCantados == 1 || ( cantidadEnvidosCantados == 2 && this.cantos.get(0).getTipoCanto().getId() == this.cantos.get(1).getTipoCanto().getId())) puntosEnvido = 1;
 			jugadorGanador = jugadorMaximoCanto;
 		}
 		else {
@@ -444,7 +454,8 @@ public class Mano {
 	}
 	
 	private boolean cantoPendiente() {
-		for (Canto c : this.cantos) if (c.isQuerido() == null) return true;
+		//for (Canto c : this.cantos) if (c.isQuerido() == null) return true;
+		if (this.getUltimoCanto() != null && this.getUltimoCanto().isQuerido() == null) return true;
 		return false;
 	}
 }
