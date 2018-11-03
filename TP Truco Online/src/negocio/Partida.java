@@ -83,11 +83,11 @@ public class Partida {
 	public void setGanador(Integer ganador) {
 		this.ganador = ganador;
 	}
-	
+
 	public void grabar() {
 		PartidaDAO.getInstancia().grabar(this);
 	}
-	
+
 	public void crear() throws ComunicacionException {
 		Integer id = PartidaDAO.getInstancia().crear(this);
 		if (id != null) this.id = id;
@@ -195,7 +195,7 @@ public class Partida {
 	public ArrayList<Jugador> getJugadores() {
 		return jugadores;
 	}
-	
+
 	public LocalDateTime getFechaCreacion() {
 		return fechaCreacion;
 	}
@@ -221,13 +221,23 @@ public class Partida {
 		for(Juego jj : this.getJuegos()){
 			juegos.add(jj.toDTO());
 		}
-		
-		
 		PartidaDTO  pdto= new PartidaDTO(this.getId(),jugadores,this.isEsAbierta(),this.getEstado(), this.getGanador(),juegos,charla);
+		pdto.setFechaActualizacion(this.fechaActualizacion);
+		pdto.setFechaCreacion(this.fechaCreacion);
 		return 	pdto;
-		}
-
+	}
 	
+	public PartidaDTO toDTOReducido() {
+		PartidaDTO pdto = new PartidaDTO();
+		pdto.setId(this.id);
+		pdto.setEstado(this.estado);
+		pdto.setFechaCreacion(this.fechaCreacion);
+		pdto.setFechaActualizacion(this.fechaActualizacion);
+		if (this.estado == EstadoPartida.EnCurso) pdto.setTurnoJugador(this.jugadores.get(this.getJuegoActual().getManoActual().getBazaActual().getTurno() - 1).toDTO_reducido());
+		return 	pdto;
+	}
+
+
 	public PartidaPantallaDTO toPantallaDTO(int partida, Jugador j2 , Boolean ptosEnvido) throws ComunicacionException {
 
 		boolean par=true;
@@ -236,7 +246,7 @@ public class Partida {
 		if(j2!=null){
 			PartidaPantallaDTO pd = new PartidaPantallaDTO(partida);
 			pd.setJugador(j2.toDTO());
-			
+
 			pd.setTurnoJugador(this.jugadores.get(this.getJuegoActual().getManoActual().getBazaActual().getTurno() - 1).toDTO_reducido());
 			if (this.getJuegoActual().getManoActual().getUltimoCanto() != null) pd.setUltimoCanto(this.getJuegoActual().getManoActual().getUltimoCanto().toDTO());
 			//pd.setChat(this.getCharla()); queda para la proxima entrega
@@ -255,11 +265,11 @@ public class Partida {
 
 			int juegosImpar = 0,juegosPar = 0;
 			for(Juego j : juegos){
-				if(j.getPuntajePar()<j.getPuntajeImpar()){
+				if(j.getPuntajePar()<j.getPuntajeImpar() && j.isFinalizado()){
 
 					juegosImpar++;
 				}
-				if(j.getPuntajePar()>j.getPuntajeImpar()){
+				if(j.getPuntajePar()>j.getPuntajeImpar() && j.isFinalizado()){
 
 					juegosPar++;
 				}

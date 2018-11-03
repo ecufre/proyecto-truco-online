@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -42,7 +43,7 @@ public class PartidaEntity {
 	private Calendar fechaActualizacion;
 
 	
-	@OneToMany
+	@ManyToMany
 	@JoinTable(name="partidas_jugadores_listos")
 	private List<JugadorEntity> jugadoresListos;
 	private Boolean esAbierta;

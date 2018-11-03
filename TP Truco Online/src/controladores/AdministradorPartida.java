@@ -157,11 +157,15 @@ public class AdministradorPartida {
 		*/
 	}
 	
-	public ArrayList<Partida> buscarPartidasJugador(String apodo) throws ComunicacionException {
-		return PartidaDAO.getInstancia().getPartidasByApodo(apodo);
+	public ArrayList<PartidaDTO> buscarPartidasJugador(String apodo) throws ComunicacionException {
+		ArrayList<PartidaDTO> psDTO = new ArrayList<PartidaDTO>();
+		for (Partida p : PartidaDAO.getInstancia().getPartidasByApodo(apodo)) psDTO.add(p.toDTOReducido());
+		return psDTO;
 	}
 	
-	public ArrayList<Partida> buscarPartidasEnCursoJugador(String apodo) throws ComunicacionException {
-		return PartidaDAO.getInstancia().getPartidasEnCursoByApodo(apodo);
+	public ArrayList<PartidaDTO> buscarPartidasEnCursoJugador(String apodo) throws ComunicacionException {
+		ArrayList<PartidaDTO> psDTO = new ArrayList<PartidaDTO>();
+		for (Partida p : PartidaDAO.getInstancia().getPartidasEnCursoByApodo(apodo)) psDTO.add(p.toDTOReducido());
+		return psDTO;
 	}
 }
