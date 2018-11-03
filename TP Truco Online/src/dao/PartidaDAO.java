@@ -10,6 +10,7 @@ import controladores.HibernateUtil;
 import entities.JuegoEntity;
 import entities.JugadorEntity;
 import entities.PartidaEntity;
+import enumeraciones.EstadoPartida;
 import excepciones.ComunicacionException;
 import negocio.Juego;
 import negocio.Jugador;
@@ -29,8 +30,37 @@ private PartidaDAO() {}
 		return instancia;
 	}
 	
-	public ArrayList<Partida> getPartidasByApodo(String apodo) {
-		return null; //TODO
+	public ArrayList<Partida> getPartidasByApodo(String apodo) throws ComunicacionException {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		@SuppressWarnings("unchecked")
+		ArrayList<PartidaEntity> pes = (ArrayList<PartidaEntity>) session.createQuery("from PartidaEntity where jugador1.apodo = ? or jugador2.apodo = ? or jugador3.apodo = ? or jugador4.apodo = ?")
+			.setParameter(0, apodo)
+			.setParameter(1, apodo)
+			.setParameter(2, apodo)
+			.setParameter(3, apodo)
+			.list();
+		if (pes == null) throw new ComunicacionException("No se encontraron partidas");
+		ArrayList<Partida> ps = new ArrayList<Partida>();
+		for (PartidaEntity pe : pes) ps.add(PartidaDAO.getInstancia().toNegocio(pe));
+		return ps;
+	}
+	
+	public ArrayList<Partida> getPartidasEnCursoByApodo(String apodo) throws ComunicacionException {
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		@SuppressWarnings("unchecked")
+		ArrayList<PartidaEntity> pes = (ArrayList<PartidaEntity>) session.createQuery("from PartidaEntity where (jugador1.apodo = ? or jugador2.apodo = ? or jugador3.apodo = ? or jugador4.apodo = ?) and estado = ?")
+				.setParameter(0, apodo)
+				.setParameter(1, apodo)
+				.setParameter(2, apodo)
+				.setParameter(3, apodo)
+				.setParameter(4, EstadoPartida.EnCurso)
+				.list();
+		if (pes == null) throw new ComunicacionException("No se encontraron partidas");
+		ArrayList<Partida> ps = new ArrayList<Partida>();
+		for (PartidaEntity pe : pes) ps.add(PartidaDAO.getInstancia().toNegocio(pe));
+		return ps;
 	}
 	
 	public Partida getPartidaById(int id) throws ComunicacionException {

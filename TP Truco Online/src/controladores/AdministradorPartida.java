@@ -129,7 +129,6 @@ public class AdministradorPartida {
 	}
 
 	public PartidaPantallaDTO mostrarPartida(AccionDTO ad) throws ComunicacionException, LoggedInException{
-		//TODO agregar de quien es el turno actual.
 		if (AdministradorJugador.getInstancia().isLoggedIn(ad.getJugador())) {
 			Jugador j = AdministradorJugador.getInstancia().buscarJugador(ad.getJugador().getApodo());
 			Partida p = this.buscarPartida(ad.getPartida().getId());
@@ -149,7 +148,6 @@ public class AdministradorPartida {
 		}
 		return null;
 	}
-
 	
 	private Partida buscarPartida(int partida) throws ComunicacionException {
 		return PartidaDAO.getInstancia().getPartidaById(partida);
@@ -157,5 +155,13 @@ public class AdministradorPartida {
 		for (Partida p:this.partidas) if(p.getId()==partida) return p;
 		throw new ComunicacionException("Partida no encontrada");
 		*/
+	}
+	
+	public ArrayList<Partida> buscarPartidasJugador(String apodo) throws ComunicacionException {
+		return PartidaDAO.getInstancia().getPartidasByApodo(apodo);
+	}
+	
+	public ArrayList<Partida> buscarPartidasEnCursoJugador(String apodo) throws ComunicacionException {
+		return PartidaDAO.getInstancia().getPartidasEnCursoByApodo(apodo);
 	}
 }
