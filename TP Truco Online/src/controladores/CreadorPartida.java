@@ -25,12 +25,15 @@ public class CreadorPartida {
 	}
 	
 	public void agregarJugadorIndividual(Jugador j) throws ComunicacionException {
+		for (Jugador jug : jugadoresDisponibles) if (jug.getApodo().equals(j.getApodo())) throw new ComunicacionException(j.getApodo() + " ya esta en lista de espera"); 
 		this.jugadoresDisponibles.add(j);
 		this.crearPartidasIndividuales();
 	}
 	
 	public void agregarPareja(Jugador j1, Jugador j2) throws ComunicacionException {
 		Pareja p = new Pareja(j1, j2);
+		for (Pareja par : parejasDisponibles) if ((p.getJugador1().getApodo().equals(par.getJugador1().getApodo()) || p.getJugador1().getApodo().equals(par.getJugador2().getApodo())) && (p.getJugador2().getApodo().equals(par.getJugador1().getApodo()) || p.getJugador2().getApodo().equals(par.getJugador2().getApodo())))
+				throw new ComunicacionException("La pareja ya esta en lista de espera");
 		this.parejasDisponibles.add(p);
 		this.crearPartidasPareja();
 	}

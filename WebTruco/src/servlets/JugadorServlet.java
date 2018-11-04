@@ -1,4 +1,4 @@
-package servlet;
+package servlets;
 
 import java.io.IOException;
 
@@ -15,8 +15,8 @@ import dto.JugadorDTO;
 import excepciones.ComunicacionException;
 import excepciones.LoggedInException;
 
-@WebServlet("/servlet")
-public class servlet  extends HttpServlet {
+@WebServlet("/Jugador")
+public class JugadorServlet  extends HttpServlet {
 	private static final long serialVersionUID = 8193537298020076840L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -58,10 +58,24 @@ public class servlet  extends HttpServlet {
 			else if ("logout".equals(action)) {
 				HttpSession session = request.getSession();
 				JugadorDTO jDTO = (JugadorDTO)session.getAttribute("jugador");
-				String sessionId = session.getId();
 				if (jDTO != null) {
 					bd.logout(jDTO);
 					request.setAttribute("error", "Usuario desconectado correctamente");
+				}
+			}
+			else if ("jugarSolo".equals(action)) {
+				HttpSession session = request.getSession();
+				JugadorDTO jDTO = (JugadorDTO)session.getAttribute("jugador");
+				jspPage = "mensaje.jsp";
+				if (jDTO != null) {
+					try {
+						bd.jugarLibreIndividual(jDTO);
+						request.setAttribute("mensaje", "Fuiste agregado a la lista de espera");
+					}
+					catch (ComunicacionException e) {
+						request.setAttribute("mensaje", "Ya estabas en la lista de espera");
+					}
+					
 				}
 			}
 

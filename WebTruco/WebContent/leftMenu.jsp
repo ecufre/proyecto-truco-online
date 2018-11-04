@@ -1,14 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
 <html>
-<head>
-<meta charset="ISO-8859-1">
-</head>
 <body>
-Opcion 1</br>
-Opcion 2</br>
-Opcion 3</br>
-<a href=servlet?action=logout>Desloguearse</a>
+<table>
+<tr><td onclick='loadDiv("mensajes", "Jugador?action=jugarSolo", null)'>Jugar Solo</td></tr>
+<tr><td>Invitar a alguien</td></tr>
+<tr><td>Invitaciones pendientes</td></tr>
+<tr><td>Ver ranking</td></tr>
+<tr><td>Listar grupos</td></tr>
+<tr><td>Crear grupo</td></tr>
+<tr><td><a href=Jugador?action=logout>Desloguearse</a></td></tr>
+</table>
 </body>
 </html>

@@ -8,8 +8,19 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Jugate un truco</title>
-<script type='text/javascript'>
+</head>
+<body>
+	<div id=top align=center style="min-width: 950px;">
+		<div id=left style="width: 300px; height: 100%; float: left"></div>
+		<div id=center align=center style="min-width: 400px; width: calc(100% - 550px); height: 100%; float: left">
+			<div id=mensajes align=center style="width: 100%"></div>
+			<div id=main align=center style="width: 100%"></div>
+		</div>
+		<div id=right style="width: 250px; height: 100%; float: left"></div>
+	</div>
+	<script type='text/javascript'>
 function loadDiv(divName, url, postInfo) {
+	document.getElementById("mensajes").innerHTML = "";
 	var xmlhttp = new XMLHttpRequest();
 	xmlhttp.onreadystatechange = function() {
 	if (this.readyState == 4 && this.status == 200) {document.getElementById(divName).innerHTML = this.responseText;}};
@@ -18,13 +29,6 @@ function loadDiv(divName, url, postInfo) {
     xmlhttp.send(postInfo);
 }
 </script>
-</head>
-<body>
-	<div id=top align=center style="min-width: 950px;">
-		<div id=left style="width: 300px; height: 100%; float: left"></div>
-		<div id=center align=center style="min-width: 400px; width: calc(100% - 550px); height: 100%; float: left"></div>
-		<div id=right style="width: 250px; height: 100%; float: left"></div>
-	</div>
 <%
 	try {
 		JugadorDTO jugador = (JugadorDTO) request.getSession().getAttribute("jugador");
@@ -33,7 +37,7 @@ function loadDiv(divName, url, postInfo) {
 %>
 <script type='text/javascript'>
 loadDiv("left", "leftMenu.jsp", null);
-loadDiv("center", "main.jsp", null);
+loadDiv("main", "main.jsp", null);
 loadDiv("right", "rightMenu.jsp", null);
 </script>
 <%

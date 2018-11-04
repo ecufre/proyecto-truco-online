@@ -109,8 +109,8 @@ public class Jugador {
 	public void aceptarInvitacion(int idInvitacion) throws ComunicacionException {
 		Invitacion i = this.buscarInvitacion(idInvitacion);
 		if (i != null) {
-			i.aceptar(this);
 			this.invitacionesPendientes.remove(i);
+			i.aceptar(this);	
 		}
 	}
 	

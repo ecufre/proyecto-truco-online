@@ -8,7 +8,7 @@
 </head>
 <body>
 <div align=center>
-<form action=servlet?action=signup method="POST">
+<form action=Jugador?action=signup method="POST">
 <table>
 <tr><td>Nombre de usuario</td><td><input type=text name=apodo></td></tr>
 <tr><td>Contraseña</td><td><input type=password name=password></td></tr>

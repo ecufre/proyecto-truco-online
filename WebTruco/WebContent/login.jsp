@@ -7,7 +7,7 @@
 <title>Logueate al truco</title>
 </head>
 <body>
-	<form action=servlet?action=login method="POST">
+	<form action=Jugador?action=login method="POST">
 		<table>
 			<%
 						String error = (String) request.getAttribute("error");
