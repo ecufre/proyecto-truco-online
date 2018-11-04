@@ -10,7 +10,7 @@
 	<form action=Jugador?action=login method="POST">
 		<table>
 			<%
-						String error = (String) request.getAttribute("error");
+						String error = (String) request.getParameter("error");
 						if (error != null) {
 					%>
 			<tr>

@@ -60,6 +60,7 @@ public class JugadorServlet  extends HttpServlet {
 				JugadorDTO jDTO = (JugadorDTO)session.getAttribute("jugador");
 				if (jDTO != null) {
 					bd.logout(jDTO);
+					session.invalidate();
 					request.setAttribute("error", "Usuario desconectado correctamente");
 				}
 			}
@@ -78,11 +79,31 @@ public class JugadorServlet  extends HttpServlet {
 					
 				}
 			}
+			else if ("jugarDuo".equals(action)) {
+				HttpSession session = request.getSession();
+				JugadorDTO jDTO = (JugadorDTO)session.getAttribute("jugador");
+				if (jDTO != null) {
+					if (request.getParameter("invitar").equals("false")) {
+						jspPage = "invite.jsp";
+						JugadorDTO jugador = bd.buscarJugadorDTO(request.getParameter("apodo"));
+						request.setAttribute("invitado", jugador);
+						request.setAttribute("buscado", true);
+					}
+					else {
+						bd.jugarLibrePareja(jDTO, request.getParameter("apodo"));
+						jspPage = "mensaje.jsp";
+						request.setAttribute("mensaje", "Invitacion enviada");
+					}
+				}
+			}
 
 		} catch (ComunicacionException e) {
-			request.setAttribute("error", e.getMessage());
+			jspPage = "mensaje.jsp";
+			request.setAttribute("mensaje", e.getMessage());
+			response.setStatus(599);
 		} catch (LoggedInException e) {
 			request.setAttribute("error", e.getMessage());
+			response.setStatus(598);
 		}
 		RequestDispatcher rd = request.getRequestDispatcher(jspPage);
 		rd.forward(request, response);
