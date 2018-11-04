@@ -4,9 +4,11 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
 </head>
 <body>
-Algo
+Opcion 1</br>
+Opcion 2</br>
+Opcion 3</br>
+<a href=servlet?action=logout>Desloguearse</a>
 </body>
 </html>

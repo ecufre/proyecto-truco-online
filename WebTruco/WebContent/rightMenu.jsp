@@ -7,6 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-Algo
+Partida 1</br>
+Partida 2</br>
+Partida 3</br>
 </body>
 </html>
