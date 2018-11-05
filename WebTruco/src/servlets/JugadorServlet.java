@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import delegado.BusinessDelegate;
+import dto.InvitacionDTO;
 import dto.JugadorDTO;
 import excepciones.ComunicacionException;
 import excepciones.LoggedInException;
@@ -20,7 +21,7 @@ public class JugadorServlet  extends HttpServlet {
 	private static final long serialVersionUID = 8193537298020076840L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String jspPage = "/index.jsp";
+		String jspPage = "index.jsp";
 		try {
 			String action = request.getParameter("action");
 			BusinessDelegate bd = BusinessDelegate.getInstance();
@@ -32,7 +33,7 @@ public class JugadorServlet  extends HttpServlet {
 
 			if ("default".equals(action))
 			{
-				jspPage = "/index.jsp";
+				jspPage = "index.jsp";
 			}
 			else if ("login".equals(action)) {
 				HttpSession session = request.getSession();
@@ -41,6 +42,7 @@ public class JugadorServlet  extends HttpServlet {
 				String password = request.getParameter("password");
 				JugadorDTO jDTO = new JugadorDTO(apodo, "", password, sessionId);
 				bd.login(jDTO);
+				jDTO.setPassword(null);
 				session.setAttribute("jugador", jDTO);
 			}
 			else if ("signup".equals(action)) {
@@ -84,8 +86,8 @@ public class JugadorServlet  extends HttpServlet {
 				JugadorDTO jDTO = (JugadorDTO)session.getAttribute("jugador");
 				if (jDTO != null) {
 					if (request.getParameter("invitar").equals("false")) {
-						jspPage = "invite.jsp";
 						JugadorDTO jugador = bd.buscarJugadorDTO(request.getParameter("apodo"));
+						jspPage = "invite.jsp";
 						request.setAttribute("invitado", jugador);
 						request.setAttribute("buscado", true);
 					}
@@ -96,7 +98,36 @@ public class JugadorServlet  extends HttpServlet {
 					}
 				}
 			}
-
+			else if ("listInvites".equals(action)) {
+				HttpSession session = request.getSession();
+				JugadorDTO jDTO = (JugadorDTO)session.getAttribute("jugador");
+				if (jDTO != null) {
+					request.setAttribute("invitacionesPendientes", bd.listarInvitacionesPendientes(jDTO));
+					jspPage = "invites.jsp";
+				}
+			}
+			else if ("aceptarInvitacion".equals(action)) {
+				HttpSession session = request.getSession();
+				JugadorDTO jDTO = (JugadorDTO)session.getAttribute("jugador");
+				if (jDTO != null) {
+					JugadorDTO rtte = new JugadorDTO(request.getParameter("rtte"));
+					InvitacionDTO iDTO = new InvitacionDTO(rtte, Integer.valueOf(request.getParameter("idInvitacion")));
+					bd.aceptarInvitacion(jDTO, iDTO);
+					request.setAttribute("invitacionesPendientes", bd.listarInvitacionesPendientes(jDTO));
+					jspPage = "invites.jsp";
+				}
+			}
+			else if ("rechazarInvitacion".equals(action)) {
+				HttpSession session = request.getSession();
+				JugadorDTO jDTO = (JugadorDTO)session.getAttribute("jugador");
+				if (jDTO != null) {
+					JugadorDTO rtte = new JugadorDTO(request.getParameter("rtte"));
+					InvitacionDTO iDTO = new InvitacionDTO(rtte, Integer.valueOf(request.getParameter("idInvitacion")));
+					bd.rechazarInvitacion(jDTO, iDTO);
+					request.setAttribute("invitacionesPendientes", bd.listarInvitacionesPendientes(jDTO));
+					jspPage = "invites.jsp";
+				}
+			}
 		} catch (ComunicacionException e) {
 			jspPage = "mensaje.jsp";
 			request.setAttribute("mensaje", e.getMessage());

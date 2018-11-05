@@ -3,6 +3,8 @@ package dto;
 import java.io.Serializable;
 
 public class CategoriaDTO implements Serializable {
+
+	private static final long serialVersionUID = 1747311364662476520L;
 	private Integer partidasJugadas;
 	private Integer puntosTotales;
 	private Float promedio;

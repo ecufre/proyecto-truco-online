@@ -11,7 +11,7 @@
 		<table>
 			<%
 						String error = (String) request.getParameter("error");
-						if (error != null) {
+						if (error != null && ! error.equals("null")) {
 					%>
 			<tr>
 				<td colspan=2 style="text-align: center; color: red"><b><%=error%></b></td>

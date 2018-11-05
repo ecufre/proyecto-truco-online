@@ -2,6 +2,7 @@ package dto;
 import java.io.Serializable;
 
 public class ParejaDTO implements Serializable {
+	private static final long serialVersionUID = 31696896084308469L;
 	private Integer id;
 	private JugadorDTO jugador1;
 	private JugadorDTO jugador2;

@@ -10,15 +10,7 @@
 <title>Jugate un truco</title>
 </head>
 <body>
-	<div id=main align=center style="min-width: 950px;">
-		<div id=left style="width: 300px; height: 100%; float: left"></div>
-		<div id=center align=center style="min-width: 400px; width: calc(100% - 550px); height: 100%; float: left">
-			<div id=mensajes align=center style="width: 100%"></div>
-			<div id=principal align=center style="width: 100%"></div>
-		</div>
-		<div id=right style="width: 250px; height: 100%; float: left"></div>
-	</div>
-	<script type='text/javascript'>
+<script type='text/javascript'>
 function loadDiv(divName, url, postInfo) {
 	document.getElementById("mensajes").innerHTML = "";
 	var xmlhttp = new XMLHttpRequest();
@@ -31,6 +23,15 @@ function loadDiv(divName, url, postInfo) {
     xmlhttp.send(postInfo);
 }
 </script>
+	<div id=main align=center style="min-width: 950px;">
+		<div id=left style="width: 300px; height: 100%; float: left"></div>
+		<div id=center align=center style="min-width: 400px; width: calc(100% - 550px); height: 100%; float: left">
+			<div id=mensajes align=center style="width: 100%"></div>
+			<div id=principal align=center style="width: 100%"></div>
+		</div>
+		<div id=right style="width: 250px; height: 100%; float: left"></div>
+	</div>
+	
 <%
 	try {
 		JugadorDTO jugador = (JugadorDTO) request.getSession().getAttribute("jugador");
