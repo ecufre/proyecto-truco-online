@@ -13,7 +13,7 @@ tr.lMenu:hover { background-color: red };
 <tr class=lMenu><td>Ver ranking</td></tr>
 <tr class=lMenu><td>Listar grupos</td></tr>
 <tr class=lMenu><td>Crear grupo</td></tr>
-<tr class=lMenu><td><a href=Jugador?action=logout>Desloguearse</a></td></tr>
+<tr class=lMenu><td onclick="window.location.href = 'Jugador?action=logout'">Desloguearse</td></tr>
 </table>
 </body>
 </html>

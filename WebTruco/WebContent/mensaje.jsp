@@ -7,5 +7,6 @@
 </head>
 <body>
 <b style="text-align: center; color: red"><%=request.getAttribute("mensaje") %></b>
+<hr />
 </body>
 </html>

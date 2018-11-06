@@ -40,10 +40,12 @@ public class JugadorServlet  extends HttpServlet {
 				String sessionId = session.getId();
 				String apodo = request.getParameter("apodo");
 				String password = request.getParameter("password");
-				JugadorDTO jDTO = new JugadorDTO(apodo, "", password, sessionId);
-				bd.login(jDTO);
-				jDTO.setPassword(null);
-				session.setAttribute("jugador", jDTO);
+				if (apodo != null && password != null) {
+					JugadorDTO jDTO = new JugadorDTO(apodo, "", password, sessionId);
+					bd.login(jDTO);
+					jDTO.setPassword(null);
+					session.setAttribute("jugador", jDTO);					
+				}
 			}
 			else if ("signup".equals(action)) {
 				HttpSession session = request.getSession();
@@ -133,8 +135,9 @@ public class JugadorServlet  extends HttpServlet {
 			request.setAttribute("mensaje", e.getMessage());
 			response.setStatus(599);
 		} catch (LoggedInException e) {
+			jspPage = "login.jsp";
 			request.setAttribute("error", e.getMessage());
-			response.setStatus(598);
+			response.setStatus(401);
 		}
 		RequestDispatcher rd = request.getRequestDispatcher(jspPage);
 		rd.forward(request, response);

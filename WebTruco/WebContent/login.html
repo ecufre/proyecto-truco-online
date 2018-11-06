@@ -1,14 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"   
-
-    %>
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
       <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link rel="shortcut icon" href="assets/img/icono.ico">
-    <title>Truco</title>
+    <title>Invitro</title>
 	<!-- BOOTSTRAP STYLES-->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
      <!-- FONTAWESOME STYLES-->
@@ -27,35 +23,33 @@
 
         
   <body class="text-center">
-  
  
     <div class="content col-lg-8">
 	
-	<form class="form-signin" id="idLogIn" method="post" action="Jugador?action=login" autocomplete="off">
+	<form class="form-signin">
       <img class="mb-4" src="assets/img/logo.png" alt="" width="190" height="72">
      <br>
 	<br>
 	
-      <input type="input" id="apodo" name="apodo" class="form-control" placeholder="Usuario" required autofocus>
+      <input type="input" id="inputUsuario" class="form-control" placeholder="Usuario" required autofocus>
 	  <br>
-      <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
-     
+      <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
 	  <br>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
-      
-      <a href="singup.jsp">Registrarse</a>
-     
-      
+        
+	  <p class="mt-5 mb-3 text-muted">-</p>
+    </form>
+  
     </div>
  
-     <!-- /. WRAPPER class="center-block"  -->
+     <!-- /. WRAPPER class="center-block"  <img src="assets/img/logo.png" /> -->
     <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
     <!-- JQUERY SCRIPTS -->
     <script src="assets/js/jquery-1.12.4.js"></script>
 	<script src="assets/js/jquery-ui.js"></script>
       <!-- BOOTSTRAP SCRIPTS -->
     <script src="assets/js/bootstrap.min.js"></script>
-	<script src="assets/js/misJs/accion.js">	</script>
+	
  
 </body>
 </html>
