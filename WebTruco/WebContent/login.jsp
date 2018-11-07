@@ -42,7 +42,7 @@
 	</div>
 	<% } %>
 	<form class="form-signin" id="idLogIn" method="post" action="Jugador?action=login" autocomplete="off">
-      <img class="mb-4" src="assets/img/logo.png" alt="" width="190" height="72">
+      <img class="mb-4" src="assets/img/logo.png" alt="" width="320" height="170">
      <br>
 	<br>
 	
@@ -51,11 +51,9 @@
       <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
      
 	  <br>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
-      
-      <a href="signup.jsp">Registrarse</a>
-     
-      
+      <button class="btn btn-lg btn-login btn-block" type="submit">Ingresar</button>
+      <br>
+      <button class="btn btn-lg btn-login btn-block" onclick="window.location.href = 'signup.jsp'">Registrarse</button>
     </div>
  
      <!-- /. WRAPPER class="center-block"  -->
