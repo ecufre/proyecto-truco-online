@@ -217,9 +217,9 @@ public class BusinessDelegate {
 			
 		}
 		
-		public ArrayList<JugadorDTO> listarTopTen(Integer categoria) throws ComunicacionException{
+		public ArrayList<JugadorDTO> listarRanking() throws ComunicacionException{
 			try {
-				return ir.listarTopTen(categoria);
+				return ir.listarRanking();
 			} catch (RemoteException e) {
 				throw new ComunicacionException("Error en las comunicaciones");	
 			}

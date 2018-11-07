@@ -66,11 +66,11 @@ public class JugadorDAO {
 		session.close();
 	}
 	
-	public ArrayList<Jugador> getTopTenJugadores(int categoria) throws ComunicacionException{
+	public ArrayList<Jugador> getRanking() throws ComunicacionException{
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		@SuppressWarnings("unchecked")
-		ArrayList<JugadorEntity> jes = (ArrayList<JugadorEntity>) session.createQuery("from JugadorEntity ORDER BY (puntosTotales / partidasJugadas) DESC").setMaxResults(10).list();
+		ArrayList<JugadorEntity> jes = (ArrayList<JugadorEntity>) session.createQuery("from JugadorEntity ORDER BY (puntosTotales / partidasJugadas) DESC").list();
 		if (jes == null) throw new ComunicacionException("No se pudo encontrar el ranking");
 		ArrayList<Jugador> js = new ArrayList<Jugador>();
 		for (JugadorEntity je : jes) {

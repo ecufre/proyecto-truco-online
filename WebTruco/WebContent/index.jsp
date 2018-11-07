@@ -18,6 +18,7 @@
 <!-- GOOGLE FONTS-->
 <link href='http://fonts.googleapis.com/css?family=Open+Sans'
 	rel='stylesheet' type='text/css' />
+	
 <script src=include.js></script>
 </head>
 <body>
@@ -54,16 +55,13 @@
 		<nav class="navbar-default navbar-side" role="navigation">
 			<div class="sidebar-collapse">
 				<ul class="nav" id="main-menu">
-					<li class="text-center"><img src="assets/img/find_user.png"
-						class="user-image img-responsive" /></li>
-
 					<li><a onClick='loadDiv("mensajes", "Jugador?action=jugarSolo", null)'><i
 							class="fa fa-square-o fa-3x"></i>Jugar Solo</a></li>
 					<li><a onClick='loadDiv("principal", "invite.jsp", null)'><i class="fa fa-square-o fa-3x"></i>Invitar
 							a Alguien</a></li>
 					<li><a onclick='loadDiv("principal", "Jugador?action=listInvites", null)'><i class="fa fa-square-o fa-3x"></i>Inivtaciones
 							Pendientes</a></li>
-					<li><a href="blank.html"><i class="fa fa-square-o fa-3x"></i>Ver
+					<li><a onclick='loadDiv("principal", "Jugador?action=listarRanking", null)'><i class="fa fa-square-o fa-3x"></i>Ver
 							Ranking</a></li>
 					<li><a href="blank.html"><i class="fa fa-square-o fa-3x"></i>Listar
 							Grupos</a></li>
@@ -102,5 +100,9 @@
 	<!-- CUSTOM SCRIPTS -->
 	<script src="assets/js/custom.js"></script>
 	<script src="assets/js/misJs/accion.js"></script>
+	<!-- DATA TABLE SCRIPTS -->
+	<script src="assets/js/dataTables/jquery.dataTables.js"></script>
+	<script src="assets/js/dataTables/dataTables.bootstrap.js"></script>
+	
 </body>
 </html>

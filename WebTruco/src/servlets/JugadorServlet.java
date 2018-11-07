@@ -130,6 +130,14 @@ public class JugadorServlet  extends HttpServlet {
 					jspPage = "invites.jsp";
 				}
 			}
+			else if ("listarRanking".equals(action)) {
+				HttpSession session = request.getSession();
+				JugadorDTO jDTO = (JugadorDTO)session.getAttribute("jugador");
+				if (jDTO != null) {
+					request.setAttribute("ranking", bd.listarRanking());
+					jspPage = "ranking.jsp";
+				}
+			}
 		} catch (ComunicacionException e) {
 			jspPage = "mensaje.jsp";
 			request.setAttribute("mensaje", e.getMessage());

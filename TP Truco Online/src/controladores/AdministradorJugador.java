@@ -145,10 +145,10 @@ public class AdministradorJugador {
 		}
 	}
 	
-	public ArrayList<JugadorDTO> listarTopTen(Integer categoria) throws ComunicacionException {
+	public ArrayList<JugadorDTO> listarRanking() throws ComunicacionException {
 		LocalDateTime now = LocalDateTime.now();
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");  
-		System.out.println(dtf.format(now) + " - Listando Top 10 de jugadores de la categoria: " + String.valueOf(categoria));
-		return Jugador.buscarTop10(categoria);
+		System.out.println(dtf.format(now) + " - Listando ranking de jugadores");
+		return Jugador.listarRanking();
 	}
 }

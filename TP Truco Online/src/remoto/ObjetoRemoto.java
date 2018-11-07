@@ -70,8 +70,8 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfaceRemota
 	}
 
 	@Override
-	public ArrayList<JugadorDTO> listarTopTen(Integer categoria) throws RemoteException, ComunicacionException {
-		return AdministradorJugador.getInstancia().listarTopTen(categoria);
+	public ArrayList<JugadorDTO> listarRanking() throws RemoteException, ComunicacionException {
+		return AdministradorJugador.getInstancia().listarRanking();
 	}
 
 	@Override

@@ -10,6 +10,7 @@ import dto.JugadorDTO;
 import dto.ParejaDTO;
 import dto.PartidaDTO;
 import enumeraciones.EstadoPartida;
+import enumeraciones.TipoCategoria;
 import excepciones.ComunicacionException;
 
 public class Grupo {
@@ -118,7 +119,7 @@ public class Grupo {
 						jDTO = j.toDTO();
 						if (i % 2 == 0) pts = puntosImpar; 
 						else pts = puntosPar;
-						jDTO.setCategoria(new CategoriaDTO(1, pts, (float)pts));
+						jDTO.setCategoria(new CategoriaDTO(1, pts, (float)pts, j.getCategoria().calcularCategoria()));
 						ranking.add(jDTO);
 					} else {
 						int pj = j.getCategoria().getPartidasJugadas() + 1;
@@ -126,7 +127,7 @@ public class Grupo {
 						if (i % 2 == 0) pts = pts + puntosImpar; 
 						else pts = pts + puntosPar;
 						float prom = pts / pj;
-						CategoriaDTO cat = new CategoriaDTO(pj, pts, prom);
+						CategoriaDTO cat = new CategoriaDTO(pj, pts, prom, j.getCategoria().calcularCategoria());
 						jDTO.setCategoria(cat);						
 					}
 				}

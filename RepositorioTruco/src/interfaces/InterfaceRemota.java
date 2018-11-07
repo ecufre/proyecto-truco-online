@@ -36,7 +36,7 @@ public interface InterfaceRemota extends Remote {
 
 	public void rechazarInvitacion(JugadorDTO jugador, InvitacionDTO invitacion) throws RemoteException,  LoggedInException, ComunicacionException;
 
-	public ArrayList<JugadorDTO> listarTopTen(Integer categoria) throws RemoteException,  ComunicacionException;
+	public ArrayList<JugadorDTO> listarRanking() throws RemoteException,  ComunicacionException;
 
 	public JugadorDTO buscarJugadorDTO(String apodo) throws RemoteException,  ComunicacionException;
 

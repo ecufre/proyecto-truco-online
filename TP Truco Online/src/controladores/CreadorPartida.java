@@ -45,7 +45,7 @@ public class CreadorPartida {
 		ArrayList<Pareja> Cat3 = new ArrayList<Pareja>();
 		ArrayList<Pareja> Cat4 = new ArrayList<Pareja>();
 		for (Pareja p : this.parejasDisponibles) {
-			switch (p.calcularCategoria()) {
+			switch (p.calcularCategoria().getId()) {
 			case 1:
 				Cat1.add(p);
 				break;
@@ -105,7 +105,7 @@ public class CreadorPartida {
 		ArrayList<Jugador> Cat3 = new ArrayList<Jugador>();
 		ArrayList<Jugador> Cat4 = new ArrayList<Jugador>();
 		for (Jugador j : this.jugadoresDisponibles) {
-			switch (j.getCategoria().calcularCategoria()) {
+			switch (j.getCategoria().calcularCategoria().getId()) {
 			case 1:
 				Cat1.add(j);
 				break;

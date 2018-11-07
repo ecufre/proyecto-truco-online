@@ -161,9 +161,9 @@ public class Jugador {
 				+ loggedSession + "]";
 	}
   
-	public static ArrayList<JugadorDTO> buscarTop10(int categoria) throws ComunicacionException {
+	public static ArrayList<JugadorDTO> listarRanking() throws ComunicacionException {
 		ArrayList<JugadorDTO> ranking = new ArrayList<JugadorDTO>();
-		for (Jugador j : JugadorDAO.getInstancia().getTopTenJugadores(categoria)) {
+		for (Jugador j : JugadorDAO.getInstancia().getRanking()) {
 			ranking.add(j.toDTO_reducido());
 		}
 		return ranking;

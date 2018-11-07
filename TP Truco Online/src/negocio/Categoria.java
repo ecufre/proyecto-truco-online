@@ -1,6 +1,7 @@
 package negocio;
 
 import dto.CategoriaDTO;
+import enumeraciones.TipoCategoria;
 
 public class Categoria {
 	private int partidasJugadas;
@@ -31,17 +32,17 @@ public class Categoria {
 		this.partidasJugadas++;
 		this.puntosTotales = this.puntosTotales + puntos;
 	}
-	public int calcularCategoria() {
+	public TipoCategoria calcularCategoria() {
 		//TODO Categorias definidas como int entre 1 y 4. Tendria que armar un Enum
 		float promedio = this.calcularPromedio();
 		if (this.partidasJugadas > 1000 && this.puntosTotales > 8000 && promedio > 8) {
-			return 4;
+			return TipoCategoria.Master;
 		} else if (this.partidasJugadas > 500 && this.puntosTotales > 3000 && promedio > 6) {
-			return 3;
+			return TipoCategoria.Experto;
 		} else if (this.partidasJugadas > 100 && this.puntosTotales > 500 && promedio > 5) {
-			return 2;
+			return TipoCategoria.Calificado;
 		} else {
-			return 1;
+			return TipoCategoria.Novato;
 		}
 	}
 	
@@ -51,6 +52,6 @@ public class Categoria {
 	}
 	
 	public CategoriaDTO toDTO() {
-		return new CategoriaDTO(this.partidasJugadas, this.puntosTotales, this.calcularPromedio());
+		return new CategoriaDTO(this.partidasJugadas, this.puntosTotales, this.calcularPromedio(), this.calcularCategoria());
 	}
 }
