@@ -19,7 +19,7 @@
 <link href='http://fonts.googleapis.com/css?family=Open+Sans'
 	rel='stylesheet' type='text/css' />
 	
-<script src=include.js></script>
+<script src=assets/js/include.js></script>
 </head>
 <body>
 	<%
@@ -55,19 +55,15 @@
 		<nav class="navbar-default navbar-side" role="navigation">
 			<div class="sidebar-collapse">
 				<ul class="nav" id="main-menu">
-					<li><a onClick='loadDiv("mensajes", "Jugador?action=jugarSolo", null)'><i
-							class="fa fa-square-o fa-3x"></i>Jugar Solo</a></li>
-					<li><a onClick='loadDiv("principal", "invite.jsp", null)'><i class="fa fa-square-o fa-3x"></i>Invitar
+					<li><a onClick='loadDiv("mensajes", "Jugador?action=jugarSolo", null)' data-toggle="collapse" data-target=".sidebar-collapse.in"><i
+							class="fa fa-user fa-2x"></i>Jugar Solo</a></li>
+					<li><a onClick='loadDiv("principal", "invite.jsp", null)' data-toggle="collapse" data-target=".sidebar-collapse.in"><i class="fa fa-user-plus fa-2x"></i>Invitar
 							a Alguien</a></li>
-					<li><a onclick='loadDiv("principal", "Jugador?action=listInvites", null)'><i class="fa fa-square-o fa-3x"></i>Inivtaciones
+					<li><a onclick='loadDiv("principal", "Jugador?action=listInvites", null)' data-toggle="collapse" data-target=".sidebar-collapse.in"><i class="fa fa-envelope fa-2x"></i>Inivtaciones
 							Pendientes</a></li>
-					<li><a onclick='loadDiv("principal", "Jugador?action=listarRanking", null)'><i class="fa fa-square-o fa-3x"></i>Ver
+					<li><a onclick='loadDiv("principal", "Jugador?action=listarRanking", null)' data-toggle="collapse" data-target=".sidebar-collapse.in"><i class="fa fa-sort-amount-desc fa-2x"></i>Ver
 							Ranking</a></li>
-					<li><a href="blank.html"><i class="fa fa-square-o fa-3x"></i>Listar
-							Grupos</a></li>
-					<li><a href="blank.html"><i class="fa fa-square-o fa-3x"></i>Crear
-							Grupo</a></li>
-
+					<li><a href="blank.html"><i class="fa fa-users fa-2x" data-toggle="collapse" data-target=".sidebar-collapse.in"></i>Grupos</a></li>
 				</ul>
 
 			</div>
