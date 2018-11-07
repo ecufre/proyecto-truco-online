@@ -29,8 +29,18 @@
   <body class="text-center">
   
  
-    <div class="content col-lg-8">
 	
+    <div class="content col-lg-8">
+    <% if (request.getAttribute("error") != null || (request.getParameter("error") != null && request.getParameter("error") != "null")) { %>
+    </br>
+    <div class="alert alert-danger fade in alert-dismissible">
+	<a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+  	 	<strong><% 
+  	 	if (request.getAttribute("error") != null) out.print(request.getAttribute("error"));
+  	 	else out.print(request.getParameter("error"));
+  	 	%></strong>
+	</div>
+	<% } %>
 	<form class="form-signin" id="idLogIn" method="post" action="Jugador?action=login" autocomplete="off">
       <img class="mb-4" src="assets/img/logo.png" alt="" width="190" height="72">
      <br>
@@ -43,7 +53,7 @@
 	  <br>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
       
-      <a href="singup.jsp">Registrarse</a>
+      <a href="signup.jsp">Registrarse</a>
      
       
     </div>

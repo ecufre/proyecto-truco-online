@@ -65,6 +65,7 @@ public class JugadorServlet  extends HttpServlet {
 				if (jDTO != null) {
 					bd.logout(jDTO);
 					session.invalidate();
+					jspPage = "login.jsp";
 					request.setAttribute("error", "Usuario desconectado correctamente");
 				}
 			}
