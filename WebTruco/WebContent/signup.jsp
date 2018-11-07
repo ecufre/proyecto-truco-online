@@ -104,6 +104,7 @@
 			if (mail.value == "") {
 				submit.setAttribute("disabled", "disabled");
 			}
+			
 			else {
 				if (re.test(String(mail.value).toLowerCase())) {
 					div.classList.add("has-success");
