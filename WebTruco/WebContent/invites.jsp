@@ -10,11 +10,12 @@
 <html>
 <body>
 <% if (invitaciones.size() > 0) { %>
+</br>
 <table>
 <tr><th>Apodo</th><th>Partidas Jugadas</th><th>Puntos</th><th>Promedio</th><th colspan=2></th></tr>
 <% }
 else { %>
-<b>No tenes invitaciones pendientes.</b>
+</br><b>No tenes invitaciones pendientes.</b>
 <% }
 for (InvitacionDTO i : invitaciones) { %>
 <tr>

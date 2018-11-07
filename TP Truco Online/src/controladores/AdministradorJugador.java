@@ -102,6 +102,7 @@ public class AdministradorJugador {
 	
 	public void jugarLibrePareja(JugadorDTO remitente, String apodoInvitado) throws LoggedInException, ComunicacionException {
 		if (this.isLoggedIn(remitente)) {
+			if (remitente.getApodo().equals(apodoInvitado)) throw new ComunicacionException("No podes invitarte a vos mismo");
 			Jugador j = this.buscarJugador(apodoInvitado);
 			if (j != null) {
 				j.crearInvitacion(this.buscarJugador(remitente.getApodo()));

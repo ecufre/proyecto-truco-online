@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <body>
+</br>
 Buscar Jugador:
 <input <% if (invitado != null) out.print("disabled value=" + invitado.getApodo() + " "); %>type=text id=apodo><input type="button" <% if (invitado != null) out.print("disabled "); %>value="Buscar" onclick='loadDiv("principal", "Jugador?action=jugarDuo", "apodo=" + getElementById("apodo").value + "&invitar=false")'>
 <% if (request.getAttribute("invitado") != null) { %>
