@@ -5,16 +5,17 @@
 <%@ page import="java.util.ArrayList"%>
 
 
-<% 
-ArrayList<InvitacionDTO> invitaciones = (ArrayList<InvitacionDTO>) request.getAttribute("invitacionesPendientes");
-JugadorDTO invitado = (JugadorDTO)request.getAttribute("invitado");
+<%
+	ArrayList<InvitacionDTO> invitaciones = (ArrayList<InvitacionDTO>) request
+			.getAttribute("invitacionesPendientes");
+	JugadorDTO invitado = (JugadorDTO) request.getAttribute("invitado");
 %>
 <!DOCTYPE html>
 <html>
 <body>
 	<br>
-	<div class="row">
-		<div class="col-md-12">
+	<div class="col-md-11 center-block" style="float: none;">
+		<div class="row">
 			<!--   Basic Table  -->
 			<div class="panel panel-default">
 				<div class="panel-body">
@@ -24,7 +25,7 @@ JugadorDTO invitado = (JugadorDTO)request.getAttribute("invitado");
 								<tr>
 									<th>Apodo</th>
 									<th>Clasificacion</th>
-									<th></th>
+									<th style="width:180px;"></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -36,35 +37,36 @@ JugadorDTO invitado = (JugadorDTO)request.getAttribute("invitado");
 									pendientes.</td>
 								<%
 									} else {
-									for (InvitacionDTO i : invitaciones) {
+										for (InvitacionDTO i : invitaciones) {
 								%>
 								<tr>
 									<td><%=i.getRemitente().getApodo()%></td>
 									<td><%=i.getRemitente().getCategoria().getCategoria().getNombre()%></td>
 									<td><button
-											onclick='loadDiv("principal", "Jugador?action=aceptarInvitacion", "idInvitacion=<%=i.getId()%>&rtte=<%=i.getRemitente().getApodo()%>")'>Aceptar
+											onclick='loadDiv("principal", "Jugador?action=aceptarInvitacion", "idInvitacion=<%=i.getId()%>&rtte=<%=i.getRemitente().getApodo()%>")' style="width:80px;">Aceptar
 										</button>
 										<button
-											onclick='loadDiv("principal", "Jugador?action=rechazarInvitacion", "idInvitacion=<%=i.getId()%>&rtte=<%=i.getRemitente().getApodo()%>")'>Rechazar</button></td>
+											onclick='loadDiv("principal", "Jugador?action=rechazarInvitacion", "idInvitacion=<%=i.getId()%>&rtte=<%=i.getRemitente().getApodo()%>")' style="width:80px;">Rechazar</button></td>
 								</tr>
 								<%
-									}}
+									}
+									}
 								%>
 							</tbody>
 						</table>
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div class="panel panel-default">
+			<div class="row">
 				<div class="panel-body">
-					<form role="form">
-						<div class="form-group">
-							<label>Text Input with Placeholder</label> <input
-								class="form-control" placeholder="PLease Enter Keyword" />
-						</div>
-					</form>
+					<div class="input-group">
+						<input class="form-control" placeholder="Invitar jugador"
+							id="apodo"> <span class="form-group input-group-btn">
+							<button class="btn btn-default" type="button"
+								onclick='loadDiv("inviteForm", "Jugador?action=jugarDuo", "apodo=" + getElementById("apodo").value + "&invitar=false")' style="width:100px;">Buscar</button>
+						</span>
+					</div>
+					<div class="input-group" id="inviteForm"></div>
 				</div>
 			</div>
 		</div>
