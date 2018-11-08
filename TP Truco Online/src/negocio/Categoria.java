@@ -39,7 +39,7 @@ public class Categoria {
 			return TipoCategoria.Master;
 		} else if (this.partidasJugadas > 500 && this.puntosTotales > 3000 && promedio >= 6) {
 			return TipoCategoria.Experto;
-		} else if (this.partidasJugadas > 100 && this.puntosTotales > 500 && promedio >= 5) {
+		} else if (this.partidasJugadas > 100 && this.puntosTotales > 500 && promedio > 5) {
 			return TipoCategoria.Calificado;
 		} else {
 			return TipoCategoria.Novato;
@@ -47,7 +47,7 @@ public class Categoria {
 	}
 	
 	private float calcularPromedio() {
-		if (this.partidasJugadas > 0) return ((float)(this.puntosTotales) / this.partidasJugadas);
+		if (this.partidasJugadas > 0) return (this.puntosTotales / this.partidasJugadas);
 		else return 0;
 	}
 	
