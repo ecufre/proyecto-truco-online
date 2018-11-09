@@ -6,7 +6,7 @@
 
 <br>
 <div class="row">
-	<div class="col-md-12">
+	<div class="col-md">
 		<!-- Form Elements -->
 		<div class="panel panel-default">
 			<div class="panel-heading">Crear un nuevo grupo</div>
@@ -22,7 +22,7 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-md-12">
+	<div class="col-md">
 		<div class="panel panel-default">
 			<div class="panel-heading">Mis grupos</div>
 			<div class="panel-body">

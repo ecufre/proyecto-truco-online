@@ -95,7 +95,7 @@ public class AdministradorGrupo {
 			if (g != null && g.getAdministrador().getApodo().equals(administrador.getApodo())) {
 				Jugador j1 = AdministradorJugador.getInstancia().buscarJugador(jugador1.getApodo());
 				Jugador j2 = AdministradorJugador.getInstancia().buscarJugador(jugador2.getApodo());
-				if (j1 != null && j2 != null && j1.getApodo().compareTo(j2.getApodo()) != 0 && g.esMiembro(j1) && g.esMiembro(j2)) g.crearPareja(j1, j2);
+				if (j1 != null && j2 != null && ! j1.getApodo().equals(j2.getApodo()) && g.esMiembro(j1) && g.esMiembro(j2)) g.crearPareja(j1, j2);
 				else throw new ComunicacionException("Creacion de pareja invalida");
 				g.grabar();
 				LocalDateTime now = LocalDateTime.now();

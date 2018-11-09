@@ -13,7 +13,7 @@
 			if (request.getAttribute("ranking") != null) {
 		%>
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md">
 				</br>
 				<!-- Advanced Tables -->
 				<div class="panel panel-default">

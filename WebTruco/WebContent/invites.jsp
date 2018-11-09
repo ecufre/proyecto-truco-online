@@ -14,7 +14,7 @@
 <html>
 <body>
 	<br>
-	<div class="col-md-12 center-block" style="float: none;">
+	<div class="col-md center-block" style="float: none;">
 		<div class="row">
 			<!--   Basic Table  -->
 			<div class="panel panel-default">
