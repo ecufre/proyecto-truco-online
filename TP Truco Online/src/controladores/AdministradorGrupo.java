@@ -33,6 +33,10 @@ public class AdministradorGrupo {
 			Integer id = g.crear();
 			if (id != null) {
 				g.setId(id);
+				g.agregarJugador(admin);
+				g.grabar();
+				admin.agregarAGrupo(g);
+				admin.grabar();
 				LocalDateTime now = LocalDateTime.now();
 				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");  
 				System.out.println(dtf.format(now) + " - El jugador " + administrador.getApodo() + " creo el grupo: " + nombreGrupo + "(" + String.valueOf(id) + ")");
@@ -55,6 +59,7 @@ public class AdministradorGrupo {
 					System.out.println(dtf.format(now) + " - El jugador " + administrador.getApodo() + " agrego un jugador (" + apodo + ") al grupo: " + grupo.getNombre() + "(" + String.valueOf(grupo.getId()) + ")");
 				}
 			}
+			else throw new ComunicacionException("No sos el administrador de este grupo");
 		}
 	}
 	
@@ -62,6 +67,7 @@ public class AdministradorGrupo {
 		if (AdministradorJugador.getInstancia().isLoggedIn(administrador)) {
 			Grupo g = this.buscarGrupo(grupo.getId());
 			if (g != null && g.getAdministrador().getApodo().equals(administrador.getApodo())) {
+				if (administrador.getApodo().equals(jugador.getApodo())) throw new ComunicacionException("No se puede eliminar al administrador del grupo");
 				Jugador j = AdministradorJugador.getInstancia().buscarJugador(jugador.getApodo());
 				if (j != null && g.esMiembro(j)) {
 					g.eliminarJugador(j);
@@ -71,6 +77,7 @@ public class AdministradorGrupo {
 					System.out.println(dtf.format(now) + " - El jugador " + administrador.getApodo() + " elimino un jugador (" + jugador.getApodo() + ") al grupo: " + grupo.getNombre() + "(" + String.valueOf(grupo.getId()) + ")");
 				} else throw new ComunicacionException("El jugador no forma parte del grupo");
 			}
+			else throw new ComunicacionException("No sos el administrador de este grupo");
 		}
 	}
 	
@@ -95,6 +102,7 @@ public class AdministradorGrupo {
 				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");  
 				System.out.println(dtf.format(now) + " - El jugador " + administrador.getApodo() + " creo una pareja (" + jugador1.getApodo() + " y " + jugador2.getApodo() + ") en el grupo: " + grupo.getNombre() + "(" + String.valueOf(grupo.getId()) + ")");
 			}
+			else throw new ComunicacionException("No sos el administrador de este grupo");
 		}
 	}
 	
@@ -111,6 +119,7 @@ public class AdministradorGrupo {
 				System.out.println(dtf.format(now) + " - El jugador " + administrador.getApodo() + " creo una partida en el grupo: " + grupo.getNombre() + "(" + String.valueOf(grupo.getId()) + ")");
 				g.grabar();
 			}
+			else throw new ComunicacionException("No sos el administrador de este grupo");
 		}
 	}
 	

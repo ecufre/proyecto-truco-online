@@ -55,7 +55,13 @@ public class JugadorServlet  extends HttpServlet {
 				String sessionId = session.getId();
 				if (apodo != null && password != null && mail != null) {
 					JugadorDTO jDTO = new JugadorDTO(apodo, mail, password, sessionId);
-					bd.crearJugador(jDTO);
+					try {
+						bd.crearJugador(jDTO);
+					}
+					catch (ComunicacionException e) {
+						jspPage = "signup.jsp";
+						request.setAttribute("error", e.getMessage());
+					}
 					session.setAttribute("jugador", jDTO);
 				}
 			}
@@ -77,6 +83,7 @@ public class JugadorServlet  extends HttpServlet {
 					try {
 						bd.jugarLibreIndividual(jDTO);
 						request.setAttribute("mensaje", "Fuiste agregado a la lista de espera");
+						request.setAttribute("ok", "Fuiste agregado a la lista de espera");
 					}
 					catch (ComunicacionException e) {
 						request.setAttribute("mensaje", "Ya estabas en la lista de espera");
@@ -98,6 +105,7 @@ public class JugadorServlet  extends HttpServlet {
 						bd.jugarLibrePareja(jDTO, request.getParameter("apodo"));
 						jspPage = "mensaje.jsp";
 						request.setAttribute("mensaje", "Invitacion enviada");
+						request.setAttribute("ok", "Invitacion enviada");
 					}
 				}
 			}
@@ -137,6 +145,14 @@ public class JugadorServlet  extends HttpServlet {
 				if (jDTO != null) {
 					request.setAttribute("ranking", bd.listarRanking());
 					jspPage = "ranking.jsp";
+				}
+			}
+			else if ("listGroups".equals(action)) {
+				HttpSession session = request.getSession();
+				JugadorDTO jDTO = (JugadorDTO)session.getAttribute("jugador");
+				if (jDTO != null) {
+					request.setAttribute("jugadorDTO", bd.buscarJugadorDTO(jDTO.getApodo()));
+					jspPage = "groups.jsp";
 				}
 			}
 		} catch (ComunicacionException e) {

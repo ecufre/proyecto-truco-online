@@ -42,6 +42,7 @@ public class AdministradorPartida {
 	}
 
 	public Partida crearPartidaCerrada(Jugador j1, Jugador j2, Jugador j3, Jugador j4) throws ComunicacionException {
+		if (j1.getApodo().equals(j2.getApodo()) || j1.getApodo().equals(j3.getApodo()) || j1.getApodo().equals(j4.getApodo()) || j2.getApodo().equals(j3.getApodo()) || j2.getApodo().equals(j4.getApodo()) || j3.getApodo().equals(j4.getApodo())) throw new ComunicacionException("La partida debe tener 4 jugadores distintos");
 		LocalDateTime now = LocalDateTime.now();
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");  
 		System.out.println(dtf.format(now) + " - Creando una nueva partida con los jugadores: " + j1.getApodo() + " y " + j3.getApodo() + " vs " + j2.getApodo() + " y " + j4.getApodo());

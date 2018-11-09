@@ -1,12 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-</head>
-<body>
-<b style="text-align: center; color: red"><%=request.getAttribute("mensaje") %></b>
-<hr />
-</body>
-</html>
+<% if (request.getAttribute("ok") == null) { %>
+<div class="alert alert-danger fade in alert-dismissible">
+<% } else { %>
+<div class="alert alert-success fade in alert-dismissible">
+<% } %>
+	<a href="#" class="close" data-dismiss="alert" aria-label="close"
+		title="close">×</a> <strong>
+		<%
+			if (request.getAttribute("mensaje") != null)
+				out.print(request.getAttribute("mensaje"));
+			else
+				out.print(request.getParameter("mensaje"));
+		%>
+	</strong>
+</div>

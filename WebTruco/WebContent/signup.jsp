@@ -18,9 +18,26 @@
 </head>
 <body>
 	<!-- /. NAV SIDE  -->
+	
 	<div id="page-inner">
+	<div class="row col-md-4 center-block"  style="float: none;">
+	<%
+						if (request.getAttribute("error") != null) {
+					%>
+				<div class="alert alert-danger fade in alert-dismissible">
+					<div class="row">
+						<a href="#" class="close" data-dismiss="alert" aria-label="close"
+							title="close">×</a> <strong> <%=request.getAttribute("error")%>
+						</strong>
+					</div>
+				</div>
+				<%
+						}
+					%>
+					</div>
 		<div class="row">
 			<div class="col-md-4 center-block" style="float: none;">
+				
 				<!-- Form Elements -->
 				<div class="panel panel-default">
 					<div class="panel-heading">Registro</div>
@@ -42,9 +59,11 @@
 									style="float: none;">
 									<input id="password" type=password class="form-control"
 										placeholder="Contraseña" name="password"
-										onkeyup="revisarPassword();" required></div><div id="divpwd2" class="form-group col-lg-11 center-block"
-									style="float: none;"><input
-										id="password2" type=password class="form-control"
+										onkeyup="revisarPassword();" required>
+								</div>
+								<div id="divpwd2" class="form-group col-lg-11 center-block"
+									style="float: none;">
+									<input id="password2" type=password class="form-control"
 										placeholder="Repita su Constraseña"
 										onkeyup="revisarPassword();" required>
 								</div>
@@ -76,6 +95,10 @@
 			var div1 = document.getElementById("divpwd1");
 			var div2 = document.getElementById("divpwd2");
 			var submit = document.getElementById("submit");
+			var mail = document.getElementById("mail")
+			var div = document.getElementById("divmail")
+			var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
 			if (pwd1.value == "" || pwd2.value == "") {
 				submit.setAttribute("disabled", "disabled");
 			} else {
@@ -93,31 +116,22 @@
 					submit.removeAttribute("disabled");
 				}
 			}
-			validarMail();
-		}
 
-		function validarMail() {
-			var mail = document.getElementById("mail")
-			var div = document.getElementById("divmail")
-			var submit = document.getElementById("submit");
-			var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 			if (mail.value == "") {
 				submit.setAttribute("disabled", "disabled");
 			}
-			
+
 			else {
 				if (re.test(String(mail.value).toLowerCase())) {
 					div.classList.add("has-success");
 					div.classList.remove("has-error");
 					submit.removeAttribute("disabled");
-				}
-				else {
+				} else {
 					div.classList.remove("has-success");
 					div.classList.add("has-error");
 					submit.setAttribute("disabled", "disabled");
 				}
 			}
-			revisarPassword();
 		}
 	</script>
 </body>

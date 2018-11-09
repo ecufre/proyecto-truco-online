@@ -159,7 +159,7 @@ public class Grupo {
 	}
 	
 	public GrupoDTO toDTO_reducido() {
-		return new GrupoDTO(this.nombre, this.id);
+		return new GrupoDTO(this.nombre, this.id, this.administrador.toDTO_reducido());
 	}
 	
 	public void grabar() {
@@ -173,6 +173,9 @@ public class Grupo {
 	public Grupo(String nombre, Jugador administrador) {
 		this.nombre = nombre;
 		this.administrador = administrador;
+		this.miembros = new ArrayList<Jugador>();
+		this.partidas = new ArrayList<Partida>();
+		this.parejas = new ArrayList<Pareja>();
 	}
 
 	public String getNombre() {
