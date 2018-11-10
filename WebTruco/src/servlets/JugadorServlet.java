@@ -31,11 +31,7 @@ public class JugadorServlet  extends HttpServlet {
 				action = "default";
 			}
 
-			if ("default".equals(action))
-			{
-				jspPage = "index.jsp";
-			}
-			else if ("login".equals(action)) {
+			if ("login".equals(action)) {
 				HttpSession session = request.getSession();
 				String sessionId = session.getId();
 				String apodo = request.getParameter("apodo");
@@ -150,10 +146,13 @@ public class JugadorServlet  extends HttpServlet {
 			else if ("listGroups".equals(action)) {
 				HttpSession session = request.getSession();
 				JugadorDTO jDTO = (JugadorDTO)session.getAttribute("jugador");
-				if (jDTO != null) {
+				if (jDTO != null && bd.isLoggedIn(jDTO)) {
 					request.setAttribute("jugadorDTO", bd.buscarJugadorDTO(jDTO.getApodo()));
 					jspPage = "groups.jsp";
 				}
+			}
+			else {
+				response.setStatus(404);
 			}
 		} catch (ComunicacionException e) {
 			jspPage = "mensaje.jsp";

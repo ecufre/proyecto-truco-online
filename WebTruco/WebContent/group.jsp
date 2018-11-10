@@ -111,26 +111,26 @@ Ver el ranking del grupo cerrado
 					<label>Crear Partida</label>
 					<form action="" class="form">
 						<div class="form-group">
-							<select class="form-control">
+							<select class="form-control" id="pareja1">
 								<%
 									for (ParejaDTO p : g.getParejas()) {
 								%>
-								<option><%=p.getJugador1().getApodo()%> y
+								<option value=<%=p.getId() %>><%=p.getJugador1().getApodo()%> y
 									<%=p.getJugador2().getApodo()%></option>
 								<%
 									}
 								%>
-							</select> contra <select class="form-control">
+							</select> contra <select class="form-control" id="pareja2">
 								<%
 									for (ParejaDTO p : g.getParejas()) {
 								%>
-								<option><%=p.getJugador1().getApodo()%> y
+								<option value=<%=p.getId() %>><%=p.getJugador1().getApodo()%> y
 									<%=p.getJugador2().getApodo()%></option>
 								<%
 									}
 								%>
 							</select>
-							<button class="btn btn-default" type="button">Crear
+							<button class="btn btn-default" type="button" onclick="loadDiv('principal', 'Grupo?action=crearPartida', 'idGrupo=<%=g.getId()%>&pareja1=' + getElementById('pareja1').options[getElementById('pareja1').selectedIndex].value + '&pareja2=' + getElementById('pareja2').options[getElementById('pareja2').selectedIndex].value)">Crear
 								Partida</button>
 						</div>
 					</form>

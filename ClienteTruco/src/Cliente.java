@@ -20,6 +20,8 @@ public class Cliente {
 		try {
 			BusinessDelegate bd = BusinessDelegate.getInstance();
 			JugadorDTO admin = new JugadorDTO("Ced", "fer@fer", "Pass", "SessionID");
+			bd.login(admin);
+			
 			bd.crearJugador(admin);
 			JugadorDTO jugador1 = new JugadorDTO("San", "eze@eze", "Pass", "SessionID");
 			bd.crearJugador(jugador1);			

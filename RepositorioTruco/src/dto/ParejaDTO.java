@@ -13,6 +13,10 @@ public class ParejaDTO implements Serializable {
 		this.jugador2 = jugador2;
 	}
 
+	public ParejaDTO(Integer id) {
+		this.id = id;
+	}
+
 	public Integer getId() {
 		return id;
 	}

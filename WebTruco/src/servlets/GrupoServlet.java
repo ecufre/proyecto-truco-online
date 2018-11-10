@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import delegado.BusinessDelegate;
 import dto.GrupoDTO;
 import dto.JugadorDTO;
+import dto.ParejaDTO;
 import excepciones.ComunicacionException;
 import excepciones.LoggedInException;
 
@@ -29,12 +30,7 @@ public class GrupoServlet extends HttpServlet {
 			{
 				action = "default";
 			}
-
-			if ("default".equals(action))
-			{
-				jspPage = "index.jsp";
-			}
-			else if ("crearGrupo".equals(action)) {
+			if ("crearGrupo".equals(action)) {
 				HttpSession session = request.getSession();
 				JugadorDTO jDTO = (JugadorDTO)session.getAttribute("jugador");
 				String nombreGrupo = (String)request.getParameter("nombreGrupo");
@@ -96,6 +92,24 @@ public class GrupoServlet extends HttpServlet {
 					request.setAttribute("ranking", bd.calcularRankingCerrado(g));
 					jspPage = "group.jsp";
 				}
+			}
+			else if ("crearPartida".equals(action)) {
+				HttpSession session = request.getSession();
+				JugadorDTO jDTO = (JugadorDTO)session.getAttribute("jugador");
+				Integer idGrupo = Integer.valueOf(request.getParameter("idGrupo"));
+				if (jDTO != null && idGrupo != null) {
+					GrupoDTO g = bd.buscarGrupoDTO(idGrupo);
+					ParejaDTO p1 = new ParejaDTO(Integer.valueOf(request.getParameter("pareja1")));
+					ParejaDTO p2 = new ParejaDTO(Integer.valueOf(request.getParameter("pareja2")));
+					bd.crearPartida(jDTO, g, p1, p2);
+					g = bd.buscarGrupoDTO(idGrupo);
+					request.setAttribute("grupoDTO", g);
+					request.setAttribute("ranking", bd.calcularRankingCerrado(g));
+					jspPage = "group.jsp";
+				}
+			}
+			else {
+				response.setStatus(404);
 			}
 		}
 		catch (ComunicacionException e) {

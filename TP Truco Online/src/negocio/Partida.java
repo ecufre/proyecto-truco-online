@@ -41,6 +41,7 @@ public class Partida {
 		juegoActual.crear();
 		this.charla = null;
 		this.fechaCreacion = LocalDateTime.now();
+		this.fechaActualizacion = LocalDateTime.now();
 	}
 
 	public Partida(int id) {
