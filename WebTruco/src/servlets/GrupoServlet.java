@@ -68,6 +68,35 @@ public class GrupoServlet extends HttpServlet {
 					jspPage = "group.jsp";
 				}
 			}
+			else if ("eliminarMiembro".equals(action)) {
+				HttpSession session = request.getSession();
+				JugadorDTO jDTO = (JugadorDTO)session.getAttribute("jugador");
+				Integer idGrupo = Integer.valueOf(request.getParameter("idGrupo"));
+				if (jDTO != null && idGrupo != null) {
+					GrupoDTO g = bd.buscarGrupoDTO(idGrupo);
+					JugadorDTO j = new JugadorDTO(request.getParameter("apodo"));
+					bd.eliminarJugadorDeGrupo(jDTO, g, j);
+					g = bd.buscarGrupoDTO(idGrupo);
+					request.setAttribute("grupoDTO", g);
+					request.setAttribute("ranking", bd.calcularRankingCerrado(g));
+					jspPage = "group.jsp";
+				}
+			}
+			else if ("crearPareja".equals(action)) {
+				HttpSession session = request.getSession();
+				JugadorDTO jDTO = (JugadorDTO)session.getAttribute("jugador");
+				Integer idGrupo = Integer.valueOf(request.getParameter("idGrupo"));
+				if (jDTO != null && idGrupo != null) {
+					GrupoDTO g = bd.buscarGrupoDTO(idGrupo);
+					JugadorDTO j1 = new JugadorDTO(request.getParameter("jug1"));
+					JugadorDTO j2 = new JugadorDTO(request.getParameter("jug2"));
+					bd.crearPareja(jDTO, g, j1, j2);
+					g = bd.buscarGrupoDTO(idGrupo);
+					request.setAttribute("grupoDTO", g);
+					request.setAttribute("ranking", bd.calcularRankingCerrado(g));
+					jspPage = "group.jsp";
+				}
+			}
 		}
 		catch (ComunicacionException e) {
 			jspPage = "mensaje.jsp";

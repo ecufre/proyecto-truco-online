@@ -48,6 +48,9 @@ public class Grupo {
 	}
 	
 	public void crearPareja(Jugador j1, Jugador j2) throws ComunicacionException {
+		for (Pareja p : this.parejas) {
+			if ((p.getJugador1().getApodo().equals(j1.getApodo()) && p.getJugador2().getApodo().equals(j2.getApodo())) || (p.getJugador1().getApodo().equals(j2.getApodo()) && p.getJugador2().getApodo().equals(j1.getApodo()))) throw new ComunicacionException("La pareja ya existe");
+		}
 		Pareja p = new Pareja(j1, j2);
 		p.setId(p.crear());
 		this.parejas.add(p);

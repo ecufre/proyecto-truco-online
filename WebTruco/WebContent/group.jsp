@@ -64,7 +64,7 @@ Ver el ranking del grupo cerrado
 											<%
 												if (!j.getApodo().equals(g.getAdministrador().getApodo())) {
 											%><button
-												class="btn btn-default" type="button" onclick="loadDiv('principal', 'Grupo?action=removerMiembro', 'idGrupo=<%=g.getId()%>&apodo=<%=j.getApodo() %>'">Remover</button>
+												class="btn btn-default" type="button" onclick="loadDiv('principal', 'Grupo?action=eliminarMiembro', 'idGrupo=<%=g.getId()%>&apodo=<%=j.getApodo() %>')">Remover</button>
 											<%
 												}
 											%>
@@ -84,25 +84,25 @@ Ver el ranking del grupo cerrado
 					<label>Crear Pareja</label>
 					<form action="" class="form-inline">
 						<div class="form-group">
-							<select class="form-control">
+							<select class="form-control" id="jug1">
 								<%
 									for (JugadorDTO j : g.getMiembros()) {
 								%>
-								<option><%=j.getApodo()%></option>
+								<option value="<%=j.getApodo()%>"><%=j.getApodo()%></option>
 								<%
 									}
 								%>
-							</select> <select class="form-control">
+							</select> <select class="form-control" id="jug2">
 								<%
 									for (JugadorDTO j : g.getMiembros()) {
 								%>
-								<option><%=j.getApodo()%></option>
+								<option value="<%=j.getApodo()%>"><%=j.getApodo()%></option>
 								<%
 									}
 								%>
 							</select>
-							<button class="btn btn-default" type="button">Crear
-								pareja</button>
+							<button class="btn btn-default" type="button" onclick="loadDiv('principal', 'Grupo?action=crearPareja', 'idGrupo=<%=g.getId()%>&jug1=' + getElementById('jug1').options[getElementById('jug1').selectedIndex].value + '&jug2=' + getElementById('jug1').options[getElementById('jug2').selectedIndex].value)">Crear
+								Pareja</button>
 						</div>
 					</form>
 				</div>
