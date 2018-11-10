@@ -85,8 +85,8 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfaceRemota
 	}
 
 	@Override
-	public void buscarGrupoDTO(Integer id) throws RemoteException, ComunicacionException {
-		AdministradorGrupo.getInstancia().buscarGrupoDTO(id);
+	public GrupoDTO buscarGrupoDTO(Integer id) throws RemoteException, ComunicacionException {
+		return AdministradorGrupo.getInstancia().buscarGrupoDTO(id);
 	}
 
 	@Override

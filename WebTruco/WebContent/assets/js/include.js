@@ -5,11 +5,11 @@ function loadDiv(divName, url, postInfo) {
 	xmlhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			document.getElementById(divName).innerHTML = this.responseText;
-			if (url == "Jugador?action=listarRanking") {
+			if (url == "Jugador?action=listarRanking" || url.startsWith("Grupo")) {
 				$('#dataTable').dataTable({
 					"order": [[ 3, "desc" ]],
 					"language": {"decimal":        "",
-						"emptyTable":     "No hay datos disponibles",
+						"emptyTable":     "No hay jugadores o partidas para armar un ranking",
 						"info":           "_TOTAL_ resultados. Mostrando de _START_ a _END_",
 						"infoEmpty":      "0 resultados",
 						"infoFiltered":   "(filtrado de un total de _MAX_)",

@@ -21,10 +21,10 @@ public class Grupo {
 	private ArrayList<Pareja> parejas;
 	private ArrayList<Partida> partidas;
 	
-	public void agregarJugador(Jugador j) {
+	public void agregarJugador(Jugador j) throws ComunicacionException {
 		for (Jugador m : miembros) {
 			if (j.getApodo().equals(m.getApodo())) {
-				return;
+				throw new ComunicacionException("El jugador ya pertenece al grupo");
 			}
 		}
 		miembros.add(j);

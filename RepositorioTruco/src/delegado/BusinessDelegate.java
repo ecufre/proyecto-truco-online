@@ -245,9 +245,9 @@ public class BusinessDelegate {
 			
 		}
 		
-		public void buscarGrupoDTO(Integer id) throws ComunicacionException{
+		public GrupoDTO buscarGrupoDTO(Integer id) throws ComunicacionException{
 			try {
-				ir.buscarGrupoDTO(id);;
+				return ir.buscarGrupoDTO(id);
 			} catch (RemoteException e) {
 				throw new ComunicacionException("Error en las comunicaciones");	
 			}

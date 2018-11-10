@@ -40,7 +40,7 @@
 								int i = 1;
 								for (GrupoDTO g : j.getGrupos()) {
 							%>
-							<tr>
+							<tr onclick="loadDiv('principal','Grupo?action=mostrarGrupo', 'idGrupo=<%=g.getId() %>');">
 								<td><%=g.getId()%></td>
 								<td><%=g.getNombre()%></td>
 								<td><%=g.getAdministrador().getApodo()%></td>

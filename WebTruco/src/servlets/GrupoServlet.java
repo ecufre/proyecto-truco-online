@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import delegado.BusinessDelegate;
+import dto.GrupoDTO;
 import dto.JugadorDTO;
 import excepciones.ComunicacionException;
 import excepciones.LoggedInException;
@@ -41,6 +42,30 @@ public class GrupoServlet extends HttpServlet {
 					bd.crearGrupo(jDTO, nombreGrupo);
 					request.setAttribute("jugadorDTO", bd.buscarJugadorDTO(jDTO.getApodo()));
 					jspPage = "groups.jsp";
+				}
+			}
+			else if ("mostrarGrupo".equals(action)) {
+				HttpSession session = request.getSession();
+				JugadorDTO jDTO = (JugadorDTO)session.getAttribute("jugador");
+				Integer idGrupo = Integer.valueOf(request.getParameter("idGrupo"));
+				if (jDTO != null && idGrupo != null) {
+					GrupoDTO g = bd.buscarGrupoDTO(idGrupo);
+					request.setAttribute("grupoDTO", g);
+					request.setAttribute("ranking", bd.calcularRankingCerrado(g));
+					jspPage = "group.jsp";
+				}
+			}
+			else if ("agregarMiembro".equals(action)) {
+				HttpSession session = request.getSession();
+				JugadorDTO jDTO = (JugadorDTO)session.getAttribute("jugador");
+				Integer idGrupo = Integer.valueOf(request.getParameter("idGrupo"));
+				if (jDTO != null && idGrupo != null) {
+					GrupoDTO g = bd.buscarGrupoDTO(idGrupo);
+					bd.agregarJugadorAGrupo(jDTO, g, request.getParameter("apodo"));
+					g = bd.buscarGrupoDTO(idGrupo);
+					request.setAttribute("grupoDTO", g);
+					request.setAttribute("ranking", bd.calcularRankingCerrado(g));
+					jspPage = "group.jsp";
 				}
 			}
 		}

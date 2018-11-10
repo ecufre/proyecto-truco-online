@@ -18,6 +18,7 @@
 		<div class="row">
 			<!--   Basic Table  -->
 			<div class="panel panel-default">
+				<div class="panel-heading">Invitaciones pendientes</div>
 				<div class="panel-body">
 					<div class="table-responsive">
 						<table class="table">
@@ -25,7 +26,7 @@
 								<tr>
 									<th>Apodo</th>
 									<th>Clasificacion</th>
-									<th style="width:180px;"></th>
+									<th style="width: 180px;"></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -43,10 +44,11 @@
 									<td><%=i.getRemitente().getApodo()%></td>
 									<td><%=i.getRemitente().getCategoria().getCategoria().getNombre()%></td>
 									<td><button
-											onclick='loadDiv("principal", "Jugador?action=aceptarInvitacion", "idInvitacion=<%=i.getId()%>&rtte=<%=i.getRemitente().getApodo()%>")' style="width:80px;">Aceptar
-										</button>
+											onclick='loadDiv("principal", "Jugador?action=aceptarInvitacion", "idInvitacion=<%=i.getId()%>&rtte=<%=i.getRemitente().getApodo()%>")'
+											style="width: 80px;">Aceptar</button>
 										<button
-											onclick='loadDiv("principal", "Jugador?action=rechazarInvitacion", "idInvitacion=<%=i.getId()%>&rtte=<%=i.getRemitente().getApodo()%>")' style="width:80px;">Rechazar</button></td>
+											onclick='loadDiv("principal", "Jugador?action=rechazarInvitacion", "idInvitacion=<%=i.getId()%>&rtte=<%=i.getRemitente().getApodo()%>")'
+											style="width: 80px;">Rechazar</button></td>
 								</tr>
 								<%
 									}
@@ -63,7 +65,8 @@
 						<input class="form-control" placeholder="Invitar jugador"
 							id="apodo"> <span class="form-group input-group-btn">
 							<button class="btn btn-default" type="button"
-								onclick='loadDiv("inviteForm", "Jugador?action=jugarDuo", "apodo=" + getElementById("apodo").value + "&invitar=false")' style="width:100px;">Buscar</button>
+								onclick='loadDiv("inviteForm", "Jugador?action=jugarDuo", "apodo=" + getElementById("apodo").value + "&invitar=false")'
+								style="width: 100px;">Buscar</button>
 						</span>
 					</div>
 					<div class="input-group" id="inviteForm"></div>

@@ -53,22 +53,22 @@
 								<div id="divmail" class="form-group col-lg-11 center-block"
 									style="float: none;">
 									<input id="mail" class="form-control" placeholder="Email"
-										name="mail" onchange="validarMail();" required>
+										name="mail" onchange="validarForm();" required>
 								</div>
 								<div id="divpwd1" class="form-group col-lg-11 center-block"
 									style="float: none;">
 									<input id="password" type=password class="form-control"
 										placeholder="Contraseña" name="password"
-										onkeyup="revisarPassword();" required>
+										onkeyup="validarForm();" required>
 								</div>
 								<div id="divpwd2" class="form-group col-lg-11 center-block"
 									style="float: none;">
 									<input id="password2" type=password class="form-control"
 										placeholder="Repita su Constraseña"
-										onkeyup="revisarPassword();" required>
+										onkeyup="validarForm();" required>
 								</div>
 								<button id="submit" type="submit" class="btn btn-login" disabled>Registrarse</button>
-								<button type="reset" class="btn btn-default">Limpiar</button>
+								<button class="btn btn-default" onclick="limpiarForm();">Limpiar</button>
 								<button class="btn btn-default"
 									onclick="window.location.href = 'index.jsp'">Cancelar</button>
 							</form>
@@ -89,49 +89,78 @@
 	<!-- CUSTOM SCRIPTS -->
 	<script src="assets/js/custom.js"></script>
 	<script>
-		function revisarPassword() {
+		function validarForm() {
 			var pwd1 = document.getElementById("password");
 			var pwd2 = document.getElementById("password2");
-			var div1 = document.getElementById("divpwd1");
-			var div2 = document.getElementById("divpwd2");
+			var mail = document.getElementById("mail");
+			var divPwd1 = document.getElementById("divpwd1");
+			var divPwd2 = document.getElementById("divpwd2");
+			var divMail = document.getElementById("divmail");
 			var submit = document.getElementById("submit");
-			var mail = document.getElementById("mail")
-			var div = document.getElementById("divmail")
+			
+			
 			var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-			if (pwd1.value == "" || pwd2.value == "") {
-				submit.setAttribute("disabled", "disabled");
-			} else {
-				if (pwd1.value != pwd2.value) {
-					div1.classList.add("has-error");
-					div1.classList.remove("has-success");
-					div2.classList.add("has-error");
-					div2.classList.remove("has-success");
-					submit.setAttribute("disabled", "disabled");
-				} else {
-					div1.classList.add("has-success");
-					div1.classList.remove("has-error");
-					div2.classList.add("has-success");
-					div2.classList.remove("has-error");
-					submit.removeAttribute("disabled");
+			var disabledSubmit = false;
+			
+			if (pwd1.value == "" || pwd2.value == "" || mail.value == "") {
+				disabledSubmit = true;
+			}
+			if (pwd1.value != "" && pwd2.value != "") {
+				if (pwd2.value != pwd2.value) {
+					divPwd1.classList.add("has-error");
+					divPwd1.classList.remove("has-success");
+					divPwd2.classList.add("has-error");
+					divPwd2.classList.remove("has-success");
+					disabledSubmit = true;
+				}
+				else {
+					divPwd1.classList.add("has-success");
+					divPwd1.classList.remove("has-error");
+					divPwd2.classList.add("has-success");
+					divPwd2.classList.remove("has-error");
 				}
 			}
-
-			if (mail.value == "") {
-				submit.setAttribute("disabled", "disabled");
-			}
-
-			else {
+			
+			if (mail.value != "") {
 				if (re.test(String(mail.value).toLowerCase())) {
-					div.classList.add("has-success");
-					div.classList.remove("has-error");
-					submit.removeAttribute("disabled");
-				} else {
-					div.classList.remove("has-success");
-					div.classList.add("has-error");
-					submit.setAttribute("disabled", "disabled");
+					divMail.classList.add("has-success");
+					divMail.classList.remove("has-error");
+				}
+				else {
+					divMail.classList.add("has-error");
+					divMail.classList.remove("has-success");
+					disabledSubmit = true;
 				}
 			}
+			
+			if (disabledSubmit) {
+				submit.setAttribute("disabled", "disabled");
+			}
+			else {
+				submit.removeAttribute("disabled");
+			}
+		}
+		
+		function limpiarForm() {
+			var apodo = document.getElementById("apodo");
+			var pwd1 = document.getElementById("password");
+			var pwd2 = document.getElementById("password2");
+			var mail = document.getElementById("mail");
+			var divPwd1 = document.getElementById("divpwd1");
+			var divPwd2 = document.getElementById("divpwd2");
+			var divMail = document.getElementById("divmail");
+			var submit = document.getElementById("submit");
+			apodo.value = "";
+			pwd1.value = "";
+			pwd2.value = "";
+			mail.value = "";
+			divPwd1.classList.remove("has-success");
+			divPwd1.classList.remove("has-error");
+			divPwd2.classList.remove("has-success");
+			divPwd2.classList.remove("has-error");
+			divMail.classList.remove("has-success");
+			divMail.classList.remove("has-error");
+			submit.setAttribute("disabled", "disabled");
 		}
 	</script>
 </body>

@@ -43,7 +43,7 @@ public interface InterfaceRemota extends Remote {
 	//AdministradorGrupo
 	public void crearGrupo(JugadorDTO admin, String nombre) throws RemoteException,  LoggedInException, ComunicacionException;
 
-	public void buscarGrupoDTO(Integer id) throws RemoteException,  ComunicacionException;
+	public GrupoDTO buscarGrupoDTO(Integer id) throws RemoteException,  ComunicacionException;
 
 	public void agregarJugadorAGrupo(JugadorDTO admin, GrupoDTO grupo, String apodo) throws RemoteException,  LoggedInException, ComunicacionException;
 

@@ -18,6 +18,10 @@ public class GrupoDTO implements Serializable {
 		this.id = id;
 	}
 	
+	public GrupoDTO(int id) {
+		this.id = id;
+	}
+	
 	public GrupoDTO(String nombre, int id, JugadorDTO administrador) {
 		this.nombre = nombre;
 		this.id = id;
