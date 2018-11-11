@@ -61,7 +61,6 @@
 					<li><a onclick='loadDiv("principal", "Jugador?action=listGroups", null)' data-toggle="collapse" data-target=".sidebar-collapse.in"><i class="fa fa-users fa-2x"></i>Grupos</a></li>
 					<li><a onclick='loadDiv("principal", "Jugador?action=listarRanking", null)' data-toggle="collapse" data-target=".sidebar-collapse.in"><i class="fa fa-trophy fa-2x"></i>Ver
 							Ranking</a></li>
-							<li><a onclick='loadDiv("principal", "group.jsp", null)' data-toggle="collapse" data-target=".sidebar-collapse.in"><i class="fa fa-recycle fa-2x"></i>Pruebas</a></li>
 				</ul>
 
 			</div>

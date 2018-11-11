@@ -223,17 +223,25 @@ public class Partida {
 			juegos.add(jj.toDTO());
 		}
 		PartidaDTO  pdto= new PartidaDTO(this.getId(),jugadores,this.isEsAbierta(),this.getEstado(), this.getGanador(),juegos,charla);
-		pdto.setFechaActualizacion(this.fechaActualizacion);
-		pdto.setFechaCreacion(this.fechaCreacion);
-		return 	pdto;
+		org.joda.time.LocalDateTime jodaTime = this.fechaActualizacion;
+		java.time.LocalDateTime javaTime = java.time.LocalDateTime.of(jodaTime.getYear(), jodaTime.getMonthOfYear(), jodaTime.getDayOfMonth(), jodaTime.getHourOfDay(), jodaTime.getMinuteOfHour(), jodaTime.getSecondOfMinute());
+		pdto.setFechaActualizacion(javaTime);
+		jodaTime = this.fechaCreacion;
+		javaTime = java.time.LocalDateTime.of(jodaTime.getYear(), jodaTime.getMonthOfYear(), jodaTime.getDayOfMonth(), jodaTime.getHourOfDay(), jodaTime.getMinuteOfHour(), jodaTime.getSecondOfMinute());
+		pdto.setFechaCreacion(javaTime);
+		return pdto;
 	}
 	
 	public PartidaDTO toDTOReducido() {
 		PartidaDTO pdto = new PartidaDTO();
 		pdto.setId(this.id);
 		pdto.setEstado(this.estado);
-		pdto.setFechaCreacion(this.fechaCreacion);
-		pdto.setFechaActualizacion(this.fechaActualizacion);
+		org.joda.time.LocalDateTime jodaTime = this.fechaActualizacion;
+		java.time.LocalDateTime javaTime = java.time.LocalDateTime.of(jodaTime.getYear(), jodaTime.getMonthOfYear(), jodaTime.getDayOfMonth(), jodaTime.getHourOfDay(), jodaTime.getMinuteOfHour(), jodaTime.getSecondOfMinute());
+		pdto.setFechaActualizacion(javaTime);
+		jodaTime = this.fechaCreacion;
+		javaTime = java.time.LocalDateTime.of(jodaTime.getYear(), jodaTime.getMonthOfYear(), jodaTime.getDayOfMonth(), jodaTime.getHourOfDay(), jodaTime.getMinuteOfHour(), jodaTime.getSecondOfMinute());
+		pdto.setFechaCreacion(javaTime);
 		if (this.estado == EstadoPartida.EnCurso) pdto.setTurnoJugador(this.jugadores.get(this.getJuegoActual().getManoActual().getBazaActual().getTurno() - 1).toDTO_reducido());
 		return 	pdto;
 	}

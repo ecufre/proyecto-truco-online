@@ -167,6 +167,16 @@ private PartidaDAO() {}
 		return p;
 	}
 	
+	public Partida toNegocio_grupo(PartidaEntity pe) {
+		Partida p = new Partida(pe.getId());
+		p.setEsAbierta(pe.getEsAbierta());
+		p.setEstado(pe.getEstado());
+		p.setGanador(pe.getGanador());
+		p.setFechaCreacion(pe.getFechaCreacion());
+		p.setFechaActualizacion(pe.getFechaActualizacion());
+		return p;
+	}
+	
 	public PartidaEntity toEntity(Partida p) {
 		return null; //TODO
 	}

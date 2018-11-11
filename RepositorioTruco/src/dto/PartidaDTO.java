@@ -1,7 +1,7 @@
 package dto;
 
 import java.io.Serializable;
-import org.joda.time.LocalDateTime;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import enumeraciones.EstadoPartida;

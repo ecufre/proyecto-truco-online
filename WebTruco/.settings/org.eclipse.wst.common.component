@@ -2,6 +2,7 @@
     <wb-module deploy-name="WebTruco">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/" source-path="/lib"/>
         <dependent-module archiveName="RepositorioTruco.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/RepositorioTruco/RepositorioTruco">
             <dependency-type>uses</dependency-type>
         </dependent-module>
