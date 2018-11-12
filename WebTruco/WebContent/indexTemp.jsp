@@ -2,7 +2,9 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ page import="delegado.BusinessDelegate"%>
 <%@ page import="dto.JugadorDTO"%>
-
+<%@ page import="dto.PartidaPantallaDTO"%>
+<%@ page import="dto.PartidaDTO"%>
+<%@ page import="dto.AccionDTO"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,6 +22,8 @@
 	rel='stylesheet' type='text/css' />
 	
 <script src=assets/js/include.js></script>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="assets/js/misJs/accion.js"></script>
 
 </head>
 <body>
@@ -29,19 +33,12 @@
 			jugador = (JugadorDTO) request.getSession().getAttribute("jugador");
 			BusinessDelegate bd = BusinessDelegate.getInstance();
 			bd.isLoggedIn(jugador);
-			PartidaDTO pd = new PartidaDTO();
-			pd.setId(1);
-			AccionDTO ad;
-			PartidaPantallaDTO pdto;
-			JugadorDTO jugAct = jugador;
-			ad = new AccionDTO(pd, jugAct,1,true,null);
-			pdto = bd.mostrarPartida(ad);
-			
+		
 			
 			
 			
 		} catch (Exception e) {
-			response.sendRedirect("login.jsp");
+			//response.sendRedirect("login.jsp");
 		}
 		
 		
@@ -96,18 +93,18 @@
 				
 				<div class="row" id="mesa">
 				
-				<div class="col-md-3">	
-					<img src="assets/img/cartas/0.PNG" class="rounded" alt="Cinque Terre" onClick="alert(4)" style="transform: rotate(90deg);">
+				<div class="col-md-3" id="izquierda">	
+					<img src="assets/img/cartas/4.PNG" class="carta" value="4" alt="Cinque Terre" onClick="alert(4)" style="transform: rotate(90deg);">
 					<br>
-					<img src="assets/img/cartas/29.PNG" class="rounded" alt="Cinque Terre" onClick="alert(5)" style="transform: rotate(90deg);">
+					<img src="assets/img/cartas/0.PNG" class="carta" alt="Cinque Terre" onClick="alert(5)" style="transform: rotate(90deg);">
 					<br>
-					<img src="assets/img/cartas/0.PNG" class="rounded" alt="Cinque Terre" onClick="alert(6)" style="transform: rotate(90deg);">
+					<img src="assets/img/cartas/0.PNG" class="carta" alt="Cinque Terre" onClick="alert(6)" style="transform: rotate(90deg);">
 			</div>
 				<div class="col-md-6">
 				<div class="row" id="frente">
-					<img src="assets/img/cartas/11.PNG" class="rounded" alt="Cinque Terre" onClick="alert(1)" style="transform: rotate(180deg);">
-					<img src="assets/img/cartas/0.PNG" class="rounded" alt="Cinque Terre" onClick="alert(2)" style="transform: rotate(180deg);">
-					<img src="assets/img/cartas/0.PNG" class="rounded" alt="Cinque Terre" onClick="alert(3)" style="transform: rotate(180deg);">
+					<img src="assets/img/cartas/0.PNG" class="carta" alt="Cinque Terre" onClick="alert(1)" style="transform: rotate(180deg);">
+					<img src="assets/img/cartas/0.PNG" class="carta" alt="Cinque Terre" onClick="alert(2)" style="transform: rotate(180deg);">
+					<img src="assets/img/cartas/0.PNG" class="carta" alt="Cinque Terre" onClick="alert(3)" style="transform: rotate(180deg);">
 
 				</div>
 				<br>
@@ -116,49 +113,34 @@
 				<br>
 				<br>
 				<div class="row" id="propias">	
-					<img src="assets/img/cartas/0.PNG" class="rounded" alt="Cinque Terre" onClick="alert(10)" >
-					<img src="assets/img/cartas/0.PNG" class="rounded" alt="Cinque Terre" onClick="alert(11)" >
-					<img src="assets/img/cartas/0.PNG" class="rounded" alt="Cinque Terre" onClick="alert(12)" >
+					<img src="assets/img/cartas/0.PNG" class="carta" alt="Cinque Terre" onClick="alert(10)" >
+					<img src="assets/img/cartas/0.PNG" class="carta" alt="Cinque Terre" onClick="alert(11)" >
+					<img src="assets/img/cartas/0.PNG" class="carta" alt="Cinque Terre" onClick="alert(12)" >
 				</div>
 				
 				
 				</div>
-				<div class="col-md-3">
-					<img src="assets/img/cartas/1.PNG" class="rounded" alt="Cinque Terre" onClick="alert(7)" style="transform: rotate(270deg);">
+				<div class="col-md-3" id="derecha">
+					<img src="assets/img/cartas/0.PNG" class="carta" alt="Cinque Terre" onClick="alert(7)" style="transform: rotate(270deg);">
 					<br>
-					<img src="assets/img/cartas/0.PNG" class="rounded" alt="Cinque Terre" onClick="alert(8)" style="transform: rotate(270deg);">
+					<img src="assets/img/cartas/0.PNG" class="carta" alt="Cinque Terre" onClick="alert(8)" style="transform: rotate(270deg);">
 					<br>
-					<img src="assets/img/cartas/0.PNG" class="rounded" alt="Cinque Terre" onClick="alert(9)" style="transform: rotate(270deg);">
+					<img src="assets/img/cartas/0.PNG" class="carta" alt="Cinque Terre" onClick="alert(9)" style="transform: rotate(270deg);">
 				</div>
 				</div>
 				<br>
 				<div class="row">
-				<div class="col-md-3">
-				  	
-				</div>
+
+				<div  id="contador" class="col-md-4"></div>
+				<div class="col-md-4" id="cartasJugador">
 				
-				<div class="col-md-6" id="cartasJugador">
-					<img src="assets/img/cartas/2.PNG" class="rounded" alt="Cinque Terre" onClick="alert(13)" >
-					<img src="assets/img/cartas/0.PNG" class="rounded" alt="Cinque Terre" onClick="alert(14)" >
-					<img src="assets/img/cartas/0.PNG" class="rounded" alt="Cinque Terre" onClick="alert(15)" >
+					<img src="assets/img/cartas/0.PNG" class="carta"  id="carta1" name="1" alt="Cinque Terre" onClick="alert(13)" >
+					<img src="assets/img/cartas/0.PNG" class="carta"  id="carta2" name="2"  alt="Cinque Terre" onClick="alert(14)" >
+					<img src="assets/img/cartas/0.PNG" class="carta"  id="carta3" name="3"  alt="Cinque Terre" onClick="alert(15)" >
+					
+				
 					</div>
-				<div class="col-md-3">Partidas:
-				<br>
-				Nosotros: 
-				Ellos:
-				<br>
-				Puntos:
-				<br>
-				Nosotros: 
-				Ellos:
-				<br>
-				Envido:
-				<br>
-				jugador1:
-				jugador1:
-				jugador1:
-				jugador1:   	
-				</div>
+				<div  id="puntosEnvido" class="col-md-4"></div>
 				</div>
 				<hr>
 				<div class="row" id="botonera">
@@ -173,6 +155,7 @@
  				 	 <button type="button" class="btn btn-danger" id="quiero">QUIERO</button>
  				 	 <button type="button" class="btn btn-danger" id="noQuiero">NO QUIERO</button>
  				 	 <button type="button" class="btn btn-danger" id="recargar">recargar</button>
+ 				 	 <button type="button" class="btn btn-danger" id="iniciar">iniciar</button>
  				 </div>
 				</div>
 				
@@ -186,14 +169,12 @@
 	<!-- /. WRAPPER  -->
 	<!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
 	<!-- JQUERY SCRIPTS -->
-	<script src="assets/js/jquery-1.10.2.js"></script>
-	<script src="assets/js/misJs/accion.js"></script>
+
 	<!-- BOOTSTRAP SCRIPTS -->
 	<script src="assets/js/bootstrap.min.js"></script>
 	<!-- METISMENU SCRIPTS -->
 	<script src="assets/js/jquery.metisMenu.js"></script>
 	<!-- CUSTOM SCRIPTS -->
-	<script src="assets/js/custom.js"></script>
 	
 	<!-- DATA TABLE SCRIPTS -->
 	<script src="assets/js/dataTables/jquery.dataTables.js"></script>
