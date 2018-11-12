@@ -43,7 +43,7 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="index.jsp">Truco ATR</a>
+				<a class="navbar-brand" href="/WebTruco/">Truco ATR</a>
 			</div>
 			<div
 				style="color: white; padding: 15px 50px 5px 50px; float: right; font-size: 16px;">
@@ -102,7 +102,7 @@
 						<div class="panel-heading">Partidas</div>
 						<div class="panel-body">
 							<div class="table-responsive">
-								<table class="table table-bordered table-hover">
+								<table class="table table-bordered table-hover" id="tablaPendientes">
 									<thead>
 										<tr>
 											<th>Partidas Pendientes</th>
@@ -110,6 +110,8 @@
 									</thead>
 									<tbody>
 									</tbody>
+								</table>
+								<table class="table table-bordered table-hover" id="tablaEnCurso">
 									<thead>
 										<tr>
 											<th>Partidas En Curso</th>

@@ -41,6 +41,8 @@ function loadDiv(divName, url, postInfo) {
 		xmlhttp.send(postInfo);
 }
 
+setTimeout(actualizarPartidas, 0);
+
 setInterval(actualizarPartidas, 15000);
 
 function actualizarPartidas() {
@@ -48,20 +50,26 @@ function actualizarPartidas() {
 	xmlhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			var listaPartidas = JSON.parse(this.responseText);
-			for (i = 0; i < listaPartidas.Pendientes; i++) {
-				var hiddenInput = document.getElementById("partida_p_" + listaPartidas.Pendientes[i].idPartida);
+			for (i = 0; i < listaPartidas.Pendientes.length; i++) {
+				var idPartida = listaPartidas.Pendientes[i].idPartida;
+				var hiddenInput = document.getElementById("partida_p_" + idPartida);
 				if (hiddenInput == null) {
-					//TODO: Crear Row
+					$("#tablaPendientes").append("<tr align='center' id='partida_p_" + idPartida + "'><td>" + idPartida + "</td><input type='hidden' id='update_" + idPartida + "' value=" + listaPartidas.Pendientes[i].lastUpdate + "></tr>");
 				}
 			}
-			for (i = 0; i < listaPartidas.EnCurso; i++) {
-				var hiddenInput = document.getElementById("partida_p_" + listaPartidas.Pendientes[i].idPartida);
-				if (hiddenInput == null) {
-					//TODO: Remover Row de Pendientes y Crearla en EnCurso
+			for (i = 0; i < listaPartidas.EnCurso.length; i++) {
+				var idPartida = listaPartidas.EnCurso[i].idPartida;
+				var hiddenInputP = document.getElementById("partida_p_" + idPartida);
+				if (hiddenInputP != null) {
+					var jqueryrow = $("#partida_p_" + idPartida);
+					jqueryrow.remove();
+				}
+				var hiddenInputC = document.getElementById("partida_" + idPartida);
+				if (hiddenInputC == null) {
+					$("#tablaEnCurso").append("<tr align='center' id='partida_" + idPartida + "'><td>" + idPartida + "</td><input type='hidden' id='update_" + idPartida + "' value=" + listaPartidas.Pendientes[i].lastUpdate + "></tr>");
 				}
 				
 			}
-			document.getElementById();
 		}
 		else if (this.readyState == 4 && this.status == 599) {document.getElementById("mensajes").innerHTML = this.responseText;}
 		else if (this.readyState == 4 && this.status == 401) {window.location.href = "";}
