@@ -8,6 +8,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="assets/img/icono.ico">
 <title>Truco ATR</title>
 <!-- BOOTSTRAP STYLES-->
 <link href="assets/css/bootstrap.css" rel="stylesheet" />
@@ -18,7 +19,7 @@
 <!-- GOOGLE FONTS-->
 <link href='http://fonts.googleapis.com/css?family=Open+Sans'
 	rel='stylesheet' type='text/css' />
-	
+
 <script src=assets/js/include.js></script>
 </head>
 <body>
@@ -46,7 +47,11 @@
 			</div>
 			<div
 				style="color: white; padding: 15px 50px 5px 50px; float: right; font-size: 16px;">
-				Jugador: <% if (jugador != null) out.print(jugador.getApodo()); %>
+				Jugador:
+				<%
+				if (jugador != null)
+					out.print(jugador.getApodo());
+			%>
 				<a href="Jugador?action=logout"
 					class="btn btn-danger square-btn-adjust">Logout</a>
 			</div>
@@ -55,12 +60,27 @@
 		<nav class="navbar-default navbar-side" role="navigation">
 			<div class="sidebar-collapse">
 				<ul class="nav" id="main-menu">
-					<li><a onClick='loadDiv("mensajes", "Jugador?action=jugarSolo", null)' data-toggle="collapse" data-target=".sidebar-collapse.in"><i
+					<li><a
+						onClick='loadDiv("mensajes", "Jugador?action=jugarSolo", null)'
+						data-toggle="collapse" data-target=".sidebar-collapse.in"><i
 							class="fa fa-user fa-2x"></i>Jugar Solo</a></li>
-					<li><a onClick='loadDiv("principal", "Jugador?action=listInvites", null)' data-toggle="collapse" data-target=".sidebar-collapse.in"><i class="fa fa-user-plus fa-2x"></i>Jugar en Pareja</a></li>
-					<li><a onclick='loadDiv("principal", "Jugador?action=listGroups", null)' data-toggle="collapse" data-target=".sidebar-collapse.in"><i class="fa fa-users fa-2x"></i>Grupos</a></li>
-					<li><a onclick='loadDiv("principal", "Jugador?action=listarRanking", null)' data-toggle="collapse" data-target=".sidebar-collapse.in"><i class="fa fa-trophy fa-2x"></i>Ver
-							Ranking</a></li>
+					<li><a
+						onClick='loadDiv("principal", "Jugador?action=listInvites", null)'
+						data-toggle="collapse" data-target=".sidebar-collapse.in"><i
+							class="fa fa-user-plus fa-2x"></i>Jugar en Pareja</a></li>
+					<li><a
+						onclick='loadDiv("principal", "Jugador?action=listGroups", null)'
+						data-toggle="collapse" data-target=".sidebar-collapse.in"><i
+							class="fa fa-users fa-2x"></i>Grupos</a></li>
+					<li><a
+						onclick='loadDiv("principal", "Jugador?action=listarRanking", null)'
+						data-toggle="collapse" data-target=".sidebar-collapse.in"><i
+							class="fa fa-trophy fa-2x"></i>Ver Ranking</a></li>
+					<li><a
+						onclick='loadDiv("rightMenu", "partidas.jsp", null)'
+						data-toggle="collapse" data-target=".sidebar-collapse.in"><i
+							class="fa fa-recycle fa-2x"></i>Menu Partidas</a></li>
+
 				</ul>
 
 			</div>
@@ -75,8 +95,12 @@
 					</div>
 				</div>
 				<!-- /. ROW  -->
-				<div align=center id="principal" class="col-md-10" style="min-height:400px;"></div> <!-- background:#009933; -->
-				<div id=rightMenu class="col-md-2">Partida 1</br>Partida 2</br>Partida 3</br></div>
+				<div align=center id="principal" class="col-md-10"
+					style="min-height: 400px;"></div>
+				<!-- background:#009933; -->
+				<div id=rightMenu class="col-md-2">
+					Partida 1</br>Partida 2</br>Partida 3</br>
+				</div>
 			</div>
 			<!-- /. PAGE INNER  -->
 		</div>
@@ -96,6 +120,6 @@
 	<!-- DATA TABLE SCRIPTS -->
 	<script src="assets/js/dataTables/jquery.dataTables.js"></script>
 	<script src="assets/js/dataTables/dataTables.bootstrap.js"></script>
-	
+
 </body>
 </html>

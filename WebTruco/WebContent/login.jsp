@@ -6,7 +6,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="shortcut icon" href="assets/img/icono.ico">
-<title>Truco</title>
+<title>Truco ATR</title>
 <!-- BOOTSTRAP STYLES-->
 <link href="assets/css/bootstrap.css" rel="stylesheet" />
 <!-- FONTAWESOME STYLES-->

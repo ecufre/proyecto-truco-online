@@ -40,3 +40,9 @@ function loadDiv(divName, url, postInfo) {
 		xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		xmlhttp.send(postInfo);
 }
+
+setTimeout(actualizarPartidas, 15000);
+
+function actualizarPartidas() {
+	
+}

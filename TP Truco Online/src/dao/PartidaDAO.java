@@ -50,12 +50,13 @@ private PartidaDAO() {}
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		@SuppressWarnings("unchecked")
-		ArrayList<PartidaEntity> pes = (ArrayList<PartidaEntity>) session.createQuery("from PartidaEntity where (jugador1.apodo = ? or jugador2.apodo = ? or jugador3.apodo = ? or jugador4.apodo = ?) and estado = ?")
+		ArrayList<PartidaEntity> pes = (ArrayList<PartidaEntity>) session.createQuery("from PartidaEntity where (jugador1.apodo = ? or jugador2.apodo = ? or jugador3.apodo = ? or jugador4.apodo = ?) and (estado = ? or estado = ?)")
 				.setParameter(0, apodo)
 				.setParameter(1, apodo)
 				.setParameter(2, apodo)
 				.setParameter(3, apodo)
 				.setParameter(4, EstadoPartida.EnCurso)
+				.setParameter(5, EstadoPartida.Pendiente)
 				.list();
 		if (pes == null) throw new ComunicacionException("No se encontraron partidas");
 		ArrayList<Partida> ps = new ArrayList<Partida>();

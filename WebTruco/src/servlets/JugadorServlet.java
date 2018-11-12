@@ -38,9 +38,15 @@ public class JugadorServlet  extends HttpServlet {
 				String password = request.getParameter("password");
 				if (apodo != null && password != null) {
 					JugadorDTO jDTO = new JugadorDTO(apodo, "", password, sessionId);
-					bd.login(jDTO);
-					jDTO.setPassword(null);
-					session.setAttribute("jugador", jDTO);					
+					try {
+						bd.login(jDTO);
+						jDTO.setPassword(null);
+						session.setAttribute("jugador", jDTO);
+					}
+					catch (ComunicacionException e) {
+						jspPage = "login.jsp";
+						request.setAttribute("error", e.getMessage());
+					}					
 				}
 			}
 			else if ("signup".equals(action)) {
@@ -84,7 +90,7 @@ public class JugadorServlet  extends HttpServlet {
 					catch (ComunicacionException e) {
 						request.setAttribute("mensaje", "Ya estabas en la lista de espera");
 					}
-					
+
 				}
 			}
 			else if ("jugarDuo".equals(action)) {
