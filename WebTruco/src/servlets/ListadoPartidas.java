@@ -24,8 +24,8 @@ import excepciones.LoggedInException;
 
 
 
-@WebServlet("/Partida")
-public class PartidaServlet  extends HttpServlet {
+@WebServlet("/Partidas")
+public class ListadoPartidas  extends HttpServlet {
 	private static final long serialVersionUID = -1434281182121847875L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

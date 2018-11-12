@@ -74,7 +74,7 @@ function actualizarPartidas() {
 		else if (this.readyState == 4 && this.status == 599) {document.getElementById("mensajes").innerHTML = this.responseText;}
 		else if (this.readyState == 4 && this.status == 401) {window.location.href = "";}
 	};
-	xmlhttp.open("POST", "Partida?action=listarMisPartidas", true);
+	xmlhttp.open("POST", "Partidas?action=listarMisPartidas", true);
 	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xmlhttp.send(null);
 }
