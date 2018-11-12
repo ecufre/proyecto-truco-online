@@ -41,8 +41,32 @@ function loadDiv(divName, url, postInfo) {
 		xmlhttp.send(postInfo);
 }
 
-setTimeout(actualizarPartidas, 15000);
+setInterval(actualizarPartidas, 15000);
 
 function actualizarPartidas() {
-	
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var listaPartidas = JSON.parse(this.responseText);
+			for (i = 0; i < listaPartidas.Pendientes; i++) {
+				var hiddenInput = document.getElementById("partida_p_" + listaPartidas.Pendientes[i].idPartida);
+				if (hiddenInput == null) {
+					//TODO: Crear Row
+				}
+			}
+			for (i = 0; i < listaPartidas.EnCurso; i++) {
+				var hiddenInput = document.getElementById("partida_p_" + listaPartidas.Pendientes[i].idPartida);
+				if (hiddenInput == null) {
+					//TODO: Remover Row de Pendientes y Crearla en EnCurso
+				}
+				
+			}
+			document.getElementById();
+		}
+		else if (this.readyState == 4 && this.status == 599) {document.getElementById("mensajes").innerHTML = this.responseText;}
+		else if (this.readyState == 4 && this.status == 401) {window.location.href = "";}
+	};
+	xmlhttp.open("POST", "Partida?action=listarMisPartidas", true);
+	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xmlhttp.send(null);
 }

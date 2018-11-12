@@ -77,7 +77,7 @@ public class Test2 {
 			
 			
 			ap.buscarPartidasJugador("San");
-			ap.buscarPartidasEnCursoJugador("Bru");
+			//ap.buscarPartidasEnCursoJugador("Bru");
 			
 		} catch (ComunicacionException | LoggedInException e) {
 			System.err.println(e.getMessage());

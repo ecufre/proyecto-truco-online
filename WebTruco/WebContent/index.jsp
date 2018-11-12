@@ -76,8 +76,7 @@
 						onclick='loadDiv("principal", "Jugador?action=listarRanking", null)'
 						data-toggle="collapse" data-target=".sidebar-collapse.in"><i
 							class="fa fa-trophy fa-2x"></i>Ver Ranking</a></li>
-					<li><a
-						onclick='loadDiv("rightMenu", "partidas.jsp", null)'
+					<li><a onclick='loadDiv("rightMenu", "partidas.jsp", null)'
 						data-toggle="collapse" data-target=".sidebar-collapse.in"><i
 							class="fa fa-recycle fa-2x"></i>Menu Partidas</a></li>
 
@@ -99,7 +98,29 @@
 					style="min-height: 400px;"></div>
 				<!-- background:#009933; -->
 				<div id=rightMenu class="col-md-2">
-					Partida 1</br>Partida 2</br>Partida 3</br>
+					<div class="panel panel-default">
+						<div class="panel-heading">Partidas</div>
+						<div class="panel-body">
+							<div class="table-responsive">
+								<table class="table table-bordered table-hover">
+									<thead>
+										<tr>
+											<th>Partidas Pendientes</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+									<thead>
+										<tr>
+											<th>Partidas En Curso</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 			<!-- /. PAGE INNER  -->

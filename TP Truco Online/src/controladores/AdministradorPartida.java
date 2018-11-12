@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import dao.PartidaDAO;
 import dto.AccionDTO;
+import dto.JugadorDTO;
 import dto.PartidaDTO;
 import dto.PartidaPantallaDTO;
 import enumeraciones.EstadoPartida;
@@ -164,9 +165,12 @@ public class AdministradorPartida {
 		return psDTO;
 	}
 	
-	public ArrayList<PartidaDTO> buscarPartidasEnCursoJugador(String apodo) throws ComunicacionException {
-		ArrayList<PartidaDTO> psDTO = new ArrayList<PartidaDTO>();
-		for (Partida p : PartidaDAO.getInstancia().getPartidasEnCursoByApodo(apodo)) psDTO.add(p.toDTOReducido());
-		return psDTO;
+	public ArrayList<PartidaDTO> listarMisPartidas(JugadorDTO jugador) throws ComunicacionException, LoggedInException {
+		if (AdministradorJugador.getInstancia().isLoggedIn(jugador)) {
+			ArrayList<PartidaDTO> psDTO = new ArrayList<PartidaDTO>();
+			for (Partida p : PartidaDAO.getInstancia().getListadoPartidasByApodo(jugador.getApodo())) psDTO.add(p.toDTOReducido());
+			return psDTO;
+		}
+		return null;
 	}
 }

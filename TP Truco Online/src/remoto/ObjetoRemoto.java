@@ -166,4 +166,11 @@ public class ObjetoRemoto extends UnicastRemoteObject implements InterfaceRemota
 		
 		return AdministradorPartida.getInstancia().mostarPartidaCompleta(ad);
 	}
+
+	@Override
+	public ArrayList<PartidaDTO> listarMisPartidas(JugadorDTO jugador)
+			throws RemoteException, ComunicacionException, LoggedInException {
+		
+		return AdministradorPartida.getInstancia().listarMisPartidas(jugador);
+	}
 }
