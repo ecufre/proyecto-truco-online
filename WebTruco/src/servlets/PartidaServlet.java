@@ -26,8 +26,7 @@ import excepciones.LoggedInException;
 @WebServlet("/Partida")
 public class PartidaServlet  extends HttpServlet {
 	private static final long serialVersionUID = -1434281182121847875L;
-	JugadorDTO[] jugadores = new JugadorDTO[4];  
-
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setStatus(401);
 		RequestDispatcher rd = request.getRequestDispatcher("asd");
