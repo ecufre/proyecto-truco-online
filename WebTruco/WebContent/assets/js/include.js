@@ -66,7 +66,7 @@ function actualizarPartidas() {
 				}
 				var hiddenInputC = document.getElementById("partida_" + idPartida);
 				if (hiddenInputC == null) {
-					$("#tablaEnCurso").append("<tr align='center' id='partida_" + idPartida + "'><td>" + idPartida + "</td><input type='hidden' id='update_" + idPartida + "' value=" + listaPartidas.Pendientes[i].lastUpdate + "></tr>");
+					$("#tablaEnCurso").append("<tr align='center' id='partida_" + idPartida + "' onclick=\"loadDiv('principal', 'Partidas?action=mostrarPartida', 'partidaId=" + idPartida + "')\"><td>" + idPartida + "</td><input type='hidden' id='update_" + idPartida + "' value=" + listaPartidas.Pendientes[i].lastUpdate + "></tr>");
 				}
 				
 			}

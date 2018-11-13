@@ -51,7 +51,7 @@
 				required autofocus> <br> <input type="password"
 				id="password" name="password" class="form-control"
 				placeholder="Password" required> <br>
-			<button class="btn btn-lg btn-login btn-block" type="button">Ingresar</button>
+			<button class="btn btn-lg btn-login btn-block" type="submit">Ingresar</button>
 			<br>
 			<button class="btn btn-lg btn-login btn-block"
 				onclick="window.location.href = 'signup.jsp'">Registrarse</button>

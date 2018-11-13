@@ -96,8 +96,7 @@ public class CartaDTO implements Serializable{
 	public void setApodoJugador(String apodoJugador) {
 		this.apodoJugador = apodoJugador;
 	}
-	
-	
+
 
 	
 	

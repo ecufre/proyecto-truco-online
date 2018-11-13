@@ -76,7 +76,7 @@
 						onclick='loadDiv("principal", "Jugador?action=listarRanking", null)'
 						data-toggle="collapse" data-target=".sidebar-collapse.in"><i
 							class="fa fa-trophy fa-2x"></i>Ver Ranking</a></li>
-					<li><a onclick='loadDiv("rightMenu", "partidas.jsp", null)'
+					<li><a onclick='loadDiv("principal", "Partidas?action=mostrarPartida", null)'
 						data-toggle="collapse" data-target=".sidebar-collapse.in"><i
 							class="fa fa-recycle fa-2x"></i>Menu Partidas</a></li>
 

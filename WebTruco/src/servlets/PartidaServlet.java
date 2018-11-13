@@ -74,7 +74,7 @@ public class PartidaServlet  extends HttpServlet {
 				PrintWriter out = response.getWriter();
 				int cc=1;
 				for(CartaDTO c :pdto.getCartasMesaJugadorFrente()){
-					out.println("<img src=\"assets/img/cartas/"+c.getNumero()+".PNG\" class=\"carta\" onClick=\"alert(1)\" style=\"transform: rotate(180deg);\">");
+					out.println("<img src=\"assets/img/cartas/"+c.getId()+".PNG\" class=\"carta\" onClick=\"alert(1)\" style=\"transform: rotate(180deg);\">");
 					cc++;
 				}
 				while(cc<=3){
@@ -88,11 +88,11 @@ public class PartidaServlet  extends HttpServlet {
 				PrintWriter out = response.getWriter();
 				int cc=1;
 				for(CartaDTO c :pdto.getCartasMesaJugador()){
-					out.println("<img src=\"assets/img/cartas/"+c.getNumero()+".PNG\" class=\"carta\" onClick=\"alert(1)\">");
+					out.println("<img src=\"assets/img/cartas/"+c.getId()+".PNG\" class=\"carta\" onClick=\"alert(1)\">");
 					cc++;
 				}
 				while(cc<=3){
-					out.println("<img src=\"assets/img/cartas/0.PNG\" class=\"carta\" onClick=\"alert(1)\">");
+					out.println("<img src=\"assets/img/cartas/00.PNG\" class=\"carta\" onClick=\"alert(1)\">");
 					cc++;
 				}
 			}		
@@ -102,7 +102,7 @@ public class PartidaServlet  extends HttpServlet {
 				PrintWriter out = response.getWriter();
 				int cc=1;
 				for(CartaDTO c :pdto.getCartasMesajugadorIzquierda()){
-					out.println("<img src=\"assets/img/cartas/"+c.getNumero()+".PNG\" class=\"carta\" onClick=\"alert(1)\" style=\"transform: rotate(90deg);\">");
+					out.println("<img src=\"assets/img/cartas/"+c.getId()+".PNG\" class=\"carta\" onClick=\"alert(1)\" style=\"transform: rotate(90deg);\">");
 					out.println("<br>");
 					cc++;
 				}
@@ -117,7 +117,7 @@ public class PartidaServlet  extends HttpServlet {
 				PrintWriter out = response.getWriter();
 				int cc=1;
 				for(CartaDTO c :pdto.getCartasMesaJugadorDerecha()){
-					out.println("<img src=\"assets/img/cartas/"+c.getNumero()+".PNG\" class=\"carta\" onClick=\"alert(1)\" style=\"transform: rotate(270deg);\">");
+					out.println("<img src=\"assets/img/cartas/"+c.getId()+".PNG\" class=\"carta\" onClick=\"alert(1)\" style=\"transform: rotate(270deg);\">");
 					out.println("<br>");
 					cc++;
 				}
@@ -132,10 +132,9 @@ public class PartidaServlet  extends HttpServlet {
 			if(div.equals("cartasJugador")){
 				response.setContentType( "text/html; charset=iso-8859-1" );
 				PrintWriter out = response.getWriter();
-
-				for(CartaDTO c :pdto.getCartasMesaJugador()){
-					out.println("<img src=\"assets/img/cartas/"+c.getNumero()+".PNG\" class=\"carta\" name=\"" +c.getNumero()+ "\" onClick=\"alert(1)\">");
-
+				int i = 1;
+				for(CartaDTO c :pdto.getCartasJugador()){
+					out.println("<img src=\"assets/img/cartas/"+c.getId()+".PNG\" id=\"carta" + i++ + "\" class=\"carta\" name=\"" +c.getId()+ "\" onClick=\"$('this').click(function(event) {$.post('Partida', {div: \"jugarCarta\", carta: " + c.getId() + "}, function(responseText) {$('#propias').html(responseText);});}); $('#carta1').click(function(){$('#carta1').remove();});}\">");
 				}
 
 			}		
