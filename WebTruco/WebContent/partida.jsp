@@ -3,7 +3,7 @@
 <%
 	PartidaPantallaDTO partida = (PartidaPantallaDTO) request.getAttribute("partidaActual");
 %>
-<div style="background: #009933;">
+<div style="background: #009933;" class="row">
 	<div class="row" id="mesa">
 		<div class="col-md-3" id="izquierda">
 			<%
@@ -113,24 +113,24 @@
 	</div>
 	<hr>
 	<div class="row" id="botonera">
-		<div align="center" class="btn-group btn-group-sm">
+		<div align="center" class="btn-group-sm">
 			<button type="button" class="btn btn-danger" id="envido">ENVIDO</button>
 			<button type="button" class="btn btn-danger" id="envidoEnvido">ENVIDO
 				ENVIDO</button>
 			<button type="button" class="btn btn-danger" id="realEnvido">REAL
 				ENVIDO</button>
 			<button type="button" class="btn btn-danger" id="faltaEnvido">FALTA
-				ENVIDO</button>
+				ENVIDO</button><br>
 			<button type="button" class="btn btn-danger" id="truco">TRUCO</button>
 			<button type="button" class="btn btn-danger" id="reTruco">RE
 				TRUCO</button>
 			<button type="button" class="btn btn-danger" id="vale4">VALE
-				4</button>
+				4</button><br>
 			<button type="button" class="btn btn-danger" id="quiero">QUIERO</button>
 			<button type="button" class="btn btn-danger" id="noQuiero">NO
 				QUIERO</button>
-			<button type="button" class="btn btn-danger" id="recargar">recargar</button>
-			<button type="button" class="btn btn-danger" id="iniciar">iniciar</button>
-		</div>
+				<button type="button" class="btn btn-danger" id="meVoy">ME VOY</button>
+					</div>
+					
 	</div>
 </div>
