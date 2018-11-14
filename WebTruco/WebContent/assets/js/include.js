@@ -41,9 +41,9 @@ function loadDiv(divName, url, postInfo) {
 		xmlhttp.send(postInfo);
 }
 
-setTimeout(actualizarPartidas, 0);
+setTimeout(actualizarPartidas, 10);
 
-setInterval(actualizarPartidas, 15000);
+setInterval(actualizarPartidas, 5000);
 
 function actualizarPartidas() {
 	var xmlhttp = new XMLHttpRequest();

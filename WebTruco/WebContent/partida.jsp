@@ -4,6 +4,11 @@
 	PartidaPantallaDTO partida = (PartidaPantallaDTO) request.getAttribute("partidaActual");
 %>
 <div style="background: #009933;" class="row">
+	<div class="row">
+		<div class="col-md-3"><%=partida.getJugadorIzquierda().getApodo() %></div>
+		<div class="col-md-6"><%=partida.getJugadorFrente().getApodo() %></div>
+		<div class="col-md-3"><%=partida.getJugadorDerecha().getApodo() %></div>
+	</div>
 	<div class="row" id="mesa">
 		<div class="col-md-3" id="izquierda">
 			<%
@@ -119,6 +124,7 @@
 		<div id="puntosEnvido" class="col-md-4"></div>
 	</div>
 	<hr>
+	<div class="row">Es el turno de: <%=partida.getTurnoJugador().getApodo() %></div>
 	<div class="row" id="botonera">
 		<div align="center" class="btn-group-sm">
 			<button type="button" class="btn btn-danger" onclick="loadDiv('mensajes', 'Partidas?action=cantarEnvite', 'partidaId=<%=partida.getPartidaID()%>&envite=envido')">ENVIDO</button>
@@ -138,7 +144,7 @@
 			<button type="button" class="btn btn-danger" onclick="loadDiv('mensajes', 'Partidas?action=responderEnvite', 'partidaId=<%=partida.getPartidaID()%>&respuesta=si&envite=<% if(partida.getUltimoCanto() != null) out.print(partida.getUltimoCanto().getDescTipoCanto()); %>')">QUIERO</button>
 			<button type="button" class="btn btn-danger" onclick="loadDiv('mensajes', 'Partidas?action=responderEnvite', 'partidaId=<%=partida.getPartidaID()%>&respuesta=no&envite=<% if(partida.getUltimoCanto() != null) out.print(partida.getUltimoCanto().getDescTipoCanto()); %>')">NO
 				QUIERO</button>
-			<button type="button" class="btn btn-danger" onclick="loadDiv('mensajes', 'Partidas?action=retirarse', 'partidaId=<%=partida.getPartidaID()%>')">ME
+			<button type="button" class="btn btn-danger" onclick="loadDiv('principal', 'Partidas?action=retirarse', 'partidaId=<%=partida.getPartidaID()%>')">ME
 				VOY</button>
 		</div>
 

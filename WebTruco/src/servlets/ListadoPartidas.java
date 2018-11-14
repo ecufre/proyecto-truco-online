@@ -185,7 +185,18 @@ public class ListadoPartidas  extends HttpServlet {
 					}
 				}
 				else if ("retirarse".equals(action)) {
-					
+					HttpSession session = request.getSession();
+					JugadorDTO jugAct = (JugadorDTO)session.getAttribute("jugador");
+					Integer partidaId = Integer.valueOf(request.getParameter("partidaId"));
+					if (jugAct != null && partidaId != null) {
+						PartidaDTO p = new PartidaDTO();
+						p.setId(partidaId);
+						AccionDTO ad = new AccionDTO(p, jugAct, 0, null, null);
+						bd.Retirarse(ad);
+						jspPage = "partida.jsp";
+						PartidaPantallaDTO pdto = bd.mostrarPartida(ad);
+						request.setAttribute("partidaActual", pdto);
+					}
 				}
 				RequestDispatcher rd = request.getRequestDispatcher(jspPage);
 				rd.forward(request, response);
