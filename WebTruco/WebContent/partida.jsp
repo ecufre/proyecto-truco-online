@@ -24,7 +24,7 @@
 				while (cc <= 3) {
 			%>
 			<img src="assets/img/cartas/0.PNG" class="carta"
-				style="transform: rotate(90deg);"><br>
+				style="transform: rotate(90deg);<% if (! partida.getJugadorIzquierda().getApodo().equals(partida.getTurnoJugador().getApodo())) out.print("opacity: 0.65;");%>"><br>
 			<%
 				cc++;
 				}
@@ -45,7 +45,7 @@
 					while (cc <= 3) {
 				%>
 				<img src="assets/img/cartas/0.PNG" class="carta"
-					style="transform: rotate(180deg);">
+					style="transform: rotate(180deg);<% if (! partida.getJugadorFrente().getApodo().equals(partida.getTurnoJugador().getApodo())) out.print("opacity: 0.65;");%>">
 				<%
 					cc++;
 					}
@@ -88,7 +88,7 @@
 				while (cc <= 3) {
 					%>
 			<img src="assets/img/cartas/0.PNG" class="carta"
-				style="transform: rotate(270deg);"><br>
+				style="transform: rotate(270deg);<% if (! partida.getJugadorDerecha().getApodo().equals(partida.getTurnoJugador().getApodo())) out.print("opacity: 0.65;");%>"><br>
 			<%cc++;
 				}
 			%>
@@ -107,7 +107,7 @@
 			<img src="assets/img/cartas/<%=c.getId()%>.PNG" class="carta"
 				value="<%=c.getId()%>"
 				onclick="loadDiv('principal', 'Partidas?action=jugarCarta', 'cartaId=<%=c.getId()%>&partidaId=<%=partida.getPartidaID()%>')"
-				style="transform: rotate(0deg);">
+				style="transform: rotate(0deg);<% if (! partida.getJugador().getApodo().equals(partida.getTurnoJugador().getApodo())) out.print("opacity: 0.65;");%>">
 			<%
 				cc++;
 				}
