@@ -173,10 +173,10 @@ public class ListadoPartidas  extends HttpServlet {
 								else {
 									enviteDTO = new EnviteDTO(tipoCanto, false, false);
 								}
-								request.setAttribute("mensaje", "Respondiste un envite");
-								request.setAttribute("ok", "Respondiste un envite");
 								ad.setEnvite(enviteDTO);
 								bd.responderEnvite(ad);
+								request.setAttribute("mensaje", "Respondiste un envite");
+								request.setAttribute("ok", "Respondiste un envite");
 							}	
 						}
 					}

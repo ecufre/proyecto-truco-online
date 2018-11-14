@@ -1,6 +1,7 @@
 package dto;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class PartidaPantallaDTO implements Serializable{
@@ -32,6 +33,7 @@ public class PartidaPantallaDTO implements Serializable{
 	private JugadorDTO jugadorIzquierda;
 	private JugadorDTO jugadorDerecha;
 	private JugadorDTO turnoJugador;
+	private LocalDateTime ultimaActualizacion;
 
 	private CantoDTO ultimoCanto;
 
@@ -313,4 +315,15 @@ public class PartidaPantallaDTO implements Serializable{
 	public void setUltimoCanto(CantoDTO ultimoCanto) {
 		this.ultimoCanto = ultimoCanto;
 	}
+
+
+	public LocalDateTime getUltimaActualizacion() {
+		return ultimaActualizacion;
+	}
+
+
+	public void setUltimaActualizacion(LocalDateTime ultimaActualizacion) {
+		this.ultimaActualizacion = ultimaActualizacion;
+	}
+	
 }

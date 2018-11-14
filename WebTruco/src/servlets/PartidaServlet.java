@@ -3,7 +3,6 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Scanner;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,12 +15,9 @@ import javax.servlet.http.HttpSession;
 import delegado.BusinessDelegate;
 import dto.AccionDTO;
 import dto.CartaDTO;
-import dto.GrupoDTO;
 import dto.JugadorDTO;
 import dto.PartidaDTO;
 import dto.PartidaPantallaDTO;
-import excepciones.ComunicacionException;
-import excepciones.LoggedInException;
 
 @WebServlet("/Partida")
 public class PartidaServlet  extends HttpServlet {

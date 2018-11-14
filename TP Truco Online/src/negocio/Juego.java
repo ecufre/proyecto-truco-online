@@ -190,7 +190,7 @@ public class Juego {
 		this.puntajeImpar = this.puntajeImpar + this.getManoActual().calcularPuntaje(1, this.puntajeImpar, this.puntajePar);
 		this.puntajePar = this.puntajePar + this.getManoActual().calcularPuntaje(2, this.puntajePar, this.puntajeImpar);
 		Integer[] envidosValor = this.getManoActual().getEnvidoValor();
-		for (int i = 0; i < 4; i++) System.out.println(i + ": " + envidosValor[i]);
+		//for (int i = 0; i < 4; i++) System.out.println(i + ": " + envidosValor[i]);
 		this.finalizado = (this.puntajeImpar >= 30 || this.puntajePar >= 30);
 	}
 

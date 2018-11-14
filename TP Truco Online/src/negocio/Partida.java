@@ -254,10 +254,16 @@ public class Partida {
 
 		if(j2!=null){
 			PartidaPantallaDTO pd = new PartidaPantallaDTO(partida);
+			org.joda.time.LocalDateTime jodaTime = this.fechaActualizacion;
+			java.time.LocalDateTime javaTime = java.time.LocalDateTime.of(jodaTime.getYear(), jodaTime.getMonthOfYear(), jodaTime.getDayOfMonth(), jodaTime.getHourOfDay(), jodaTime.getMinuteOfHour(), jodaTime.getSecondOfMinute());
+			pd.setUltimaActualizacion(javaTime);
 			pd.setJugador(j2.toDTO());
 
 			pd.setTurnoJugador(this.jugadores.get(this.getJuegoActual().getManoActual().getBazaActual().getTurno() - 1).toDTO_reducido());
-			if (this.getJuegoActual().getManoActual().getUltimoCanto() != null) pd.setUltimoCanto(this.getJuegoActual().getManoActual().getUltimoCanto().toDTO());
+			if (this.getJuegoActual().getManoActual().getUltimoCanto() != null) {
+				pd.setUltimoCanto(this.getJuegoActual().getManoActual().getUltimoCanto().toDTO());
+				pd.getUltimoCanto().setApodoCantante(this.jugadores.get(pd.getUltimoCanto().getCantante()).getApodo());
+			}
 			//pd.setChat(this.getCharla()); queda para la proxima entrega
 			pd.setCartasJugador(this.getJuegoActual().mostrarCartasJugador(this.ubicacionJugador(j2)));
 			if(ptosEnvido){

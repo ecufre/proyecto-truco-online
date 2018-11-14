@@ -1,8 +1,11 @@
 <%@ page import="dto.PartidaPantallaDTO"%>
 <%@ page import="dto.CartaDTO"%>
+<%@ page import="java.time.ZoneOffset"%>
+
 <%
 	PartidaPantallaDTO partida = (PartidaPantallaDTO) request.getAttribute("partidaActual");
 %>
+<input type=hidden id="updateActual_<%=partida.getPartidaID() %>" value=<%=partida.getUltimaActualizacion().toEpochSecond(ZoneOffset.ofHours(0)) %>>
 <div style="background: #009933;" class="row">
 	<div class="row">
 		<div class="col-md-3"><%=partida.getJugadorIzquierda().getApodo() %></div>
@@ -124,7 +127,16 @@
 		<div id="puntosEnvido" class="col-md-4"></div>
 	</div>
 	<hr>
-	<div class="row">Es el turno de: <%=partida.getTurnoJugador().getApodo() %></div>
+	<div class="row">Ultimo canto: 
+	<% 
+	if (partida.getUltimoCanto() == null) out.println("No se canto nada todavía");
+	else {
+		out.print(partida.getUltimoCanto().getDescTipoCanto() + " por " + partida.getUltimoCanto().getApodoCantante());
+		if (partida.getUltimoCanto().isQuerido() == null) out.println(" - No fue respondido aun");
+		else if (partida.getUltimoCanto().isQuerido()) out.println(" - Querido");
+		else out.println(" - No querido");
+	} %>
+	<br>Es el turno de: <%=partida.getTurnoJugador().getApodo() %></div>
 	<div class="row" id="botonera">
 		<div align="center" class="btn-group-sm">
 			<button type="button" class="btn btn-danger" onclick="loadDiv('mensajes', 'Partidas?action=cantarEnvite', 'partidaId=<%=partida.getPartidaID()%>&envite=envido')">ENVIDO</button>

@@ -355,7 +355,7 @@ public class Mano {
 				if (this.envidoValor[i] > puntosGanador || (this.envidoValor[i] == puntosGanador && this.posicionRelativa(i + 1) < this.posicionRelativa(jugadorGanador))) {
 					puntosGanador = this.envidoValor[i];
 					jugadorGanador = i + 1;
-					System.out.println(jugadorGanador + ": " + puntosGanador);
+					//System.out.println(jugadorGanador + ": " + puntosGanador);
 				}
 			}
 		}

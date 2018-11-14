@@ -16,6 +16,7 @@ public class CantoDTO implements Serializable {
 	private String DescTipoCanto;
 	private Integer ValorTipoCanto;
 	private int cantante;
+	private String apodoCantante;
 	
 	
 	
@@ -87,6 +88,27 @@ public class CantoDTO implements Serializable {
 	}
 	public void setCantante(int cantante) {
 		this.cantante = cantante;
+	}
+
+
+
+
+	public String getApodoCantante() {
+		return apodoCantante;
+	}
+
+
+
+
+	public void setApodoCantante(String apodoCantante) {
+		this.apodoCantante = apodoCantante;
+	}
+
+
+
+
+	public Boolean getQuerido() {
+		return querido;
 	}
 	
 	
