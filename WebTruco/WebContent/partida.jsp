@@ -17,10 +17,11 @@
 				}
 
 				while (cc <= 3) {
-					out.println(
-							"<img src=\"assets/img/cartas/0.PNG\" class=\"carta\" onClick=\"alert(1)\" style=\"transform: rotate(90deg);\">");
-					out.println("<br>");
-					cc++;
+			%>
+			<img src="assets/img/cartas/0.PNG" class="carta"
+				style="transform: rotate(90deg);"><br>
+			<%
+				cc++;
 				}
 			%>
 		</div>
@@ -37,9 +38,11 @@
 					}
 
 					while (cc <= 3) {
-						out.println(
-								"<img src=\"assets/img/cartas/0.PNG\" class=\"carta\" onClick=\"alert(1)\" style=\"transform: rotate(180deg);\">");
-						cc++;
+				%>
+				<img src="assets/img/cartas/0.PNG" class="carta"
+					style="transform: rotate(180deg);">
+				<%
+					cc++;
 					}
 				%>
 			</div>
@@ -56,9 +59,10 @@
 					}
 
 					while (cc <= 3) {
-						out.println(
-								"<img src=\"assets/img/cartas/00.PNG\" class=\"carta\" onClick=\"alert(1)\" style=\"transform: rotate(0deg);\">");
-						cc++;
+				%>
+				<img src="assets/img/cartas/00.PNG" class="carta">
+				<%
+					cc++;
 					}
 				%>
 			</div>
@@ -77,10 +81,10 @@
 				}
 
 				while (cc <= 3) {
-					out.println(
-							"<img src=\"assets/img/cartas/0.PNG\" class=\"carta\" onClick=\"alert(1)\" style=\"transform: rotate(270deg);\">");
-					out.println("<br>");
-					cc++;
+					%>
+			<img src="assets/img/cartas/0.PNG" class="carta"
+				style="transform: rotate(270deg);"><br>
+			<%cc++;
 				}
 			%>
 		</div>
@@ -96,14 +100,17 @@
 				for (CartaDTO c : partida.getCartasJugador()) {
 			%>
 			<img src="assets/img/cartas/<%=c.getId()%>.PNG" class="carta"
-				value="<%=c.getId()%>" onclick="loadDiv('principal', 'Partidas?action=jugarCarta', 'cartaId=<%=c.getId() %>&partidaId=<%=partida.getPartidaID() %>')" style="transform: rotate(0deg);">
+				value="<%=c.getId()%>"
+				onclick="loadDiv('principal', 'Partidas?action=jugarCarta', 'cartaId=<%=c.getId()%>&partidaId=<%=partida.getPartidaID()%>')"
+				style="transform: rotate(0deg);">
 			<%
 				cc++;
 				}
 
 				while (cc <= 3) {
-					out.println(
-							"<img src=\"assets/img/cartas/00.PNG\" class=\"carta\" onClick=\"alert(1)\" style=\"transform: rotate(0deg);\">");
+					%>
+			<img src="assets/img/cartas/00.PNG" class="carta">
+			<%
 					cc++;
 				}
 			%>
@@ -114,23 +121,26 @@
 	<hr>
 	<div class="row" id="botonera">
 		<div align="center" class="btn-group-sm">
-			<button type="button" class="btn btn-danger" id="envido">ENVIDO</button>
-			<button type="button" class="btn btn-danger" id="envidoEnvido">ENVIDO
+			<button type="button" class="btn btn-danger" onclick="loadDiv('mensajes', 'Partidas?action=cantarEnvite', 'partidaId=<%=partida.getPartidaID()%>&envite=envido')">ENVIDO</button>
+			<button type="button" class="btn btn-danger" onclick="loadDiv('mensajes', 'Partidas?action=cantarEnvite', 'partidaId=<%=partida.getPartidaID()%>&envite=envidoEnvido')">ENVIDO
 				ENVIDO</button>
-			<button type="button" class="btn btn-danger" id="realEnvido">REAL
+			<button type="button" class="btn btn-danger" onclick="loadDiv('mensajes', 'Partidas?action=cantarEnvite', 'partidaId=<%=partida.getPartidaID()%>&envite=realEnvido')">REAL
 				ENVIDO</button>
-			<button type="button" class="btn btn-danger" id="faltaEnvido">FALTA
-				ENVIDO</button><br>
-			<button type="button" class="btn btn-danger" id="truco">TRUCO</button>
-			<button type="button" class="btn btn-danger" id="reTruco">RE
+			<button type="button" class="btn btn-danger" onclick="loadDiv('mensajes', 'Partidas?action=cantarEnvite', 'partidaId=<%=partida.getPartidaID()%>&envite=faltaEnvido')">FALTA
+				ENVIDO</button>
+			<br>
+			<button type="button" class="btn btn-danger" onclick="loadDiv('mensajes', 'Partidas?action=cantarEnvite', 'partidaId=<%=partida.getPartidaID()%>&envite=truco')">TRUCO</button>
+			<button type="button" class="btn btn-danger" onclick="loadDiv('mensajes', 'Partidas?action=cantarEnvite', 'partidaId=<%=partida.getPartidaID()%>&envite=reTruco')">RE
 				TRUCO</button>
-			<button type="button" class="btn btn-danger" id="vale4">VALE
-				4</button><br>
-			<button type="button" class="btn btn-danger" id="quiero">QUIERO</button>
-			<button type="button" class="btn btn-danger" id="noQuiero">NO
+			<button type="button" class="btn btn-danger" onclick="loadDiv('mensajes', 'Partidas?action=cantarEnvite', 'partidaId=<%=partida.getPartidaID()%>&envite=valeCuatro')">VALE
+				4</button>
+			<br>
+			<button type="button" class="btn btn-danger" onclick="loadDiv('mensajes', 'Partidas?action=responderEnvite', 'partidaId=<%=partida.getPartidaID()%>&respuesta=si&envite=<% if(partida.getUltimoCanto() != null) out.print(partida.getUltimoCanto().getDescTipoCanto()); %>')">QUIERO</button>
+			<button type="button" class="btn btn-danger" onclick="loadDiv('mensajes', 'Partidas?action=responderEnvite', 'partidaId=<%=partida.getPartidaID()%>&respuesta=no&envite=<% if(partida.getUltimoCanto() != null) out.print(partida.getUltimoCanto().getDescTipoCanto()); %>')">NO
 				QUIERO</button>
-				<button type="button" class="btn btn-danger" id="meVoy">ME VOY</button>
-					</div>
-					
+			<button type="button" class="btn btn-danger" onclick="loadDiv('mensajes', 'Partidas?action=retirarse', 'partidaId=<%=partida.getPartidaID()%>')">ME
+				VOY</button>
+		</div>
+
 	</div>
 </div>

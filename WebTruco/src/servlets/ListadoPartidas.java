@@ -18,10 +18,12 @@ import javax.servlet.http.HttpSession;
 import delegado.BusinessDelegate;
 import dto.AccionDTO;
 import dto.CartaDTO;
+import dto.EnviteDTO;
 import dto.JugadorDTO;
 import dto.PartidaDTO;
 import dto.PartidaPantallaDTO;
 import enumeraciones.EstadoPartida;
+import enumeraciones.TipoCanto;
 import excepciones.ComunicacionException;
 import excepciones.LoggedInException;
 
@@ -101,6 +103,89 @@ public class ListadoPartidas  extends HttpServlet {
 						PartidaPantallaDTO pdto = bd.mostrarPartida(ad);
 						request.setAttribute("partidaActual", pdto);
 					}
+				}
+				else if ("jugadorListo".equals(action)) {
+					HttpSession session = request.getSession();
+					JugadorDTO jugAct = (JugadorDTO)session.getAttribute("jugador");
+					Integer partidaId = Integer.valueOf(request.getParameter("partidaId"));
+					jspPage = "mensaje.jsp";
+					if (jugAct != null && partidaId != null) {
+						PartidaDTO p = new PartidaDTO();
+						p.setId(partidaId);
+						AccionDTO ad = new AccionDTO(p, jugAct, 0, null, null);
+						bd.jugadorListos(ad);
+						request.setAttribute("mensaje", "Estas listo para jugar la partida");
+						request.setAttribute("ok", "Estas listo para jugar la partida");
+					}
+					else {
+						request.setAttribute("mensaje", "Ocurrio un error desconocido y misterioso");
+					}
+				}
+				else if ("cantarEnvite".equals(action) || "responderEnvite".equals(action)) {
+					HttpSession session = request.getSession();
+					JugadorDTO jugAct = (JugadorDTO)session.getAttribute("jugador");
+					Integer partidaId = Integer.valueOf(request.getParameter("partidaId"));
+					String envite = request.getParameter("envite");
+					String respuesta = request.getParameter("respuesta");
+					jspPage = "mensaje.jsp";
+					if (jugAct != null && envite != null && partidaId != null) {
+						PartidaDTO p = new PartidaDTO();
+						p.setId(partidaId);
+						AccionDTO ad = new AccionDTO(p, jugAct, 0, null, null);
+						TipoCanto tipoCanto = null;
+						if (envite.equals("envido")) {
+							tipoCanto = TipoCanto.Envido;
+						}
+						else if (envite.equals("envidoEnvido")) {
+							tipoCanto = TipoCanto.EnvidoEnvido;
+						}
+						else if (envite.equals("realEnvido")) {
+							tipoCanto = TipoCanto.RealEnvido;
+						}
+						else if (envite.equals("faltaEnvido")) {
+							tipoCanto = TipoCanto.FaltaEnvido;
+						}
+						else if (envite.equals("truco")) {
+							tipoCanto = TipoCanto.Truco;
+						}
+						else if (envite.equals("reTruco")) {
+							tipoCanto = TipoCanto.ReTruco;
+						}
+						else if (envite.equals("valeCuatro")) {
+							tipoCanto = TipoCanto.ValeCuatro;
+						}
+						if (tipoCanto != null) {
+							if (respuesta == null) {
+								EnviteDTO enviteDTO = new EnviteDTO(tipoCanto, false, false);
+								ad.setEnvite(enviteDTO);
+								bd.cantarEnvite(ad);
+								request.setAttribute("mensaje", "Cantaste un envite");
+								request.setAttribute("ok", "Cantaste un envite");
+							}
+							else {
+								EnviteDTO enviteDTO;
+								if (respuesta.equals("si") && tipoCanto.getValor() < 5) {
+									enviteDTO = new EnviteDTO(tipoCanto, true, true);
+								}
+								else if (respuesta.equals("si") && tipoCanto.getValor() > 4) {
+									enviteDTO = new EnviteDTO(tipoCanto, true, false);									
+								}
+								else {
+									enviteDTO = new EnviteDTO(tipoCanto, false, false);
+								}
+								request.setAttribute("mensaje", "Respondiste un envite");
+								request.setAttribute("ok", "Respondiste un envite");
+								ad.setEnvite(enviteDTO);
+								bd.responderEnvite(ad);
+							}	
+						}
+					}
+					else {
+						request.setAttribute("mensaje", "Ocurrio un error desconocido y misterioso");
+					}
+				}
+				else if ("retirarse".equals(action)) {
+					
 				}
 				RequestDispatcher rd = request.getRequestDispatcher(jspPage);
 				rd.forward(request, response);

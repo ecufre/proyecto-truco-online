@@ -12,7 +12,7 @@
 					<tr align="center" id="partida_1">
 						<td>1</td><input type="hidden" id="update_1" value=3>
 					</tr>
-					<tr align="center">
+					<tr align="center" class="confirmar">
 						<td>2</td>
 					</tr>
 				</tbody>

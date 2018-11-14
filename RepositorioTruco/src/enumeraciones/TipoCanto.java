@@ -1,13 +1,13 @@
 package enumeraciones;
 
 public enum TipoCanto {
-	Envido (1,"ENVIDO", 2,null),
-	EnvidoEnvido (2,"ENVIDOENVIDO", 2,1),
-	RealEnvido (3,"REALENVIDO", 3,null),
-	FaltaEnvido(4,"FALTAENVIDO", 30,null),
-	Truco(5,"TRUCO", 1,null), 
-	ReTruco(6,"RETRUCO", 1,5), 
-	ValeCuatro(7,"VALE4", 1,6); 
+	Envido (1,"envido", 2,null),
+	EnvidoEnvido (2,"envidoEnvido", 2,1),
+	RealEnvido (3,"realEnvido", 3,null),
+	FaltaEnvido(4,"faltaEnvido", 30,null),
+	Truco(5,"truco", 1,null), 
+	ReTruco(6,"reTruco", 1,5), 
+	ValeCuatro(7,"valeCuatro", 1,6); 
 	
 	private final int id;
 	private final String nombre;

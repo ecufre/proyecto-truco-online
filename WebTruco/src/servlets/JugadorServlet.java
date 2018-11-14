@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import delegado.BusinessDelegate;
 import dto.InvitacionDTO;
 import dto.JugadorDTO;
+import enumeraciones.TipoCanto;
 import excepciones.ComunicacionException;
 import excepciones.LoggedInException;
 
@@ -90,7 +91,6 @@ public class JugadorServlet  extends HttpServlet {
 					catch (ComunicacionException e) {
 						request.setAttribute("mensaje", "Ya estabas en la lista de espera");
 					}
-
 				}
 			}
 			else if ("jugarDuo".equals(action)) {

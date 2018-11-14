@@ -95,9 +95,9 @@ public class Partida {
 		else throw new ComunicacionException("Hubo un error al generar una nueva partida");
 	}
 
-	public void jugadorListo(Jugador j) {
+	public void jugadorListo(Jugador j) throws ComunicacionException {
 		for (int i = 0; i < this.jugadoresListos.size(); i++) {
-			if (this.jugadoresListos.get(i).getApodo().equals(j.getApodo())) return;
+			if (this.jugadoresListos.get(i).getApodo().equals(j.getApodo())) throw new ComunicacionException("El jugador ya estaba listo para jugar esta partida");
 		}
 		this.jugadoresListos.add(j);
 		if (this.jugadoresListos.size() == 4) this.estado = EstadoPartida.EnCurso;

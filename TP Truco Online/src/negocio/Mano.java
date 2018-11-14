@@ -128,8 +128,8 @@ public class Mano {
 
 	//Calcula la posicion relativa de un jugador respecto del mano de la primer baza
 	private int posicionRelativa(int ubicacion) {
-		if (ubicacion >= this.calcularJugManoBaza()) return (this.calcularJugManoBaza() - ubicacion);
-		else return (4 + this.calcularJugManoBaza() - ubicacion);
+		if (ubicacion >= this.calcularJugManoBaza()) return (1 + ubicacion - this.calcularJugManoBaza());
+		else return (5 + ubicacion - this.calcularJugManoBaza());
 	}
 
 	public void administrarRetiro(int ganador) throws ComunicacionException {

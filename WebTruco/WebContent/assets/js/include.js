@@ -54,7 +54,7 @@ function actualizarPartidas() {
 				var idPartida = listaPartidas.Pendientes[i].idPartida;
 				var hiddenInput =document.getElementById("partida_p_" + idPartida);
 				if (hiddenInput == null) {
-					$("#tablaPendientes").append("<tr align='center' id='partida_p_" + idPartida + "'><td>" + idPartida + "</td><input type='hidden' id='update_" + idPartida + "' value=" + listaPartidas.Pendientes[i].lastUpdate + "></tr>");
+					$("#tablaPendientes").append("<tr align='center' id='partida_p_" + idPartida + "' onclick=\"loadDiv('mensajes', 'Partidas?action=jugadorListo', 'partidaId=" + idPartida + "')\"><td>" + idPartida + "</td><input type='hidden' id='update_" + idPartida + "' value=" + listaPartidas.Pendientes[i].lastUpdate + "></tr>");
 				}
 			}
 			for (i = 0; i < listaPartidas.EnCurso.length; i++) {

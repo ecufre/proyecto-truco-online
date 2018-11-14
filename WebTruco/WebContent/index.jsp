@@ -76,7 +76,7 @@
 						onclick='loadDiv("principal", "Jugador?action=listarRanking", null)'
 						data-toggle="collapse" data-target=".sidebar-collapse.in"><i
 							class="fa fa-trophy fa-2x"></i>Ver Ranking</a></li>
-					<li><a onclick='loadDiv("principal", "Partidas?action=mostrarPartida", null)'
+					<li><a onclick='loadDiv("rightMenu", "partidas.jsp", null)'
 						data-toggle="collapse" data-target=".sidebar-collapse.in"><i
 							class="fa fa-recycle fa-2x"></i>Menu Partidas</a></li>
 
@@ -143,6 +143,5 @@
 	<!-- DATA TABLE SCRIPTS -->
 	<script src="assets/js/dataTables/jquery.dataTables.js"></script>
 	<script src="assets/js/dataTables/dataTables.bootstrap.js"></script>
-
 </body>
 </html>
