@@ -262,7 +262,7 @@ public class Partida {
 			pd.setTurnoJugador(this.jugadores.get(this.getJuegoActual().getManoActual().getBazaActual().getTurno() - 1).toDTO_reducido());
 			if (this.getJuegoActual().getManoActual().getUltimoCanto() != null) {
 				pd.setUltimoCanto(this.getJuegoActual().getManoActual().getUltimoCanto().toDTO());
-				pd.getUltimoCanto().setApodoCantante(this.jugadores.get(pd.getUltimoCanto().getCantante()).getApodo());
+				pd.getUltimoCanto().setApodoCantante(this.jugadores.get(pd.getUltimoCanto().getCantante() - 1).getApodo());
 			}
 			//pd.setChat(this.getCharla()); queda para la proxima entrega
 			pd.setCartasJugador(this.getJuegoActual().mostrarCartasJugador(this.ubicacionJugador(j2)));
