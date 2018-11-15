@@ -151,7 +151,7 @@ public class AdministradorPartida {
 		return null;
 	}
 	
-	private Partida buscarPartida(int partida) throws ComunicacionException {
+	public Partida buscarPartida(int partida) throws ComunicacionException {
 		return PartidaDAO.getInstancia().getPartidaById(partida);
 		/* Para cuando no hay persistencia
 		for (Partida p:this.partidas) if(p.getId()==partida) return p;

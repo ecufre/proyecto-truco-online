@@ -95,10 +95,11 @@ public class Grupo {
 		return partidasDTO;
 	}
 	
-	public ArrayList<JugadorDTO> calcularRankingCerrado() {
+	public ArrayList<JugadorDTO> calcularRankingCerrado() throws ComunicacionException {
 		ArrayList<JugadorDTO> ranking = new ArrayList<JugadorDTO>();
-		for (Partida p : partidas) {
-			if (p.getEstado().equals(EstadoPartida.Finalizada)) { 
+		for (Partida part : partidas) {
+			if (part.getEstado().equals(EstadoPartida.Finalizada)) { 
+				Partida p = AdministradorPartida.getInstancia().buscarPartida(part.getId());
 				ArrayList<Jugador> jugadores = p.getJugadores();
 				for (int i = 0; i < jugadores.size(); i++) {
 					Jugador j = jugadores.get(i);
