@@ -5,7 +5,8 @@
 		int aux = pts - ((i - 1) * 5);
 		if (aux >= 0 && aux <= 5)
 			return aux;
-		else if (aux > 5) return 5;
+		else if (aux > 5)
+			return 5;
 		else
 			return 0;
 	}%>
@@ -36,7 +37,7 @@
 			%>
 			<img src="assets/img/cartas/0.PNG" class="carta"
 				style="transform: rotate(90deg);<%if (!partida.getJugadorIzquierda().getApodo().equals(partida.getTurnoJugador().getApodo()))
-					out.print("opacity: 0.65;");%>"><br>
+					out.print("opacity: 0.50;");%>"><br>
 			<%
 				cc++;
 				}
@@ -58,41 +59,63 @@
 				%>
 				<img src="assets/img/cartas/0.PNG" class="carta"
 					style="transform: rotate(180deg);<%if (!partida.getJugadorFrente().getApodo().equals(partida.getTurnoJugador().getApodo()))
-					out.print("opacity: 0.65;");%>">
+					out.print("opacity: 0.50;");%>">
 				<%
 					cc++;
 					}
 				%>
 			</div>
+			<br>
 			<div class="row" id="info">
-				<br>
-				<table class="tablaPuntaje">
-					<tr>
-						<th align="center">N</th>
-						<th align="center">E</th>
-					</tr>
-					<tr>
-						<td><img
-							src="assets\img\puntos\<%=this.getPto(partida.getPuntosJuegoNosotros(), 1)%>.png"><img
-							src="assets\img\puntos\<%=this.getPto(partida.getPuntosJuegoNosotros(), 2)%>.png"><img
-							src="assets\img\puntos\<%=this.getPto(partida.getPuntosJuegoNosotros(), 3)%>.png"></td>
-						<td><img
-							src="assets\img\puntos\<%=this.getPto(partida.getPuntosJuegoEllos(), 1)%>.png"><img
-							src="assets\img\puntos\<%=this.getPto(partida.getPuntosJuegoEllos(), 2)%>.png"><img
-							src="assets\img\puntos\<%=this.getPto(partida.getPuntosJuegoEllos(), 3)%>.png"></td>
-					</tr>
-					<tr>
-						<td><img
-							src="assets\img\puntos\<%=this.getPto(partida.getPuntosJuegoNosotros(), 4)%>.png"><img
-							src="assets\img\puntos\<%=this.getPto(partida.getPuntosJuegoNosotros(), 5)%>.png"><img
-							src="assets\img\puntos\<%=this.getPto(partida.getPuntosJuegoNosotros(), 6)%>.png"></td>
-						<td><img
-							src="assets\img\puntos\<%=this.getPto(partida.getPuntosJuegoEllos(), 4)%>.png"><img
-							src="assets\img\puntos\<%=this.getPto(partida.getPuntosJuegoEllos(), 5)%>.png"><img
-							src="assets\img\puntos\<%=this.getPto(partida.getPuntosJuegoEllos(), 6)%>.png"></td>
-					</tr>
+				<div class="col-md-3">
+					<table class="tablaPuntaje">
+						<tr>
+							<th align="center">N</th>
+							<th align="center">E</th>
+						</tr>
+						<tr>
+							<td><img
+								src="assets\img\puntos\<%=this.getPto(partida.getPuntosJuegoNosotros(), 1)%>.png"><img
+								src="assets\img\puntos\<%=this.getPto(partida.getPuntosJuegoNosotros(), 2)%>.png"><img
+								src="assets\img\puntos\<%=this.getPto(partida.getPuntosJuegoNosotros(), 3)%>.png"></td>
+							<td><img
+								src="assets\img\puntos\<%=this.getPto(partida.getPuntosJuegoEllos(), 1)%>.png"><img
+								src="assets\img\puntos\<%=this.getPto(partida.getPuntosJuegoEllos(), 2)%>.png"><img
+								src="assets\img\puntos\<%=this.getPto(partida.getPuntosJuegoEllos(), 3)%>.png"></td>
+						</tr>
+						<tr>
+							<td><img
+								src="assets\img\puntos\<%=this.getPto(partida.getPuntosJuegoNosotros(), 4)%>.png"><img
+								src="assets\img\puntos\<%=this.getPto(partida.getPuntosJuegoNosotros(), 5)%>.png"><img
+								src="assets\img\puntos\<%=this.getPto(partida.getPuntosJuegoNosotros(), 6)%>.png"></td>
+							<td><img
+								src="assets\img\puntos\<%=this.getPto(partida.getPuntosJuegoEllos(), 4)%>.png"><img
+								src="assets\img\puntos\<%=this.getPto(partida.getPuntosJuegoEllos(), 5)%>.png"><img
+								src="assets\img\puntos\<%=this.getPto(partida.getPuntosJuegoEllos(), 6)%>.png"></td>
+						</tr>
 
-				</table>
+					</table>
+				</div>
+				<div class="col-md-9">
+					<div class="row">
+						Ultimo canto:
+						<%
+						if (partida.getUltimoCanto() == null)
+							out.println("No se canto nada todavía");
+						else {
+							out.print("<b>" + partida.getUltimoCanto().getDescTipoCanto() + " </b> por <b>"
+									+ partida.getUltimoCanto().getApodoCantante() + "</b>");
+							if (partida.getUltimoCanto().isQuerido() == null)
+								out.println(" - No fue respondido aun");
+							else if (partida.getUltimoCanto().isQuerido())
+								out.println(" - Querido");
+							else
+								out.println(" - No querido");
+						}
+					%>
+						<br>Es el turno de: <b>
+						<%=partida.getTurnoJugador().getApodo()%></b></div>
+				</div>
 				<br>
 			</div>
 			<div class="row" id="propias">
@@ -132,7 +155,7 @@
 			%>
 			<img src="assets/img/cartas/0.PNG" class="carta"
 				style="transform: rotate(270deg);<%if (!partida.getJugadorDerecha().getApodo().equals(partida.getTurnoJugador().getApodo()))
-					out.print("opacity: 0.65;");%>"><br>
+					out.print("opacity: 0.50;");%>"><br>
 			<%
 				cc++;
 				}
@@ -153,7 +176,7 @@
 				value="<%=c.getId()%>"
 				onclick="loadDiv('principal', 'Partidas?action=jugarCarta', 'cartaId=<%=c.getId()%>&partidaId=<%=partida.getPartidaID()%>')"
 				style="transform: rotate(0deg);<%if (!partida.getJugador().getApodo().equals(partida.getTurnoJugador().getApodo()))
-					out.print("opacity: 0.65;");%>">
+					out.print("opacity: 0.50;");%>">
 			<%
 				cc++;
 				}
@@ -170,45 +193,27 @@
 		<div id="puntosEnvido" class="col-md-4"></div>
 	</div>
 	<hr>
-	<div class="row">
-		Ultimo canto:
-		<%
-		if (partida.getUltimoCanto() == null)
-			out.println("No se canto nada todavía");
-		else {
-			out.print(partida.getUltimoCanto().getDescTipoCanto() + " por "
-					+ partida.getUltimoCanto().getApodoCantante());
-			if (partida.getUltimoCanto().isQuerido() == null)
-				out.println(" - No fue respondido aun");
-			else if (partida.getUltimoCanto().isQuerido())
-				out.println(" - Querido");
-			else
-				out.println(" - No querido");
-		}
-	%>
-		<br>Es el turno de:
-		<%=partida.getTurnoJugador().getApodo()%></div>
 	<div class="row" id="botonera">
 		<div align="center" class="btn-group-sm">
 			<button type="button" class="btn btn-danger"
-				onclick="loadDiv('mensajes', 'Partidas?action=cantarEnvite', 'partidaId=<%=partida.getPartidaID()%>&envite=envido')">ENVIDO</button>
+				onclick="loadDiv('mensajes', 'Partidas?action=cantarEnvite', 'partidaId=<%=partida.getPartidaID()%>&envite=Envido')">ENVIDO</button>
 			<button type="button" class="btn btn-danger"
-				onclick="loadDiv('mensajes', 'Partidas?action=cantarEnvite', 'partidaId=<%=partida.getPartidaID()%>&envite=envidoEnvido')">ENVIDO
+				onclick="loadDiv('mensajes', 'Partidas?action=cantarEnvite', 'partidaId=<%=partida.getPartidaID()%>&envite=Envido envido')">ENVIDO
 				ENVIDO</button>
 			<button type="button" class="btn btn-danger"
-				onclick="loadDiv('mensajes', 'Partidas?action=cantarEnvite', 'partidaId=<%=partida.getPartidaID()%>&envite=realEnvido')">REAL
+				onclick="loadDiv('mensajes', 'Partidas?action=cantarEnvite', 'partidaId=<%=partida.getPartidaID()%>&envite=Real envido')">REAL
 				ENVIDO</button>
 			<button type="button" class="btn btn-danger"
-				onclick="loadDiv('mensajes', 'Partidas?action=cantarEnvite', 'partidaId=<%=partida.getPartidaID()%>&envite=faltaEnvido')">FALTA
+				onclick="loadDiv('mensajes', 'Partidas?action=cantarEnvite', 'partidaId=<%=partida.getPartidaID()%>&envite=Falta envido')">FALTA
 				ENVIDO</button>
 			<br>
 			<button type="button" class="btn btn-danger"
-				onclick="loadDiv('mensajes', 'Partidas?action=cantarEnvite', 'partidaId=<%=partida.getPartidaID()%>&envite=truco')">TRUCO</button>
+				onclick="loadDiv('mensajes', 'Partidas?action=cantarEnvite', 'partidaId=<%=partida.getPartidaID()%>&envite=Rruco')">TRUCO</button>
 			<button type="button" class="btn btn-danger"
-				onclick="loadDiv('mensajes', 'Partidas?action=cantarEnvite', 'partidaId=<%=partida.getPartidaID()%>&envite=reTruco')">RE
+				onclick="loadDiv('mensajes', 'Partidas?action=cantarEnvite', 'partidaId=<%=partida.getPartidaID()%>&envite=Re truco')">RE
 				TRUCO</button>
 			<button type="button" class="btn btn-danger"
-				onclick="loadDiv('mensajes', 'Partidas?action=cantarEnvite', 'partidaId=<%=partida.getPartidaID()%>&envite=valeCuatro')">VALE
+				onclick="loadDiv('mensajes', 'Partidas?action=cantarEnvite', 'partidaId=<%=partida.getPartidaID()%>&envite=Vale cuatro')">VALE
 				4</button>
 			<br>
 			<button type="button" class="btn btn-danger"

@@ -133,25 +133,25 @@ public class ListadoPartidas  extends HttpServlet {
 						p.setId(partidaId);
 						AccionDTO ad = new AccionDTO(p, jugAct, 0, null, null);
 						TipoCanto tipoCanto = null;
-						if (envite.equals("envido")) {
+						if (envite.equals("Envido")) {
 							tipoCanto = TipoCanto.Envido;
 						}
-						else if (envite.equals("envidoEnvido")) {
+						else if (envite.equals("Envido envido")) {
 							tipoCanto = TipoCanto.EnvidoEnvido;
 						}
-						else if (envite.equals("realEnvido")) {
+						else if (envite.equals("Real envido")) {
 							tipoCanto = TipoCanto.RealEnvido;
 						}
-						else if (envite.equals("faltaEnvido")) {
+						else if (envite.equals("Falta envido")) {
 							tipoCanto = TipoCanto.FaltaEnvido;
 						}
-						else if (envite.equals("truco")) {
+						else if (envite.equals("Truco")) {
 							tipoCanto = TipoCanto.Truco;
 						}
-						else if (envite.equals("reTruco")) {
+						else if (envite.equals("Re truco")) {
 							tipoCanto = TipoCanto.ReTruco;
 						}
-						else if (envite.equals("valeCuatro")) {
+						else if (envite.equals("Vale cuatro")) {
 							tipoCanto = TipoCanto.ValeCuatro;
 						}
 						if (tipoCanto != null) {

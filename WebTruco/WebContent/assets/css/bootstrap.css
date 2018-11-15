@@ -6334,17 +6334,11 @@ button.close {
 	.hidden-xs {
 		display: none !important;
 	}
-	.carta {
-	 width: 50px;
-	}
 }
 
 @media ( min-width : 768px) and (max-width: 991px) {
 	.hidden-sm {
 		display: none !important;
-	}
-	.carta {
-	 width: 60px;
 	}
 }
 
@@ -6352,15 +6346,38 @@ button.close {
 	.hidden-md {
 		display: none !important;
 	}
-	.carta {
-	 width: 70px;
-	}
 }
 
 @media ( min-width : 1200px) {
 	.hidden-lg {
 		display: none !important;
 	}
+}
+
+@media ( max-width : 767px) {
+	.carta {
+	 width: 50px;
+	}
+}
+@media ( min-width : 768px) and (max-width: 1219px) {
+	.carta {
+	 width: 60px;
+	}
+}
+
+@media ( min-width : 1220px) and (max-width: 1349px) {
+	.carta {
+	 width: 70px;
+	}
+}
+
+@media ( min-width : 1350px) and (max-width: 1499px) {
+	.carta {
+	 width: 80px;
+	}
+}
+
+@media ( min-width : 1500px) {
 	.carta {
 	 width: 90px;
 	}
