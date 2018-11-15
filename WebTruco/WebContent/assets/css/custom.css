@@ -21,12 +21,6 @@ body {
     background:#202020;
 }
 
-.carta {
-	 width: 70px;
-	  
-	
-}
-
 #page-wrapper {
     padding: 15px 15px;
     min-height: 600px;
@@ -381,5 +375,26 @@ line-height: 1.428571429;
 }
    
 }
+/*==============================================
+    Tabla puntajes   
+    =============================================*/
 
-
+.tablaPuntaje {
+    border-collapse: collapse;
+    table-layout: fixed ;
+    width: 70px ;
+}
+.tablaPuntaje td, table th {
+    border: 2px solid black;
+    text-align: center;
+    width: 50%;
+}
+.tablaPuntaje tr:last-child td {
+    border-bottom: 0;
+}
+.tablaPuntaje tr td:first-child {
+    border-left: 0;
+}
+.tablaPuntaje tr td:last-child {
+    border-right: 0;
+}
