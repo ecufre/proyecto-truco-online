@@ -74,7 +74,6 @@ public class ListadoPartidas  extends HttpServlet {
 			}
 			else {
 				if("mostrarPartida".equals(action)) {
-					jspPage = "partida.jsp";
 					HttpSession session = request.getSession();
 					JugadorDTO jugAct = (JugadorDTO)session.getAttribute("jugador");
 					Integer idPartida = Integer.valueOf(request.getParameter("partidaId"));
@@ -83,7 +82,16 @@ public class ListadoPartidas  extends HttpServlet {
 						pd.setId(idPartida);
 						AccionDTO ad = new AccionDTO(pd, jugAct,1,true,null);
 						request.setAttribute("partidaActual", bd.mostrarPartida(ad));
-
+						jspPage = "partida.jsp";
+					}
+				}
+				else if ("listarPartidasFinalizadas".equals(action)) {
+					HttpSession session = request.getSession();
+					JugadorDTO jugAct = (JugadorDTO)session.getAttribute("jugador");
+					if (jugAct != null) {
+						request.setAttribute("listaPartidas", bd.listarPartidasFinalizadasJugador(jugAct));
+						request.setAttribute("miApodo", jugAct.getApodo());
+						jspPage = "listaPartidas.jsp";
 					}
 				}
 				else if ("jugarCarta".equals(action)) {

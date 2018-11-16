@@ -76,9 +76,9 @@
 						onclick='loadDiv("principal", "Jugador?action=listarRanking", null)'
 						data-toggle="collapse" data-target=".sidebar-collapse.in"><i
 							class="fa fa-trophy fa-2x"></i>Ver Ranking</a></li>
-					<!-- <li><a onclick='loadDiv("rightMenu", "partidas.jsp", null)'
+					<li><a onclick='loadDiv("principal", "Partidas?action=listarPartidasFinalizadas", null)'
 						data-toggle="collapse" data-target=".sidebar-collapse.in"><i
-							class="fa fa-recycle fa-2x"></i>Menu Partidas</a></li>  -->
+							class="fa fa-trash-o fa-2x"></i>Partidas Finalizadas</a></li>
 
 				</ul>
 
@@ -94,8 +94,7 @@
 					</div>
 				</div>
 				<!-- /. ROW  -->
-				<div align=center id="principal" class="col-lg-10"
-					style="min-height: 400px;"></div>
+				<div align=center id="principal" class="col-lg-10"></div>
 				<!-- background:#009933; -->
 				<div id=rightMenu class="col-lg-2">
 					<div class="panel panel-default">

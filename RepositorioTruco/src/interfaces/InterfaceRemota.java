@@ -75,4 +75,6 @@ public interface InterfaceRemota extends Remote {
 	public PartidaDTO mostrarHistoria(AccionDTO ad) throws RemoteException,  ComunicacionException, LoggedInException;
 	
 	public ArrayList<PartidaDTO> listarMisPartidas(JugadorDTO jugador) throws RemoteException, ComunicacionException, LoggedInException;
+
+	public ArrayList<PartidaDTO> listarPartidasFinalizadasJugador(JugadorDTO jugador) throws RemoteException, ComunicacionException, LoggedInException;
 }

@@ -76,7 +76,7 @@ public class Test2 {
 			ap.jugadorListo(aDTO);
 			
 			
-			ap.buscarPartidasJugador("San");
+			//ap.buscarPartidasJugador("San");
 			//ap.buscarPartidasEnCursoJugador("Bru");
 			
 		} catch (ComunicacionException | LoggedInException e) {

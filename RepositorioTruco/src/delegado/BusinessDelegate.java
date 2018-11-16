@@ -112,8 +112,14 @@ public class BusinessDelegate {
 		} catch (RemoteException e) {
 			throw new ComunicacionException("Error en las comunicaciones");	
 		}
+	}
 
-
+	public ArrayList<PartidaDTO> listarPartidasFinalizadasJugador(JugadorDTO jugador) throws ComunicacionException, LoggedInException {
+		try {
+			return ir.listarPartidasFinalizadasJugador(jugador);
+		} catch (RemoteException e) {
+			throw new ComunicacionException("Error en las comunicaciones");	
+		}
 	}
 
 	/*

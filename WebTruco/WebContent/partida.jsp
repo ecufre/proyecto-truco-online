@@ -70,8 +70,8 @@
 				<div class="col-md-3">
 					<table class="tablaPuntaje">
 						<tr>
-							<th align="center">N</th>
-							<th align="center">E</th>
+							<th align="center">N (<%=partida.getJuegosNosotros() %>)</th>
+							<th align="center">E (<%=partida.getJuegosEllos() %>)</th>
 						</tr>
 						<tr>
 							<td><img

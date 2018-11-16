@@ -46,7 +46,7 @@ private PartidaDAO() {}
 		return ps;
 	}
 	
-	public ArrayList<Partida> getPartidasEnCursoByApodo(String apodo) throws ComunicacionException {
+	public ArrayList<Partida> getPartidasFinalizadasByApodo(String apodo) throws ComunicacionException {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		@SuppressWarnings("unchecked")
@@ -55,7 +55,7 @@ private PartidaDAO() {}
 				.setParameter(1, apodo)
 				.setParameter(2, apodo)
 				.setParameter(3, apodo)
-				.setParameter(4, EstadoPartida.EnCurso)
+				.setParameter(4, EstadoPartida.Finalizada)
 				.list();
 		if (pes == null) throw new ComunicacionException("No se encontraron partidas");
 		ArrayList<Partida> ps = new ArrayList<Partida>();

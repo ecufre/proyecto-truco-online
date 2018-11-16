@@ -248,7 +248,8 @@ public class Partida {
 
 
 	public PartidaPantallaDTO toPantallaDTO(int partida, Jugador j2 , Boolean ptosEnvido) throws ComunicacionException {
-
+		if (this.estado == EstadoPartida.Pendiente) throw new ComunicacionException("La partida aun no ha comenzado");
+		if (this.estado == EstadoPartida.Finalizada) throw new ComunicacionException("La partida ha finalizado");
 		boolean par=true;
 
 

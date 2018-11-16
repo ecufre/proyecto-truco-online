@@ -159,10 +159,13 @@ public class AdministradorPartida {
 		*/
 	}
 	
-	public ArrayList<PartidaDTO> buscarPartidasJugador(String apodo) throws ComunicacionException {
-		ArrayList<PartidaDTO> psDTO = new ArrayList<PartidaDTO>();
-		for (Partida p : PartidaDAO.getInstancia().getPartidasByApodo(apodo)) psDTO.add(p.toDTOReducido());
-		return psDTO;
+	public ArrayList<PartidaDTO> buscarPartidasFinalizadasJugador(JugadorDTO jugador) throws ComunicacionException, LoggedInException {
+		if (AdministradorJugador.getInstancia().isLoggedIn(jugador)) {
+			ArrayList<PartidaDTO> psDTO = new ArrayList<PartidaDTO>();
+			for (Partida p : PartidaDAO.getInstancia().getPartidasFinalizadasByApodo(jugador.getApodo())) psDTO.add(p.toDTO());
+			return psDTO;
+		}
+		return null;
 	}
 	
 	public ArrayList<PartidaDTO> listarMisPartidas(JugadorDTO jugador) throws ComunicacionException, LoggedInException {
