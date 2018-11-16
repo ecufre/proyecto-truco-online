@@ -78,7 +78,7 @@
 											}
 								%>
 							</table>
-
+							<br>
 							<table border=1 style="width: 220px;">
 								<tr>
 									<th colspan=3>Cantos</th>
@@ -89,12 +89,17 @@
 									<th style="width: 30%;">Querido</th>
 								</tr>
 								<%
-									if (mano.getCantos().size() > 0) {
+									boolean mostrarPtsEnvido = false;
+											if (mano.getCantos().size() > 0) {
 												for (CantoDTO canto : mano.getCantos()) {
+													if (canto.getValorTipoCanto() < 5 && canto.isQuerido() != null && canto.isQuerido())
+														mostrarPtsEnvido = true;
+													else if (canto.getValorTipoCanto() < 5)
+														mostrarPtsEnvido = false;
 								%>
 								<tr>
 									<td style="text-align: center;"><%=canto.getDescTipoCanto()%></td>
-									<td style="text-align: center;"><%=partida.getJugadores().get(canto.getCantante() - 1).getApodo() %></td>
+									<td style="text-align: center;"><%=partida.getJugadores().get(canto.getCantante() - 1).getApodo()%></td>
 									<td style="text-align: center;"><%=canto.isQuerido()%></td>
 								</tr>
 
@@ -105,9 +110,34 @@
 								<tr>
 									<td colspan=3>No hubo cantos ene sta mano</td>
 								</tr>
-								<% } %>
+								<%
+									}
+								%>
 							</table>
-
+							<%
+								if (mostrarPtsEnvido) {
+							%>
+							<br>
+							<table>
+								<tr>
+									<th colspan=4>Puntos Envido</th>
+								</tr>
+								<tr>
+									<th style="width: 50px;"><%=partida.getJugadores().get(this.posicionMano(mano.getNumeroMano() % 4 + 3)).getApodo()%></th>
+									<th style="width: 50px;"><%=partida.getJugadores().get(this.posicionMano(mano.getNumeroMano() % 4)).getApodo()%></th>
+									<th style="width: 50px;"><%=partida.getJugadores().get(this.posicionMano(mano.getNumeroMano() % 4 + 1)).getApodo()%></th>
+									<th style="width: 50px;"><%=partida.getJugadores().get(this.posicionMano(mano.getNumeroMano() % 4 + 2)).getApodo()%></th>
+								</tr>
+								<tr>
+									<td style="text-align: center;"><%=mano.getEnvidoValor()[this.posicionMano(mano.getNumeroMano() % 4 + 3)]%></td>
+									<td style="text-align: center;"><%=mano.getEnvidoValor()[this.posicionMano(mano.getNumeroMano() % 4)]%></td>
+									<td style="text-align: center;"><%=mano.getEnvidoValor()[this.posicionMano(mano.getNumeroMano() % 4 + 1)]%></td>
+									<td style="text-align: center;"><%=mano.getEnvidoValor()[this.posicionMano(mano.getNumeroMano() % 4 + 2)]%></td>
+								</tr>
+							</table>
+							<%
+								}
+							%>
 						</div>
 					</div>
 					<%
