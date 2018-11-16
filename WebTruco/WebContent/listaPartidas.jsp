@@ -82,12 +82,12 @@
 						<%
 							if (this.isVictoria(miApodo, partida)) {
 						%>
-						<tr class="success">
+						<tr class="success" onclick="loadDiv('principal', 'Partidas?action=detallePartida', 'partidaId=<%=partida.getId() %>');">
 							<%
 								} else {
 							%>
 						
-						<tr class="danger">
+						<tr class="danger" onclick="loadDiv('principal', 'Partidas?action=detallePartida', 'partidaId=<%=partida.getId() %>');">
 							<%
 								}
 							%>

@@ -76,8 +76,9 @@ public class ListadoPartidas  extends HttpServlet {
 				if("mostrarPartida".equals(action)) {
 					HttpSession session = request.getSession();
 					JugadorDTO jugAct = (JugadorDTO)session.getAttribute("jugador");
-					Integer idPartida = Integer.valueOf(request.getParameter("partidaId"));
-					if (jugAct != null && idPartida != null) {
+					String strIdPartida = request.getParameter("partidaId");
+					if (jugAct != null && strIdPartida != null) {
+						Integer idPartida = Integer.valueOf(strIdPartida);
 						PartidaDTO pd = new PartidaDTO();
 						pd.setId(idPartida);
 						AccionDTO ad = new AccionDTO(pd, jugAct,1,true,null);
@@ -94,12 +95,28 @@ public class ListadoPartidas  extends HttpServlet {
 						jspPage = "listaPartidas.jsp";
 					}
 				}
+				else if ("detallePartida".equals(action)) {
+					HttpSession session = request.getSession();
+					JugadorDTO jugAct = (JugadorDTO)session.getAttribute("jugador");
+					String strIdPartida = request.getParameter("partidaId");
+					if (jugAct != null && strIdPartida != null) {
+						Integer idPartida = Integer.valueOf(strIdPartida);
+						PartidaDTO pDTO = new PartidaDTO();
+						pDTO.setId(idPartida);
+						AccionDTO ad = new AccionDTO(pDTO, jugAct, null, null, null);
+						request.setAttribute("detallePartida", bd.mostrarHistoria(ad));
+						request.setAttribute("miApodo", jugAct.getApodo());
+						jspPage = "detallePartida.jsp";
+					}
+				}
 				else if ("jugarCarta".equals(action)) {
 					HttpSession session = request.getSession();
 					JugadorDTO jugAct = (JugadorDTO)session.getAttribute("jugador");
-					Integer cartaId = Integer.valueOf(request.getParameter("cartaId"));
-					Integer partidaId = Integer.valueOf(request.getParameter("partidaId"));
-					if (jugAct != null && cartaId != null && partidaId != null) {
+					String strCartaId = request.getParameter("cartaId");
+					String strPartidaId = request.getParameter("partidaId");
+					if (jugAct != null && strCartaId != null && strPartidaId != null) {
+						Integer cartaId = Integer.valueOf(strCartaId);
+						Integer partidaId = Integer.valueOf(strPartidaId);
 						PartidaDTO p = new PartidaDTO();
 						p.setId(partidaId);
 						AccionDTO ad = new AccionDTO(p, jugAct, 0, null, null);
@@ -115,9 +132,10 @@ public class ListadoPartidas  extends HttpServlet {
 				else if ("jugadorListo".equals(action)) {
 					HttpSession session = request.getSession();
 					JugadorDTO jugAct = (JugadorDTO)session.getAttribute("jugador");
-					Integer partidaId = Integer.valueOf(request.getParameter("partidaId"));
+					String strIdPartida = request.getParameter("partidaId");
 					jspPage = "mensaje.jsp";
-					if (jugAct != null && partidaId != null) {
+					if (jugAct != null && strIdPartida != null) {
+						Integer partidaId = Integer.valueOf(strIdPartida);
 						PartidaDTO p = new PartidaDTO();
 						p.setId(partidaId);
 						AccionDTO ad = new AccionDTO(p, jugAct, 0, null, null);

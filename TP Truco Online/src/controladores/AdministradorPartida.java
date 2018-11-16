@@ -144,7 +144,7 @@ public class AdministradorPartida {
 	public PartidaDTO mostarPartidaCompleta(AccionDTO ad) throws ComunicacionException, LoggedInException{
 		if (AdministradorJugador.getInstancia().isLoggedIn(ad.getJugador())) {
 				Partida p = this.buscarPartida(ad.getPartida().getId());
-			if (p.getEstado() == EstadoPartida.EnCurso) {
+			if (p.getEstado() == EstadoPartida.Finalizada) {
 				return 	p.toDTO();
 			}
 		}
