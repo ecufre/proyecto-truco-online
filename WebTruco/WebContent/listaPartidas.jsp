@@ -2,51 +2,59 @@
 <%@ page import="dto.JugadorDTO"%>
 <%@ page import="java.time.format.DateTimeFormatter"%>
 <%@ page import="java.util.ArrayList"%>
-<%! 
-public int calcularPosicion(String miApodo, ArrayList<JugadorDTO> jugadores) {
-	for (int i = 1; i <= 4; i++) {
-		if (jugadores.get(i - 1).getApodo().equals(miApodo)) return i;
+<%!public int calcularPosicion(String miApodo, ArrayList<JugadorDTO> jugadores) {
+		for (int i = 1; i <= 4; i++) {
+			if (jugadores.get(i - 1).getApodo().equals(miApodo))
+				return i;
+		}
+		return 0;
 	}
-	return 0;
-}
 
-public String getCompanero(String miApodo, PartidaDTO partida) {
-	int miPos = this.calcularPosicion(miApodo, partida.getJugadores());
-	switch (miPos) {
-	case 1: return partida.getJugadores().get(2).getApodo();
-	case 2: return partida.getJugadores().get(3).getApodo();
-	case 3: return partida.getJugadores().get(0).getApodo();
-	case 4: return partida.getJugadores().get(1).getApodo();
+	public String getCompanero(String miApodo, PartidaDTO partida) {
+		int miPos = this.calcularPosicion(miApodo, partida.getJugadores());
+		switch (miPos) {
+		case 1:
+			return partida.getJugadores().get(2).getApodo();
+		case 2:
+			return partida.getJugadores().get(3).getApodo();
+		case 3:
+			return partida.getJugadores().get(0).getApodo();
+		case 4:
+			return partida.getJugadores().get(1).getApodo();
+		}
+		return null;
 	}
-	return null;
-}
 
-public String getRivales(String miApodo, PartidaDTO partida) {
-	int miPos = this.calcularPosicion(miApodo, partida.getJugadores());
-	if (miPos % 2 != 0) {
-		return (partida.getJugadores().get(1).getApodo() + " y " + partida.getJugadores().get(3).getApodo());
+	public String getRivales(String miApodo, PartidaDTO partida) {
+		int miPos = this.calcularPosicion(miApodo, partida.getJugadores());
+		if (miPos % 2 != 0) {
+			return (partida.getJugadores().get(1).getApodo() + " y " + partida.getJugadores().get(3).getApodo());
+		} else {
+			return (partida.getJugadores().get(0).getApodo() + " y " + partida.getJugadores().get(2).getApodo());
+		}
 	}
-	else {
-		return (partida.getJugadores().get(0).getApodo() + " y " + partida.getJugadores().get(2).getApodo());		
+
+	public boolean isVictoria(String miApodo, PartidaDTO partida) {
+		int miPos = this.calcularPosicion(miApodo, partida.getJugadores());
+		if (miPos % 2 == partida.getGanador() % 2)
+			return true;
+		else
+			return false;
 	}
-}
 
-public boolean isVictoria(String miApodo, PartidaDTO partida) {
-	int miPos = this.calcularPosicion(miApodo, partida.getJugadores());
-	if (miPos % 2 == partida.getGanador() % 2) return true;
-	else return false;
-}
+	public String getResultado(String miApodo, PartidaDTO partida) {
+		if (this.isVictoria(miApodo, partida))
+			return "Victoria";
+		else
+			return "Derrota";
+	}
 
-public String getResultado(String miApodo, PartidaDTO partida) {
-	if (this.isVictoria(miApodo, partida)) return "Victoria";
-	else return "Derrota";
-}
-
-public String getTipoPartida(PartidaDTO partida) {
-	if (partida.isEsAbierta()) return "Abierta";
-	else return "Cerrada";
-}
-%>
+	public String getTipoPartida(PartidaDTO partida) {
+		if (partida.isEsAbierta())
+			return "Abierta";
+		else
+			return "Cerrada";
+	}%>
 
 <div class=row>
 	<div class="panel panel-default">
@@ -67,19 +75,30 @@ public String getTipoPartida(PartidaDTO partida) {
 					</thead>
 					<tbody>
 						<%
-							 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+							DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 							String miApodo = (String) request.getAttribute("miApodo");
 							for (PartidaDTO partida : (ArrayList<PartidaDTO>) request.getAttribute("listaPartidas")) {
 						%>
-							<tr>
-								<td><%=partida.getId() %></td>
-								<td><%=this.getCompanero(miApodo, partida) %></td>
-								<td><%=this.getRivales(miApodo, partida) %></td>
-								<td><%=partida.getFechaCreacion().format(formatter) %></td>
-								<td><%=partida.getFechaActualizacion().format(formatter) %></td>
-								<td><%=this.getTipoPartida(partida) %></td>
-								<td><%=this.getResultado(miApodo, partida) %></td>
-							</tr>
+						<%
+							if (this.isVictoria(miApodo, partida)) {
+						%>
+						<tr class="success">
+							<%
+								} else {
+							%>
+						
+						<tr class="danger">
+							<%
+								}
+							%>
+							<td><%=partida.getId()%></td>
+							<td><%=this.getCompanero(miApodo, partida)%></td>
+							<td><%=this.getRivales(miApodo, partida)%></td>
+							<td><%=partida.getFechaCreacion().format(formatter)%></td>
+							<td><%=partida.getFechaActualizacion().format(formatter)%></td>
+							<td><%=this.getTipoPartida(partida)%></td>
+							<td><%=this.getResultado(miApodo, partida)%></td>
+						</tr>
 						<%
 							}
 						%>

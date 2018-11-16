@@ -30,9 +30,9 @@
 					<table class="table table-striped table-bordered table-hover">
 						<thead>
 							<tr>
-								<th>#</th>
-								<th>Nombre del Grupo</th>
-								<th>Administrador</th>
+								<th style="width: 20%;">#</th>
+								<th style="width: 50%;">Nombre del Grupo</th>
+								<th style="width: 30%;">Administrador</th>
 							</tr>
 						</thead>
 						<tbody>

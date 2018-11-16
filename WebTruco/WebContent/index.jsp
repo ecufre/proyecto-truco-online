@@ -30,7 +30,7 @@
 			BusinessDelegate bd = BusinessDelegate.getInstance();
 			bd.isLoggedIn(jugador);
 		} catch (Exception e) {
-			response.sendRedirect("login.jsp");
+			response.sendRedirect("/WebTruco/login.jsp");
 		}
 	%>
 	<div id="wrapper">
