@@ -303,7 +303,7 @@ public class Partida {
 				pd.setPuntosJuegoNosotros(this.getJuegoActual().getPuntajeImpar());
 				pd.setPuntosJuegoEllos(this.getJuegoActual().getPuntajePar());
 				//pd.setSenias(this.getJuegoActual().mostrarSeniasImpar());
-
+				
 			}
 
 
@@ -322,6 +322,7 @@ public class Partida {
 						pd.setValorEnvidoJugadorFrente(this.getJuegoActual().mostrarPuntosEnvido(3));
 						pd.setValorEnvidoJugadorIquierda(this.getJuegoActual().mostrarPuntosEnvido(2));
 						pd.setValorEnvidoJugadorDerecha(this.getJuegoActual().mostrarPuntosEnvido(4));
+				
 					}
 
 					break;

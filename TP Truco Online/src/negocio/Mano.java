@@ -378,7 +378,66 @@ public class Mano {
 		return cd;
 	}
 
+	
+	public void limpiarArrayEnvido(){
+		if(true){
+		int mano = this.getNumeroMano()%4;
+		
+		int a, b,c,d;
+		boolean borrarA, borrarB , borrarC, borrarD;
+		
+		borrarA= borrarB = borrarC= borrarD= true;
+		// busco el mano y las posciones relativas subsiguientes
+		a= mano; 
+		if(mano==3){b=0;}else{b=mano++;}
+		if(b==3){c=0;}else{c=b++;}	
+		if(c==3){d=0;}else{d=c++;}
+		
+		
+		//por defecto digo que hay que borrar todos y luego me fijo cuales tengo que dejar
+		borrarA = false;
+	
+		if(envidoValor[b]>envidoValor[a]){
+			borrarB=false;
+		}
+		
+		if((envidoValor[a]<envidoValor[b] & 
+			envidoValor[b]<envidoValor[c])
+			||
+			((envidoValor[d]>envidoValor[a]) & 
+			 (envidoValor[c]>envidoValor[d]))){
+			borrarC=false;
+		}
+		
+		if((envidoValor[a]<envidoValor[b] & 
+			envidoValor[b]<envidoValor[c]  & 
+			envidoValor[c]<envidoValor[d] ) 
+			||
+			(envidoValor[a]>envidoValor[b])){
+			borrarD=false;
+		}
+		
+		
+		//borro los que corresponden 
+		if(borrarA){
+			envidoValor[a]=null;
+		}
+		if(borrarB){
+			envidoValor[b]=null;
+		}
+		if(borrarC){
+			envidoValor[c]=null;
+		}
+		if(borrarD){
+			envidoValor[d]=null;
+		}
+		}
+	}
+	
+	
+	
 	public Integer mostrarPuntosEnvido(Integer pos) {
+		limpiarArrayEnvido();
 		return this.envidoValor[pos-1];
 	}
 
