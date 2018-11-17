@@ -32,19 +32,19 @@
 				for (JuegoDTO juego : partida.getJuegos()) {
 			%>
 			<div class="panel panel-default">
-				<div class="panel-heading">
-					Juego
-					<%=nroJuego++%></div>
-				<div class="panel-body">
+				<div class="panel-heading" >
+					<a data-toggle="collapse" href="#juego_<%=nroJuego%>">Juego
+					<%=nroJuego%></a></div>
+				<div class="panel-body collapse" id="juego_<%=nroJuego%>">
 					<%
 						int nroMano = 1;
 							for (ManoDTO mano : juego.getManos()) {
 					%>
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							Mano
-							<%=nroMano++%></div>
-						<div class="panel-body">
+							<a data-toggle="collapse" href="#mano_<%=nroJuego%>_<%=nroMano%>">Mano
+							<%=nroMano%></a></div>
+						<div class="panel-body collapse" id="mano_<%=nroJuego%>_<%=nroMano%>">
 							<table border=1>
 								<tr>
 									<th style="width: 20px;">#</th>
@@ -92,9 +92,9 @@
 									boolean mostrarPtsEnvido = false;
 											if (mano.getCantos().size() > 0) {
 												for (CantoDTO canto : mano.getCantos()) {
-													if (canto.getValorTipoCanto() < 5 && canto.isQuerido() != null && canto.isQuerido())
+													if (canto.getIdTipoCanto() < 5 && canto.isQuerido() != null && canto.isQuerido())
 														mostrarPtsEnvido = true;
-													else if (canto.getValorTipoCanto() < 5)
+													else if (canto.getIdTipoCanto() < 5)
 														mostrarPtsEnvido = false;
 								%>
 								<tr>
@@ -118,15 +118,15 @@
 								if (mostrarPtsEnvido) {
 							%>
 							<br>
-							<table>
+							<table border=1 style="width: 220px;">
 								<tr>
 									<th colspan=4>Puntos Envido</th>
 								</tr>
 								<tr>
-									<th style="width: 50px;"><%=partida.getJugadores().get(this.posicionMano(mano.getNumeroMano() % 4 + 3)).getApodo()%></th>
-									<th style="width: 50px;"><%=partida.getJugadores().get(this.posicionMano(mano.getNumeroMano() % 4)).getApodo()%></th>
-									<th style="width: 50px;"><%=partida.getJugadores().get(this.posicionMano(mano.getNumeroMano() % 4 + 1)).getApodo()%></th>
-									<th style="width: 50px;"><%=partida.getJugadores().get(this.posicionMano(mano.getNumeroMano() % 4 + 2)).getApodo()%></th>
+									<th style="width: 25%;"><%=partida.getJugadores().get(this.posicionMano(mano.getNumeroMano() % 4 + 3)).getApodo()%></th>
+									<th style="width: 25%;"><%=partida.getJugadores().get(this.posicionMano(mano.getNumeroMano() % 4)).getApodo()%></th>
+									<th style="width: 25%;"><%=partida.getJugadores().get(this.posicionMano(mano.getNumeroMano() % 4 + 1)).getApodo()%></th>
+									<th style="width: 25%;"><%=partida.getJugadores().get(this.posicionMano(mano.getNumeroMano() % 4 + 2)).getApodo()%></th>
 								</tr>
 								<tr>
 									<td style="text-align: center;"><%=mano.getEnvidoValor()[this.posicionMano(mano.getNumeroMano() % 4 + 3)]%></td>
@@ -141,11 +141,13 @@
 						</div>
 					</div>
 					<%
+						nroMano++;
 						}
 					%>
 				</div>
 			</div>
 			<%
+				nroJuego++;
 				}
 			%>
 		</div>

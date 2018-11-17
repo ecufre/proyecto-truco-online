@@ -60,7 +60,7 @@
 	<div class="panel panel-default">
 		<div class="panel-heading">Partidas Finalizadas</div>
 		<div class="panel-body">
-			<div class="table-responsive">
+			<div class="table-responsive" style="overflow-x: scroll;">
 				<table class="table table-striped table-bordered table-hover">
 					<thead>
 						<tr>

@@ -2,7 +2,7 @@ package enumeraciones;
 
 public enum TipoCanto {
 	Envido (1,"Envido", 2,null),
-	EnvidoEnvido (2,"Envido  envido", 2,1),
+	EnvidoEnvido (2,"Envido envido", 2,1),
 	RealEnvido (3,"Real envido", 3,null),
 	FaltaEnvido(4,"Falta envido", 30,null),
 	Truco(5,"Truco", 1,null), 

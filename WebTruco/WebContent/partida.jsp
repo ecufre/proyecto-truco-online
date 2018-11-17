@@ -75,23 +75,23 @@
 						</tr>
 						<tr>
 							<td><img
-								src="assets\img\puntos\<%=this.getPto(partida.getPuntosJuegoNosotros(), 1)%>.png"><img
-								src="assets\img\puntos\<%=this.getPto(partida.getPuntosJuegoNosotros(), 2)%>.png"><img
-								src="assets\img\puntos\<%=this.getPto(partida.getPuntosJuegoNosotros(), 3)%>.png"></td>
+								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoNosotros(), 1)%>.png"><img
+								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoNosotros(), 2)%>.png"><img
+								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoNosotros(), 3)%>.png"></td>
 							<td><img
-								src="assets\img\puntos\<%=this.getPto(partida.getPuntosJuegoEllos(), 1)%>.png"><img
-								src="assets\img\puntos\<%=this.getPto(partida.getPuntosJuegoEllos(), 2)%>.png"><img
-								src="assets\img\puntos\<%=this.getPto(partida.getPuntosJuegoEllos(), 3)%>.png"></td>
+								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoEllos(), 1)%>.png"><img
+								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoEllos(), 2)%>.png"><img
+								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoEllos(), 3)%>.png"></td>
 						</tr>
 						<tr>
 							<td><img
-								src="assets\img\puntos\<%=this.getPto(partida.getPuntosJuegoNosotros(), 4)%>.png"><img
-								src="assets\img\puntos\<%=this.getPto(partida.getPuntosJuegoNosotros(), 5)%>.png"><img
-								src="assets\img\puntos\<%=this.getPto(partida.getPuntosJuegoNosotros(), 6)%>.png"></td>
+								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoNosotros(), 4)%>.png"><img
+								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoNosotros(), 5)%>.png"><img
+								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoNosotros(), 6)%>.png"></td>
 							<td><img
-								src="assets\img\puntos\<%=this.getPto(partida.getPuntosJuegoEllos(), 4)%>.png"><img
-								src="assets\img\puntos\<%=this.getPto(partida.getPuntosJuegoEllos(), 5)%>.png"><img
-								src="assets\img\puntos\<%=this.getPto(partida.getPuntosJuegoEllos(), 6)%>.png"></td>
+								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoEllos(), 4)%>.png"><img
+								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoEllos(), 5)%>.png"><img
+								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoEllos(), 6)%>.png"></td>
 						</tr>
 
 					</table>
@@ -208,7 +208,7 @@
 				ENVIDO</button>
 			<br>
 			<button type="button" class="btn btn-danger"
-				onclick="loadDiv('mensajes', 'Partidas?action=cantarEnvite', 'partidaId=<%=partida.getPartidaID()%>&envite=Rruco')">TRUCO</button>
+				onclick="loadDiv('mensajes', 'Partidas?action=cantarEnvite', 'partidaId=<%=partida.getPartidaID()%>&envite=Truco')">TRUCO</button>
 			<button type="button" class="btn btn-danger"
 				onclick="loadDiv('mensajes', 'Partidas?action=cantarEnvite', 'partidaId=<%=partida.getPartidaID()%>&envite=Re truco')">RE
 				TRUCO</button>

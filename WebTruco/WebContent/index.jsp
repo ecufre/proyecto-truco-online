@@ -76,7 +76,8 @@
 						onclick='loadDiv("principal", "Jugador?action=listarRanking", null)'
 						data-toggle="collapse" data-target=".sidebar-collapse.in"><i
 							class="fa fa-trophy fa-2x"></i>Ver Ranking</a></li>
-					<li><a onclick='loadDiv("principal", "Partidas?action=listarPartidasFinalizadas", null)'
+					<li><a
+						onclick='loadDiv("principal", "Partidas?action=listarPartidasFinalizadas", null)'
 						data-toggle="collapse" data-target=".sidebar-collapse.in"><i
 							class="fa fa-trash-o fa-2x"></i>Partidas Finalizadas</a></li>
 
@@ -101,7 +102,8 @@
 						<div class="panel-heading">Partidas</div>
 						<div class="panel-body">
 							<div class="table-responsive">
-								<table class="table table-bordered table-hover" id="tablaPendientes">
+								<table class="table table-bordered table-hover"
+									id="tablaPendientes">
 									<thead>
 										<tr>
 											<th>Partidas Pendientes</th>
@@ -110,7 +112,8 @@
 									<tbody>
 									</tbody>
 								</table>
-								<table class="table table-bordered table-hover" id="tablaEnCurso">
+								<table class="table table-bordered table-hover"
+									id="tablaEnCurso">
 									<thead>
 										<tr>
 											<th>Partidas En Curso</th>
