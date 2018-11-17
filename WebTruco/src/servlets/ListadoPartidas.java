@@ -71,6 +71,10 @@ public class ListadoPartidas  extends HttpServlet {
 					response.setContentType("application/json");
 					response.getWriter().write(json.build().toString());
 				}
+				else if (jDTO == null) {
+					response.setStatus(401);
+					request.setAttribute("error", "No estas logueado");
+				}
 			}
 			else {
 				if("mostrarPartida".equals(action)) {
@@ -85,6 +89,14 @@ public class ListadoPartidas  extends HttpServlet {
 						request.setAttribute("partidaActual", bd.mostrarPartida(ad));
 						jspPage = "partida.jsp";
 					}
+					else if (jugAct == null) {
+						response.setStatus(401);
+						request.setAttribute("error", "No estas logueado");
+					}
+					else {
+						response.setStatus(599);
+						request.setAttribute("mensaje", "Ocurrio un error desconocido y misterioso");
+					}
 				}
 				else if ("listarPartidasFinalizadas".equals(action)) {
 					HttpSession session = request.getSession();
@@ -93,6 +105,10 @@ public class ListadoPartidas  extends HttpServlet {
 						request.setAttribute("listaPartidas", bd.listarPartidasFinalizadasJugador(jugAct));
 						request.setAttribute("miApodo", jugAct.getApodo());
 						jspPage = "listaPartidas.jsp";
+					}
+					else if (jugAct == null) {
+						response.setStatus(401);
+						request.setAttribute("error", "No estas logueado");
 					}
 				}
 				else if ("detallePartida".equals(action)) {
@@ -107,6 +123,14 @@ public class ListadoPartidas  extends HttpServlet {
 						request.setAttribute("detallePartida", bd.mostrarHistoria(ad));
 						request.setAttribute("miApodo", jugAct.getApodo());
 						jspPage = "detallePartida.jsp";
+					}
+					else if (jugAct == null) {
+						response.setStatus(401);
+						request.setAttribute("error", "No estas logueado");
+					}
+					else {
+						response.setStatus(599);
+						request.setAttribute("mensaje", "Ocurrio un error desconocido y misterioso");
 					}
 				}
 				else if ("jugarCarta".equals(action)) {
@@ -128,6 +152,14 @@ public class ListadoPartidas  extends HttpServlet {
 						PartidaPantallaDTO pdto = bd.mostrarPartida(ad);
 						request.setAttribute("partidaActual", pdto);
 					}
+					else if (jugAct == null) {
+						response.setStatus(401);
+						request.setAttribute("error", "No estas logueado");
+					}
+					else {
+						response.setStatus(599);
+						request.setAttribute("mensaje", "Ocurrio un error desconocido y misterioso");
+					}
 				}
 				else if ("jugadorListo".equals(action)) {
 					HttpSession session = request.getSession();
@@ -143,7 +175,12 @@ public class ListadoPartidas  extends HttpServlet {
 						request.setAttribute("mensaje", "Estas listo para jugar la partida");
 						request.setAttribute("ok", "Estas listo para jugar la partida");
 					}
+					else if (jugAct == null) {
+						response.setStatus(401);
+						request.setAttribute("error", "No estas logueado");
+					}
 					else {
+						response.setStatus(599);
 						request.setAttribute("mensaje", "Ocurrio un error desconocido y misterioso");
 					}
 				}
@@ -206,7 +243,12 @@ public class ListadoPartidas  extends HttpServlet {
 							}	
 						}
 					}
+					else if (jugAct == null) {
+						response.setStatus(401);
+						request.setAttribute("error", "No estas logueado");
+					}
 					else {
+						response.setStatus(599);
 						request.setAttribute("mensaje", "Ocurrio un error desconocido y misterioso");
 					}
 				}

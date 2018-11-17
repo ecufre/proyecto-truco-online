@@ -59,7 +59,10 @@ function actualizarPartidas() {
 			for (i = 0; i < listaPartidas.EnCurso.length; i++) {
 				var idPartida = listaPartidas.EnCurso[i].idPartida;
 				var partidaActual = document.getElementById("updateActual_" + idPartida);
-				if (partidaActual != null && partidaActual.value < listaPartidas.EnCurso[i].lastUpdate) loadDiv('principal', 'Partidas?action=mostrarPartida', 'partidaId=' + idPartida);
+				if (partidaActual != null && partidaActual.value < listaPartidas.EnCurso[i].lastUpdate) {
+					$("div.modal-backdrop.fade.in").remove();
+					loadDiv('principal', 'Partidas?action=mostrarPartida', 'partidaId=' + idPartida);
+				}
 				var partidaPendienteRow = document.getElementById("partida_p_" + idPartida);
 				if (partidaPendienteRow != null) {
 					var jqpartidaPendienteRow = $("#partida_p_" + idPartida);

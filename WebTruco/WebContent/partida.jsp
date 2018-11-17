@@ -19,7 +19,7 @@
 %>
 <input type=hidden id="updateActual_<%=partida.getPartidaID()%>"
 	value=<%=partida.getUltimaActualizacion().toEpochSecond(ZoneOffset.ofHours(0))%>>
-<div style="background: #009933;" class="row">
+<div style="background: #009933;" class="row" id="partidaActual">
 	<div class="row">
 		<div class="col-md-3"><b><%=partida.getJugadorIzquierda().getApodo()%></b> <% if (partida.getValorEnvidoJugadorIquierda() != null) out.print("(Envido: " + partida.getValorEnvidoJugadorIquierda() + ")"); %></div>
 		<div class="col-md-6"><b><%=partida.getJugadorFrente().getApodo()%></b> <% if (partida.getValorEnvidoJugadorFrente() != null) out.print("(Envido: " + partida.getValorEnvidoJugadorFrente() + ")"); %></div>
@@ -192,10 +192,10 @@
 			<br>
 			<button type="button" class="btn btn-danger"
 				onclick="loadDiv('mensajes', 'Partidas?action=responderEnvite', 'partidaId=<%=partida.getPartidaID()%>&respuesta=si&envite=<%if (partida.getUltimoCanto() != null)
-				out.print(partida.getUltimoCanto().getDescTipoCanto());%>')">QUIERO</button>
+				out.print(partida.getUltimoCanto().getDescTipoCanto());%>')"<% if (partida.getUltimoCanto() == null) out.print(" disabled"); %>>QUIERO</button>
 			<button type="button" class="btn btn-danger"
 				onclick="loadDiv('mensajes', 'Partidas?action=responderEnvite', 'partidaId=<%=partida.getPartidaID()%>&respuesta=no&envite=<%if (partida.getUltimoCanto() != null)
-				out.print(partida.getUltimoCanto().getDescTipoCanto());%>')">NO
+				out.print(partida.getUltimoCanto().getDescTipoCanto());%>')"<% if (partida.getUltimoCanto() == null) out.print(" disabled"); %>>NO
 				QUIERO</button>
 			<button type="button" class="btn btn-danger"
 				onclick="loadDiv('principal', 'Partidas?action=retirarse', 'partidaId=<%=partida.getPartidaID()%>')">ME
@@ -204,10 +204,10 @@
 		</div>
 
 	</div>
+	
 </div>
 
 <!--  Modals-->
-
 <div class="modal fade" id="modalPuntos" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
@@ -255,6 +255,7 @@
 		</div>
 	</div>
 </div>
+
 
 
 <!-- End Modals-->

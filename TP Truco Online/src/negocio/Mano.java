@@ -418,7 +418,7 @@ public class Mano {
 			envidoValor[b]<envidoValor[c])
 			||
 			((envidoValor[d]>envidoValor[a]) & 
-			 (envidoValor[c]>envidoValor[d]) &
+			 (envidoValor[c]>=envidoValor[d]) &
 			 envidoValor[c]>envidoValor[b])){
 			borrarC=false;
 		}
@@ -427,7 +427,7 @@ public class Mano {
 			envidoValor[b]<envidoValor[c]  & 
 			envidoValor[c]<envidoValor[d] ) 
 			||
-			(envidoValor[a]>envidoValor[b]) &
+			(envidoValor[a]>=envidoValor[b]) &
 			envidoValor[d]>envidoValor[a]){
 			borrarD=false;
 		}
