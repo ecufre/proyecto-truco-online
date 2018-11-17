@@ -21,12 +21,12 @@
 				<div class="panel-heading">Invitaciones pendientes</div>
 				<div class="panel-body">
 					<div class="table-responsive">
-						<table class="table">
+						<table class="table table-bordered">
 							<thead>
 								<tr>
 									<th>Apodo</th>
 									<th>Clasificacion</th>
-									<th style="width: 180px;"></th>
+									<th style="width: 90px; text-align: center;"></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -34,16 +34,16 @@
 								<%
 									if (invitaciones == null || invitaciones.size() == 0) {
 								%>
-								<td colspan=3 align=center>No tenes invitaciones
+								<td colspan=3 align=center style="text-align: center;">No tenes invitaciones
 									pendientes.</td>
 								<%
 									} else {
 										for (InvitacionDTO i : invitaciones) {
 								%>
 								<tr>
-									<td><%=i.getRemitente().getApodo()%></td>
-									<td><%=i.getRemitente().getCategoria().getCategoria().getNombre()%></td>
-									<td><button
+									<td style="text-align: center;"><%=i.getRemitente().getApodo()%></td>
+									<td style="text-align: center;"><%=i.getRemitente().getCategoria().getCategoria().getNombre()%></td>
+									<td style="text-align: center;"><button
 											onclick='loadDiv("principal", "Jugador?action=aceptarInvitacion", "idInvitacion=<%=i.getId()%>&rtte=<%=i.getRemitente().getApodo()%>")'
 											style="width: 80px;">Aceptar</button>
 										<button

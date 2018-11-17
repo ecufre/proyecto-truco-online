@@ -6352,6 +6352,10 @@ button.close {
 	.hidden-lg {
 		display: none !important;
 	}
+	
+	#page-inner {
+		min-height: 1200px;
+	}
 }
 
 @media ( max-width : 767px) {
