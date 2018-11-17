@@ -6358,12 +6358,56 @@ button.close {
 	}
 }
 
-@media ( max-width : 767px) {
+@media ( max-width : 399px) {
+	.carta {
+	 width: 30px;
+	}
+}
+
+@media ( max-width : 469px) {
+	.textoPartida {
+	 font-size:10px !important;
+	}
+}
+
+@media ( min-width : 400px) and ( max-width : 469px) {
+	.carta {
+	 width: 40px;
+	}
+
+}
+
+@media ( min-width : 470px) and ( max-width : 529px) {
 	.carta {
 	 width: 50px;
 	}
 }
-@media ( min-width : 768px) and (max-width: 1219px) {
+
+@media ( min-width : 530px) and ( max-width : 599px) {
+	.carta {
+	 width: 60px;
+	}
+}
+
+@media ( min-width : 600px) and ( max-width : 699px) {
+	.carta {
+	 width: 70px;
+	}
+}
+
+@media ( min-width : 700px) and ( max-width : 767px) {
+	.carta {
+	 width: 80px;
+	}
+}
+
+@media ( min-width : 768px) and ( max-width : 999px) {
+	.carta {
+	 width: 50px;
+	}
+}
+
+@media ( min-width : 1000px) and (max-width: 1219px) {
 	.carta {
 	 width: 60px;
 	}

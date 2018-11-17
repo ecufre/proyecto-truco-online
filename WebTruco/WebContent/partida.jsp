@@ -21,12 +21,12 @@
 	value=<%=partida.getUltimaActualizacion().toEpochSecond(ZoneOffset.ofHours(0))%>>
 <div style="background: #009933;" class="row" id="partidaActual">
 	<div class="row">
-		<div class="col-md-3"><b><%=partida.getJugadorIzquierda().getApodo()%></b> <% if (partida.getValorEnvidoJugadorIquierda() != null) out.print("(Envido: " + partida.getValorEnvidoJugadorIquierda() + ")"); %></div>
-		<div class="col-md-6"><b><%=partida.getJugadorFrente().getApodo()%></b> <% if (partida.getValorEnvidoJugadorFrente() != null) out.print("(Envido: " + partida.getValorEnvidoJugadorFrente() + ")"); %></div>
-		<div class="col-md-3"><b><%=partida.getJugadorDerecha().getApodo()%></b> <% if (partida.getValorEnvidoJugadorDerecha() != null) out.print("(Envido: " + partida.getValorEnvidoJugadorDerecha() + ")"); %></div>
+		<div class="col-xs-4 textoPartida" style="text-align:left; padding-left:22px;"><b><%=partida.getJugadorIzquierda().getApodo()%></b> <% if (partida.getValorEnvidoJugadorIquierda() != null) out.print("(Envido: " + partida.getValorEnvidoJugadorIquierda() + ")"); %></div>
+		<div class="col-xs-4 textoPartida"><b><%=partida.getJugadorFrente().getApodo()%></b> <% if (partida.getValorEnvidoJugadorFrente() != null) out.print("(Envido: " + partida.getValorEnvidoJugadorFrente() + ")"); %></div>
+		<div class="col-xs-4 textoPartida" style="text-align:right; padding-right:22px"><b><%=partida.getJugadorDerecha().getApodo()%></b> <% if (partida.getValorEnvidoJugadorDerecha() != null) out.print("(Envido: " + partida.getValorEnvidoJugadorDerecha() + ")"); %></div>
 	</div>
 	<div class="row" id="mesa">
-		<div class="col-md-3" id="izquierda">
+		<div class="col-xs-3" id="izquierda">
 			<%
 				int cc = 1;
 				for (CartaDTO c : partida.getCartasMesajugadorIzquierda()) {
@@ -47,7 +47,7 @@
 				}
 			%>
 		</div>
-		<div class="col-md-6">
+		<div class="col-xs-6">
 			<div class="row" id="frente">
 				<%
 					cc = 1;
@@ -111,7 +111,7 @@
 
 
 		</div>
-		<div class="col-md-3" id="derecha">
+		<div class="col-xs-3" id="derecha">
 			<%
 				cc = 1;
 				for (CartaDTO c : partida.getCartasMesaJugadorDerecha()) {
@@ -169,35 +169,35 @@
 			<button class="btn btn-danger" data-toggle="modal"
 				data-target="#modalPuntos">Puntos</button>
 			<br>
-			<button type="button" class="btn btn-danger"
+			<button type="button" class="btn btn-danger textoPartida"
 				onclick="loadDiv('mensajes', 'Partidas?action=cantarEnvite', 'partidaId=<%=partida.getPartidaID()%>&envite=Envido')">ENVIDO</button>
-			<button type="button" class="btn btn-danger"
+			<button type="button" class="btn btn-danger textoPartida"
 				onclick="loadDiv('mensajes', 'Partidas?action=cantarEnvite', 'partidaId=<%=partida.getPartidaID()%>&envite=Envido envido')">ENVIDO
 				ENVIDO</button>
-			<button type="button" class="btn btn-danger"
+			<button type="button" class="btn btn-danger textoPartida"
 				onclick="loadDiv('mensajes', 'Partidas?action=cantarEnvite', 'partidaId=<%=partida.getPartidaID()%>&envite=Real envido')">REAL
 				ENVIDO</button>
-			<button type="button" class="btn btn-danger"
+			<button type="button" class="btn btn-danger textoPartida"
 				onclick="loadDiv('mensajes', 'Partidas?action=cantarEnvite', 'partidaId=<%=partida.getPartidaID()%>&envite=Falta envido')">FALTA
 				ENVIDO</button>
 			<br>
-			<button type="button" class="btn btn-danger"
+			<button type="button" class="btn btn-danger textoPartida"
 				onclick="loadDiv('mensajes', 'Partidas?action=cantarEnvite', 'partidaId=<%=partida.getPartidaID()%>&envite=Truco')">TRUCO</button>
-			<button type="button" class="btn btn-danger"
+			<button type="button" class="btn btn-danger textoPartida"
 				onclick="loadDiv('mensajes', 'Partidas?action=cantarEnvite', 'partidaId=<%=partida.getPartidaID()%>&envite=Re truco')">RE
 				TRUCO</button>
-			<button type="button" class="btn btn-danger"
+			<button type="button" class="btn btn-danger textoPartida"
 				onclick="loadDiv('mensajes', 'Partidas?action=cantarEnvite', 'partidaId=<%=partida.getPartidaID()%>&envite=Vale cuatro')">VALE
 				4</button>
 			<br>
-			<button type="button" class="btn btn-danger"
+			<button type="button" class="btn btn-danger textoPartida"
 				onclick="loadDiv('mensajes', 'Partidas?action=responderEnvite', 'partidaId=<%=partida.getPartidaID()%>&respuesta=si&envite=<%if (partida.getUltimoCanto() != null)
 				out.print(partida.getUltimoCanto().getDescTipoCanto());%>')"<% if (partida.getUltimoCanto() == null) out.print(" disabled"); %>>QUIERO</button>
-			<button type="button" class="btn btn-danger"
+			<button type="button" class="btn btn-danger textoPartida"
 				onclick="loadDiv('mensajes', 'Partidas?action=responderEnvite', 'partidaId=<%=partida.getPartidaID()%>&respuesta=no&envite=<%if (partida.getUltimoCanto() != null)
 				out.print(partida.getUltimoCanto().getDescTipoCanto());%>')"<% if (partida.getUltimoCanto() == null) out.print(" disabled"); %>>NO
 				QUIERO</button>
-			<button type="button" class="btn btn-danger"
+			<button type="button" class="btn btn-danger textoPartida"
 				onclick="loadDiv('principal', 'Partidas?action=retirarse', 'partidaId=<%=partida.getPartidaID()%>')">ME
 				VOY</button>
 
