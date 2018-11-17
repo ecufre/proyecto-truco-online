@@ -180,8 +180,8 @@ public class Juego {
 		this.getManoActual().grabar();
 	}
 
-	public void responderEnvite(int jugadorUbicacion, TipoCanto tipoCanto, boolean respuesta) throws ComunicacionException {
-		this.getManoActual().responderEnvite(jugadorUbicacion, tipoCanto, respuesta);
+	public void responderEnvite(int jugadorUbicacion, TipoCanto tipoCanto, Boolean respuesta, Boolean mostrarPuntos) throws ComunicacionException {
+		this.getManoActual().responderEnvite(jugadorUbicacion, tipoCanto, respuesta, mostrarPuntos);
 		this.grabar();
 	}
 

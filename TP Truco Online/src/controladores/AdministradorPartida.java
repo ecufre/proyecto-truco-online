@@ -118,7 +118,7 @@ public class AdministradorPartida {
 			Jugador j = AdministradorJugador.getInstancia().buscarJugador(ad.getJugador().getApodo());
 			Partida p = this.buscarPartida(ad.getPartida().getId());
 			if (p.getEstado() == EstadoPartida.EnCurso) {
-				p.responderEnvite(j,ad.getEnvite().getTipoCanto(), ad.getEnvite().isRespuesta());
+				p.responderEnvite(j, ad.getEnvite().getTipoCanto(), ad.getEnvite().isRespuesta(), ad.getEnvite().isMostrarValoresEnvido());
 				LocalDateTime now = LocalDateTime.now();
 				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 				String rta;

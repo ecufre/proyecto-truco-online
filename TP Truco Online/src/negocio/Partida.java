@@ -180,8 +180,8 @@ public class Partida {
 		this.getJuegoActual().cantarEnvite(this.ubicacionJugador(jugador), canto);
 	}
 
-	public void responderEnvite(Jugador jugador, TipoCanto tipoCanto, Boolean respuesta) throws ComunicacionException {
-		this.getJuegoActual().responderEnvite(this.ubicacionJugador(jugador), tipoCanto, respuesta);
+	public void responderEnvite(Jugador jugador, TipoCanto tipoCanto, Boolean respuesta, Boolean mostrarPuntos) throws ComunicacionException {
+		this.getJuegoActual().responderEnvite(this.ubicacionJugador(jugador), tipoCanto, respuesta, mostrarPuntos);
 		if (tipoCanto.getId() > 4 && ! respuesta) this.actualizarEsatdoPartida();
 	}
 

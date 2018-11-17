@@ -18,6 +18,7 @@ public class Mano {
 	private ArrayList<Canto> cantos;
 	private ArrayList<Carta> cartas;
 	private ArrayList<Baza> bazas;
+	private Boolean mostrarPuntos;
 	private Integer[] envidoValor;
 
 	public Mano(Integer numeroMano) throws ComunicacionException {
@@ -25,19 +26,21 @@ public class Mano {
 		this.cantos = new ArrayList<Canto>();
 		this.cartas = new ArrayList<Carta>();
 		this.bazas = new ArrayList<Baza>();
+		this.mostrarPuntos = false;
 		Baza b = new Baza(this.calcularJugManoBaza());
 		b.crear();
 		bazas.add(b);
 		this.envidoValor = new Integer[4];
 	}
 
-	public Mano(Integer id, Integer numeroMano) {
+	public Mano(Integer id, Integer numeroMano, Boolean mostrarPuntos) {
 		this.id = id;
 		this.numeroMano = numeroMano;
 		this.cantos = new ArrayList<Canto>();
 		this.cartas = new ArrayList<Carta>();
 		this.bazas = new ArrayList<Baza>();
 		this.envidoValor = new Integer[4];
+		this.mostrarPuntos = mostrarPuntos;
 	}
 
 	public ArrayList<Canto> getCantos() {
@@ -67,6 +70,14 @@ public class Mano {
 	}
 	public void setBazas(ArrayList<Baza> bazas) {
 		this.bazas = bazas;
+	}
+
+	public Boolean getMostrarPuntos() {
+		return mostrarPuntos;
+	}
+
+	public void setMostrarPuntos(Boolean mostrarPuntos) {
+		this.mostrarPuntos = mostrarPuntos;
 	}
 
 	public void grabar() {
@@ -291,11 +302,12 @@ public class Mano {
 		*/
 	}
 
-	public void responderEnvite(int jugador, TipoCanto tipoCanto, boolean respuesta) throws ComunicacionException {
+	public void responderEnvite(int jugador, TipoCanto tipoCanto, Boolean respuesta, Boolean mostrarPuntos) throws ComunicacionException {
 		if (this.esRespuestaValida(jugador, tipoCanto)) {
 			this.getUltimoCanto().setQuerido(respuesta);
 			this.getUltimoCanto().grabar();
-			if (tipoCanto.getId() > 4 && ! respuesta) this.administrarRetiro(jugador % 2 + 1); 
+			if (tipoCanto.getId() > 4 && ! respuesta) this.administrarRetiro(jugador % 2 + 1);
+			if (mostrarPuntos != null) this.mostrarPuntos = mostrarPuntos;
 			this.grabar();
 		}
 		else throw new ComunicacionException("La respuesta es invalida");

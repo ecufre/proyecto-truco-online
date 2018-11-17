@@ -67,29 +67,22 @@
 			</div>
 			<br>
 			<div class="row" id="info">
-				<div class="col-md-3">
-					
-				</div>
-				<div class="col-md-9">
-					<div class="row">
-						Ultimo canto:
-						<%
-						if (partida.getUltimoCanto() == null)
-							out.println("No se canto nada todavía");
-						else {
-							out.print("<b>" + partida.getUltimoCanto().getDescTipoCanto() + " </b> por <b>"
-									+ partida.getUltimoCanto().getApodoCantante() + "</b>");
-							if (partida.getUltimoCanto().isQuerido() == null)
-								out.println(" - No fue respondido aun");
-							else if (partida.getUltimoCanto().isQuerido())
-								out.println(" - Querido");
-							else
-								out.println(" - No querido");
-						}
-					%>
-						<br>Es el turno de: <b>
-						<%=partida.getTurnoJugador().getApodo()%></b></div>
-				</div>
+				Ultimo canto:
+				<%
+				if (partida.getUltimoCanto() == null)
+					out.println("No se canto nada todavía");
+				else {
+					out.print("<b>" + partida.getUltimoCanto().getDescTipoCanto() + " </b> por <b>"
+							+ partida.getUltimoCanto().getApodoCantante() + "</b>");
+					if (partida.getUltimoCanto().isQuerido() == null)
+						out.println(" - No fue respondido aun");
+					else if (partida.getUltimoCanto().isQuerido())
+						out.println(" - Querido");
+					else
+						out.println(" - No querido");
+				}
+			%>
+				<br>Es el turno de: <b> <%=partida.getTurnoJugador().getApodo()%></b>
 				<br>
 			</div>
 			<div class="row" id="propias">
@@ -169,6 +162,9 @@
 	<hr>
 	<div class="row" id="botonera">
 		<div align="center" class="btn-group-sm">
+			<button class="btn btn-danger" data-toggle="modal"
+				data-target="#modalPuntos">Puntos</button>
+			<br>
 			<button type="button" class="btn btn-danger"
 				onclick="loadDiv('mensajes', 'Partidas?action=cantarEnvite', 'partidaId=<%=partida.getPartidaID()%>&envite=Envido')">ENVIDO</button>
 			<button type="button" class="btn btn-danger"
@@ -200,59 +196,61 @@
 			<button type="button" class="btn btn-danger"
 				onclick="loadDiv('principal', 'Partidas?action=retirarse', 'partidaId=<%=partida.getPartidaID()%>')">ME
 				VOY</button>
-				<br>
-				 <button class="btn btn-danger" data-toggle="modal" data-target="#modalPuntos">Puntos</button>
-				
+
 		</div>
 
 	</div>
 </div>
 
- <!--  Modals-->           
-                            
-                            <div class="modal fade" id="modalPuntos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                            <h4 class="modal-title" id="myModalLabel">Puntos</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <table class="tablaPuntaje">
-						<tr>
-							<th align="center">N (<%=partida.getJuegosNosotros() %>)</th>
-							<th align="center">E (<%=partida.getJuegosEllos() %>)</th>
-						</tr>
-						<tr>
-							<td><img
-								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoNosotros(), 1)%>.png"><img
-								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoNosotros(), 2)%>.png"><img
-								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoNosotros(), 3)%>.png"></td>
-							<td><img
-								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoEllos(), 1)%>.png"><img
-								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoEllos(), 2)%>.png"><img
-								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoEllos(), 3)%>.png"></td>
-						</tr>
-						<tr>
-							<td><img
-								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoNosotros(), 4)%>.png"><img
-								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoNosotros(), 5)%>.png"><img
-								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoNosotros(), 6)%>.png"></td>
-							<td><img
-								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoEllos(), 4)%>.png"><img
-								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoEllos(), 5)%>.png"><img
-								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoEllos(), 6)%>.png"></td>
-						</tr>
+<!--  Modals-->
 
-					</table>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                       
-                    
-                     <!-- End Modals-->
+<div class="modal fade" id="modalPuntos" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Puntos</h4>
+			</div>
+			<div class="modal-body">
+				<table class="tablaPuntaje">
+					<tr>
+						<th align="center">N (<%=partida.getJuegosNosotros()%>)
+						</th>
+						<th align="center">E (<%=partida.getJuegosEllos()%>)
+						</th>
+					</tr>
+					<tr>
+						<td><img
+							src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoNosotros(), 1)%>.png"><img
+							src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoNosotros(), 2)%>.png"><img
+							src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoNosotros(), 3)%>.png"></td>
+						<td><img
+							src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoEllos(), 1)%>.png"><img
+							src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoEllos(), 2)%>.png"><img
+							src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoEllos(), 3)%>.png"></td>
+					</tr>
+					<tr>
+						<td><img
+							src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoNosotros(), 4)%>.png"><img
+							src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoNosotros(), 5)%>.png"><img
+							src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoNosotros(), 6)%>.png"></td>
+						<td><img
+							src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoEllos(), 4)%>.png"><img
+							src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoEllos(), 5)%>.png"><img
+							src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoEllos(), 6)%>.png"></td>
+					</tr>
+
+				</table>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- End Modals-->
