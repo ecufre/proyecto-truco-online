@@ -190,10 +190,10 @@ public class ListadoPartidas  extends HttpServlet {
 							}
 							else {
 								EnviteDTO enviteDTO;
-								if (respuesta.equals("si") && tipoCanto.getValor() < 5) {
+								if (respuesta.equals("si") && tipoCanto.getId() < 5) {
 									enviteDTO = new EnviteDTO(tipoCanto, true, true);
 								}
-								else if (respuesta.equals("si") && tipoCanto.getValor() > 4) {
+								else if (respuesta.equals("si") && tipoCanto.getId() > 4) {
 									enviteDTO = new EnviteDTO(tipoCanto, true, false);									
 								}
 								else {

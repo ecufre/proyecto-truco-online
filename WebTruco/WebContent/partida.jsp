@@ -12,14 +12,18 @@
 	}%>
 <%
 	PartidaPantallaDTO partida = (PartidaPantallaDTO) request.getAttribute("partidaActual");
+	if (partida == null) {
+		out.print("La partida finalizo");
+	}
+	else {
 %>
 <input type=hidden id="updateActual_<%=partida.getPartidaID()%>"
 	value=<%=partida.getUltimaActualizacion().toEpochSecond(ZoneOffset.ofHours(0))%>>
 <div style="background: #009933;" class="row">
 	<div class="row">
-		<div class="col-md-3"><%=partida.getJugadorIzquierda().getApodo()%></div>
-		<div class="col-md-6"><%=partida.getJugadorFrente().getApodo()%></div>
-		<div class="col-md-3"><%=partida.getJugadorDerecha().getApodo()%></div>
+		<div class="col-md-3"><b><%=partida.getJugadorIzquierda().getApodo()%></b> <% if (partida.getValorEnvidoJugadorIquierda() != null) out.print("(Envido: " + partida.getValorEnvidoJugadorIquierda() + ")"); %></div>
+		<div class="col-md-6"><b><%=partida.getJugadorFrente().getApodo()%></b> <% if (partida.getValorEnvidoJugadorFrente() != null) out.print("(Envido: " + partida.getValorEnvidoJugadorFrente() + ")"); %></div>
+		<div class="col-md-3"><b><%=partida.getJugadorDerecha().getApodo()%></b> <% if (partida.getValorEnvidoJugadorDerecha() != null) out.print("(Envido: " + partida.getValorEnvidoJugadorDerecha() + ")"); %></div>
 	</div>
 	<div class="row" id="mesa">
 		<div class="col-md-3" id="izquierda">
@@ -254,3 +258,4 @@
 
 
 <!-- End Modals-->
+<% } %>

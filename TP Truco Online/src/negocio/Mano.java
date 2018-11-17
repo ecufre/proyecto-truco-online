@@ -394,7 +394,7 @@ public class Mano {
 	
 	public void limpiarArrayEnvido(){
 		if(mostrarPuntos != null && mostrarPuntos){
-		int mano = this.getNumeroMano()%4;
+		int mano = (this.getNumeroMano() - 1)%4;
 		
 		int a, b,c,d;
 		boolean borrarA, borrarB , borrarC, borrarD;
@@ -402,9 +402,9 @@ public class Mano {
 		borrarA= borrarB = borrarC= borrarD= true;
 		// busco el mano y las posciones relativas subsiguientes
 		a= mano; 
-		if(mano==3){b=0;}else{b=mano++;}
-		if(b==3){c=0;}else{c=b++;}	
-		if(c==3){d=0;}else{d=c++;}
+		if(mano==3){b=0; mano=0;}else{b=++mano;}
+		if(mano==3){c=0; mano=0;}else{c=++mano;}	
+		if(mano==3){d=0; mano=0;}else{d=++mano;}
 		
 		
 		//por defecto digo que hay que borrar todos y luego me fijo cuales tengo que dejar
