@@ -68,33 +68,7 @@
 			<br>
 			<div class="row" id="info">
 				<div class="col-md-3">
-					<table class="tablaPuntaje">
-						<tr>
-							<th align="center">N (<%=partida.getJuegosNosotros() %>)</th>
-							<th align="center">E (<%=partida.getJuegosEllos() %>)</th>
-						</tr>
-						<tr>
-							<td><img
-								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoNosotros(), 1)%>.png"><img
-								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoNosotros(), 2)%>.png"><img
-								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoNosotros(), 3)%>.png"></td>
-							<td><img
-								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoEllos(), 1)%>.png"><img
-								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoEllos(), 2)%>.png"><img
-								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoEllos(), 3)%>.png"></td>
-						</tr>
-						<tr>
-							<td><img
-								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoNosotros(), 4)%>.png"><img
-								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoNosotros(), 5)%>.png"><img
-								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoNosotros(), 6)%>.png"></td>
-							<td><img
-								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoEllos(), 4)%>.png"><img
-								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoEllos(), 5)%>.png"><img
-								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoEllos(), 6)%>.png"></td>
-						</tr>
-
-					</table>
+					
 				</div>
 				<div class="col-md-9">
 					<div class="row">
@@ -226,7 +200,59 @@
 			<button type="button" class="btn btn-danger"
 				onclick="loadDiv('principal', 'Partidas?action=retirarse', 'partidaId=<%=partida.getPartidaID()%>')">ME
 				VOY</button>
+				<br>
+				 <button class="btn btn-danger" data-toggle="modal" data-target="#modalPuntos">Puntos</button>
+				
 		</div>
 
 	</div>
 </div>
+
+ <!--  Modals-->           
+                            
+                            <div class="modal fade" id="modalPuntos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title" id="myModalLabel">Puntos</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <table class="tablaPuntaje">
+						<tr>
+							<th align="center">N (<%=partida.getJuegosNosotros() %>)</th>
+							<th align="center">E (<%=partida.getJuegosEllos() %>)</th>
+						</tr>
+						<tr>
+							<td><img
+								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoNosotros(), 1)%>.png"><img
+								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoNosotros(), 2)%>.png"><img
+								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoNosotros(), 3)%>.png"></td>
+							<td><img
+								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoEllos(), 1)%>.png"><img
+								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoEllos(), 2)%>.png"><img
+								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoEllos(), 3)%>.png"></td>
+						</tr>
+						<tr>
+							<td><img
+								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoNosotros(), 4)%>.png"><img
+								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoNosotros(), 5)%>.png"><img
+								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoNosotros(), 6)%>.png"></td>
+							<td><img
+								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoEllos(), 4)%>.png"><img
+								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoEllos(), 5)%>.png"><img
+								src="assets/img/puntos/<%=this.getPto(partida.getPuntosJuegoEllos(), 6)%>.png"></td>
+						</tr>
+
+					</table>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                       
+                    
+                     <!-- End Modals-->
