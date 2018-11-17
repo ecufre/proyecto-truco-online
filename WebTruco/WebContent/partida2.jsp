@@ -202,13 +202,12 @@
 				VOY</button>
 				<br>
 				 <button class="btn btn-danger" data-toggle="modal" data-target="#modalPuntos">Puntos</button>
-				
 		</div>
 
 	</div>
 </div>
 
- <!--  Modals-->           
+   <!--  Modals-->           
                             
                             <div class="modal fade" id="modalPuntos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
