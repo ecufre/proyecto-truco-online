@@ -62,7 +62,7 @@ public class CreadorPartida {
 		}
 		while (Cat1.size() > 1) {
 			Pareja p1 = Cat1.get(0);
-			Pareja p2 = Cat1.get(0);
+			Pareja p2 = Cat1.get(1);
 			AdministradorPartida.getInstancia().crearPartida(p1.getJugador1(), p2.getJugador1(), p1.getJugador2(), p2.getJugador2());
 			this.parejasDisponibles.remove(p1);
 			this.parejasDisponibles.remove(p2);
@@ -71,7 +71,7 @@ public class CreadorPartida {
 		}
 		while (Cat2.size() > 1) {
 			Pareja p1 = Cat2.get(0);
-			Pareja p2 = Cat2.get(0);
+			Pareja p2 = Cat2.get(1);
 			AdministradorPartida.getInstancia().crearPartida(p1.getJugador1(), p2.getJugador1(), p1.getJugador2(), p2.getJugador2());
 			this.parejasDisponibles.remove(p1);
 			this.parejasDisponibles.remove(p2);
@@ -80,7 +80,7 @@ public class CreadorPartida {
 		}
 		while (Cat3.size() > 1) {
 			Pareja p1 = Cat3.get(0);
-			Pareja p2 = Cat3.get(0);
+			Pareja p2 = Cat3.get(1);
 			AdministradorPartida.getInstancia().crearPartida(p1.getJugador1(), p2.getJugador1(), p1.getJugador2(), p2.getJugador2());
 			this.parejasDisponibles.remove(p1);
 			this.parejasDisponibles.remove(p2);
@@ -89,7 +89,7 @@ public class CreadorPartida {
 		}
 		while (Cat4.size() > 1) {
 			Pareja p1 = Cat4.get(0);
-			Pareja p2 = Cat4.get(0);
+			Pareja p2 = Cat4.get(1);
 			AdministradorPartida.getInstancia().crearPartida(p1.getJugador1(), p2.getJugador1(), p1.getJugador2(), p2.getJugador2());
 			this.parejasDisponibles.remove(p1);
 			this.parejasDisponibles.remove(p2);

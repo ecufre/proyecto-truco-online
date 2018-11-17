@@ -199,7 +199,7 @@
 				QUIERO</button>
 			<button type="button" class="btn btn-danger textoPartida"
 				onclick="loadDiv('principal', 'Partidas?action=retirarse', 'partidaId=<%=partida.getPartidaID()%>')">ME
-				VOY</button>
+				VOY</button><br>
 
 		</div>
 

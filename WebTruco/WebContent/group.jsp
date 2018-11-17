@@ -63,8 +63,8 @@ Ver el ranking del grupo cerrado
 										<td style="vertical-align: middle">
 											<%
 												if (!j.getApodo().equals(g.getAdministrador().getApodo())) {
-											%><button
-												class="btn btn-default" type="button" onclick="loadDiv('principal', 'Grupo?action=eliminarMiembro', 'idGrupo=<%=g.getId()%>&apodo=<%=j.getApodo() %>')">Remover</button>
+											%><button class="btn btn-default" type="button"
+												onclick="loadDiv('principal', 'Grupo?action=eliminarMiembro', 'idGrupo=<%=g.getId()%>&apodo=<%=j.getApodo()%>')">Remover</button>
 											<%
 												}
 											%>
@@ -101,7 +101,8 @@ Ver el ranking del grupo cerrado
 									}
 								%>
 							</select>
-							<button class="btn btn-default" type="button" onclick="loadDiv('principal', 'Grupo?action=crearPareja', 'idGrupo=<%=g.getId()%>&jug1=' + getElementById('jug1').options[getElementById('jug1').selectedIndex].value + '&jug2=' + getElementById('jug1').options[getElementById('jug2').selectedIndex].value)">Crear
+							<button class="btn btn-default" type="button"
+								onclick="loadDiv('principal', 'Grupo?action=crearPareja', 'idGrupo=<%=g.getId()%>&jug1=' + getElementById('jug1').options[getElementById('jug1').selectedIndex].value + '&jug2=' + getElementById('jug1').options[getElementById('jug2').selectedIndex].value)">Crear
 								Pareja</button>
 						</div>
 					</form>
@@ -115,7 +116,8 @@ Ver el ranking del grupo cerrado
 								<%
 									for (ParejaDTO p : g.getParejas()) {
 								%>
-								<option value=<%=p.getId() %>><%=p.getJugador1().getApodo()%> y
+								<option value=<%=p.getId()%>><%=p.getJugador1().getApodo()%>
+									y
 									<%=p.getJugador2().getApodo()%></option>
 								<%
 									}
@@ -124,13 +126,15 @@ Ver el ranking del grupo cerrado
 								<%
 									for (ParejaDTO p : g.getParejas()) {
 								%>
-								<option value=<%=p.getId() %>><%=p.getJugador1().getApodo()%> y
+								<option value=<%=p.getId()%>><%=p.getJugador1().getApodo()%>
+									y
 									<%=p.getJugador2().getApodo()%></option>
 								<%
 									}
 								%>
 							</select>
-							<button class="btn btn-default" type="button" onclick="loadDiv('principal', 'Grupo?action=crearPartida', 'idGrupo=<%=g.getId()%>&pareja1=' + getElementById('pareja1').options[getElementById('pareja1').selectedIndex].value + '&pareja2=' + getElementById('pareja2').options[getElementById('pareja2').selectedIndex].value)">Crear
+							<button class="btn btn-default" type="button"
+								onclick="loadDiv('principal', 'Grupo?action=crearPartida', 'idGrupo=<%=g.getId()%>&pareja1=' + getElementById('pareja1').options[getElementById('pareja1').selectedIndex].value + '&pareja2=' + getElementById('pareja2').options[getElementById('pareja2').selectedIndex].value)">Crear
 								Partida</button>
 						</div>
 					</form>
@@ -170,16 +174,25 @@ Ver el ranking del grupo cerrado
 							<td><%=j.getApodo()%></td>
 							<td><%=j.getCategoria().getPartidasJugadas()%></td>
 							<td><%=j.getCategoria().getPuntosTotales()%></td>
-							<td><%=j.getCategoria().getPromedio()%></td>
+							<td>
+								<%
+									java.util.Formatter formatter = new java.util.Formatter();
+											formatter.format("%.2f", j.getCategoria().getPromedio());
+											out.print(formatter.toString());
+								%>
+							</td>
+
 							<td><%=j.getCategoria().getCategoria().getNombre()%></td>
 						</tr>
 						<%
-										}
-									%>
+							}
+						%>
 					</tbody>
 				</table>
 			</div>
-			<% } %>
+			<%
+				}
+			%>
 		</div>
 	</div>
 </div>

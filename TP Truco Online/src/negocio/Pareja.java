@@ -46,7 +46,7 @@ public class Pareja {
 	}
 
 	public TipoCategoria calcularCategoria() {
-		if (jugador1.getCategoria().calcularCategoria().getId() < jugador2.getCategoria().calcularCategoria().getId()) return jugador1.getCategoria().calcularCategoria();
+		if (jugador1.getCategoria().calcularCategoria().getId() > jugador2.getCategoria().calcularCategoria().getId()) return jugador1.getCategoria().calcularCategoria();
 		else return jugador2.getCategoria().calcularCategoria();
 	}
 

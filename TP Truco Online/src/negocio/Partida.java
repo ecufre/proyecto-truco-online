@@ -12,6 +12,7 @@ import dto.PartidaDTO;
 import dto.PartidaPantallaDTO;
 import enumeraciones.EstadoPartida;
 import enumeraciones.TipoCanto;
+import enumeraciones.TipoCategoria;
 import excepciones.ComunicacionException;
 
 public class Partida {
@@ -168,6 +169,22 @@ public class Partida {
 				juegoActual.crearMano();
 				juegoActual.crear();
 			}
+			if (this.ganador != null) {
+				TipoCategoria categoriaPartida = TipoCategoria.Novato;
+				for (Jugador j : this.jugadores) if (j.getCategoria().calcularCategoria().getId() > categoriaPartida.getId()) categoriaPartida = j.getCategoria().calcularCategoria();
+				for (int i = 0; i < 4; i++) {
+					Jugador jug = this.jugadores.get(i);
+					if ((i+1)%2 == this.ganador%2) {
+						int puntos = 5;
+						if (this.esAbierta) puntos = 10; 
+						if (jug.getCategoria().calcularCategoria().getId()<categoriaPartida.getId() && this.esAbierta) puntos = 12;
+						jug.actualizarPuntaje(puntos);
+					}
+					else jug.actualizarPuntaje(0);
+					jug.grabar();
+				}
+			}
+			
 		}
 		//Si se termino la mano, creo una nueva mano.
 		else if (this.getJuegoActual().manoCompleta()) {
