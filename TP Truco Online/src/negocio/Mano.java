@@ -364,6 +364,7 @@ public class Mano {
 			//Verifico que equipo gano el envido
 			int puntosGanador = 0;
 			for (int i = 0; i < 4; i++) {
+				//TODO Nulls
 				if (this.envidoValor[i] > puntosGanador || (this.envidoValor[i] == puntosGanador && this.posicionRelativa(i + 1) < this.posicionRelativa(jugadorGanador))) {
 					puntosGanador = this.envidoValor[i];
 					jugadorGanador = i + 1;
@@ -392,7 +393,7 @@ public class Mano {
 
 	
 	public void limpiarArrayEnvido(){
-		if(true){
+		if(mostrarPuntos != null && mostrarPuntos){
 		int mano = this.getNumeroMano()%4;
 		
 		int a, b,c,d;
@@ -417,7 +418,8 @@ public class Mano {
 			envidoValor[b]<envidoValor[c])
 			||
 			((envidoValor[d]>envidoValor[a]) & 
-			 (envidoValor[c]>envidoValor[d]))){
+			 (envidoValor[c]>envidoValor[d]) &
+			 envidoValor[c]>envidoValor[b])){
 			borrarC=false;
 		}
 		
@@ -425,7 +427,8 @@ public class Mano {
 			envidoValor[b]<envidoValor[c]  & 
 			envidoValor[c]<envidoValor[d] ) 
 			||
-			(envidoValor[a]>envidoValor[b])){
+			(envidoValor[a]>envidoValor[b]) &
+			envidoValor[d]>envidoValor[a]){
 			borrarD=false;
 		}
 		
@@ -449,7 +452,6 @@ public class Mano {
 	
 	
 	public Integer mostrarPuntosEnvido(Integer pos) {
-		limpiarArrayEnvido();
 		return this.envidoValor[pos-1];
 	}
 

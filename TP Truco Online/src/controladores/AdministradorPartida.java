@@ -135,7 +135,7 @@ public class AdministradorPartida {
 			Jugador j = AdministradorJugador.getInstancia().buscarJugador(ad.getJugador().getApodo());
 			Partida p = this.buscarPartida(ad.getPartida().getId());
 			if (p.getEstado() == EstadoPartida.EnCurso) {
-				return 	p.toPantallaDTO(ad.getPartida().getId(),j,true);
+				return 	p.toPantallaDTO(ad.getPartida().getId(),j);
 			}
 		}
 		return null;

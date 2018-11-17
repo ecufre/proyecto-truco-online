@@ -247,13 +247,18 @@ public class Partida {
 	}
 
 
-	public PartidaPantallaDTO toPantallaDTO(int partida, Jugador j2 , Boolean ptosEnvido) throws ComunicacionException {
+	public PartidaPantallaDTO toPantallaDTO(int partida, Jugador j2) throws ComunicacionException {
 		if (this.estado == EstadoPartida.Pendiente) throw new ComunicacionException("La partida aun no ha comenzado");
 		if (this.estado == EstadoPartida.Finalizada) throw new ComunicacionException("La partida ha finalizado");
 		boolean par=true;
 
 
 		if(j2!=null){
+			Boolean ptosEnvido = false;
+			if (this.getJuegoActual().getManoActual().getMostrarPuntos() != null) {
+			ptosEnvido = this.getJuegoActual().getManoActual().getMostrarPuntos();
+			this.getJuegoActual().getManoActual().limpiarArrayEnvido();
+			}
 			PartidaPantallaDTO pd = new PartidaPantallaDTO(partida);
 			org.joda.time.LocalDateTime jodaTime = this.fechaActualizacion;
 			java.time.LocalDateTime javaTime = java.time.LocalDateTime.of(jodaTime.getYear(), jodaTime.getMonthOfYear(), jodaTime.getDayOfMonth(), jodaTime.getHourOfDay(), jodaTime.getMinuteOfHour(), jodaTime.getSecondOfMinute());
