@@ -1,4 +1,0 @@
-/*
-Este script administra la visbilidad de los botones editores o consultores deacuerdo al perfil del usuario
-
-*/
