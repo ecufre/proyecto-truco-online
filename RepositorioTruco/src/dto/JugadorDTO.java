@@ -2,9 +2,10 @@ package dto;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Vector;
 
 public class JugadorDTO implements Serializable {
+
+	private static final long serialVersionUID = -3494073997821404572L;
 	private String apodo;
 	private String email;
 	private String password;
@@ -24,8 +25,11 @@ public class JugadorDTO implements Serializable {
 
 	public JugadorDTO(String apodo, CategoriaDTO categoria) {
 		this.apodo = apodo;
-		//this.id = id;
 		this.categoria = categoria;
+	}
+	
+	public JugadorDTO(String apodo) {
+		this.apodo = apodo;
 	}
 
 	public JugadorDTO(String apodo, String email, ArrayList<InvitacionDTO> invitacionesPendientes, CategoriaDTO categoria) {

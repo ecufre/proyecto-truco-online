@@ -17,10 +17,7 @@ public class JuegoDTO implements Serializable {
 	private boolean finalizado;
 	private ArrayList<ManoDTO> manos;
 	
-	public JuegoDTO() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	public JuegoDTO() { }
 	
 	public JuegoDTO(int id, int puntajePar, int puntajeImpar,
 			boolean finalizado, ArrayList<ManoDTO> manos) {

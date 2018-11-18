@@ -1,6 +1,7 @@
 package dto;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class PartidaPantallaDTO implements Serializable{
@@ -19,24 +20,28 @@ public class PartidaPantallaDTO implements Serializable{
 	private Integer valorEnvidoJugadorFrente;
 	private Integer valorEnvidoJugadorIquierda;
 	private Integer valorEnvidoJugadorDerecha;
-	
+
 	private ArrayList<CartaDTO> cartasJugador;
 	private ArrayList<CartaDTO> cartasMesaJugador;
 	private ArrayList<CartaDTO> cartasMesaJugadorFrente;
 	private ArrayList<CartaDTO> cartasMesajugadorIzquierda;
 	private ArrayList<CartaDTO> cartasMesaJugadorDerecha;
-	
+
 	private Integer vista; 
 	private JugadorDTO jugador;
 	private JugadorDTO jugadorFrente;
 	private JugadorDTO jugadorIzquierda;
 	private JugadorDTO jugadorDerecha;
-	
+	private JugadorDTO turnoJugador;
+	private LocalDateTime ultimaActualizacion;
+
+	private CantoDTO ultimoCanto;
+
 	private String chat;
 	private String senias;
-	
-	
-	
+
+
+
 	public PartidaPantallaDTO(Integer partidaId) {
 		super();
 		partidaID = partidaId;
@@ -54,7 +59,10 @@ public class PartidaPantallaDTO implements Serializable{
 		this.cartasMesaJugadorFrente = new ArrayList<CartaDTO>() ;
 		this.cartasMesajugadorIzquierda = new ArrayList<CartaDTO>() ;
 		this.cartasMesaJugadorDerecha = new ArrayList<CartaDTO>() ;
-		
+
+		this.turnoJugador = null;
+		this.ultimoCanto = null;
+
 		this.vista = 0;
 		this.jugador = null;
 		this.jugadorFrente = null;
@@ -62,7 +70,7 @@ public class PartidaPantallaDTO implements Serializable{
 		this.jugadorIzquierda = null;
 		this.chat = "";
 		this.senias = "";
-	
+
 	}
 
 
@@ -289,9 +297,33 @@ public class PartidaPantallaDTO implements Serializable{
 	}
 
 
-	
+	public JugadorDTO getTurnoJugador() {
+		return turnoJugador;
+	}
 
-	
-	
+
+	public void setTurnoJugador(JugadorDTO turnoJugador) {
+		this.turnoJugador = turnoJugador;
+	}
+
+
+	public CantoDTO getUltimoCanto() {
+		return ultimoCanto;
+	}
+
+
+	public void setUltimoCanto(CantoDTO ultimoCanto) {
+		this.ultimoCanto = ultimoCanto;
+	}
+
+
+	public LocalDateTime getUltimaActualizacion() {
+		return ultimaActualizacion;
+	}
+
+
+	public void setUltimaActualizacion(LocalDateTime ultimaActualizacion) {
+		this.ultimaActualizacion = ultimaActualizacion;
+	}
 	
 }

@@ -10,6 +10,7 @@ import dto.JugadorDTO;
 import dto.ParejaDTO;
 import dto.PartidaDTO;
 import enumeraciones.EstadoPartida;
+import enumeraciones.TipoCategoria;
 import excepciones.ComunicacionException;
 
 public class Grupo {
@@ -20,10 +21,10 @@ public class Grupo {
 	private ArrayList<Pareja> parejas;
 	private ArrayList<Partida> partidas;
 	
-	public void agregarJugador(Jugador j) {
+	public void agregarJugador(Jugador j) throws ComunicacionException {
 		for (Jugador m : miembros) {
 			if (j.getApodo().equals(m.getApodo())) {
-				return;
+				throw new ComunicacionException("El jugador ya pertenece al grupo");
 			}
 		}
 		miembros.add(j);
@@ -47,6 +48,9 @@ public class Grupo {
 	}
 	
 	public void crearPareja(Jugador j1, Jugador j2) throws ComunicacionException {
+		for (Pareja p : this.parejas) {
+			if ((p.getJugador1().getApodo().equals(j1.getApodo()) && p.getJugador2().getApodo().equals(j2.getApodo())) || (p.getJugador1().getApodo().equals(j2.getApodo()) && p.getJugador2().getApodo().equals(j1.getApodo()))) throw new ComunicacionException("La pareja ya existe");
+		}
 		Pareja p = new Pareja(j1, j2);
 		p.setId(p.crear());
 		this.parejas.add(p);
@@ -91,10 +95,11 @@ public class Grupo {
 		return partidasDTO;
 	}
 	
-	public ArrayList<JugadorDTO> calcularRankingCerrado() {
+	public ArrayList<JugadorDTO> calcularRankingCerrado() throws ComunicacionException {
 		ArrayList<JugadorDTO> ranking = new ArrayList<JugadorDTO>();
-		for (Partida p : partidas) {
-			if (p.getEstado().equals(EstadoPartida.Finalizada)) { 
+		for (Partida part : partidas) {
+			if (part.getEstado().equals(EstadoPartida.Finalizada)) { 
+				Partida p = AdministradorPartida.getInstancia().buscarPartida(part.getId());
 				ArrayList<Jugador> jugadores = p.getJugadores();
 				for (int i = 0; i < jugadores.size(); i++) {
 					Jugador j = jugadores.get(i);
@@ -118,7 +123,7 @@ public class Grupo {
 						jDTO = j.toDTO();
 						if (i % 2 == 0) pts = puntosImpar; 
 						else pts = puntosPar;
-						jDTO.setCategoria(new CategoriaDTO(1, pts, (float)pts));
+						jDTO.setCategoria(new CategoriaDTO(1, pts, (float)pts, j.getCategoria().calcularCategoria()));
 						ranking.add(jDTO);
 					} else {
 						int pj = j.getCategoria().getPartidasJugadas() + 1;
@@ -126,7 +131,7 @@ public class Grupo {
 						if (i % 2 == 0) pts = pts + puntosImpar; 
 						else pts = pts + puntosPar;
 						float prom = pts / pj;
-						CategoriaDTO cat = new CategoriaDTO(pj, pts, prom);
+						CategoriaDTO cat = new CategoriaDTO(pj, pts, prom, j.getCategoria().calcularCategoria());
 						jDTO.setCategoria(cat);						
 					}
 				}
@@ -158,7 +163,7 @@ public class Grupo {
 	}
 	
 	public GrupoDTO toDTO_reducido() {
-		return new GrupoDTO(this.nombre, this.id);
+		return new GrupoDTO(this.nombre, this.id, this.administrador.toDTO_reducido());
 	}
 	
 	public void grabar() {
@@ -172,6 +177,9 @@ public class Grupo {
 	public Grupo(String nombre, Jugador administrador) {
 		this.nombre = nombre;
 		this.administrador = administrador;
+		this.miembros = new ArrayList<Jugador>();
+		this.partidas = new ArrayList<Partida>();
+		this.parejas = new ArrayList<Pareja>();
 	}
 
 	public String getNombre() {

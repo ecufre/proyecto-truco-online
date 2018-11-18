@@ -1,5 +1,7 @@
 package controladores;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import dao.JugadorDAO;
@@ -29,22 +31,28 @@ public class AdministradorJugador {
 		if (! JugadorDAO.getInstancia().existeJugadorByApodo(jugador.getApodo())) {
 			Jugador j = new Jugador(jugador.getApodo(), jugador.getEmail(), jugador.getPassword(), jugador.getLoggedSession());
 			j.grabar();
-			System.out.println("Se creo el jugador: " + jugador.getApodo());
+			LocalDateTime now = LocalDateTime.now();
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");  
+			System.out.println(dtf.format(now) + " - Se creo el jugador: " + jugador.getApodo());
 		} else throw new ComunicacionException("El jugador ya existe");
 	}
 	
-	public void login(JugadorDTO jugador) throws ComunicacionException {
-		Jugador j = this.buscarJugador(jugador.getApodo());
-		if (j != null) {
+	public void login(JugadorDTO jugador) throws LoggedInException {
+		Jugador j;
+		try {
+			j = this.buscarJugador(jugador.getApodo());
 			if (j.passwordCorrecta(jugador.getPassword())) {
 				j.setLoggedSession(jugador.getLoggedSession());
 				j.grabar();
-				System.out.println("Autenticacion correcta de parte del jugador: " + jugador.getApodo());
+				LocalDateTime now = LocalDateTime.now();
+				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");  
+				System.out.println(dtf.format(now) + " - Autenticacion correcta de parte del jugador: " + jugador.getApodo());
 				return;
 			}
+			throw new LoggedInException("No pudo autenticarse el usuario");
+		} catch (ComunicacionException e) {
+			throw new LoggedInException("No pudo autenticarse el usuario");
 		}
-		System.out.println("Autenticacion incorrecta de parte del jugador: " + jugador.getApodo());
-		throw new ComunicacionException ("No pudo autenticarse el usuario");
 	}
 	
 	public void logout(JugadorDTO jugador) throws LoggedInException, ComunicacionException {
@@ -53,7 +61,9 @@ public class AdministradorJugador {
 			jugadores.remove(j);
 			j.setLoggedSession(null);
 			j.grabar();
-			System.out.println("Cierre de sesion correcto de parte del jugador: " + jugador.getApodo());
+			LocalDateTime now = LocalDateTime.now();
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");  
+			System.out.println(dtf.format(now) + " - Cierre de sesion correcto de parte del jugador: " + jugador.getApodo());
 		}
 	}
 	
@@ -83,17 +93,22 @@ public class AdministradorJugador {
 	
 	public void jugarLibreIndividual(JugadorDTO jugador) throws LoggedInException, ComunicacionException {
 		if (this.isLoggedIn(jugador)) {
+			LocalDateTime now = LocalDateTime.now();
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");  
+			System.out.println(dtf.format(now) + " - El siguiente jugador se agrego lista de espera individual: " + jugador.getApodo());
 			CreadorPartida.getInstancia().agregarJugadorIndividual(this.buscarJugador(jugador.getApodo()));
-			System.out.println("El siguiente jugador fue agregado a lista de espera individual: " + jugador.getApodo());
 		}
 	}
 	
 	public void jugarLibrePareja(JugadorDTO remitente, String apodoInvitado) throws LoggedInException, ComunicacionException {
 		if (this.isLoggedIn(remitente)) {
+			if (remitente.getApodo().equals(apodoInvitado)) throw new ComunicacionException("No podes invitarte a vos mismo");
 			Jugador j = this.buscarJugador(apodoInvitado);
 			if (j != null) {
 				j.crearInvitacion(this.buscarJugador(remitente.getApodo()));
-				System.out.println("Invitacion para jugar enviada a: " + apodoInvitado);
+				LocalDateTime now = LocalDateTime.now();
+				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");  
+				System.out.println(dtf.format(now) + " - Invitacion para jugar enviada a: " + apodoInvitado);
 			}
 		}
 	}
@@ -104,7 +119,9 @@ public class AdministradorJugador {
 			for (Invitacion i : this.buscarJugador(jugador.getApodo()).getInvitacionesPendientes()) {
 				invitaciones.add(i.toDTO());
 			}
-			System.out.println("Listando invitaciones pendientes del jugador: " + jugador.getApodo());
+			LocalDateTime now = LocalDateTime.now();
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");  
+			System.out.println(dtf.format(now) + " - Listando invitaciones pendientes del jugador: " + jugador.getApodo());
 		}
 		return invitaciones;
 	}
@@ -113,7 +130,9 @@ public class AdministradorJugador {
 		if (this.isLoggedIn(jugador)) {
 			Jugador j = this.buscarJugador(jugador.getApodo());
 			j.aceptarInvitacion(invitacion.getId());
-			System.out.println("Aceptando invitacion enviada por: " + invitacion.getRemitente().getApodo());
+			LocalDateTime now = LocalDateTime.now();
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");  
+			System.out.println(dtf.format(now) + " - Aceptando invitacion enviada por: " + invitacion.getRemitente().getApodo());
 		}
 	}
 	
@@ -121,12 +140,16 @@ public class AdministradorJugador {
 		if (this.isLoggedIn(jugador)) {
 			Jugador j = this.buscarJugador(jugador.getApodo());
 			j.rechazarInvitacion(invitacion.getId());
-			System.out.println("Rechazando invitacion enviada por: " + invitacion.getRemitente().getApodo());
+			LocalDateTime now = LocalDateTime.now();
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");  
+			System.out.println(dtf.format(now) + " - Rechazando invitacion enviada por: " + invitacion.getRemitente().getApodo());
 		}
 	}
 	
-	public ArrayList<JugadorDTO> listarTopTen(Integer categoria) throws ComunicacionException {
-		System.out.println("Listando Top 10 de jugadores de la categoria: " + String.valueOf(categoria));
-		return Jugador.buscarTop10(categoria);
+	public ArrayList<JugadorDTO> listarRanking() throws ComunicacionException {
+		LocalDateTime now = LocalDateTime.now();
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");  
+		System.out.println(dtf.format(now) + " - Listando ranking de jugadores");
+		return Jugador.listarRanking();
 	}
 }

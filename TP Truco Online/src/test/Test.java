@@ -7,8 +7,10 @@ import controladores.AdministradorPartida;
 import dao.MazoDAO;
 import dto.AccionDTO;
 import dto.CartaDTO;
+import dto.EnviteDTO;
 import dto.JugadorDTO;
 import dto.PartidaDTO;
+import enumeraciones.TipoCanto;
 import excepciones.ComunicacionException;
 import excepciones.LoggedInException;
 
@@ -32,7 +34,7 @@ public class Test {
 			AdministradorJugador.getInstancia().crearJugador(jugador4);			
 			JugadorDTO jugador = new JugadorDTO("kike2", "kike2@kike", "Pass", "SessionID6");
 			AdministradorJugador.getInstancia().crearJugador(jugador);			
-			
+
 			c1.login(admin);
 			AdministradorJugador.getInstancia().jugarLibreIndividual(admin);
 			AdministradorJugador.getInstancia().jugarLibreIndividual(jugador);
@@ -40,7 +42,7 @@ public class Test {
 			AdministradorJugador.getInstancia().jugarLibreIndividual(jugador4);
 			AdministradorJugador.getInstancia().jugarLibrePareja(admin, "kike2");
 			//ArrayList<InvitacionDTO> inv = AdministradorJugador.getInstancia().listarInvitacionesPendientes(jugador);
-/*			AdministradorJugador.getInstancia().aceptarInvitacion(jugador, inv.get(0));
+			/*			AdministradorJugador.getInstancia().aceptarInvitacion(jugador, inv.get(0));
 			AdministradorGrupo c2 = AdministradorGrupo.getInstancia();
 			c2.crearGrupo(admin, "La Cumbancha");
 			GrupoDTO g = new GrupoDTO("La Cumbancha", 1);
@@ -55,7 +57,7 @@ public class Test {
 			c2.crearPartida(admin, g, p1, p2);*/
 			PartidaDTO pdo = new PartidaDTO();
 			pdo.setId(1);
-			
+
 			AccionDTO ad = new AccionDTO(pdo, admin, 1, false, "");
 			c3.jugadorListo(ad);
 			ad.setJugador(jugador);
@@ -69,28 +71,38 @@ public class Test {
 			jugadores.add(jugador);
 			jugadores.add(jugador1);
 			jugadores.add(jugador4);
-			
+
 			ArrayList<CartaDTO> baza1 = new ArrayList<CartaDTO>();
 			baza1.add(new CartaDTO(3, 3, "espada", 1));
 			baza1.add(new CartaDTO(38, 10, "oro", 2));
 			baza1.add(new CartaDTO(4, 4, "espada", 3));
 			baza1.add(new CartaDTO(5, 5, "espada", 4));
-			
+
 			ArrayList<CartaDTO> baza2 = new ArrayList<CartaDTO>();
 			baza2.add(new CartaDTO(2, 2, "espada", 1));
 			baza2.add(new CartaDTO(39, 11, "oro", 2));
 			baza2.add(new CartaDTO(26, 6, "copa", 3));
 			baza2.add(new CartaDTO(30, 12, "copa", 4));
-			
+
 			ad.setJugador(admin);
 			//mostrarPartida(c3,ad);
-		System.out.println("ARRANCAMOS");
+			System.out.println("ARRANCAMOS");
+			EnviteDTO edto = new EnviteDTO(TipoCanto.Envido, true, true);
+			ad.setEnvite(edto);
 
-			
+
 			for (int i = 0; i < 30; i++) {
 				//Primera baza
 				CartaDTO cd = baza1.get((i+0)%4);
 				ad.setJugador(jugadores.get((i+0)%4));
+				ad.getEnvite().setTipoCanto(TipoCanto.Envido);
+				c3.cantarEnvite(ad);
+				ad.setJugador(jugadores.get((i+1)%4));
+				ad.getEnvite().setTipoCanto(TipoCanto.EnvidoEnvido);
+				c3.cantarEnvite(ad);
+				ad.setJugador(jugadores.get((i+0)%4));
+				c3.responderEnvite(ad);
+
 				ad.setCarta(cd);
 				c3.JugarCarta(ad);
 				//mostrarPartida(c3,ad);
@@ -135,22 +147,22 @@ public class Test {
 				ad.setJugador(jugador1);
 				ad.setCarta(cd);
 				c3.JugarCarta(ad);
-				
+
 				cd = new CartaDTO(20, 12, "basto", 1);
 				ad.setJugador(jugador);
 				ad.setCarta(cd);
 				c3.JugarCarta(ad);
-				
+
 				cd = new CartaDTO(31, 1, "oro", 1);
 				ad.setJugador(jugador4);
 				ad.setCarta(cd);
 				c3.JugarCarta(ad);
-				
+
 				cd = new CartaDTO(5, 5, "espada", 1);
 				ad.setJugador(admin);
 				ad.setCarta(cd);
 				c3.JugarCarta(ad);
-				*/
+				 */
 			}
 			for (int i = 0; i < 30; i++) {
 				//Primera baza
@@ -200,28 +212,28 @@ public class Test {
 				ad.setJugador(jugador1);
 				ad.setCarta(cd);
 				c3.JugarCarta(ad);
-				
+
 				cd = new CartaDTO(20, 12, "basto", 1);
 				ad.setJugador(jugador);
 				ad.setCarta(cd);
 				c3.JugarCarta(ad);
-				
+
 				cd = new CartaDTO(31, 1, "oro", 1);
 				ad.setJugador(jugador4);
 				ad.setCarta(cd);
 				c3.JugarCarta(ad);
-				
+
 				cd = new CartaDTO(5, 5, "espada", 1);
 				ad.setJugador(admin);
 				ad.setCarta(cd);
 				c3.JugarCarta(ad);
-				*/
+				 */
 			}
 			/*
 			//Primera baza
 				EnviteDTO edto = new EnviteDTO(TipoCanto.Envido, true, true);
 				ad.setEnvite(edto);
-				
+
 				CartaDTO cd = baza1.get(0);
 				ad.setJugador(jugadores.get(0));
 				c3.cantarEnvite(ad);
@@ -237,17 +249,17 @@ public class Test {
 				ad.setJugador(jugadores.get(1));
 				ad.setCarta(cd);
 				c3.JugarCarta(ad);
-				
+
 				cd = baza1.get(2);
 				ad.setJugador(jugadores.get(2));
 				ad.setCarta(cd);
 				c3.JugarCarta(ad);
-				
+
 				cd = baza1.get(3);
 				ad.setJugador(jugadores.get(3));
 				ad.setCarta(cd);
 				c3.JugarCarta(ad);
-				
+
 				//Segunda baza
 				cd = baza2.get(0);
 				ad.setJugador(jugadores.get(0));
@@ -258,19 +270,19 @@ public class Test {
 				c3.responderEnvite(ad);
 				ad.setJugador(jugadores.get(0));
 				c3.JugarCarta(ad);
-				
+
 				cd = baza2.get(1);
 				ad.setJugador(jugadores.get(1));
 				ad.setCarta(cd);
 				c3.JugarCarta(ad);
-				
+
 				cd = baza2.get(2);
 				ad.setJugador(jugadores.get(2));
 				c3.Retirarse(ad);
 				/*
 				ad.setCarta(cd);
 				c3.JugarCarta(ad);
-				
+
 				cd = baza2.get(3);
 				ad.setJugador(jugadores.get(3));
 				ad.getEnvite().setTipoCanto(TipoCanto.ReTruco);
@@ -283,9 +295,9 @@ public class Test {
 				c3.responderEnvite(ad);
 				//ad.setCarta(cd);
 				//c3.JugarCarta(ad);
-				*/
-				
-				
+			 */
+
+
 			return;
 		} catch (ComunicacionException ce) {
 			System.err.print(ce.getMessage());
@@ -293,13 +305,13 @@ public class Test {
 			System.err.println(le.getMessage());
 		}
 	}
-	
+
 	public static void jugarMano(int numeroMano) {
-		
+
 	}
 	/*
 	public static void mostrarPartida(AdministradorPartida c3,AccionDTO ad) throws ComunicacionException, LoggedInException{
-	
+
 	PartidaDTO pd = c3.mostrarPartida(ad);
 	System.out.println(c3.mostrarPartida(ad));
 	System.out.println("Juegos\n Nosotros:"+pd.getJuegosNosotros()+" Ellos: "+pd.getJuegosEllos() );
@@ -308,7 +320,7 @@ public class Test {
 	System.out.println("jugador frente:"	+pd.getJugadorFrente().getApodo()+" suma Envido: "+pd.getValorEnvidoJugadorFrente());
 	System.out.println("jugador IZQ:"		+pd.getJugadorIzquierda().getApodo()+" suma Envido: "+pd.getValorEnvidoJugadorIquierda());
 	System.out.println("jugador DER:"		+pd.getJugadorDerecha().getApodo()+" suma Envido: "+pd.getValorEnvidoJugadorDerecha());
-	
+
 	System.out.println(":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n"
 			+ 		   ":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::\n"
 			+ 			":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::");
@@ -345,6 +357,6 @@ public class Test {
 		System.out.println(c.toString());
 	}
 	}
-	*/
+	 */
 }
 

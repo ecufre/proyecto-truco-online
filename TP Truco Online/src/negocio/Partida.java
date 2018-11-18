@@ -1,6 +1,9 @@
 package negocio;
 
+
 import java.util.ArrayList;
+
+import org.joda.time.LocalDateTime;
 
 import dao.PartidaDAO;
 import dto.JuegoDTO;
@@ -9,6 +12,7 @@ import dto.PartidaDTO;
 import dto.PartidaPantallaDTO;
 import enumeraciones.EstadoPartida;
 import enumeraciones.TipoCanto;
+import enumeraciones.TipoCategoria;
 import excepciones.ComunicacionException;
 
 public class Partida {
@@ -20,6 +24,8 @@ public class Partida {
 	private Integer ganador;
 	private ArrayList<Juego> juegos;
 	private String charla;
+	private LocalDateTime fechaCreacion; //TODO
+	private LocalDateTime fechaActualizacion; //TODO
 
 
 	// Creacion y preparacion de partida
@@ -35,6 +41,8 @@ public class Partida {
 		juegoActual.crearMano();
 		juegoActual.crear();
 		this.charla = null;
+		this.fechaCreacion = LocalDateTime.now();
+		this.fechaActualizacion = LocalDateTime.now();
 	}
 
 	public Partida(int id) {
@@ -77,20 +85,20 @@ public class Partida {
 	public void setGanador(Integer ganador) {
 		this.ganador = ganador;
 	}
-	
+
 	public void grabar() {
 		PartidaDAO.getInstancia().grabar(this);
 	}
-	
+
 	public void crear() throws ComunicacionException {
 		Integer id = PartidaDAO.getInstancia().crear(this);
 		if (id != null) this.id = id;
 		else throw new ComunicacionException("Hubo un error al generar una nueva partida");
 	}
 
-	public void jugadorListo(Jugador j) {
+	public void jugadorListo(Jugador j) throws ComunicacionException {
 		for (int i = 0; i < this.jugadoresListos.size(); i++) {
-			if (this.jugadoresListos.get(i).getApodo().equals(j.getApodo())) return;
+			if (this.jugadoresListos.get(i).getApodo().equals(j.getApodo())) throw new ComunicacionException("El jugador ya estaba listo para jugar esta partida");
 		}
 		this.jugadoresListos.add(j);
 		if (this.jugadoresListos.size() == 4) this.estado = EstadoPartida.EnCurso;
@@ -161,6 +169,22 @@ public class Partida {
 				juegoActual.crearMano();
 				juegoActual.crear();
 			}
+			if (this.ganador != null) {
+				TipoCategoria categoriaPartida = TipoCategoria.Novato;
+				for (Jugador j : this.jugadores) if (j.getCategoria().calcularCategoria().getId() > categoriaPartida.getId()) categoriaPartida = j.getCategoria().calcularCategoria();
+				for (int i = 0; i < 4; i++) {
+					Jugador jug = this.jugadores.get(i);
+					if ((i+1)%2 == this.ganador%2) {
+						int puntos = 5;
+						if (this.esAbierta) puntos = 10; 
+						if (jug.getCategoria().calcularCategoria().getId()<categoriaPartida.getId() && this.esAbierta) puntos = 12;
+						jug.actualizarPuntaje(puntos);
+					}
+					else jug.actualizarPuntaje(0);
+					jug.grabar();
+				}
+			}
+			
 		}
 		//Si se termino la mano, creo una nueva mano.
 		else if (this.getJuegoActual().manoCompleta()) {
@@ -173,8 +197,8 @@ public class Partida {
 		this.getJuegoActual().cantarEnvite(this.ubicacionJugador(jugador), canto);
 	}
 
-	public void responderEnvite(Jugador jugador, TipoCanto tipoCanto, Boolean respuesta) throws ComunicacionException {
-		this.getJuegoActual().responderEnvite(this.ubicacionJugador(jugador), tipoCanto, respuesta);
+	public void responderEnvite(Jugador jugador, TipoCanto tipoCanto, Boolean respuesta, Boolean mostrarPuntos) throws ComunicacionException {
+		this.getJuegoActual().responderEnvite(this.ubicacionJugador(jugador), tipoCanto, respuesta, mostrarPuntos);
 		if (tipoCanto.getId() > 4 && ! respuesta) this.actualizarEsatdoPartida();
 	}
 
@@ -190,6 +214,22 @@ public class Partida {
 		return jugadores;
 	}
 
+	public LocalDateTime getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+	public LocalDateTime getFechaActualizacion() {
+		return fechaActualizacion;
+	}
+
+	public void setFechaActualizacion(LocalDateTime fechaActualizacion) {
+		this.fechaActualizacion = fechaActualizacion;
+	}
+
+	public void setFechaCreacion(LocalDateTime fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+
 	public PartidaDTO toDTO() {
 		ArrayList<JugadorDTO> jugadores = new ArrayList<JugadorDTO>();
 		ArrayList<JuegoDTO> juegos  =new ArrayList<JuegoDTO>();
@@ -199,26 +239,54 @@ public class Partida {
 		for(Juego jj : this.getJuegos()){
 			juegos.add(jj.toDTO());
 		}
-		
-		
 		PartidaDTO  pdto= new PartidaDTO(this.getId(),jugadores,this.isEsAbierta(),this.getEstado(), this.getGanador(),juegos,charla);
+		org.joda.time.LocalDateTime jodaTime = this.fechaActualizacion;
+		java.time.LocalDateTime javaTime = java.time.LocalDateTime.of(jodaTime.getYear(), jodaTime.getMonthOfYear(), jodaTime.getDayOfMonth(), jodaTime.getHourOfDay(), jodaTime.getMinuteOfHour(), jodaTime.getSecondOfMinute());
+		pdto.setFechaActualizacion(javaTime);
+		jodaTime = this.fechaCreacion;
+		javaTime = java.time.LocalDateTime.of(jodaTime.getYear(), jodaTime.getMonthOfYear(), jodaTime.getDayOfMonth(), jodaTime.getHourOfDay(), jodaTime.getMinuteOfHour(), jodaTime.getSecondOfMinute());
+		pdto.setFechaCreacion(javaTime);
+		return pdto;
+	}
+	
+	public PartidaDTO toDTOReducido() {
+		PartidaDTO pdto = new PartidaDTO();
+		pdto.setId(this.id);
+		pdto.setEstado(this.estado);
+		org.joda.time.LocalDateTime jodaTime = this.fechaActualizacion;
+		java.time.LocalDateTime javaTime = java.time.LocalDateTime.of(jodaTime.getYear(), jodaTime.getMonthOfYear(), jodaTime.getDayOfMonth(), jodaTime.getHourOfDay(), jodaTime.getMinuteOfHour(), jodaTime.getSecondOfMinute());
+		pdto.setFechaActualizacion(javaTime);
+		jodaTime = this.fechaCreacion;
+		javaTime = java.time.LocalDateTime.of(jodaTime.getYear(), jodaTime.getMonthOfYear(), jodaTime.getDayOfMonth(), jodaTime.getHourOfDay(), jodaTime.getMinuteOfHour(), jodaTime.getSecondOfMinute());
+		pdto.setFechaCreacion(javaTime);
+		if (this.estado == EstadoPartida.EnCurso) pdto.setTurnoJugador(this.jugadores.get(this.getJuegoActual().getManoActual().getBazaActual().getTurno() - 1).toDTO_reducido());
 		return 	pdto;
-		}
-
-	
+	}
 
 
-	
-	
-	
-	public PartidaPantallaDTO toPantallaDTO(int partida, Jugador j2 , Boolean ptosEnvido) throws ComunicacionException {
-
+	public PartidaPantallaDTO toPantallaDTO(int partida, Jugador j2) throws ComunicacionException {
+		if (this.estado == EstadoPartida.Pendiente) throw new ComunicacionException("La partida aun no ha comenzado");
+		if (this.estado == EstadoPartida.Finalizada) throw new ComunicacionException("La partida ha finalizado");
 		boolean par=true;
 
 
 		if(j2!=null){
+			Boolean ptosEnvido = false;
+			if (this.getJuegoActual().getManoActual().getMostrarPuntos() != null) {
+			ptosEnvido = this.getJuegoActual().getManoActual().getMostrarPuntos();
+			this.getJuegoActual().getManoActual().limpiarArrayEnvido();
+			}
 			PartidaPantallaDTO pd = new PartidaPantallaDTO(partida);
+			org.joda.time.LocalDateTime jodaTime = this.fechaActualizacion;
+			java.time.LocalDateTime javaTime = java.time.LocalDateTime.of(jodaTime.getYear(), jodaTime.getMonthOfYear(), jodaTime.getDayOfMonth(), jodaTime.getHourOfDay(), jodaTime.getMinuteOfHour(), jodaTime.getSecondOfMinute());
+			pd.setUltimaActualizacion(javaTime);
 			pd.setJugador(j2.toDTO());
+
+			pd.setTurnoJugador(this.jugadores.get(this.getJuegoActual().getManoActual().getBazaActual().getTurno() - 1).toDTO_reducido());
+			if (this.getJuegoActual().getManoActual().getUltimoCanto() != null) {
+				pd.setUltimoCanto(this.getJuegoActual().getManoActual().getUltimoCanto().toDTO());
+				pd.getUltimoCanto().setApodoCantante(this.jugadores.get(pd.getUltimoCanto().getCantante() - 1).getApodo());
+			}
 			//pd.setChat(this.getCharla()); queda para la proxima entrega
 			pd.setCartasJugador(this.getJuegoActual().mostrarCartasJugador(this.ubicacionJugador(j2)));
 			if(ptosEnvido){
@@ -235,11 +303,11 @@ public class Partida {
 
 			int juegosImpar = 0,juegosPar = 0;
 			for(Juego j : juegos){
-				if(j.getPuntajePar()<j.getPuntajeImpar()){
+				if(j.getPuntajePar()<j.getPuntajeImpar() && j.isFinalizado()){
 
 					juegosImpar++;
 				}
-				if(j.getPuntajePar()>j.getPuntajeImpar()){
+				if(j.getPuntajePar()>j.getPuntajeImpar() && j.isFinalizado()){
 
 					juegosPar++;
 				}
@@ -257,7 +325,7 @@ public class Partida {
 				pd.setPuntosJuegoNosotros(this.getJuegoActual().getPuntajeImpar());
 				pd.setPuntosJuegoEllos(this.getJuegoActual().getPuntajePar());
 				//pd.setSenias(this.getJuegoActual().mostrarSeniasImpar());
-
+				
 			}
 
 
@@ -266,9 +334,9 @@ public class Partida {
 
 				switch (this.ubicacionJugador(j2)){
 				case 1:
-					pd.setJugadorFrente(this.jugadores.get(2).toDTO());
-					pd.setJugadorIzquierda(this.jugadores.get(1).toDTO());
-					pd.setJugadorDerecha(this.jugadores.get(3).toDTO());
+					pd.setJugadorFrente(this.jugadores.get(2).toDTO_reducido());
+					pd.setJugadorIzquierda(this.jugadores.get(1).toDTO_reducido());
+					pd.setJugadorDerecha(this.jugadores.get(3).toDTO_reducido());
 					pd.setCartasMesaJugadorFrente(this.getJuegoActual().mostrarCartasMesa(3));
 					pd.setCartasMesajugadorIzquierda(this.getJuegoActual().mostrarCartasMesa(2));
 					pd.setCartasMesaJugadorDerecha(this.getJuegoActual().mostrarCartasMesa(4));
@@ -276,13 +344,14 @@ public class Partida {
 						pd.setValorEnvidoJugadorFrente(this.getJuegoActual().mostrarPuntosEnvido(3));
 						pd.setValorEnvidoJugadorIquierda(this.getJuegoActual().mostrarPuntosEnvido(2));
 						pd.setValorEnvidoJugadorDerecha(this.getJuegoActual().mostrarPuntosEnvido(4));
+				
 					}
 
 					break;
 				case 2:
-					pd.setJugadorFrente(this.jugadores.get(3).toDTO());
-					pd.setJugadorIzquierda(this.jugadores.get(2).toDTO());
-					pd.setJugadorDerecha(this.jugadores.get(0).toDTO());
+					pd.setJugadorFrente(this.jugadores.get(3).toDTO_reducido());
+					pd.setJugadorIzquierda(this.jugadores.get(2).toDTO_reducido());
+					pd.setJugadorDerecha(this.jugadores.get(0).toDTO_reducido());
 					pd.setCartasMesaJugadorFrente(this.getJuegoActual().mostrarCartasMesa(4));
 					pd.setCartasMesajugadorIzquierda(this.getJuegoActual().mostrarCartasMesa(3));
 					pd.setCartasMesaJugadorDerecha(this.getJuegoActual().mostrarCartasMesa(1));
@@ -293,9 +362,9 @@ public class Partida {
 					}
 					break;
 				case 3:
-					pd.setJugadorFrente(this.jugadores.get(0).toDTO());
-					pd.setJugadorIzquierda(this.jugadores.get(3).toDTO());
-					pd.setJugadorDerecha(this.jugadores.get(1).toDTO());
+					pd.setJugadorFrente(this.jugadores.get(0).toDTO_reducido());
+					pd.setJugadorIzquierda(this.jugadores.get(3).toDTO_reducido());
+					pd.setJugadorDerecha(this.jugadores.get(1).toDTO_reducido());
 					pd.setCartasMesaJugadorFrente(this.getJuegoActual().mostrarCartasMesa(1));
 					pd.setCartasMesajugadorIzquierda(this.getJuegoActual().mostrarCartasMesa(4));
 					pd.setCartasMesaJugadorDerecha(this.getJuegoActual().mostrarCartasMesa(2));
@@ -306,9 +375,9 @@ public class Partida {
 					}
 					break;
 				case 4:
-					pd.setJugadorFrente(this.jugadores.get(1).toDTO());
-					pd.setJugadorIzquierda(this.jugadores.get(0).toDTO());
-					pd.setJugadorDerecha(this.jugadores.get(2).toDTO());
+					pd.setJugadorFrente(this.jugadores.get(1).toDTO_reducido());
+					pd.setJugadorIzquierda(this.jugadores.get(0).toDTO_reducido());
+					pd.setJugadorDerecha(this.jugadores.get(2).toDTO_reducido());
 					pd.setCartasMesaJugadorFrente(this.getJuegoActual().mostrarCartasMesa(2));
 					pd.setCartasMesajugadorIzquierda(this.getJuegoActual().mostrarCartasMesa(1));
 					pd.setCartasMesaJugadorDerecha(this.getJuegoActual().mostrarCartasMesa(3));

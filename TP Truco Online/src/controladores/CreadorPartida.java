@@ -25,12 +25,15 @@ public class CreadorPartida {
 	}
 	
 	public void agregarJugadorIndividual(Jugador j) throws ComunicacionException {
+		for (Jugador jug : jugadoresDisponibles) if (jug.getApodo().equals(j.getApodo())) throw new ComunicacionException(j.getApodo() + " ya esta en lista de espera"); 
 		this.jugadoresDisponibles.add(j);
 		this.crearPartidasIndividuales();
 	}
 	
 	public void agregarPareja(Jugador j1, Jugador j2) throws ComunicacionException {
 		Pareja p = new Pareja(j1, j2);
+		for (Pareja par : parejasDisponibles) if ((p.getJugador1().getApodo().equals(par.getJugador1().getApodo()) || p.getJugador1().getApodo().equals(par.getJugador2().getApodo())) && (p.getJugador2().getApodo().equals(par.getJugador1().getApodo()) || p.getJugador2().getApodo().equals(par.getJugador2().getApodo())))
+				throw new ComunicacionException("La pareja ya esta en lista de espera");
 		this.parejasDisponibles.add(p);
 		this.crearPartidasPareja();
 	}
@@ -42,7 +45,7 @@ public class CreadorPartida {
 		ArrayList<Pareja> Cat3 = new ArrayList<Pareja>();
 		ArrayList<Pareja> Cat4 = new ArrayList<Pareja>();
 		for (Pareja p : this.parejasDisponibles) {
-			switch (p.calcularCategoria()) {
+			switch (p.calcularCategoria().getId()) {
 			case 1:
 				Cat1.add(p);
 				break;
@@ -59,7 +62,7 @@ public class CreadorPartida {
 		}
 		while (Cat1.size() > 1) {
 			Pareja p1 = Cat1.get(0);
-			Pareja p2 = Cat1.get(0);
+			Pareja p2 = Cat1.get(1);
 			AdministradorPartida.getInstancia().crearPartida(p1.getJugador1(), p2.getJugador1(), p1.getJugador2(), p2.getJugador2());
 			this.parejasDisponibles.remove(p1);
 			this.parejasDisponibles.remove(p2);
@@ -68,7 +71,7 @@ public class CreadorPartida {
 		}
 		while (Cat2.size() > 1) {
 			Pareja p1 = Cat2.get(0);
-			Pareja p2 = Cat2.get(0);
+			Pareja p2 = Cat2.get(1);
 			AdministradorPartida.getInstancia().crearPartida(p1.getJugador1(), p2.getJugador1(), p1.getJugador2(), p2.getJugador2());
 			this.parejasDisponibles.remove(p1);
 			this.parejasDisponibles.remove(p2);
@@ -77,7 +80,7 @@ public class CreadorPartida {
 		}
 		while (Cat3.size() > 1) {
 			Pareja p1 = Cat3.get(0);
-			Pareja p2 = Cat3.get(0);
+			Pareja p2 = Cat3.get(1);
 			AdministradorPartida.getInstancia().crearPartida(p1.getJugador1(), p2.getJugador1(), p1.getJugador2(), p2.getJugador2());
 			this.parejasDisponibles.remove(p1);
 			this.parejasDisponibles.remove(p2);
@@ -86,7 +89,7 @@ public class CreadorPartida {
 		}
 		while (Cat4.size() > 1) {
 			Pareja p1 = Cat4.get(0);
-			Pareja p2 = Cat4.get(0);
+			Pareja p2 = Cat4.get(1);
 			AdministradorPartida.getInstancia().crearPartida(p1.getJugador1(), p2.getJugador1(), p1.getJugador2(), p2.getJugador2());
 			this.parejasDisponibles.remove(p1);
 			this.parejasDisponibles.remove(p2);
@@ -102,7 +105,7 @@ public class CreadorPartida {
 		ArrayList<Jugador> Cat3 = new ArrayList<Jugador>();
 		ArrayList<Jugador> Cat4 = new ArrayList<Jugador>();
 		for (Jugador j : this.jugadoresDisponibles) {
-			switch (j.getCategoria().calcularCategoria()) {
+			switch (j.getCategoria().calcularCategoria().getId()) {
 			case 1:
 				Cat1.add(j);
 				break;

@@ -1,11 +1,8 @@
 package dto;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-
-
-
-
 
 import enumeraciones.EstadoPartida;
 
@@ -14,11 +11,15 @@ public class PartidaDTO implements Serializable {
 	private static final long serialVersionUID = 6680808569403596388L;
 	private int id;
 	private ArrayList<JugadorDTO> jugadores;
+	private JugadorDTO turnoJugador;
 	private boolean esAbierta;
 	private EstadoPartida estado;
 	private Integer ganador;
 	private ArrayList<JuegoDTO> juegos;
 	private String charla;
+	private LocalDateTime fechaCreacion; //TODO
+	private LocalDateTime fechaActualizacion; //TODO
+
 
 	public PartidaDTO() { }
 
@@ -91,6 +92,30 @@ public class PartidaDTO implements Serializable {
 
 	public void setCharla(String charla) {
 		this.charla = charla;
+	}
+
+	public LocalDateTime getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(LocalDateTime fechaCreacion2) {
+		this.fechaCreacion = fechaCreacion2;
+	}
+
+	public LocalDateTime getFechaActualizacion() {
+		return fechaActualizacion;
+	}
+
+	public void setFechaActualizacion(LocalDateTime fechaActualizacion) {
+		this.fechaActualizacion = fechaActualizacion;
+	}
+
+	public JugadorDTO getTurnoJugador() {
+		return turnoJugador;
+	}
+
+	public void setTurnoJugador(JugadorDTO turnoJugador) {
+		this.turnoJugador = turnoJugador;
 	}
 }
 

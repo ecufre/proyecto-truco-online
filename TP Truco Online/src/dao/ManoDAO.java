@@ -62,7 +62,7 @@ private static ManoDAO instancia;
 		}
 		
 		public void grabar(Mano m) {
-			ManoEntity me = new ManoEntity(m.getId(),m.getNumeroMano());
+			ManoEntity me = new ManoEntity(m.getId(),m.getNumeroMano(), m.getMostrarPuntos());
 			ArrayList<CartaEntity> cartas = new ArrayList<CartaEntity>();
 			ArrayList<CantoEntity> cantos = new ArrayList<CantoEntity>();
 			ArrayList<BazaEntity> bazas = new ArrayList<BazaEntity>();
@@ -93,7 +93,7 @@ private static ManoDAO instancia;
 		}
 		
 		public Mano toNegocio(ManoEntity me) {
-			Mano m = new Mano(me.getId(), me.getNumeroMano());
+			Mano m = new Mano(me.getId(), me.getNumeroMano(), me.getMostrarPuntos());
 			ArrayList<Carta> cartas = new ArrayList<Carta>();
 			ArrayList<Canto> cantos = new ArrayList<Canto>();
 			ArrayList<Baza> bazas = new ArrayList<Baza>();

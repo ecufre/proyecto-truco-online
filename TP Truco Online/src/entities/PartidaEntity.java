@@ -1,15 +1,23 @@
 package entities;
 
+//import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.joda.time.LocalDateTime;
 
 import enumeraciones.EstadoPartida;
 
@@ -21,8 +29,6 @@ public class PartidaEntity {
 	private Integer id;
 	@OneToMany
 	private List<JuegoEntity> juegos;
-	//@OneToMany
-	//private List<JugadorEntity> jugadores;
 	@ManyToOne
 	private JugadorEntity jugador1;
 	@ManyToOne
@@ -30,9 +36,14 @@ public class PartidaEntity {
 	@ManyToOne
 	private JugadorEntity jugador3;
 	@ManyToOne
-	private JugadorEntity jugador4;
+	private JugadorEntity jugador4;	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Calendar fechaCreacion;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Calendar fechaActualizacion;
+
 	
-	@OneToMany
+	@ManyToMany
 	@JoinTable(name="partidas_jugadores_listos")
 	private List<JugadorEntity> jugadoresListos;
 	private Boolean esAbierta;
@@ -41,17 +52,21 @@ public class PartidaEntity {
 	
 	public PartidaEntity() {}
 
-	public PartidaEntity(Boolean esAbierta, EstadoPartida estado, Integer ganador) {
+	public PartidaEntity(Boolean esAbierta, EstadoPartida estado, Integer ganador, LocalDateTime fechaCreacion, LocalDateTime fechaActualizacion) {
 		this.esAbierta = esAbierta;
 		this.estado = estado;
 		this.ganador = ganador;
+		this.fechaCreacion = fechaCreacion.toDateTime().toCalendar(Locale.getDefault()); //(fechaCreacion == null ? null : Timestamp.valueOf(fechaCreacion));
+		this.fechaActualizacion = fechaActualizacion.toDateTime().toCalendar(Locale.getDefault()); //(fechaActualizacion == null ? null : Timestamp.valueOf(fechaActualizacion));
 	}
 
-	public PartidaEntity(Integer id, Boolean esAbierta, EstadoPartida estado, Integer ganador) {
+	public PartidaEntity(Integer id, Boolean esAbierta, EstadoPartida estado, Integer ganador, LocalDateTime fechaCreacion, LocalDateTime fechaActualizacion) {
 		this.id = id;
 		this.esAbierta = esAbierta;
 		this.estado = estado;
 		this.ganador = ganador;
+		this.fechaCreacion = fechaCreacion.toDateTime().toCalendar(Locale.getDefault()); //(fechaCreacion == null ? null : Timestamp.valueOf(fechaCreacion));
+		this.fechaActualizacion = fechaActualizacion.toDateTime().toCalendar(Locale.getDefault()); //(fechaActualizacion == null ? null : Timestamp.valueOf(fechaActualizacion));
 	}
 
 	public Integer getId() {
@@ -117,4 +132,22 @@ public class PartidaEntity {
 	public void setGanador(Integer ganador) {
 		this.ganador = ganador;
 	}
+
+	public LocalDateTime getFechaCreacion() {
+		return (fechaCreacion == null ? null : LocalDateTime.fromCalendarFields(fechaCreacion));
+	}
+
+	public void setFechaCreacion(LocalDateTime fechaCreacion) {
+		this.fechaCreacion = fechaCreacion.toDateTime().toCalendar(Locale.getDefault());
+	}
+
+	public LocalDateTime getFechaActualizacion() {
+		return (fechaActualizacion == null ? null : LocalDateTime.fromCalendarFields(fechaActualizacion));
+	}
+
+	public void setFechaActualizacion(LocalDateTime fechaActualizacion) {
+		this.fechaActualizacion = fechaActualizacion.toDateTime().toCalendar(Locale.getDefault());
+	}
+	
+	
 }

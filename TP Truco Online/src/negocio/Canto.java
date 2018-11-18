@@ -1,40 +1,33 @@
 package negocio;
 
+import dao.CantoDAO;
 import dto.CantoDTO;
 import enumeraciones.TipoCanto;
+import excepciones.ComunicacionException;
 
 public class Canto {
-	private static int siguienteId = 1; //TODO esto se reemplaza por la persistencia
-
 	private int id;
-	private boolean querido;
+	private Boolean querido; //TODO Inicializarlo en null.
 	private TipoCanto tipoCanto;
 	private int cantante;
 	
-	private static int getSiguienteId() {
-		return siguienteId++;
+	public Canto(int cantante) {
+		this.cantante = cantante;
+		this.querido = null;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
 	}
 
-	public Canto(int cantante) {
-		this.id = Canto.getSiguienteId();
-		this.cantante = cantante;
-		this.querido=false;
-	}
-	public boolean isQuerido() {
-		return querido;
-	}
-	public void setQuerido(boolean querido) {
+	public void setQuerido(Boolean querido) {
 		this.querido = querido;
 	}
-	public TipoCanto getTipoCanto() {
-		return tipoCanto;
-	}
+
 	public void setTipoCanto(TipoCanto tipoCanto) {
 		this.tipoCanto = tipoCanto;
 	}
-	public int getCantante() {
-		return cantante;
-	}
+
 	public void setCantante(int cantante) {
 		this.cantante = cantante;
 	}
@@ -43,24 +36,34 @@ public class Canto {
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public Boolean isQuerido() {
+		return querido;
+	}
+
+	public TipoCanto getTipoCanto() {
+		return tipoCanto;
+	}
+
+	public int getCantante() {
+		return cantante;
 	}
 
 	public void grabar() {
-		// TODO Grabar
+		CantoDAO.getInstancia().grabar(this);
 	}
 	
-	public void crear() {
-		//TODO
+	public void crear() throws ComunicacionException {
+		Integer id = CantoDAO.getInstancia().crear(this);
+		if (id != null) this.id = id;
+		else throw new ComunicacionException("Hubo un error al crear el canto");
 	}
 
 	public CantoDTO toDTO() {
-		
-		return (new CantoDTO(this.getId(),this.isQuerido(),
+		if (this.querido == null) return (new CantoDTO(this.getId(),
 				this.getTipoCanto().getId(),this.getTipoCanto().getNombre(),this.getTipoCanto().getValor(),
 				this.getCantante()));
-		
-	
+		else return (new CantoDTO(this.getId(),this.querido,
+				this.getTipoCanto().getId(),this.getTipoCanto().getNombre(),this.getTipoCanto().getValor(),
+				this.getCantante()));
 	}
 }

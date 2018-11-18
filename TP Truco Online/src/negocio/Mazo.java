@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import excepciones.ComunicacionException;
-import tests.CartaDAOv;
 
 public class Mazo {
 

@@ -19,10 +19,7 @@ public class BazaDTO implements Serializable {
 	private int mano;
 	private boolean parda;
 	
-	public BazaDTO() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	public BazaDTO() { }
 
 	public BazaDTO(int id, ArrayList<CartaDTO> cartasbaza, Integer ganadorBaza,
 			int turno, int mano, boolean parda) {

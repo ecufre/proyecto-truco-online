@@ -2,6 +2,7 @@ package entities;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -17,20 +18,23 @@ public class ManoEntity {
 	private Integer numeroMano;
 	@OneToMany
 	private List<BazaEntity> bazas;
-	@OneToMany
+	@OneToMany(cascade = CascadeType.REMOVE)
 	private List<CantoEntity> cantos;
 	@OneToMany
 	private List<CartaEntity> cartas;
+	private Boolean mostrarPuntos;
 	
 	public ManoEntity() {}
 
 	public ManoEntity(Integer numeroMano) {
 		this.numeroMano = numeroMano;
+		this.mostrarPuntos = false;
 	}
 
-	public ManoEntity(Integer id, Integer numeroMano) {
+	public ManoEntity(Integer id, Integer numeroMano, Boolean mostrarPuntos) {
 		this.id = id;
 		this.numeroMano = numeroMano;
+		this.mostrarPuntos = mostrarPuntos;
 	}
 
 	public Integer getId() {
@@ -72,4 +76,13 @@ public class ManoEntity {
 	public void setCartas(List<CartaEntity> cartas) {
 		this.cartas = cartas;
 	}
+
+	public Boolean getMostrarPuntos() {
+		return mostrarPuntos;
+	}
+
+	public void setMostrarPuntos(Boolean mostrarPuntos) {
+		this.mostrarPuntos = mostrarPuntos;
+	}
+	
 }

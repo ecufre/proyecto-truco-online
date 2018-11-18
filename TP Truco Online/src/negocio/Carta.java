@@ -110,7 +110,7 @@ public class Carta {
 	}
 
 	public CartaDTO toDTO() {
-		return (new CartaDTO(this.getId(),this.getNumero(),this.getPalo(),this.getJugador()));
+		return (new CartaDTO(cartaId,this.getNumero(),this.getPalo(),this.getJugador()));
 	}
 
 	@Override

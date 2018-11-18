@@ -22,10 +22,7 @@ public class ManoDTO implements Serializable {
 	
 	
 	
-	public ManoDTO() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	public ManoDTO() { }
 	
 	
 	public ManoDTO(Integer id, Integer numeroMano, ArrayList<CantoDTO> cantos,

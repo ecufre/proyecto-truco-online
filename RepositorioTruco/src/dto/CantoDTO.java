@@ -11,30 +11,39 @@ public class CantoDTO implements Serializable {
 	 */
 	private static final long serialVersionUID = 1788421376143417115L;
 	private int id;
-	private boolean querido;
+	private Boolean querido;
 	private Integer idTipoCanto;
 	private String DescTipoCanto;
 	private Integer ValorTipoCanto;
 	private int cantante;
+	private String apodoCantante;
 	
 	
 	
 	
 	
 	
-	public CantoDTO() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	public CantoDTO() { }
 	
 	
 	
 	
-	public CantoDTO(int id, boolean querido, Integer idTipoCanto,
+	public CantoDTO(int id, Boolean querido, Integer idTipoCanto,
 			String descTipoCanto, Integer valorTipoCanto, int cantante) {
 		super();
 		this.id = id;
 		this.querido = querido;
+		this.idTipoCanto = idTipoCanto;
+		DescTipoCanto = descTipoCanto;
+		ValorTipoCanto = valorTipoCanto;
+		this.cantante = cantante;
+	}
+	
+	public CantoDTO(int id, Integer idTipoCanto,
+			String descTipoCanto, Integer valorTipoCanto, int cantante) {
+		super();
+		this.id = id;
+		this.querido = null;
 		this.idTipoCanto = idTipoCanto;
 		DescTipoCanto = descTipoCanto;
 		ValorTipoCanto = valorTipoCanto;
@@ -50,10 +59,10 @@ public class CantoDTO implements Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public boolean isQuerido() {
+	public Boolean isQuerido() {
 		return querido;
 	}
-	public void setQuerido(boolean querido) {
+	public void setQuerido(Boolean querido) {
 		this.querido = querido;
 	}
 	public Integer getIdTipoCanto() {
@@ -79,6 +88,27 @@ public class CantoDTO implements Serializable {
 	}
 	public void setCantante(int cantante) {
 		this.cantante = cantante;
+	}
+
+
+
+
+	public String getApodoCantante() {
+		return apodoCantante;
+	}
+
+
+
+
+	public void setApodoCantante(String apodoCantante) {
+		this.apodoCantante = apodoCantante;
+	}
+
+
+
+
+	public Boolean getQuerido() {
+		return querido;
 	}
 	
 	

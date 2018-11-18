@@ -47,7 +47,7 @@ public class GrupoDAO {
 		for (ParejaEntity pe : ge.getParejas()) parejas.add(ParejaDAO.getInstancia().toNegocio(pe));
 		g.setParejas(parejas);
 		ArrayList<Partida> partidas = new ArrayList<Partida>();
-		for (PartidaEntity pe : ge.getPartidas()) {partidas.add(PartidaDAO.getInstancia().toNegocio(pe));}
+		for (PartidaEntity pe : ge.getPartidas()) {partidas.add(PartidaDAO.getInstancia().toNegocio_grupo(pe));}
 		g.setPartidas(partidas);
 		return g;
 	}
@@ -90,7 +90,7 @@ public class GrupoDAO {
 		ge.setParejas(parejas);
 		ArrayList<PartidaEntity> partidas = new ArrayList<PartidaEntity>();
 		for (Partida p : g.getPartidas()) {
-			PartidaEntity pe = new PartidaEntity(p.getId(), false, p.getEstado(), p.getGanador());
+			PartidaEntity pe = new PartidaEntity(p.getId(), false, p.getEstado(), p.getGanador(), p.getFechaCreacion(), p.getFechaActualizacion());
 			partidas.add(pe);
 		}
 		ge.setPartidas(partidas);

@@ -2,6 +2,7 @@ package negocio;
 
 import dao.ParejaDAO;
 import dto.ParejaDTO;
+import enumeraciones.TipoCategoria;
 import excepciones.ComunicacionException;
 
 public class Pareja {
@@ -44,8 +45,8 @@ public class Pareja {
 		this.jugador2 = jugador2;
 	}
 
-	public Integer calcularCategoria() {
-		if (jugador1.getCategoria().calcularCategoria() < jugador2.getCategoria().calcularCategoria()) return jugador1.getCategoria().calcularCategoria();
+	public TipoCategoria calcularCategoria() {
+		if (jugador1.getCategoria().calcularCategoria().getId() > jugador2.getCategoria().calcularCategoria().getId()) return jugador1.getCategoria().calcularCategoria();
 		else return jugador2.getCategoria().calcularCategoria();
 	}
 

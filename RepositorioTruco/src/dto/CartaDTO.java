@@ -27,9 +27,7 @@ public class CartaDTO implements Serializable{
 
 
 
-	public CartaDTO() {
-		// TODO Auto-generated constructor stub
-	}
+	public CartaDTO() { }
 
 
 
@@ -98,8 +96,7 @@ public class CartaDTO implements Serializable{
 	public void setApodoJugador(String apodoJugador) {
 		this.apodoJugador = apodoJugador;
 	}
-	
-	
+
 
 	
 	
