@@ -95,7 +95,91 @@
 					</div>
 				</div>
 				<!-- /. ROW  -->
-				<div align=center id="principal" class="col-lg-10"></div>
+				<div align=center id="principal" class="col-lg-10">
+					<h1>Opciones de Menú Principal:</h1><br>
+					<div class="row">
+						<div class="col-md-4">
+							<img style="max-width: 200px;"
+								src="assets/img/manual/jugarSolo.png">
+						</div>
+						<div class="col-md-7">
+							<p style="padding-top: 0px;">La opción "Jugar Solo" te agrega a la lista de jugadores
+								disponibles para jugar una partida libre individual.</p>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-md-4">
+							<img style="max-width: 200px;"
+								src="assets/img/manual/jugarDuo.png">
+						</div>
+						<div class="col-md-7">
+							<p style="padding-top: 0px;">La opción "Jugar en Pareja" te permite invitar a un amigo
+								para jugar una partida libre en pareja y administrar las
+								invitaciones recibidas de parte de otros jugadores.</p>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-md-4">
+							<img style="max-width: 200px;" src="assets/img/manual/grupos.png">
+						</div>
+						<div class="col-md-7">
+							<p style="padding-top: 0px;">La opción "Grupos" te permite crear grupos cerrados y
+								administrar los grupos cerrados que hayas creado.</p>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-md-4">
+							<img style="max-width: 200px;"
+								src="assets/img/manual/ranking.png">
+						</div>
+						<div class="col-md-7">
+							<p style="padding-top: 0px;">La opción "Ver Ranking" te muestra el ranking general de
+								partidas en modo libre.</p>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-md-4">
+							<img style="max-width: 200px;"
+								src="assets/img/manual/partidas.png">
+						</div>
+						<div class="col-md-7">
+							<p style="padding-top: 0px;">En la opción "Partida Finalizadas" podes ver un listado de
+								todas las partidas que hayas jugado para revisar los detalles de
+								cada una.</p>
+						</div>
+					</div>
+					<hr>
+					<h1>Menu de Partidas:</h1><br>
+					<div class="row">
+						<div class="col-md-3">
+							<img style="width: 150px;" src="assets/img/manual/pendientes.png">
+						</div>
+						<div class="col-md-8">
+							<p style="padding-top: 0px;">En el cuadro de "Partidas Pendientes" aparecerán todas las
+								partidas que están pendientes de que todos los participantes
+								confirmen que están listos. Para confirmar que estás listo debes
+								hacer click encima del número de partida. Un mensaje de
+								confirmación aparecerá en la parte superior de la pantalla.</p>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-md-3">
+							<img style="width: 150px;" src="assets/img/manual/enCurso.png">
+						</div>
+						<div class="col-md-8">
+							<p style="padding-top: 0px;">En el cuadro de "Partidas En Curso" se listan todas las
+								partidas que estás jugando en este momento. En rojo aparecerán
+								las partidas en las que es tu turno para jugar. En Amarillo las
+								partidas en las que hubo alguna actualización desde la última
+								vez que las revisaste.</p>
+						</div>
+					</div>
+				</div>
 				<!-- background:#009933; -->
 				<div id=rightMenu class="col-lg-2">
 					<div class="panel panel-default">
