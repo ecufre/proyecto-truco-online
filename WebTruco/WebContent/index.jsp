@@ -88,7 +88,7 @@
 		</nav>
 		<!-- /. NAV SIDE  -->
 		<div id="page-wrapper">
-			<div id="page-inner">
+			<div id="page-inner" style="overflow: hidden;">
 				<div class="row">
 					<div class="col-md-12">
 						<div align=center id=mensajes></div>

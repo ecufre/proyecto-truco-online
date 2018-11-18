@@ -6319,6 +6319,7 @@ button.close {
 	.visible-lg {
 		display: block !important;
 	}
+	
 	table.visible-lg {
 		display: table;
 	}
@@ -6351,10 +6352,6 @@ button.close {
 @media ( min-width : 1200px) {
 	.hidden-lg {
 		display: none !important;
-	}
-	
-	#page-inner {
-		min-height: 1200px;
 	}
 }
 
