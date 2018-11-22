@@ -6355,7 +6355,7 @@ button.close {
 	}
 }
 
-@media ( max-width : 399px) {
+@media ( max-width : 400px) {
 	.carta {
 	 width: 30px;
 	}
@@ -6367,56 +6367,56 @@ button.close {
 	}
 }
 
-@media ( min-width : 400px) and ( max-width : 469px) {
+@media ( min-width : 400px) and ( max-width : 470px) {
 	.carta {
 	 width: 40px;
 	}
 
 }
 
-@media ( min-width : 470px) and ( max-width : 529px) {
+@media ( min-width : 470px) and ( max-width : 530px) {
 	.carta {
 	 width: 50px;
 	}
 }
 
-@media ( min-width : 530px) and ( max-width : 599px) {
+@media ( min-width : 530px) and ( max-width : 600px) {
 	.carta {
 	 width: 60px;
 	}
 }
 
-@media ( min-width : 600px) and ( max-width : 699px) {
+@media ( min-width : 600px) and ( max-width : 700px) {
 	.carta {
 	 width: 70px;
 	}
 }
 
-@media ( min-width : 700px) and ( max-width : 767px) {
+@media ( min-width : 700px) and ( max-width : 768px) {
 	.carta {
 	 width: 80px;
 	}
 }
 
-@media ( min-width : 768px) and ( max-width : 999px) {
+@media ( min-width : 768px) and ( max-width : 1000px) {
 	.carta {
 	 width: 50px;
 	}
 }
 
-@media ( min-width : 1000px) and (max-width: 1219px) {
+@media ( min-width : 1000px) and (max-width: 1220px) {
 	.carta {
 	 width: 60px;
 	}
 }
 
-@media ( min-width : 1220px) and (max-width: 1349px) {
+@media ( min-width : 1220px) and (max-width: 1350px) {
 	.carta {
 	 width: 70px;
 	}
 }
 
-@media ( min-width : 1350px) and (max-width: 1499px) {
+@media ( min-width : 1350px) and (max-width: 1500px) {
 	.carta {
 	 width: 80px;
 	}
